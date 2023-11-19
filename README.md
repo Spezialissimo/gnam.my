@@ -19,6 +19,7 @@ Gnam.my is a simple social about cooking written in PHP
 - Nic, studente fuorisede di informatica, 21 anni:
   
   - TODO
+  - Permettere di rispondere ai commenti sotto i video
 
 - Annabel, studente fuorisede di fisica, 20 anni:
   
