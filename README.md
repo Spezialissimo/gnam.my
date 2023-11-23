@@ -37,3 +37,9 @@ Gnam.my is a simple social about cooking written in PHP
   - divisione tra le pagine molto chiara e intuitiva
   - Immagini dei bottoni top, la scelta di invertirli rispetto a Instagram non stona
   - Apprezzato molto le iconcine sugli hashtag
+
+-----------------------------------------------------
+
+- Effetto WOW:
+  - cercare ricette con ingredienti uguali a quelli di uno gnammy che si sta vedendo
+  - selezionare fotogramma del video come copertina
