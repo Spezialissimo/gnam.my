@@ -20,8 +20,8 @@ Lista singoli componenti:
 - Text area [DONE]
 - Video and Image upload [DONE]
 - componente video [DONE]
-- Profile picture
-- grid di gnammy (sia per search che profile)
+- Profile picture [DONE]
+- grid di gnammy (sia per search che profile) [DONE]
 
 ## Experience prototyping
 
