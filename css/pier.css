@@ -1,0 +1,11 @@
+.btn-bounce {
+	transition: transform 0.2s ease;
+}
+
+.btn-bounce:active {
+	transform: scale(0.9);
+}
+
+.swal2-close { /* evita brutture attorno alla x */
+	box-shadow: none !important;
+}

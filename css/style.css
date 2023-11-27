@@ -4,25 +4,6 @@ body {
 	font-family: 'Montserrat', sans-serif;
 }
 
-.btn-accent {
-	background-color: #C4713A;
-	color: white;
-	transition: transform 0.2s ease;
-	font-weight: bold;
-	border-radius: 20px !important;
-}
-
-.btn-accent:hover {
-	background-color: #C4713A;
-	color: white;
-}
-
-.btn-accent:active {
-	transform: scale(0.9);
+.bg-primary {
 	background-color: #C4713A !important;
-	color: white !important;
-}
-
-.swal2-close { /* evita brutture attorno alla x */
-	box-shadow: none !important;
 }
