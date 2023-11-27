@@ -32,6 +32,13 @@ body {
 	background-color: var(--alert) !important;
 }
 
+input:focus,
+label:focus,
+select:focus,
+button:focus,
+textarea:focus {
+    border-color: #DB8B4D !important;
+}
 .color-accent {
 	color: var(--accent);
 }
