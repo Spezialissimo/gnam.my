@@ -23,3 +23,11 @@ body {
 .bg-alert {
 	background-color: #B53232 !important;
 }
+
+input:focus,
+label:focus,
+select:focus,
+button:focus,
+textarea:focus {
+    border-color: #DB8B4D !important;
+}
