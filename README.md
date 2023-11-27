@@ -7,31 +7,20 @@ Lista singoli componenti:
 [DAVIDE]
 - Navbar completa
 - Search bar
-- Fields per registrazione/login
-- commento
-- risposta al commento
-- inserimento commenta con text button
-- notifica
+- Field per registrazione/login
 
 [PIER]
-- Modal condividi
-- Modal con lista ingredienti/tags
-- Modal per seguiti/follower
-- Button anche con counter
-- Engagement buttons
+- Button (anche quello con counter)
 - text button (per commenta, log out e rispondi)
 - Tag dei video
 - Scrollbar
 
 [PELLO]
-- select
-- Text area
-- componente video
-- Video and Image upload
-- tabella ingredienti
+- select [DONE]
+- Text area [DONE]
+- Video and Image upload [DONE]
+- componente video [DONE]
 - Profile picture
-- profile header
-- post/gnam piaciuti selector
 - grid di gnammy (sia per search che profile)
 
 ## Experience prototyping
