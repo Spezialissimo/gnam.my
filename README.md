@@ -10,10 +10,10 @@ Lista singoli componenti:
 - Field per registrazione/login
 
 [PIER]
-- Button (anche quello con counter)
+- Button (anche quello con counter) [DONE]
 - text button (per commenta, log out e rispondi)
-- Tag dei video
-- Scrollbar
+- Tag dei video [DONE]
+- Scrollbar [DONE]
 
 [PELLO]
 - select [DONE]
