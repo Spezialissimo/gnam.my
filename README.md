@@ -2,11 +2,43 @@
 
 Gnam.my is a simple social about cooking written in PHP
 
+## Divisione dei compiti
+Lista singoli componenti:
+[DAVIDE]
+- Navbar completa
+- Search bar
+- Fields per registrazione/login
+- commento
+- risposta al commento
+- inserimento commenta con text button
+- notifica
+
+[PIER]
+- Modal condividi
+- Modal con lista ingredienti/tags
+- Modal per seguiti/follower
+- Button anche con counter
+- Engagement buttons
+- text button (per commenta, log out e rispondi)
+- Tag dei video
+- Scrollbar
+
+[PELLO]
+- select
+- Text area
+- componente video
+- Video and Image upload
+- tabella ingredienti
+- Profile picture
+- profile header
+- post/gnam piaciuti selector
+- grid di gnammy (sia per search che profile)
+
 ## Experience prototyping
 
 - Anna Maria, madre casalinga, 55 anni, ex aiuto-cuoca:
   - coltello e forchetta per gli ingredienti non è troppo adeguato
-  - aggiungere immagini profilo utente nelle notifiche 
+  - aggiungere immagini profilo utente nelle notifiche
   - ingrandire testo in pagina profilo ma tenere così il layout per distinguersi da Instagram
   - manca modo per mettere quantità negli ingredienti selezionati durante la pubblicazione dello gnam
   - le X per cancellare ingredienti sono uguali alla X per chiudere il pannello modal, anche la dimensione è molto simile, potrebbe confondere
@@ -17,7 +49,7 @@ Gnam.my is a simple social about cooking written in PHP
   - colori ovviamente bottoni
   - più grande nome utente in profilo ed anche tasti segui condividi e video
 
-- Annabel, studente fuorisede di fisica, 20 anni:  
+- Annabel, studente fuorisede di fisica, 20 anni:
   - aggiungere numeric up down per selezionare il numero di porzioni negli ingredienti
   - tag del video che se cliccati cercano altri video con quei tag in automatico
   - cercare altre ricette come quella che si sta vedendo nella home
