@@ -4,6 +4,22 @@ body {
 	font-family: 'Montserrat', sans-serif;
 }
 
+.bg {
+	background-color: #F8D7A5 !important;
+}
+
 .bg-primary {
+	background-color: #F1B761 !important;
+}
+
+.bg-secondary {
+	background-color: #DB8B4D !important;
+}
+
+.bg-accent {
 	background-color: #C4713A !important;
+}
+
+.bg-alert {
+	background-color: #B53232 !important;
 }
