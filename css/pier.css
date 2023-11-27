@@ -10,19 +10,14 @@
 	box-shadow: none !important;
 }
 
-/* Scrollbar width */
-::-webkit-scrollbar {
-	width: 10px;
+.text-button {
+	border: none;
+	background-color: transparent;
+	text-decoration: none;
+	cursor: pointer;
+	padding: 0;
 }
 
-/* Scrollbar Track */
-::-webkit-scrollbar-track {
-box-shadow: inset 0 0 5px grey; 
-border-radius: 5px;
-}
-
-/* Scrollbar Handle */
-::-webkit-scrollbar-thumb {
-background: #C4713A; 
-border-radius: 10px;
+.text-button:hover {
+	color: var(--secondary);
 }
