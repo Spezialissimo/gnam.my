@@ -20,6 +20,6 @@
 
 	<script src="https://kit.fontawesome.com/1df86e7f33.js" crossorigin="anonymous"></script>
 
-	<title><?php echo $PAGE_TITLE ?></title>
+	<title>Gnam.my - <?php echo PAGE_TITLE ?></title>
 </head>
 <body>
