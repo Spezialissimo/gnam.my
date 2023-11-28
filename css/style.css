@@ -77,3 +77,31 @@ input[type=file]::file-selector-button, input[type=file]::file-selector-button:h
 	border-color: var(--accent) !important;
 	color: var(--accent);
 }
+
+.img-grid {
+    width: 33% !important;
+}
+
+.btn-bounce {
+	transition: transform 0.2s ease;
+}
+
+.btn-bounce:active {
+	transform: scale(0.9);
+}
+
+.swal2-close {
+	box-shadow: none !important;
+}
+
+.text-button {
+	border: none;
+	background-color: transparent;
+	text-decoration: none;
+	cursor: pointer;
+	padding: 0;
+}
+
+.text-button:active, .text-button:hover {
+	color: var(--secondary) !important;
+}
