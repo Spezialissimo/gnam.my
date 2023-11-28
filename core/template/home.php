@@ -3,8 +3,7 @@
 <script>
     function resizeContentDiv() {
         navbar = document.getElementById("navbarDiv");
-        content = document.getElementById("contentDiv");
-        content.style.height = String(content.clientHeight - navbar.clientHeight) + "px";
+        document.getElementById("contentDiv").style.height = String(window.innerHeight - navbar.clientHeight) + "px";
     }
 
     window.onload = resizeContentDiv;
