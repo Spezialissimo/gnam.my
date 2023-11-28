@@ -48,6 +48,10 @@ textarea {
 	border: none !important;
 }
 
+.color-secondary {
+	color: var(--secondary);
+}
+
 .color-accent {
 	color: var(--accent);
 }
