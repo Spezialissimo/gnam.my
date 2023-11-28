@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+	<link rel="stylesheet" href="css/style.css" />
+	<script src="js/main.js"></script>
+
+	<script src="https://kit.fontawesome.com/1df86e7f33.js" crossorigin="anonymous"></script>
+
+	<title>PROVA</title>
+</head>
+<body>
+	<!-- Button -->
+	<button type="button" class="btn btn-bounce rounded-pill bg-accent fw-bold text-white">Pubblica</button>
+	<br><br>
+
+	<button type="button" class="btn btn-bounce rounded-pill bg-alert fw-bold text-white">Reset</button>
+	<br><br>
+
+	<!-- Button con counter -->
+	<button type="button" class="btn btn-bounce rounded-pill bg-secondary fw-bold text-white">
+		Ingredienti <span class="badge rounded-pill bg-accent">1</span>
+	</button>
+	<br><br>
+
+	<!-- text button (per commenta, log out e rispondi) -->
+	<a class="btn text-button fw-bold color-accent btn-bounce color-secondary" href="#">Commenta</a>
+	<br><br>
+
+	<!-- Tag dei video (nbsp è il char spazio per staccare icona da hashtag) -->
+	<span class="badge rounded-pill bg-primary fw-light text-black">
+		<i class="fa-solid fa-oil-can"></i>&nbsp #Untazzo
+	</span>
+	<span class="badge rounded-pill bg-primary fw-light text-black">
+		<i class="fa-solid fa-leaf"></i>&nbsp #Vegan
+	</span>
+	<br><br>
+
+	<!-- Textarea -->
+	<textarea class="form-control bg-primary rounded shadow-sm" rows="3"></textarea>
+	<br><br>
+	<!-- File upload -->
+    <input type="file" class="form-control bg-primary rounded shadow-sm" />
+	<br><br>
+	<!-- Select -->
+    <select class="form-select bg-primary rounded shadow-sm">
+		<option>1</option>
+		<option>2</option>
+		<option>3</option>
+	</select>
+	<br><br>
+	<!-- Video -->
+	<video class="w-100" autoplay disablepictureinpicture loop playsinline preload="auto" poster="media/prova.png" src="media/prova.mp4"></video>
+	<br><br>
+	<!-- Profile picture -->
+	<img class="border border-4 border-dark rounded-circle w-100" alt="Filippo Champagne" src="media/prova-profile.png" />
+	<br><br>
+	<!-- Grid di Gnammy -->
+	<div class="container">
+		<div class="row">
+			<img class="img-grid col" alt="Filippo Champagne" src="media/prova.png" />
+			<img class="img-grid col" alt="Filippo Champagne" src="media/prova.png" />
+			<img class="img-grid col" alt="Filippo Champagne" src="media/prova.png" />
+		</div>
+		<div class="row mt-3 mb-3">
+			<img class="img-grid col" alt="Filippo Champagne" src="media/prova.png" />
+			<img class="img-grid col" alt="Filippo Champagne" src="media/prova.png" />
+			<img class="img-grid col" alt="Filippo Champagne" src="media/prova.png" />
+		</div>
+		<div class="row">
+			<img class="img-grid col" alt="Filippo Champagne" src="media/prova.png" />
+			<img class="img-grid col" alt="Filippo Champagne" src="media/prova.png" />
+			<img class="img-grid col" alt="Filippo Champagne" src="media/prova.png" />
+		</div>
+	</div>
+	<br><br>
+
+	<!-- Field per registrazione/login -->
+	<div class="mb-3">
+		<input type="text" class="form-control bg-primary rounded shadow-sm text-white" placeholder="Username">
+	</div>
+	<br><br>
+
+	<!-- Search bar -->
+	<div class="input-group rounded">
+		<span class="input-group-text bg-primary border-0"><i class="fa-solid fa-magnifying-glass"></i></span>
+		<input type="text" class="form-control bg-primary shadow-sm text-white" placeholder="Cerca">
+	</div>
+	<br><br>
+
+	<!-- Navbar -->
+	<div class="bg container fixed-bottom w-100 m-0">
+		<div class="row gx-3">
+			<!-- Tutto su una riga per facilità di modifica, da aggiustare TODO -->
+			<!-- Home button         --><button type="button" class="col btn btn-lg btn-bounce bg-primary color-accent m-2 p-2 pb-3 pt-3"><i class="fa-solid fa-house  fa-lg fa-fw"></i></button>
+			<!-- Seaerch button      --><button type="button" class="col btn btn-lg btn-bounce bg-primary color-accent m-2 p-2 pb-3 pt-3"><i class="fa-solid fa-search fa-lg fa-fw"></i></button>
+			<!-- Add button          --><button type="button" class="col btn btn-lg btn-bounce bg-primary color-accent m-2 p-2 pb-3 pt-3"><i class="fa-solid fa-plus   fa-lg fa-fw"></i></button>
+			<!-- Notification button --><button type="button" class="col btn btn-lg btn-bounce bg-primary color-accent m-2 p-2 pb-3 pt-3"><i class="fa-solid fa-bell   fa-lg fa-fw"></i></button>
+			<!-- Profile button      --><button type="button" class="col btn btn-lg btn-bounce bg-primary color-accent m-2 p-2 pb-3 pt-3"><i class="fa-solid fa-user   fa-lg fa-fw"></i></button>
+		</div>
+	</div>
+	<br><br>
+</body>
+</html>
