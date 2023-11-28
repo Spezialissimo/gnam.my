@@ -23,3 +23,4 @@
 	<title>Gnam.my - <?php echo PAGE_TITLE ?></title>
 </head>
 <body class="bg">
+	<main>
