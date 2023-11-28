@@ -39,6 +39,7 @@ button:focus,
 textarea:focus {
     border-color: var(--secondary) !important;
 }
+
 .color-accent {
 	color: var(--accent);
 }
@@ -56,4 +57,8 @@ textarea:focus {
 ::-webkit-scrollbar-thumb {
 	background-color: var(--accent);
 	border-radius: 10px;
+}
+
+::placeholder {
+	color: var(--secondary) !important;
 }

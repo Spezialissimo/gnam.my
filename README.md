@@ -7,11 +7,11 @@ Lista singoli componenti:
 [DAVIDE]
 - Navbar completa
 - Search bar
-- Field per registrazione/login
+- Field per registrazione/login [DONE]
 
 [PIER]
 - Button (anche quello con counter) [DONE]
-- text button (per commenta, log out e rispondi)
+- text button (per commenta, log out e rispondi) [DONE]
 - Tag dei video [DONE]
 - Scrollbar [DONE]
 
