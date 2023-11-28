@@ -2,30 +2,35 @@
 <div class="container text-center">
   <div class="row">
     <div class="col-4">
-        <img class="border border-4 border-dark rounded-circle w-100" alt="Filippo Champagne" src="assets/prova-profile.png" />
+        <img class="border border-2 border-dark rounded-circle w-100" alt="Filippo Champagne" src="assets/prova-profile.png" />
     </div>
     <div class="col-8">
         <div class="row">
             <div class="h4 mt-2">GiorgioneErRomano</div>
         </div>
         <div class="row">
-            <div class="col-sm-4 mb-0">
-                <p class="fw-bold">Follower</p>
-                <p class="mt-0">0</p>
+            <div class="col p-0">
+                <p class="fw-bold p-0 mb-0">Follower</p>
+                <p>0</p>
             </div>
-            <div class="col-sm-4 mb-0">
-                <p class="fw-bold">Seguiti</p>
-                <p class="mt-0">0</p>
+            <div class="col p-0">
+                <p class="fw-bold mb-0">Seguiti</p>
+                <p>0</p>
             </div>
-            <div class="col-sm-4 mb-0">
-                <p class="fw-bold">Gnam</p>
-                <p class="mt-0">0</p>
-            </div>
+            <div class="col p-0">
+                <p class="fw-bold mb-0">Gnam</p>
+                <p>0</p>
         </div>
-    </div>
-    <div class="col-sm-6 mb-2">
-        <button type="button" class="btn btn-bounce rounded-pill bg-primary fw-bold text-white">Segui</button>
-        <button type="button" class="btn btn-bounce rounded-pill bg-primary fw-bold text-white">Condividi</button>
+  </div>
+  </div>
+
+    <div class="row">
+        <div class="col-4 mb-3">
+            <button type="button" class="btn btn-bounce rounded-pill bg-primary fw-bold text-white w-100">Segui</button>
+        </div>
+        <div class="col-4 mb-3">
+            <button type="button" class="btn btn-bounce rounded-pill bg-primary fw-bold text-white w-100">Condividi</button>
+        </div>
     </div>
   </div>
 </div>
