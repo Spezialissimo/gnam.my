@@ -37,8 +37,18 @@ label:focus,
 select:focus,
 button:focus,
 textarea:focus {
-    border-color: var(--secondary) !important;
+	border: solid var(--secondary) !important;
 }
+
+input,
+label,
+select,
+button,
+textarea {
+	color: var(--accent) !important;
+	border: none !important;
+}
+
 .color-accent {
 	color: var(--accent);
 }
@@ -56,4 +66,14 @@ textarea:focus {
 ::-webkit-scrollbar-thumb {
 	background-color: var(--accent);
 	border-radius: 10px;
+}
+
+::placeholder {
+	color: var(--secondary) !important;
+}
+
+input[type=file]::file-selector-button, input[type=file]::file-selector-button:hover {
+	background: var(--primary) !important;
+	border-color: var(--accent) !important;
+	color: var(--accent);
 }

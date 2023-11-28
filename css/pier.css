@@ -18,6 +18,6 @@
 	padding: 0;
 }
 
-.text-button:hover {
-	color: var(--secondary);
+.text-button:active, .text-button:hover {
+	color: var(--secondary) !important;
 }
