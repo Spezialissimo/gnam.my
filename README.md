@@ -2,16 +2,15 @@
 
 Gnam.my is a simple social about cooking written in PHP
 
-Dim Mobile: 360 x 640
-
 ## Stato pagine
-home
-login [QUASI FATTO]
-notifications
-profile
-register [QUASI FATTO]
-search
-share
+Dim Mobile: 360 x 640
+- home
+- login [QUASI FATTO]
+- notifications
+- profile
+- register [QUASI FATTO]
+- search
+- share
 
 ## Divisione pagine
 
