@@ -103,3 +103,18 @@ input[type=file]::file-selector-button, input[type=file]::file-selector-button:h
 .text-button:active, .text-button:hover {
 	color: var(--secondary) !important;
 }
+
+.text-notification-pill{
+	font-size: small;
+}
+
+.video-overlay {
+	top: 0;
+	left: 0;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: end;
+	position: absolute;
+	background-color: rgba(248, 215, 165, 0.2);
+}
