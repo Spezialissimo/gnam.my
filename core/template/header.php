@@ -1,10 +1,6 @@
 <?php
 
-
-
-if (isset($_SESSION['user_id']) == false) {
-    header('Location: index.php');
-}
+// Check if user is logged in
 
 ?>
 <!DOCTYPE html>
@@ -24,6 +20,6 @@ if (isset($_SESSION['user_id']) == false) {
 
 	<script src="https://kit.fontawesome.com/1df86e7f33.js" crossorigin="anonymous"></script>
 
-	<title><?php echo $pageTitle ?></title>
+	<title><?php echo $PAGE_TITLE ?></title>
 </head>
 <body>
