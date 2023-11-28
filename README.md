@@ -3,6 +3,8 @@
 Gnam.my is a simple social about cooking written in PHP
 
 ## Divisione dei compiti
+Dim Mobile: 360 x 640
+
 Lista singoli componenti:
 [DAVIDE]
 - Navbar completa
