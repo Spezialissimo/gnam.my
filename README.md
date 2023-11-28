@@ -15,7 +15,7 @@ Dim Mobile: 360 x 640
 ## Divisione pagine
 
 Davide:
-- Notifications
+- Notifications [FATTO]
 - Search
 - Share
 
