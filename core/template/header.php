@@ -4,7 +4,7 @@
 
 ?>
 <!DOCTYPE html>
-<html>
+<html class="h-100">
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -22,8 +22,8 @@
 
 	<title>Gnam.my - <?php echo PAGE_TITLE ?></title>
 </head>
-<body class="bg">
-	<main>
+<body class="bg h-100">
+	<main class="h-100">
 	<?php if(PAGE_TITLE != 'Login' && PAGE_TITLE != 'Registrati') { ?>
 		<div class="container p-0">
 			<div class="row p-0 m-0 overflow-hidden" id="contentDiv">
