@@ -1,19 +1,19 @@
 <div class="position-relative w-100 p-0">
     <video class="w-100 p-0" autoplay disablepictureinpicture loop playsinline preload="auto" poster="assets/prova.png" src="assets/prova.mp4"></video>
     <div class="video-overlay" id="videoOverlay">
-        <div class="container mb-3">
-            <div class="row">
-                <div class="col-10">
+        <div class="container">
+            <div class="row mb-3">
+                <div class="col-10 align-self-end">
                     <div class="row">
-                        <div class="col-4">
-                            <img class="border border-4 border-dark rounded-circle w-100" alt="Filippo Champagne" src="assets/prova-profile.png" />
+                        <div class="col-3">
+                            <img class="border border-2 border-dark rounded-circle w-100" alt="Filippo Champagne" src="assets/prova-profile.png" />
                         </div>
-                        <div class="col-8 d-flex align-items-center p-0">
-                            <p class="fs-5 fw-bold m-0">Profilo Nome</p>
+                        <div class="col-9 d-flex align-items-center p-0">
+                            <p class="fs-6 fw-bold m-0">Profilo Nome</p>
                         </div>
                     </div>
                     <div class="row">
-                        <p class="m-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis blandit, tortor ut gravida pellentesque, risus. Leggi di piú...</p>
+                        <p class="fs-7 m-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis blandit, tortor ut gravida pellentesque, risus. Leggi di piú...</p>
                     </div>
                     <div class="row">
                         <div class="col-4">
