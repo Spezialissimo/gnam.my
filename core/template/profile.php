@@ -1,11 +1,12 @@
+<a class="btn text-button fw-bold color-accent text-end" href="#">Log out</a>
 <div class="container text-center">
   <div class="row">
-    <div class="col-sm-4">
-        <img class="border border-4 border-dark rounded-circle w-25" alt="Filippo Champagne" src="assets/prova-profile.png" />
+    <div class="col-4">
+        <img class="border border-4 border-dark rounded-circle w-100" alt="Filippo Champagne" src="assets/prova-profile.png" />
     </div>
-    <div class="col-sm-8">
+    <div class="col-8">
         <div class="row">
-            <h2>GiorgioneErRomano</h2>
+            <div class="h4 mt-2">GiorgioneErRomano</div>
         </div>
         <div class="row">
             <div class="col-sm-4 mb-0">

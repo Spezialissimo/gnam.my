@@ -98,7 +98,6 @@ input[type=file]::file-selector-button, input[type=file]::file-selector-button:h
 	background-color: transparent;
 	text-decoration: none;
 	cursor: pointer;
-	padding: 0;
 }
 
 .text-button:active, .text-button:hover {
