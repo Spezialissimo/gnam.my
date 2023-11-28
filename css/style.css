@@ -103,3 +103,7 @@ input[type=file]::file-selector-button, input[type=file]::file-selector-button:h
 .text-button:active, .text-button:hover {
 	color: var(--secondary) !important;
 }
+
+.text-notification-pill{
+	font-size: small;
+}
