@@ -2,28 +2,7 @@
 
 Gnam.my is a simple social about cooking written in PHP
 
-## Divisione dei compiti
 Dim Mobile: 360 x 640
-
-Lista singoli componenti:
-[DAVIDE]
-- Navbar completa
-- Search bar [DONE]
-- Field per registrazione/login [DONE]
-
-[PIER]
-- Button (anche quello con counter) [DONE]
-- text button (per commenta, log out e rispondi) [DONE]
-- Tag dei video [DONE]
-- Scrollbar [DONE]
-
-[PELLO]
-- select [DONE]
-- Text area [DONE]
-- Video and Image upload [DONE]
-- componente video [DONE]
-- Profile picture [DONE]
-- grid di gnammy (sia per search che profile) [DONE]
 
 ## Experience prototyping
 
