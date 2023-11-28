@@ -5,10 +5,10 @@ Gnam.my is a simple social about cooking written in PHP
 ## Stato pagine
 Dim Mobile: 360 x 640
 - home
-- login [QUASI FATTO]
+- login
 - notifications
 - profile
-- register [QUASI FATTO]
+- register
 - search
 - share
 
