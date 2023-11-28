@@ -24,3 +24,7 @@
 </head>
 <body class="bg">
 	<main>
+	<?php if(PAGE_TITLE != 'Login' && PAGE_TITLE != 'Registrati') { ?>
+		<div class="container p-0">
+			<div class="row p-0 m-0">
+	<?php } ?>

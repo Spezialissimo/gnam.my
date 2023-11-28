@@ -4,6 +4,21 @@ Gnam.my is a simple social about cooking written in PHP
 
 Dim Mobile: 360 x 640
 
+## Divisione pagine
+
+Davide:
+- Notifications
+- Search
+- Share
+
+Pier:
+- Login
+- Register
+- Profile
+
+Pello:
+- Home
+
 ## Experience prototyping
 
 - Anna Maria, madre casalinga, 55 anni, ex aiuto-cuoca:
