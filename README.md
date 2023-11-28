@@ -6,7 +6,7 @@ Gnam.my is a simple social about cooking written in PHP
 Lista singoli componenti:
 [DAVIDE]
 - Navbar completa
-- Search bar
+- Search bar [DONE]
 - Field per registrazione/login [DONE]
 
 [PIER]
