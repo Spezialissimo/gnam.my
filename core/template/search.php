@@ -1,24 +1,24 @@
-<div class="container text-center font-text">
-    <div id="headerDiv" class="row-2 py-2">
+<div class="container text-center font-text" id="headerDiv">
+    <div class="row-2 py-2">
         <h1 class="fw-bold">Cerca</h1>
     </div>
     <!-- search field -->
-    <div id="searchbarDiv" class="row-md-2 py-2">
+    <div class="row-md-2 py-2">
         <div class="input-group rounded">
             <span class="input-group-text bg-primary border-0"><i class="fa-solid fa-magnifying-glass"></i></span>
             <input type="text" class="form-control bg-primary shadow-sm" placeholder="Cerca">
     	</div>
     </div>
     <!-- ingredients -->
-    <div id="ingredientsDiv" class="row-md-2 py-2">
+    <div class="row-md-2 py-2">
         <!-- Button con counter -->
-        <button type="button" class="btn btn-bounce rounded-pill bg-secondary fw-bold text-white">
+        <button type="button" onclick="showSwal('Scegli ingredienti', 'Crazy')" class="btn btn-bounce rounded-pill bg-secondary fw-bold text-white">
             Ingredienti <span class="badge rounded-pill bg-accent">1</span>
         </button>
     </div>
+</div>
+<div class="container text-center font-text">
     <!-- search results content -->
-    <div id="pageContentDiv" class="row-md-8 overflow-auto">
-        <div class="container">
         <?php
             for ($i=0; $i < 10; $i++) {
                 ?>
@@ -29,6 +29,5 @@
             </div>
 
             <?php } ?>
-        </div>
-    </div>
+
 </div>
