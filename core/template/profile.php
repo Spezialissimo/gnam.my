@@ -36,7 +36,17 @@
     <button type="button" class="btn btn-bounce rounded-pill bg-primary fw-bold text-black w-100">Segui</button>
     </div>
     <div class="col-4 ps-0 pe-0">
-    <button type="button" class="btn btn-bounce rounded-pill bg-primary fw-bold text-black w-100">Condividi</button>
+
+    <?php
+    $file = './modal_content.html';
+    $content = file_get_contents($file);
+    $content = str_replace("\r\n", '', $content);
+    $content = str_replace("\r", '', $content);
+    $content = str_replace("\n", '', $content);
+    $content = str_replace('"', '\\\'', $content);
+    ?>
+
+    <button type="button" class="btn btn-bounce rounded-pill bg-primary fw-bold text-black w-100 " onclick="showSwalSmall('Condividi Profilo', '<?php echo htmlspecialchars($content); ?>')">Condividi</button>
     </div>
   </div>
   <div class="row align-items-center text-center mt-2">
