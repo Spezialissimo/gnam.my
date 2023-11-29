@@ -12,7 +12,7 @@
     <!-- ingredients -->
     <div class="row-md-2 py-2">
         <!-- Button con counter -->
-        <button type="button" onclick="showSwal('Scegli ingredienti', '<div class=\'row-md-2 py-2\'><div class=\'input-group rounded\'><span class=\'input-group-text bg-primary border-0\'><i class=\'fa-solid fa-magnifying-glass\'></i></span><input type=\'text\' class=\'form-control bg-primary shadow-sm\' placeholder=\'Cerca\'></div></div>')" class="btn btn-bounce rounded-pill bg-secondary fw-bold text-white">
+        <button type="button" class="btn btn-bounce rounded-pill bg-secondary fw-bold text-white">
             Ingredienti <span class="badge rounded-pill bg-accent">1</span>
         </button>
     </div>
@@ -27,7 +27,25 @@
                 <img class="img-grid col" alt="Filippo Champagne" src="assets/prova.png" />
                 <img class="img-grid col" alt="Filippo Champagne" src="assets/prova.png" />
             </div>
-
-            <?php } ?>
-
+        <?php } ?>
 </div>
+
+<script>
+    let html = '<div class="row-md-2 py-2"><div class="input-group rounded"><span class="input-group-text bg-primary border-0"><i class="fa-solid fa-magnifying-glass"></i></span><input type="text" class="form-control bg-primary shadow-sm" placeholder="Cerca Ingredienti"></div></div><hr><div class="text-center" id="searchedIngredients"></div><hr><div class="row m-0 p-0"><div class="col-6"><button type="button" class="btn btn-bounce rounded-pill bg-alert fw-bold text-white w-100" id="reset">Reset</button></div><div class="col-6"><button type="button" class="btn btn-bounce rounded-pill bg-accent fw-bold text-white w-100" id="addElement">Ok</button></div></div>';
+    showSwal('Scegli ingredienti', html);
+
+    $(document).ready(function() {
+        var ingredients = [];
+        
+        $("#addElement").click(function() {
+            var newElement = "Banane";
+            ingredients.push(newElement);
+            $("#searchedIngredients").append('<p class="fw-bold"><button type="button" class="btn btn-bounce bg-primary text-black"><i class="fa-solid fa-trash-can"></i></button>&nbsp' + newElement + '</p>');
+        });
+        
+        $("#reset").click(function() {
+            ingredients = [];
+            $("#searchedIngredients").empty();
+        });
+    });
+</script>
