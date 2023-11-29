@@ -174,3 +174,13 @@ input[type=file]::file-selector-button, input[type=file]::file-selector-button:h
 	color: black;
 	font-weight:normal !important;
 }
+
+.modal-content-sm {
+	max-height: 20vh;
+	overflow: auto;
+}
+
+.modal-content-lg {
+	max-height: 40vh;
+	overflow: auto;
+}
