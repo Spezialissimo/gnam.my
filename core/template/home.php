@@ -1,5 +1,5 @@
-<div class="video-container">
-    <video class="video-home" autoplay disablepictureinpicture loop playsinline preload="auto" poster="assets/prova.png" src="assets/prova.mp4"></video>
+<div class="position-relative w-100 h-100 p-0">
+    <video class="w-100 h-100 object-fit-fill p-0" autoplay disablepictureinpicture loop playsinline preload="auto" poster="assets/prova.png" src="assets/prova.mp4"></video>
     <div class="video-overlay" id="videoOverlay">
         <div class="container">
             <div class="row mb-3">

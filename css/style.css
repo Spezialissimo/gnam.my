@@ -133,20 +133,6 @@ input[type=file]::file-selector-button, input[type=file]::file-selector-button:h
 	background-image: linear-gradient(0deg, var(--background), rgba(248, 215, 165, 0) 20%);
 }
 
-.video-container {
-	position: relative;
-	width: 100%;
-	height: inherit!important;
-	padding: 0;
-}
-
-.video-home {
-	width: 100%;
-	height: inherit!important;
-	padding: 0;
-	object-fit: cover;
-}
-
 .nav-btn {
 	border: none;
 }
@@ -157,4 +143,10 @@ input[type=file]::file-selector-button, input[type=file]::file-selector-button:h
 
 .nav-btn:visited {
 	color: var(--accent) !important;
+}
+
+#navbarDiv {
+	-webkit-box-shadow: 0rem 0rem 2rem 0rem var(--secondary) !important;
+	box-shadow: 0rem 0rem 2rem 0rem var(--secondary) !important;
+	border-top: 0.12rem solid var(--secondary) !important;
 }
