@@ -14,19 +14,18 @@ const closeSwal = () => {
 };
 
 const resizeContentDiv = () => {
-    page = document.getElementById("pageDiv");
-    if (page != null) {
-        navbar = document.getElementById("navbarDiv");
-        page.style.height = String(window.innerHeight - navbar.clientHeight) + "px";
+    let page = $("#pageDiv");
+    if (page.length > 0) {
+        let navbar = $("#navbarDiv");
+        page.css("height", window.innerHeight - navbar.outerHeight() + "px");
     }
-    
-    pageContent = document.getElementById("pageContentDiv");
-    if (pageContent != null) {
-        navbar = document.getElementById("navbarDiv");
-        header = document.getElementById("headerDiv");
-        pageContent.style.height = String(window.innerHeight - navbar.clientHeight - header.clientHeight) + "px";
-    }
-}
 
-window.onload = resizeContentDiv;
-window.onresize = resizeContentDiv;
+    let pageContent = $("#pageContentDiv");
+    if (pageContent.length > 0) {
+        let navbar = $("#navbarDiv");
+        let header = $("#headerDiv");
+        pageContent.css("height", window.innerHeight - navbar.outerHeight() - header.outerHeight() + "px");
+    }
+};
+
+$(window).on("load resize change", resizeContentDiv);
