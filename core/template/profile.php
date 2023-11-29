@@ -37,16 +37,7 @@
     </div>
     <div class="col-4 ps-0 pe-0">
 
-    <?php
-    $file = './modal_content.html';
-    $content = file_get_contents($file);
-    $content = str_replace("\r\n", '', $content);
-    $content = str_replace("\r", '', $content);
-    $content = str_replace("\n", '', $content);
-    $content = str_replace('"', '\\\'', $content);
-    ?>
-
-    <button type="button" class="btn btn-bounce rounded-pill bg-primary fw-bold text-black w-100 " onclick="showSwalSmall('Condividi Profilo', '<?php echo htmlspecialchars($content); ?>')">Condividi</button>
+    <button id="shareButton" type="button" class="btn btn-bounce rounded-pill bg-primary fw-bold text-black w-100">Condividi</button>
     </div>
   </div>
   <div class="row align-items-center text-center mt-2">
@@ -84,3 +75,14 @@
         <img class="img-grid col" alt="Filippo Champagne" src="assets/prova.png" />
     </div>
 </div>
+
+<script>
+
+    const showSwalShare = (e) => {
+        let swalContentShare = '<div class=\'row-md-2 py-2 text-center text-black\'><div class=\'container\'><div class=\'col\'><div class=\'row-9 py-4\'><i class=\'fa-solid fa-share-nodes fa-2xl\'></i></div><div class=\'row-3 pt-3\'><button type=\'button\' class=\'btn btn-bounce rounded-pill bg-accent fw-bold text-white\'>Copialink</button></div></div></div></div>';
+        showSwalSmall('Condividi Profilo', swalContentShare);
+        e.stopPropagation();
+    }
+
+    $("#shareButton").on("click", showSwalShare);
+</script>
