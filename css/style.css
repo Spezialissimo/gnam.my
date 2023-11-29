@@ -162,3 +162,15 @@ input[type=file]::file-selector-button, input[type=file]::file-selector-button:h
 .nav-btn:visited {
 	color: var(--accent) !important;
 }
+
+
+.text-link, .text-link:hover, .text-link::selection {
+	color: black;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+.text-counter {
+	color: black;
+	font-weight:normal !important;
+}
