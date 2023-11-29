@@ -1,6 +1,8 @@
-<a class="btn text-button fw-bold color-accent text-end" href="#">Log out</a>
 
 <div class="container text-center" id="headerDiv">
+    <div class="row text-end">
+        <a class="btn text-button fw-bold color-accent text-end" href="#">Log out</a>
+    </div>
   <div class="row">
     <div class="col-4">
         <img class="border border-2 border-dark rounded-circle w-100" alt="Filippo Champagne" src="assets/prova-profile.png" />
