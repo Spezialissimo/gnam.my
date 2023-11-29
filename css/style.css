@@ -146,7 +146,7 @@ input[type=file]::file-selector-button, input[type=file]::file-selector-button:h
 }
 
 #navbarDiv {
-	-webkit-box-shadow: 0rem 0rem 2rem 0rem var(--secondary) !important;
-	box-shadow: 0rem 0rem 2rem 0rem var(--secondary) !important;
+	-webkit-box-shadow: 0rem -1rem 2rem 0rem var(--secondary) !important;
+	box-shadow: 0rem -1rem 2rem 0rem var(--secondary) !important;
 	border-top: 0.12rem solid var(--secondary) !important;
 }
