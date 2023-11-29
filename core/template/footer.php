@@ -1,4 +1,6 @@
 <?php if(PAGE_TITLE != 'Login' && PAGE_TITLE != 'Registrati') { ?>
+					<div class="page-overlay"></div>
+				</div>
 			</div>
 			<div class="row m-0 p-2 ps-4 pe-4 border-top-2" id="navbarDiv">
 				<a role="button" href="home.php" class="col btn nav-btn btn-lg btn-bounce bg-primary color-accent m-2 mt-0 mb-0 p-1 pt-2 pb-2"><i class="fa-solid fa-house fa-lg fa-fw"></i></a>
