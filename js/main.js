@@ -29,49 +29,4 @@ const resizeContentDiv = () => {
     }
 };
 
-let isDescriptionShort = true;
-const showFullDescription = (e) => {
-    if (isDescriptionShort) {
-        isDescriptionShort = false;
-        $("#videoDescriptionShort").addClass("d-none");
-        $("#videoDescriptionLong").removeClass("d-none");
-        $("#moreTagsButton").addClass("d-none");
-        let videoTags = $("[id='videoTag']");
-        for (let i = 0; i < videoTags.length; i++) {
-            $(videoTags[i]).removeClass("d-none");
-        }
-        e.stopPropagation();
-    }
-}
-
-const showShortDescription = (e) => {
-    if (!isDescriptionShort) {
-        isDescriptionShort = true;
-        $("#videoDescriptionLong").addClass("d-none");
-        $("#videoDescriptionShort").removeClass("d-none");
-        $("#moreTagsButton").removeClass("d-none");
-        let videoTags = $("[id='videoTag']");
-        for (let i = 2; i < videoTags.length; i++) {
-            $(videoTags[i]).addClass("d-none");
-        }
-        e.stopPropagation();
-    }
-}
-
 $(window).on("load resize change", resizeContentDiv);
-$(window).on("load", function() {
-    isDescriptionShort = true;
-    $("#videoDescription").on("click", showFullDescription);
-    $("#videoTags").on("click", showFullDescription);
-    $("#videoOverlay").on("click", showShortDescription);
-    $("#likeButton").on("click", function() {
-        let likeButton = $("#likeButton").children().children();
-        if (likeButton.hasClass("color-secondary")) {
-            likeButton.removeClass("color-secondary");
-            likeButton.addClass("color-alert");
-        } else {
-            likeButton.addClass("color-secondary");
-            likeButton.removeClass("color-alert");
-        }
-    });
-});
