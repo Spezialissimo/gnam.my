@@ -35,10 +35,10 @@
     showSwal('Scegli ingredienti', html);
 
     $(document).ready(function() {
-        var ingredients = [];
+        let ingredients = [];
         
         $("#addElement").click(function() {
-            var newElement = "Banane";
+            let newElement = "Banane";
             ingredients.push(newElement);
             $("#searchedIngredients").append('<p class="fw-bold"><button type="button" class="btn btn-bounce bg-primary text-black"><i class="fa-solid fa-trash-can"></i></button>&nbsp' + newElement + '</p>');
         });
