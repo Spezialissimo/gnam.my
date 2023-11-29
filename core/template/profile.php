@@ -15,18 +15,18 @@
 
         <a id="followerButton" href="#" class="col p-0 text-link">
             <p class="fw-bold p-0 mb-0">Follower</p>
-            <p class="text-counter">0</p>
+            <p class="text-normal-black">0</p>
         </a>
 
         <a id="followedButton" href="#" class="col p-0 text-link">
             <div class="col p-0">
                 <p class="fw-bold mb-0">Seguiti</p>
-                <p class="text-counter">0</p>
+                <p class="text-normal-black">0</p>
             </div>
         </a>
             <div class="col p-0 text-link">
                 <p class="fw-bold mb-0">Gnam</p>
-                <p class="text-counter">0</p>
+                <p class="text-normal-black">0</p>
             </div>
         </div>
     </div>
