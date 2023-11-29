@@ -12,7 +12,7 @@
     <!-- ingredients -->
     <div class="row-md-2 py-2">
         <!-- Button con counter -->
-        <button type="button" onclick="showSwal('Scegli ingredienti', 'Crazy')" class="btn btn-bounce rounded-pill bg-secondary fw-bold text-white">
+        <button type="button" onclick="showSwal('Scegli ingredienti', '<div class=\'row-md-2 py-2\'><div class=\'input-group rounded\'><span class=\'input-group-text bg-primary border-0\'><i class=\'fa-solid fa-magnifying-glass\'></i></span><input type=\'text\' class=\'form-control bg-primary shadow-sm\' placeholder=\'Cerca\'></div></div>')" class="btn btn-bounce rounded-pill bg-secondary fw-bold text-white">
             Ingredienti <span class="badge rounded-pill bg-accent">1</span>
         </button>
     </div>
