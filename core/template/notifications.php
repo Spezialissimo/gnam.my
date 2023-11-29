@@ -6,21 +6,21 @@
         <div class="container" id="notificationsContainer">
             <?php for ($i=0; $i < 10; $i++) { ?>
             <div class="row m-1 p-0">
-                <a href="#" role="button" class="btn btn-bounce rounded-pill bg-primary p-0 notification-pill-text">
+                <button role="button" class="notificationBtn btn btn-bounce rounded-pill bg-primary p-0 notification-pill-text">
                     <div class="container">
                         <div class="row">
-                            <div class="p-1 col-2 d-flex flex-wrap align-items-center">
+                            <a class="p-1 col-2 d-flex flex-wrap align-items-center" href="/gnam.my/profile.php">
                                 <img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"/>
-                            </div>
-                            <div class="col align-self-center">
-                                <p class="m-0"><b>Nome utente </b>ha messo mi piace al tuo Gnam!</p>
+                            </a>
+                            <div class="col align-self-center fs-7">
+                                <a class="m-0 text-link" href="/gnam.my/profile.php">Nome utente </a> <span class="m-0 text-normal-black">ha messo mi piace al tuo Gnam!</span>
                             </div>
                             <div class="col-2 align-self-center">
-                                <p class="m-0">1h</p>
+                                <span class="m-0 text-normal-black">1h</span>
                             </div>
                         </div>
                     </div>
-                </a>
+            </button>
             </div>
             <?php } ?>
         </div>
@@ -37,4 +37,10 @@
         $("#clearNotificationsButton").addClass("d-none");
         $("#emptyNotificationsText").removeClass("d-none");
     });
+
+    const goToGnam = () => {
+        window.location.href = "/gnam.my/home.php";
+    };
+
+    $(".notificationBtn").on("click", goToGnam);
 </script>
