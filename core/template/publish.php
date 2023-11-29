@@ -23,7 +23,7 @@
             <!-- ingredients -->
             <div class="row-sm pt-2 pb-0 ">
                 <!-- Button con counter -->
-                <button type="button" class="btn btn-bounce rounded-pill bg-secondary fw-bold text-white">
+                <button type="button" onclick="chooseIngredients();" class="btn btn-bounce rounded-pill bg-secondary fw-bold text-white">
                     Ingredienti <span class="badge rounded-pill bg-accent">1</span>
                 </button>
             </div>
@@ -43,6 +43,11 @@
 </div>
 
 <script>
+    const chooseIngredients = () => {
+        let html = '<div class="row-md-2 py-2"><div class="input-group rounded"><span class="input-group-text bg-primary border-0"><i class="fa-solid fa-magnifying-glass"></i></span><input type="text" class="form-control bg-primary shadow-sm" placeholder="Cerca Ingredienti"></div></div><hr><div class="text-center" id="searchedIngredients"><div class="row fw-bold m-0 p-0 fs-xs"><div class="col">Cannella</div><div class="col"><select class="form-select bg-primary rounded shadow-sm"><option>1</option><option>2</option><option>3</option></select></div><div class="col"><select class="form-select bg-primary rounded shadow-sm"><option>cucch.no</option><option>gr.</option><option>qb</option></select></div><div class="col"><button type="button" class="btn btn-bounce bg-primary text-black"><i class="fa-solid fa-trash-can"></i></button></div></div></div><hr><div class="row m-0 p-0"><div class="col-6"><button type="button" class="btn btn-bounce rounded-pill bg-alert fw-bold text-white w-100" id="reset">Reset</button></div><div class="col-6"><button type="button" class="btn btn-bounce rounded-pill bg-accent fw-bold text-white w-100" id="addElement">Ok</button></div></div>';
+        showSwal('Scegli Ingredienti', html);
+    }
+
     const publish = () => {
         // TO DO: Handling dati con PHP
 
