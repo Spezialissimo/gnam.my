@@ -17,7 +17,7 @@
         </button>
     </div>
 </div>
-<div class="container text-center font-text">
+<div class="container text-center font-text overflow-auto" id="pageContentDiv">
     <!-- search results content -->
         <?php
             for ($i=0; $i < 10; $i++) {
