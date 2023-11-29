@@ -14,6 +14,6 @@
         // TO DO: Handling dati con PHP
 
         let html = '<div class="row-md-2 py-2 text-center text-black"><i class="fa-solid fa-check fa-2xl"></i></div>';
-        showSwal('Profilo registrato', html);
+        showSwalSmall('Profilo registrato', html);
     }
 </script>
