@@ -54,16 +54,26 @@ const showShortDescription = () => {
 
 $(window).on("load resize change", resizeContentDiv);
 $(window).on("load", function() {
-    $("#videoCaption").on( "click", function() {
+    $("#videoCaption").on("click", function() {
         if (isDescriptionShort) {
             showFullDescription();
         } else {
             showShortDescription();
         }
     });
-    $("#videoOverlay").on( "click", function() {
+    $("#videoOverlay").on("click", function() {
         if (!isDescriptionShort) {
             showFullDescription();
+        }
+    });
+    $("#likeButton").on("click", function() {
+        let likeButton = $("#likeButton").children().children();
+        if (likeButton.hasClass("color-secondary")) {
+            likeButton.removeClass("color-secondary");
+            likeButton.addClass("color-alert");
+        } else {
+            likeButton.addClass("color-secondary");
+            likeButton.removeClass("color-alert");
         }
     });
 });

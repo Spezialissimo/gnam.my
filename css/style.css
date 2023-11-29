@@ -32,6 +32,22 @@ body {
 	background-color: var(--alert) !important;
 }
 
+.color-primary {
+	color: var(--primary);
+}
+
+.color-secondary {
+	color: var(--secondary);
+}
+
+.color-accent {
+	color: var(--accent);
+}
+
+.color-alert {
+	color: var(--alert);
+}
+
 input:focus,
 label:focus,
 select:focus,
@@ -46,14 +62,6 @@ button,
 textarea {
 	color: var(--accent) !important;
 	border: none !important;
-}
-
-.color-secondary {
-	color: var(--secondary);
-}
-
-.color-accent {
-	color: var(--accent);
 }
 
 ::-webkit-scrollbar {
