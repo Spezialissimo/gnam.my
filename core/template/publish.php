@@ -36,8 +36,17 @@
             </div>
             <!-- read all notification button -->
             <div class="row-md-4 pt-4">
-                <a href="#" role="button" class="btn btn-bounce rounded-pill bg-accent fw-bold text-white">Pubblica Gnam</a>
+                <a href="#" role="button" onclick="publish();" class="btn btn-bounce rounded-pill bg-accent fw-bold text-white">Pubblica Gnam</a>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    const publish = () => {
+        // TO DO: Handling dati con PHP
+
+        let html = '<div class="row-md-2 py-2 text-center text-black"><i class="fa-solid fa-check fa-2xl"></i></div>';
+        showSwal('Gnam pubblicato', html);
+    }
+</script>
