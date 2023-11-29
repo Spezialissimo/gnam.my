@@ -30,42 +30,39 @@ const resizeContentDiv = () => {
 };
 
 let isDescriptionShort = true;
-const showFullDescription = () => {
-    isDescriptionShort = false;
-    $("#videoDescriptionShort").addClass("d-none");
-    $("#videoDescriptionLong").removeClass("d-none");
-    $("#moreTagsButton").addClass("d-none");
-    let videoTags = $("[id='videoTag']");
-    for (let i = 0; i < videoTags.length; i++) {
-        $(videoTags[i]).removeClass("d-none");
+const showFullDescription = (e) => {
+    if (isDescriptionShort) {
+        isDescriptionShort = false;
+        $("#videoDescriptionShort").addClass("d-none");
+        $("#videoDescriptionLong").removeClass("d-none");
+        $("#moreTagsButton").addClass("d-none");
+        let videoTags = $("[id='videoTag']");
+        for (let i = 0; i < videoTags.length; i++) {
+            $(videoTags[i]).removeClass("d-none");
+        }
+        e.stopPropagation();
     }
 }
 
-const showShortDescription = () => {
-    isDescriptionShort = true;
-    $("#videoDescriptionLong").addClass("d-none");
-    $("#videoDescriptionShort").removeClass("d-none");
-    $("#moreTagsButton").removeClass("d-none");
-    let videoTags = $("[id='videoTag']");
-    for (let i = 2; i < videoTags.length; i++) {
-        $(videoTags[i]).addClass("d-none");
+const showShortDescription = (e) => {
+    if (!isDescriptionShort) {
+        isDescriptionShort = true;
+        $("#videoDescriptionLong").addClass("d-none");
+        $("#videoDescriptionShort").removeClass("d-none");
+        $("#moreTagsButton").removeClass("d-none");
+        let videoTags = $("[id='videoTag']");
+        for (let i = 2; i < videoTags.length; i++) {
+            $(videoTags[i]).addClass("d-none");
+        }
+        e.stopPropagation();
     }
 }
 
 $(window).on("load resize change", resizeContentDiv);
 $(window).on("load", function() {
-    $("#videoCaption").on("click", function() {
-        if (isDescriptionShort) {
-            showFullDescription();
-        } else {
-            showShortDescription();
-        }
-    });
-    $("#videoOverlay").on("click", function() {
-        if (!isDescriptionShort) {
-            showFullDescription();
-        }
-    });
+    isDescriptionShort = true;
+    $("#videoCaption").on("click", showFullDescription);
+    $("#videoOverlay").on("click", showShortDescription);
     $("#likeButton").on("click", function() {
         let likeButton = $("#likeButton").children().children();
         if (likeButton.hasClass("color-secondary")) {
