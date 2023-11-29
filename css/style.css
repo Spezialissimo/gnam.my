@@ -97,6 +97,11 @@ input[type=file]::file-selector-button, input[type=file]::file-selector-button:h
 	box-shadow: none !important;
 }
 
+.swal2-title {
+	color: black;
+	font-size: 150% !important;
+}
+
 .text-button {
 	border: none;
 	background-color: transparent;
