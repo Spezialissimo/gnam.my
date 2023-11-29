@@ -29,4 +29,41 @@ const resizeContentDiv = () => {
     }
 };
 
+let isDescriptionShort = true;
+const showFullDescription = () => {
+    isDescriptionShort = false;
+    $("#videoDescriptionShort").addClass("d-none");
+    $("#videoDescriptionLong").removeClass("d-none");
+    $("#moreTagsButton").addClass("d-none");
+    let videoTags = $("[id='videoTag']");
+    for (let i = 0; i < videoTags.length; i++) {
+        $(videoTags[i]).removeClass("d-none");
+    }
+}
+
+const showShortDescription = () => {
+    isDescriptionShort = true;
+    $("#videoDescriptionLong").addClass("d-none");
+    $("#videoDescriptionShort").removeClass("d-none");
+    $("#moreTagsButton").removeClass("d-none");
+    let videoTags = $("[id='videoTag']");
+    for (let i = 2; i < videoTags.length; i++) {
+        $(videoTags[i]).addClass("d-none");
+    }
+}
+
 $(window).on("load resize change", resizeContentDiv);
+$(window).on("load", function() {
+    $("#videoCaption").on( "click", function() {
+        if (isDescriptionShort) {
+            showFullDescription();
+        } else {
+            showShortDescription();
+        }
+    });
+    $("#videoOverlay").on( "click", function() {
+        if (!isDescriptionShort) {
+            showFullDescription();
+        }
+    });
+});
