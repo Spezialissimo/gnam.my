@@ -2,16 +2,9 @@
     <div id="headerDiv" class="row-2 py-2">
         <h1 class="fw-bold">Notifiche</h1>
     </div>
-
-    <!-- notification content -->
     <div id="pageContentDiv" class="row-md-8 overflow-auto">
-        <div class="container">
-
-
-            <?php
-            for ($i=0; $i < 10; $i++) {
-                ?>
-                <!-- notification template -->
+        <div class="container" id="notificationsContainer">
+            <?php for ($i=0; $i < 10; $i++) { ?>
             <div class="row m-1 p-0">
                 <a href="#" role="button" class="btn btn-bounce rounded-pill bg-primary p-0 notification-pill-text">
                     <div class="container">
@@ -29,13 +22,19 @@
                     </div>
                 </a>
             </div>
-                <?php } ?>
+            <?php } ?>
         </div>
-
-        <!-- read all notification button -->
         <div class="row-md-4 py-2">
-            <a href="#" role="button" class="btn btn-bounce rounded-pill bg-secondary fw-bold text-white">Segna come lette</a>
+            <p class="fs-6 d-none" id="emptyNotificationsText">Non hai nuove notifiche.</p>
+            <button type="button" class="btn btn-bounce rounded-pill bg-secondary fw-bold text-white" id="clearNotificationsButton">Segna come lette</button>
         </div>
     </div>
-
 </div>
+
+<script>
+    $("#clearNotificationsButton").on("click", function() {
+        $("#notificationsContainer").empty();
+        $("#clearNotificationsButton").addClass("d-none");
+        $("#emptyNotificationsText").removeClass("d-none");
+    });
+</script>
