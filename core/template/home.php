@@ -2,20 +2,20 @@
 <div class="video-overlay" id="videoOverlay">
     <div class="container">
         <div class="row mb-3">
-            <div class="col-10 align-self-end" id="videoCaption">
-                <div class="row">
+            <div class="col-10 align-self-end">
+                <a href="profile.php" class="row text-link">
                     <div class="col-3">
                         <img class="border border-2 border-dark rounded-circle w-100" alt="Filippo Champagne" src="assets/prova-profile.png" />
                     </div>
                     <div class="col-9 d-flex align-items-center p-0">
                         <p class="fs-6 fw-bold m-0">Profilo Nome</p>
                     </div>
-                </div>
-                <div class="row">
+                </a>
+                <div class="row" id="videoDescription">
                     <p class="fs-7 m-0" id="videoDescriptionShort">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis blandit, tortor ut gravida pellentesque, risus. Leggi di piú...</p>
                     <p class="fs-7 m-0 d-none" id="videoDescriptionLong">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin malesuada pharetra odio lobortis vulputate. Aliquam maximus ac nibh semper placerat. Maecenas pellentesque elementum auctor. Cras vel venenatis urna.</p>
                 </div>
-                <div class="row" id="videoTagsDiv">
+                <div class="row" id="videoTags">
                     <div class="col-4" id="videoTag">
                         <span class="badge rounded-pill bg-primary fw-light text-black">
                             <i class="fa-solid fa-oil-can"></i>&nbsp #Untazzo

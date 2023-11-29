@@ -61,7 +61,8 @@ const showShortDescription = (e) => {
 $(window).on("load resize change", resizeContentDiv);
 $(window).on("load", function() {
     isDescriptionShort = true;
-    $("#videoCaption").on("click", showFullDescription);
+    $("#videoDescription").on("click", showFullDescription);
+    $("#videoTags").on("click", showFullDescription);
     $("#videoOverlay").on("click", showShortDescription);
     $("#likeButton").on("click", function() {
         let likeButton = $("#likeButton").children().children();
