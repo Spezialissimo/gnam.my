@@ -55,14 +55,3 @@
         </div>
     </div>
 </div>
-
-<script>
-    function resizeContentDiv() {
-        navbar = document.getElementById("navbarDiv");
-        document.getElementById("contentDiv").style.height = String(window.innerHeight - navbar.clientHeight) + "px";
-        document.getElementById("videoOverlay").style.height = String(window.innerHeight - navbar.clientHeight) + "px";
-    }
-
-    window.onload = resizeContentDiv;
-    window.onresize = resizeContentDiv;
-</script>

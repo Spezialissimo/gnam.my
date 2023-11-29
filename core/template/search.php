@@ -17,7 +17,7 @@
         </button>
     </div>
     <!-- search results content -->
-    <div id="gridDiv" class="row-md-8 overflow-auto">
+    <div id="pageContentDiv" class="row-md-8 overflow-auto">
         <div class="container">
         <?php
             for ($i=0; $i < 10; $i++) {
@@ -32,18 +32,3 @@
         </div>
     </div>
 </div>
-
-<script>
-    function resizeContentDiv() {
-        navbar = document.getElementById("navbarDiv");
-        document.getElementById("contentDiv").style.height = String(window.innerHeight - navbar.clientHeight) + "px";
-
-        header = document.getElementById("headerDiv");
-        ingredients = document.getElementById("ingredientsDiv");
-        searchbar = document.getElementById("searchbarDiv");
-        document.getElementById("gridDiv").style.maxHeight = String(window.innerHeight - navbar.clientHeight - header.clientHeight - searchbar.clientHeight - ingredients.clientHeight) + "px";
-    }
-
-    window.onload = resizeContentDiv;
-    window.onresize = resizeContentDiv;
-</script>

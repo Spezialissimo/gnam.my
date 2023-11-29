@@ -1,6 +1,6 @@
 <a class="btn text-button fw-bold color-accent text-end" href="#">Log out</a>
 
-<div class="container text-center">
+<div class="container text-center" id="headerDiv">
   <div class="row">
     <div class="col-4">
         <img class="border border-2 border-dark rounded-circle w-100" alt="Filippo Champagne" src="assets/prova-profile.png" />
@@ -25,9 +25,6 @@
         </div>
     </div>
   </div>
-</div>
-
-<div class="container text-center mb-3">
   <div class="row justify-content-center">
     <div class="col-4">
     <button type="button" class="btn btn-bounce rounded-pill bg-primary fw-bold text-black w-100">Segui</button>
@@ -36,23 +33,20 @@
     <button type="button" class="btn btn-bounce rounded-pill bg-primary fw-bold text-black w-100">Condividi</button>
     </div>
   </div>
+  <div class="row align-items-center text-center mt-2">
+        <div class="col fw-bold">   <!-- TODO: con JS si swappa classe fw-bold -->
+            <p class="mb-0">Post</p>
+        </div>
+        <div class="col">
+        <p class="mb-0">Gnam Piaciuti</p>
+        </div>
+    </div>
+    <div class="row row justify-content-center">
+        <hr class="w-75" id="horizontalLine" />
+    </div>
 </div>
 
-<div class="container text-center">
-  <div class="row align-items-center">
-    <div class="col fw-bold">   <!-- TODO: con JS si swappa classe fw-bold -->
-        <p class="mb-0">Post</p>
-    </div>
-    <div class="col">
-    <p class="mb-0">Gnam Piaciuti</p>
-    </div>
-  </div>
-  <div class="row row justify-content-center">
-    <hr class="w-75" id="horizontalLine" />
-  </div>
-</div>
-
-<div class="container overflow-auto" id="gridDiv">
+<div class="container overflow-y-scroll" id="pageContentDiv">
     <div class="row">
         <img class="img-grid col" alt="Filippo Champagne" src="assets/prova.png" />
         <img class="img-grid col" alt="Filippo Champagne" src="assets/prova.png" />
@@ -74,16 +68,3 @@
         <img class="img-grid col" alt="Filippo Champagne" src="assets/prova.png" />
     </div>
 </div>
-
-<script>
-    const resizeContentDiv = () => {
-        navbar = document.getElementById("navbarDiv");
-        document.getElementById("contentDiv").style.height = String(window.innerHeight - navbar.clientHeight) + "px";
-
-        header = document.getElementById("horizontalLine");
-        document.getElementById("gridDiv").style.maxHeight = String(window.innerHeight - navbar.clientHeight - header.clientHeight) + "px";
-    }
-
-    window.onload = resizeContentDiv;
-    window.onresize = resizeContentDiv;
-</script>

@@ -4,7 +4,7 @@
     </div>
 
     <!-- notification content -->
-    <div id="notificationsDiv" class="row-md-8 overflow-auto">
+    <div id="pageContentDiv" class="row-md-8 overflow-auto">
         <div class="container">
 
 
@@ -13,7 +13,7 @@
                 ?>
                 <!-- notification template -->
             <div class="row m-1 p-0">
-                <a href="#" role="button" class="btn btn-bounce rounded-pill bg-secondary p-0 notification-pill-text">
+                <a href="#" role="button" class="btn btn-bounce rounded-pill bg-primary p-0 notification-pill-text">
                     <div class="container">
                         <div class="row">
                             <div class="p-1 col-2 d-flex flex-wrap align-items-center">
@@ -39,16 +39,3 @@
     </div>
 
 </div>
-
-<script>
-    function resizeContentDiv() {
-        navbar = document.getElementById("navbarDiv");
-        document.getElementById("contentDiv").style.height = String(window.innerHeight - navbar.clientHeight) + "px";
-
-        header = document.getElementById("headerDiv");
-        document.getElementById("notificationsDiv").style.maxHeight = String(window.innerHeight - navbar.clientHeight - header.clientHeight) + "px";
-    }
-
-    window.onload = resizeContentDiv;
-    window.onresize = resizeContentDiv;
-</script>
