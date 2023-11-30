@@ -329,8 +329,18 @@
     });
 
 
-    const showSwalShare = (e) => {
-        let swalContent = '<div class=\'row-md-2 py-2 text-center text-black\'><div class=\'container\'><div class=\'col\'><div class=\'row-9 py-4\'><i class=\'fa-solid fa-share-nodes fa-2xl\'></i></div><div class=\'row-3 pt-3\'><button type=\'button\' class=\'btn btn-bounce rounded-pill bg-accent fw-bold text-white\'>Copia link</button></div></div></div></div>';
+    const showSwalShare = () => {
+        let swalContent = `
+            <div class='row-md-2 py-2 text-center text-black'>
+                <div class='container'>
+                    <div class='col'>
+                        <div class='row-9 py-4'><i class='fa-solid fa-share-nodes fa-2xl'></i></div>
+                        <div class='row-3 pt-3'><button type='button' class='btn btn-bounce rounded-pill bg-accent fw-bold
+                                text-white'>Copia link</button></div>
+                    </div>
+                </div>
+            </div>
+        `;
         showSwalSmall('<p class="fs-5">Condividi Gnam</p>', swalContent);
     }
 
