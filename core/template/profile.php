@@ -1,53 +1,52 @@
-
 <div class="container text-center" id="headerDiv">
     <div class="row text-end">
         <a class="btn text-button fw-bold color-accent text-end" href="#">Log out</a>
     </div>
-  <div class="row">
-    <div class="col-4">
-        <img class="border border-2 border-dark rounded-circle w-100" alt="Filippo Champagne" src="assets/prova-profile.png" />
-    </div>
-    <div class="col-8">
-        <div class="row">
-            <div class="h4 mt-2 ps-0">GiorgioneErRomano</div>
+    <div class="row">
+        <div class="col-4">
+            <img class="border border-2 border-dark rounded-circle w-100" alt="Filippo Champagne" src="assets/prova-profile.png" />
         </div>
-        <div class="row">
-
-        <a id="followerButton" href="#" class="col p-0 text-link">
-            <p class="fw-bold p-0 mb-0">Follower</p>
-            <p class="text-normal-black">0</p>
-        </a>
-
-        <a id="followedButton" href="#" class="col p-0 text-link">
-            <div class="col p-0">
-                <p class="fw-bold mb-0">Seguiti</p>
-                <p class="text-normal-black">0</p>
+        <div class="col-8">
+            <div class="row">
+                <div class="h4 mt-2 ps-0">GiorgioneErRomano</div>
             </div>
-        </a>
-            <div class="col p-0 text-link">
-                <p class="fw-bold mb-0">Gnam</p>
-                <p class="text-normal-black">0</p>
+            <div class="row">
+
+                <a id="followerButton" href="#" class="col p-0 text-link">
+                    <p class="fw-bold p-0 mb-0">Follower</p>
+                    <p class="text-normal-black">0</p>
+                </a>
+
+                <a id="followedButton" href="#" class="col p-0 text-link">
+                    <div class="col p-0">
+                        <p class="fw-bold mb-0">Seguiti</p>
+                        <p class="text-normal-black">0</p>
+                    </div>
+                </a>
+                <div class="col p-0 text-link">
+                    <p class="fw-bold mb-0">Gnam</p>
+                    <p class="text-normal-black">0</p>
+                </div>
             </div>
         </div>
     </div>
-  </div>
-  <div class="row justify-content-center">
-    <div class="col-4">
-    <button type="button" class="btn btn-bounce rounded-pill bg-primary fw-bold text-black w-100">Segui</button>
-    </div>
-    <div class="col-4 px-0">
+    <div class="row justify-content-center">
+        <div class="col-4">
+            <button type="button" class="btn btn-bounce rounded-pill bg-primary fw-bold text-black w-100">Segui</button>
+        </div>
+        <div class="col-4 px-0">
 
-    <button id="shareButton" type="button" class="btn btn-bounce rounded-pill bg-primary fw-bold text-black w-100">Condividi</button>
+            <button id="shareButton" type="button" class="btn btn-bounce rounded-pill bg-primary fw-bold text-black w-100">Condividi</button>
+        </div>
     </div>
-  </div>
-  <div class="row align-items-center text-center mt-2">
+    <div class="row align-items-center text-center mt-2">
         <div class="col-1"></div>
         <div class="col-3 fw-bold" id="allPostsButton">
             <p class="mb-0">Post</p>
         </div>
         <div class="col-2"></div>
         <div class="col-5" id="likedPostsButton">
-        <p class="mb-0">Gnam Piaciuti</p>
+            <p class="mb-0">Gnam Piaciuti</p>
         </div>
         <div class="col-1"></div>
     </div>
@@ -104,13 +103,289 @@
     }
 
     const showSwalFollower = (e) => {
-        let swalContent = '<ul class="list-group modal-content-lg"><li class="list-group-item bg border-0"><a href="#" class="text-link"><div class="container"><div class="row"><div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div><div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div></div></div></a></li><li class="list-group-item bg border-0"><a href="#" class="text-link"><div class="container"><div class="row"><div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div><div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div></div></div></a></li><li class="list-group-item bg border-0"><a href="#" class="text-link"><div class="container"><div class="row"><div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div><div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div></div></div></a></li><li class="list-group-item bg border-0"><a href="#" class="text-link"><div class="container"><div class="row"><div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div><div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div></div></div></a></li><li class="list-group-item bg border-0"><a href="#" class="text-link"><div class="container"><div class="row"><div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div><div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div></div></div></a></li><li class="list-group-item bg border-0"><a href="#" class="text-link"><div class="container"><div class="row"><div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div><div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div></div></div></a></li><li class="list-group-item bg border-0"><a href="#" class="text-link"><div class="container"><div class="row"><div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div><div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div></div></div></a></li><li class="list-group-item bg border-0"><a href="#" class="text-link"><div class="container"><div class="row"><div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div><div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div></div></div></a></li><li class="list-group-item bg border-0"><a href="#" class="text-link"><div class="container"><div class="row"><div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div><div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div></div></div></a></li><li class="list-group-item bg border-0"><a href="#" class="text-link"><div class="container"><div class="row"><div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div><div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div></div></div></a></li><li class="list-group-item bg border-0"><a href="#" class="text-link"><div class="container"><div class="row"><div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div><div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div></div></div></a></li><li class="list-group-item bg border-0"><a href="#" class="text-link"><div class="container"><div class="row"><div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div><div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div></div></div></a></li><li class="list-group-item bg border-0"><a href="#" class="text-link"><div class="container"><div class="row"><div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div><div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div></div></div></a></li><li class="list-group-item bg border-0"><a href="#" class="text-link"><div class="container"><div class="row"><div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div><div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div></div></div></a></li><li class="list-group-item bg border-0"><a href="#" class="text-link"><div class="container"><div class="row"><div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div><div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div></div></div></a></li><li class="list-group-item bg border-0"><a href="#" class="text-link"><div class="container"><div class="row"><div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div><div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div></div></div></a></li><li class="list-group-item bg border-0"><a href="#" class="text-link"><div class="container"><div class="row"><div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div><div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div></div></div></a></li></ul>';
+        let swalContent = `
+            <ul class="list-group modal-content-lg">
+                <li class="list-group-item bg border-0"><a href="#" class="text-link">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div>
+                                <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
+                            </div>
+                        </div>
+                    </a></li>
+                <li class="list-group-item bg border-0"><a href="#" class="text-link">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div>
+                                <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
+                            </div>
+                        </div>
+                    </a></li>
+                <li class="list-group-item bg border-0"><a href="#" class="text-link">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div>
+                                <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
+                            </div>
+                        </div>
+                    </a></li>
+                <li class="list-group-item bg border-0"><a href="#" class="text-link">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div>
+                                <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
+                            </div>
+                        </div>
+                    </a></li>
+                <li class="list-group-item bg border-0"><a href="#" class="text-link">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div>
+                                <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
+                            </div>
+                        </div>
+                    </a></li>
+                <li class="list-group-item bg border-0"><a href="#" class="text-link">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div>
+                                <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
+                            </div>
+                        </div>
+                    </a></li>
+                <li class="list-group-item bg border-0"><a href="#" class="text-link">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div>
+                                <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
+                            </div>
+                        </div>
+                    </a></li>
+                <li class="list-group-item bg border-0"><a href="#" class="text-link">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div>
+                                <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
+                            </div>
+                        </div>
+                    </a></li>
+                <li class="list-group-item bg border-0"><a href="#" class="text-link">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div>
+                                <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
+                            </div>
+                        </div>
+                    </a></li>
+                <li class="list-group-item bg border-0"><a href="#" class="text-link">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div>
+                                <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
+                            </div>
+                        </div>
+                    </a></li>
+                <li class="list-group-item bg border-0"><a href="#" class="text-link">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div>
+                                <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
+                            </div>
+                        </div>
+                    </a></li>
+                <li class="list-group-item bg border-0"><a href="#" class="text-link">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div>
+                                <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
+                            </div>
+                        </div>
+                    </a></li>
+                <li class="list-group-item bg border-0"><a href="#" class="text-link">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div>
+                                <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
+                            </div>
+                        </div>
+                    </a></li>
+                <li class="list-group-item bg border-0"><a href="#" class="text-link">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div>
+                                <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
+                            </div>
+                        </div>
+                    </a></li>
+                <li class="list-group-item bg border-0"><a href="#" class="text-link">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div>
+                                <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
+                            </div>
+                        </div>
+                    </a></li>
+                <li class="list-group-item bg border-0"><a href="#" class="text-link">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div>
+                                <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
+                            </div>
+                        </div>
+                    </a></li>
+                <li class="list-group-item bg border-0"><a href="#" class="text-link">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div>
+                                <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
+                            </div>
+                        </div>
+                    </a></li>
+            </ul>`;
         showSwal('Follower', swalContent);
     }
 
 
     const showSwalFollowed = (e) => {
-        let swalContent = '<ul class="list-group modal-content-lg"><li class="list-group-item bg border-0"><a href="#" class="text-link"><div class="container"><div class="row"><div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div><div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div></div></div></a></li><li class="list-group-item bg border-0"><a href="#" class="text-link"><div class="container"><div class="row"><div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div><div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div></div></div></a></li><li class="list-group-item bg border-0"><a href="#" class="text-link"><div class="container"><div class="row"><div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div><div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div></div></div></a></li><li class="list-group-item bg border-0"><a href="#" class="text-link"><div class="container"><div class="row"><div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div><div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div></div></div></a></li><li class="list-group-item bg border-0"><a href="#" class="text-link"><div class="container"><div class="row"><div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div><div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div></div></div></a></li><li class="list-group-item bg border-0"><a href="#" class="text-link"><div class="container"><div class="row"><div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div><div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div></div></div></a></li><li class="list-group-item bg border-0"><a href="#" class="text-link"><div class="container"><div class="row"><div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div><div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div></div></div></a></li><li class="list-group-item bg border-0"><a href="#" class="text-link"><div class="container"><div class="row"><div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div><div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div></div></div></a></li><li class="list-group-item bg border-0"><a href="#" class="text-link"><div class="container"><div class="row"><div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div><div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div></div></div></a></li><li class="list-group-item bg border-0"><a href="#" class="text-link"><div class="container"><div class="row"><div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div><div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div></div></div></a></li><li class="list-group-item bg border-0"><a href="#" class="text-link"><div class="container"><div class="row"><div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div><div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div></div></div></a></li><li class="list-group-item bg border-0"><a href="#" class="text-link"><div class="container"><div class="row"><div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div><div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div></div></div></a></li><li class="list-group-item bg border-0"><a href="#" class="text-link"><div class="container"><div class="row"><div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div><div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div></div></div></a></li><li class="list-group-item bg border-0"><a href="#" class="text-link"><div class="container"><div class="row"><div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div><div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div></div></div></a></li><li class="list-group-item bg border-0"><a href="#" class="text-link"><div class="container"><div class="row"><div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div><div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div></div></div></a></li><li class="list-group-item bg border-0"><a href="#" class="text-link"><div class="container"><div class="row"><div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div><div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div></div></div></a></li><li class="list-group-item bg border-0"><a href="#" class="text-link"><div class="container"><div class="row"><div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div><div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div></div></div></a></li></ul>';
+        let swalContent = `
+            <ul class="list-group modal-content-lg">
+                <li class="list-group-item bg border-0"><a href="#" class="text-link">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div>
+                                <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
+                            </div>
+                        </div>
+                    </a></li>
+                <li class="list-group-item bg border-0"><a href="#" class="text-link">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div>
+                                <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
+                            </div>
+                        </div>
+                    </a></li>
+                <li class="list-group-item bg border-0"><a href="#" class="text-link">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div>
+                                <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
+                            </div>
+                        </div>
+                    </a></li>
+                <li class="list-group-item bg border-0"><a href="#" class="text-link">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div>
+                                <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
+                            </div>
+                        </div>
+                    </a></li>
+                <li class="list-group-item bg border-0"><a href="#" class="text-link">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div>
+                                <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
+                            </div>
+                        </div>
+                    </a></li>
+                <li class="list-group-item bg border-0"><a href="#" class="text-link">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div>
+                                <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
+                            </div>
+                        </div>
+                    </a></li>
+                <li class="list-group-item bg border-0"><a href="#" class="text-link">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div>
+                                <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
+                            </div>
+                        </div>
+                    </a></li>
+                <li class="list-group-item bg border-0"><a href="#" class="text-link">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div>
+                                <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
+                            </div>
+                        </div>
+                    </a></li>
+                <li class="list-group-item bg border-0"><a href="#" class="text-link">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div>
+                                <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
+                            </div>
+                        </div>
+                    </a></li>
+                <li class="list-group-item bg border-0"><a href="#" class="text-link">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div>
+                                <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
+                            </div>
+                        </div>
+                    </a></li>
+                <li class="list-group-item bg border-0"><a href="#" class="text-link">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div>
+                                <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
+                            </div>
+                        </div>
+                    </a></li>
+                <li class="list-group-item bg border-0"><a href="#" class="text-link">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div>
+                                <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
+                            </div>
+                        </div>
+                    </a></li>
+                <li class="list-group-item bg border-0"><a href="#" class="text-link">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div>
+                                <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
+                            </div>
+                        </div>
+                    </a></li>
+                <li class="list-group-item bg border-0"><a href="#" class="text-link">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div>
+                                <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
+                            </div>
+                        </div>
+                    </a></li>
+                <li class="list-group-item bg border-0"><a href="#" class="text-link">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div>
+                                <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
+                            </div>
+                        </div>
+                    </a></li>
+                <li class="list-group-item bg border-0"><a href="#" class="text-link">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div>
+                                <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
+                            </div>
+                        </div>
+                    </a></li>
+                <li class="list-group-item bg border-0"><a href="#" class="text-link">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div>
+                                <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
+                            </div>
+                        </div>
+                    </a></li>
+            </ul>`;
         showSwal('Seguiti', swalContent);
     }
 
