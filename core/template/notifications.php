@@ -10,7 +10,7 @@
                     <div class="container">
                         <div class="row">
                             <a class="p-1 col-2 d-flex flex-wrap align-items-center" href="/profile.php">
-                                <img class="border border-4 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"/>
+                                <img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"/>
                             </a>
                             <div class="col align-self-center fs-7">
                                 <a class="m-0 text-link" href="/profile.php">Nome utente </a> <span class="m-0 text-normal-black">ha messo mi piace al tuo Gnam!</span>
