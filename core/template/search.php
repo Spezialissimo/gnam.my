@@ -52,11 +52,12 @@
                         </div>
                     </div>
                     <hr>
+                    <p id="noIngredientsText" class="d-none">Non hai selezionato ingredienti.</p>
                     <div class="text-center" id="searchedIngredients">${modalContent}</div>
                     <hr>
                     <div class="row m-0 p-0">
                         <div class="col-6">
-                            <button type="button" class="btn btn-bounce rounded-pill bg-alert fw-bold text-white w-100" onclick="resetIngredients()">Reset</button>
+                            <button type="button" class="btn btn-bounce rounded-pill bg-alert fw-bold text-white w-100" id="resetIngredients">Reset</button>
                         </div>
                         <div class="col-6">
                             <button type="button" id="okButton" class="btn btn-bounce rounded-pill bg-accent fw-bold text-white w-100">Ok</button>
@@ -65,6 +66,9 @@
 
         const modal = showSwal('Scegli ingredienti', html);
 
+        if (ingredients.length == 0) {
+            $("#noIngredientsText").removeClass("d-none");
+        }
         $('#searchIngredientsIcon').on("click", addIngredient);
         $('#ingredientInput').keypress(function(event) {
             if (event.which === 13) {
@@ -75,12 +79,16 @@
         $('#okButton').click(function() {
             closeSwal();
         });
+        $("#resetIngredients").on("click", resetIngredients);
     }
 
     const addIngredient = () => {
         let newIngredient = $('#ingredientInput').val().trim();
         if (!newIngredient || ingredients.includes(newIngredient)) {
             return;
+        }
+        if (ingredients.length == 0) {
+            $("#noIngredientsText").addClass("d-none");
         }
         ingredients.push(newIngredient);
         $("#searchedIngredients").append('<p class="fw-bold"><button type="button" class="btn btn-bounce bg-primary text-black" onclick="removeIngredient(this)"><i class="fa-solid fa-trash-can"></i></button>&nbsp' + newIngredient + '</p>');
@@ -93,12 +101,16 @@
         ingredients.splice(indexToRemove, 1);
         $(element).parent().remove();
         $('#ingredientsCount').html(ingredients.length);
+        if (ingredients.length == 0) {
+            $("#noIngredientsText").removeClass("d-none");
+        }
     }
 
     const resetIngredients = () => {
         ingredients = [];
         $("#searchedIngredients").empty();
         $('#ingredientsCount').html(ingredients.length);
+        $("#noIngredientsText").removeClass("d-none");
     }
 
     const searchVideos = () => {
