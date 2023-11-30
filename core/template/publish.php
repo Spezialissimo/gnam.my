@@ -42,9 +42,55 @@
 
 <script>
     const chooseIngredients = () => {
-        let html = '<div class="row-md-2 py-2"><div class="input-group rounded"><span class="input-group-text bg-primary border-0"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i></span><input type="text" class="form-control bg-primary shadow-sm" placeholder="Cerca Ingredienti"></div></div><hr><div class="text-center" id="searchedIngredients"><div class="row fw-bold m-0 p-0 align-items-center"><div class="col-3 m-0 p-1"><p class="m-0 fs-7">Cannella</p></div><div class="col-3 m-0 p-1"><select class="form-select bg-primary rounded shadow-sm fs-7"><option>1</option><option>2</option><option>3</option></select></div><div class="col-4 m-0 p-1"><select class="form-select bg-primary rounded shadow-sm fs-7"><option>c.ino</option><option>gr.</option><option>qb</option></select></div><div class="col-2 m-0 p-1"><button type="button" class="btn btn-bounce bg-primary text-black fs-7"><i class="fa-solid fa-trash-can" aria-hidden="true"></i></button></div></div></div><hr><div class="row m-0 p-0"><div class="col-6"><button type="button" class="btn btn-bounce rounded-pill bg-alert fw-bold text-white w-100" id="reset">Reset</button></div><div class="col-6"><button type="button" class="btn btn-bounce rounded-pill bg-accent fw-bold text-white w-100" id="addElement">Ok</button></div></div>';
+        let html = `
+            <div class="row-md-2 py-2">
+                <div class="input-group rounded">
+                    <span class="input-group-text bg-primary border-0">
+                        <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                    </span>
+                    <input type="text" class="form-control bg-primary shadow-sm" placeholder="Cerca Ingredienti">
+                </div>
+            </div>
+            <hr>
+            <div class="text-center" id="searchedIngredients">
+                <div class="row fw-bold m-0 p-0 align-items-center">
+                    <div class="col-3 m-0 p-1">
+                        <p class="m-0 fs-7">Cannella</p>
+                    </div>
+                    <div class="col-3 m-0 p-1">
+                        <select class="form-select bg-primary rounded shadow-sm fs-7">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                        </select>
+                    </div>
+                    <div class="col-4 m-0 p-1">
+                        <select class="form-select bg-primary rounded shadow-sm fs-7">
+                            <option>c.ino</option>
+                            <option>gr.</option>
+                            <option>qb</option>
+                        </select>
+                    </div>
+                    <div class="col-2 m-0 p-1">
+                        <button type="button" class="btn btn-bounce bg-primary text-black fs-7">
+                            <i class="fa-solid fa-trash-can" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="row m-0 p-0">
+                <div class="col-6">
+                    <button type="button" class="btn btn-bounce rounded-pill bg-alert fw-bold text-white w-100" id="reset">Reset</button>
+                </div>
+                <div class="col-6">
+                    <button type="button" class="btn btn-bounce rounded-pill bg-accent fw-bold text-white w-100" id="addElement">Ok</button>
+                </div>
+            </div>
+        `;
         showSwal('Scegli Ingredienti', html);
     }
+
 
     const publish = () => {
         // TO DO: Handling dati con PHP
