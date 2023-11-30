@@ -78,6 +78,7 @@
 <script>
     let isDescriptionShort = true;
     let selectedPortions = 1;
+    let commentToReplyID = null;
 
     const showFullDescription = (e) => {
         if (isDescriptionShort) {
@@ -290,7 +291,18 @@
                         </div>
                     </div>
                     <div class="row-1 bg-primary rounded">
-                        <span id="replyToText" class="bg-primary border-0 fs-7 d-none">Stai rispondendo a: <span id="replyToName" class="text-link"></span></span>
+                        <div class="rounded bg-primary p-1 d-none"  id="replyToDiv">
+                            <div class="rounded bg container">
+                                <div class="row">
+                                    <div class="col-11 align-items-center">
+                                        <span class="border-0 fs-7">Stai rispondendo a: <span id="replyToName" class="text-link"></span></span>
+                                    </div>
+                                    <div class="col-1 d-flex align-items-center p-0">
+                                        <i id="closeReplyTo" class="fa-solid fa-xmark color-accent"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="input-group rounded">
                             <input id="commentField" type="text" class="fs-7 form-control bg-primary shadow-sm" placeholder="Insercisci commento...">
                             <span id="commentButton" class="input-group-text bg-primary border-0  fs-7">Commenta</span>
@@ -300,18 +312,20 @@
 
                 showSwal('Commenti', html);
                 $("#commentButton").on("click", publishComment);
+                $("#closeReplyTo").on("click", function (e) {
+                    $("#replyToDiv").addClass("d-none");
+                    commentToReplyID = null;
+                });
                 $(".replyButton").on("click", function (e) {
                     let parent = $(this).closest('.subcomment');
 
                     if (parent.length == 0) {
                         parent = $(this).closest('.comment');
                     }
-
                     const commenterName = parent.find(".commenterName:first").text();
-                    $("#replyToText").removeClass("d-none");
+                    $("#replyToDiv").removeClass("d-none");
                     $("#replyToName").text(commenterName);
-
-
+                    commentToReplyID = parent.attr("id");
                 })
         });
     });
