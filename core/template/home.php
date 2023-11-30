@@ -131,7 +131,7 @@
                                             </div>
                                             <div class="col">
                                                 <div class="row-md-1 text-start">
-                                                    <a href="/profile.php" class="text-link">` + username + `</a>
+                                                    <a href="/profile.php" class="commenterName text-link">` + username + `</a>
                                                 </div>
                                                 <div class="row-md text-normal-black fs-7 text-start">
                                                 <p class="m-0">` + commentText + `</p>
@@ -208,7 +208,7 @@
                                 <div class="row">
 
                                     <!-- Commento -->
-                                    <div id="comment-0 class="container comment">
+                                    <div id="comment-0" class="container comment">
                                         <div class="row">
                                             <div class="col-2 p-0">
                                             <img class="border border-2 border-dark rounded-circle w-100" alt="Filippo Champagne"
@@ -216,7 +216,7 @@
                                             </div>
                                             <div class="col">
                                                 <div class="row-md-1 text-start">
-                                                    <a href="/profile.php" class="text-link">CiccioGamer89</a>
+                                                    <a href="/profile.php" class="commenterName text-link">CiccioGamer89</a>
                                                 </div>
                                                 <div class="row-md text-normal-black fs-7 text-start">
                                                 <p class="m-0">ad un certo punto ho scritto: con tutto quello che mi è costata quella
@@ -230,7 +230,7 @@
                                                         costata... cro cioè crostata... ragazzi è pazzesco, pazzesco</p>
                                                 </div>
                                                 <div class="row-md-1 text-start">
-                                                    <span class="text-button fw-bold color-accent fs-7 ">Rispondi</span>
+                                                    <span class="replyButton text-button fw-bold color-accent fs-7 ">Rispondi</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -245,7 +245,7 @@
                                                         </div>
                                                 <div class="col">
                                                     <div class="row-md-1 text-start">
-                                                        <a href="/profile.php" class="text-link">Pello</a>
+                                                        <a href="/profile.php" class="commenterName text-link">Pello</a>
                                                         </div>
                                                         <div class="row-md text-normal-black fs-7 text-start">
                                                         <p class="m-0">sono gay sono gay sono gay sono gay sono gay sono gay sono gay sono gay sono
@@ -253,7 +253,7 @@
                                                             sono gay sono gay sono gay sono gay sono</p>
                                                             </div>
                                                             <div class="row-md-1 text-start">
-                                                        <span class="text-button fw-bold color-accent fs-7">Rispondi</span>
+                                                        <span class="replyButton text-button fw-bold color-accent fs-7">Rispondi</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -261,7 +261,7 @@
                                                 <div class="col-2"></div>
                                                 <div class="col">
                                                 <!-- Sottocommento -->
-                                                    <div id="subcomment-0" class="container subcomment">
+                                                    <div id="comment-2" class="container subcomment">
                                                         <div class="row">
                                                             <div class="col-1 p-0">
                                                                 <img class="border border-2 border-dark rounded-circle w-100" alt="Filippo Champagne"
@@ -269,13 +269,13 @@
                                                             </div>
                                                             <div class="col ps-1">
                                                                 <div class="row-md-1 text-start">
-                                                                    <a href="/profile.php" class="text-link">Pier</a>
+                                                                    <a href="/profile.php" class="commenterName text-link">Pier</a>
                                                                 </div>
                                                                 <div class="row-md text-normal-black fs-7 text-start">
                                                                     <p class="m-0">Io di più</p>
                                                                 </div>
                                                                 <div class="row-md-1 text-start">
-                                                                    <span class="text-button fw-bold color-accent fs-7">Rispondi</span>
+                                                                    <span class="replyButton text-button fw-bold color-accent fs-7">Rispondi</span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -289,7 +289,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row-1">
+                    <div class="row-1 bg-primary rounded">
+                        <span id="replyToText" class="bg-primary border-0 fs-7 d-none">Stai rispondendo a: <span id="replyToName" class="text-link"></span></span>
                         <div class="input-group rounded">
                             <input id="commentField" type="text" class="fs-7 form-control bg-primary shadow-sm" placeholder="Insercisci commento...">
                             <span id="commentButton" class="input-group-text bg-primary border-0  fs-7">Commenta</span>
@@ -299,6 +300,19 @@
 
                 showSwal('Commenti', html);
                 $("#commentButton").on("click", publishComment);
+                $(".replyButton").on("click", function (e) {
+                    let parent = $(this).closest('.subcomment');
+
+                    if (parent.length == 0) {
+                        parent = $(this).closest('.comment');
+                    }
+
+                    const commenterName = parent.find(".commenterName:first").text();
+                    $("#replyToText").removeClass("d-none");
+                    $("#replyToName").text(commenterName);
+
+
+                })
         });
     });
 
