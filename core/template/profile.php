@@ -81,7 +81,7 @@
 <script>
     let isShowingAllPosts = true;
 
-    const showAllPosts = (e) => {
+    const showAllPosts = () => {
         if (!isShowingAllPosts) {
             isShowingAllPosts = true;
             $("#allPostsButton").addClass("fw-bold");
@@ -89,7 +89,7 @@
         }
     }
 
-    const showLikedPosts = (e) => {
+    const showLikedPosts = () => {
         if (isShowingAllPosts) {
             isShowingAllPosts = false;
             $("#allPostsButton").removeClass("fw-bold");
@@ -97,12 +97,22 @@
         }
     }
 
-    const showSwalShare = (e) => {
-        let swalContent = '<div class=\'row-md-2 py-2 text-center text-black\'><div class=\'container\'><div class=\'col\'><div class=\'row-9 py-4\'><i class=\'fa-solid fa-share-nodes fa-2xl\'></i></div><div class=\'row-3 pt-3\'><button type=\'button\' class=\'btn btn-bounce rounded-pill bg-accent fw-bold text-white\'>Copia link</button></div></div></div></div>';
+    const showSwalShare = () => {
+        let swalContent = `
+            <div class='row-md-2 py-2 text-center text-black'>
+                <div class='container'>
+                    <div class='col'>
+                        <div class='row-9 py-4'><i class='fa-solid fa-share-nodes fa-2xl'></i></div>
+                        <div class='row-3 pt-3'><button type='button' class='btn btn-bounce rounded-pill bg-accent fw-bold
+                                text-white'>Copia link</button></div>
+                    </div>
+                </div>
+            </div>
+        `;
         showSwalSmall('Condividi Profilo', swalContent);
     }
 
-    const showSwalFollower = (e) => {
+    const showSwalFollower = () => {
         let swalContent = `
             <ul class="list-group modal-content-lg">
                 <li class="list-group-item bg border-0"><a href="#" class="text-link">
@@ -246,7 +256,7 @@
     }
 
 
-    const showSwalFollowed = (e) => {
+    const showSwalFollowed = () => {
         let swalContent = `
             <ul class="list-group modal-content-lg">
                 <li class="list-group-item bg border-0"><a href="#" class="text-link">

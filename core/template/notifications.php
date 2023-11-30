@@ -23,8 +23,8 @@
             </button>
             </div>
             <?php } ?>
-            <p class="fs-6 d-none" id="emptyNotificationsText">Non hai nuove notifiche.</p>
         </div>
+
     </div>
     <div class="row-md-4 pt-3 pb-4" id="footerDiv">
         <button type="button" class="btn btn-bounce rounded-pill bg-secondary fw-bold text-white" id="clearNotificationsButton">Segna come lette</button>
@@ -35,7 +35,7 @@
     $("#clearNotificationsButton").on("click", function() {
         $("#notificationsContainer").empty();
         $("#clearNotificationsButton").addClass("d-none");
-        $("#emptyNotificationsText").removeClass("d-none");
+        $("#notificationsContainer").append('<p class="fs-6" id="emptyNotificationsText">Non hai nuove notifiche.</p>');
     });
 
     const goToGnam = () => {

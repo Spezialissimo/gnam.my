@@ -4,7 +4,7 @@
     </div>
     <!-- search field -->
     <div class="row-md-2 py-2">
-        <div class="input-group rounded">
+        <div class="input-group rounded" id="searchBar">
             <span class="input-group-text bg-primary border-0" id="searchIcon"><i class="fa-solid fa-magnifying-glass"></i></span>
             <input type="text" class="form-control bg-primary shadow-sm" placeholder="Cerca">
     	</div>
@@ -42,7 +42,10 @@
         let modalContent = '';
 
         if (ingredients.length > 0) {
-            modalContent = ingredients.map(ingredient => '<p class="text-black"><button type="button" class="btn btn-bounce bg-primary" onclick="removeIngredient(this)"><i class="fa-solid fa-trash-can"></i></button>&nbsp' + ingredient + '</p>').join('');
+            modalContent = ingredients.map(ingredient => `
+                <p class="text-black"><button type="button" class="btn btn-bounce bg-primary text-black" onclick="removeIngredient(this)">
+                    <i class="fa-solid fa-trash-can"></i></button>&nbsp${ingredient}</p>
+            `).join('');
         }
 
         let html = `<div class="row-md-2 py-2">
@@ -91,7 +94,10 @@
             $("#noIngredientsText").addClass("d-none");
         }
         ingredients.push(newIngredient);
-        $("#searchedIngredients").append('<p class="text-black"><button type="button" class="btn btn-bounce bg-primary" onclick="removeIngredient(this)"><i class="fa-solid fa-trash-can"></i></button>&nbsp' + newIngredient + '</p>');
+        $("#searchedIngredients").append(`
+            <p class="text-black"><button type="button" class="btn btn-bounce bg-primary text-black" onclick="removeIngredient(this)">
+                <i class="fa-solid fa-trash-can"></i></button>&nbsp${newIngredient}</p>
+        `);
         $('#ingredientInput').val('');
         $('#ingredientsCount').html(ingredients.length);
     }
@@ -124,7 +130,7 @@
     $("#ingredientsButton").on("click", openIngredients);
 
     $(document).ready(function(){
-        $(document).keypress(function(e) {
+        $('#searchBar').keypress(function(e) {
             if (e.which === 13){
                 searchVideos();
             }

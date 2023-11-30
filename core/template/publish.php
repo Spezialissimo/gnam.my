@@ -48,7 +48,25 @@
         let modalContent = '';
 
         if (ingredients.length > 0) {
-            modalContent = ingredients.map(ingredient => '<div class="row m-0 p-0 align-items-center text-black"><div class="col-3 m-0 p-1"><p class="m-0 fs-7">' + ingredient + '</p></div><div class="col-3 m-0 p-1"><select class="form-select bg-primary rounded shadow-sm fs-7"><option>1</option><option>2</option><option>3</option></select></div><div class="col-4 m-0 p-1"><select class="form-select bg-primary rounded shadow-sm fs-7"><option>c.ino</option><option>gr.</option><option>qb</option></select></div><div class="col-2 m-0 p-1"><button type="button" class="btn btn-bounce bg-primary text-black fs-7" onclick="removeIngredient(this)"><i class="fa-solid fa-trash-can" aria-hidden="true"></i></button></div></div>').join('');
+            modalContent = ingredients.map(ingredient => `
+                <div class="row m-0 p-0 align-items-center text-black">
+                    <div class="col-3 m-0 p-1">
+                        <p class="m-0 fs-7">${ingredient}</p>
+                    </div>
+                    <div class="col-3 m-0 p-1"><select class="form-select bg-primary rounded shadow-sm fs-7 text-black">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                        </select></div>
+                    <div class="col-4 m-0 p-1"><select class="form-select bg-primary rounded shadow-sm fs-7 text-black">
+                            <option>c.ino</option>
+                            <option>gr.</option>
+                            <option>qb</option>
+                        </select></div>
+                    <div class="col-2 m-0 p-1"><button type="button" class="btn btn-bounce bg-primary text-black fs-7"
+                            onclick="removeIngredient(this)"><i class="fa-solid fa-trash-can" aria-hidden="true"></i></button></div>
+                </div>
+            `).join('');
         }
 
         let html = `
@@ -101,7 +119,25 @@
             $("#noIngredientsText").addClass("d-none");
         }
         ingredients.push(newIngredient);
-        $("#searchedIngredients").append('<div class="row text-black m-0 p-0 align-items-center"><div class="col-3 m-0 p-1"><p class="m-0 fs-7">' + newIngredient + '</p></div><div class="col-3 m-0 p-1"><select class="form-select bg-primary rounded shadow-sm fs-7"><option>1</option><option>2</option><option>3</option></select></div><div class="col-4 m-0 p-1"><select class="form-select bg-primary rounded shadow-sm fs-7"><option>c.ino</option><option>gr.</option><option>qb</option></select></div><div class="col-2 m-0 p-1"><button type="button" class="btn btn-bounce bg-primary text-black fs-7" onclick="removeIngredient(this)"><i class="fa-solid fa-trash-can" aria-hidden="true"></i></button></div></div>');
+        $("#searchedIngredients").append(`
+            <div class="row text-black m-0 p-0 align-items-center text-black">
+                <div class="col-3 m-0 p-1">
+                    <p class="m-0 fs-7">${newIngredient}</p>
+                </div>
+                <div class="col-3 m-0 p-1"><select class="form-select bg-primary rounded shadow-sm fs-7 text-black">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                    </select></div>
+                <div class="col-4 m-0 p-1"><select class="form-select bg-primary rounded shadow-sm fs-7 text-black">
+                        <option>c.ino</option>
+                        <option>gr.</option>
+                        <option>qb</option>
+                    </select></div>
+                <div class="col-2 m-0 p-1"><button type="button" class="btn btn-bounce bg-primary text-black fs-7"
+                        onclick="removeIngredient(this)"><i class="fa-solid fa-trash-can" aria-hidden="true"></i></button></div>
+            </div>
+        `);
         $('#searchIngredients').val('');
         $('#ingredientsCount').html(ingredients.length);
     }
@@ -131,7 +167,10 @@
         let modalContent = '';
 
         if (hashtags.length > 0) {
-            modalContent = hashtags.map(hashtag => '<p class="text-black"><button type="button" class="btn btn-bounce bg-primary" onclick="removeHashtag(this)"><i class="fa-solid fa-trash-can"></i></button>&nbsp#' + hashtag + '</p>').join('');
+            modalContent = hashtags.map(hashtag => `
+                <p class="text-black"><button type="button" class="btn btn-bounce bg-primary text-black" onclick="removeHashtag(this)">
+                    <i class="fa-solid fa-trash-can"></i></button>&nbsp${hashtag}</p>
+            `).join('');
         }
 
         let html = `<div class="row-md-2 py-2">
@@ -187,7 +226,10 @@
             $("#noHashtagsText").addClass("d-none");
         }
         hashtags.push(newHashtag);
-        $("#searchedHashtags").append('<p class="text-black"><button type="button" class="btn btn-bounce bg-primary" onclick="removeHashtag(this)"><i class="fa-solid fa-trash-can"></i></button>&nbsp' + newHashtag + '</p>');
+        $("#searchedHashtags").append(`
+            <p class="text-black"><button type="button" class="btn btn-bounce bg-primary text-black" onclick="removeHashtag(this)">
+                <i class="fa-solid fa-trash-can"></i></button>&nbsp${newHashtag}</p>
+        `);
         $('#hashtagInput').val('');
         $('#hashtagsCount').html(hashtags.length);
     }
@@ -212,7 +254,7 @@
     const publish = () => {
         // TO DO: Handling dati con PHP
 
-        let html = '<div class="row-md-2 py-2 text-center text-black"><i class="fa-solid fa-check fa-2xl"></i></div>';
+        let html = `<div class="row-md-2 py-2 text-center text-black"><i class="fa-solid fa-check fa-2xl"></i></div>`;
         showSwalSmall('Gnam pubblicato', html);
     }
 
