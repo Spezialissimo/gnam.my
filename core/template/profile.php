@@ -35,7 +35,7 @@
     <div class="col-4">
     <button type="button" class="btn btn-bounce rounded-pill bg-primary fw-bold text-black w-100">Segui</button>
     </div>
-    <div class="col-4 ps-0 pe-0">
+    <div class="col-4 px-0">
 
     <button id="shareButton" type="button" class="btn btn-bounce rounded-pill bg-primary fw-bold text-black w-100">Condividi</button>
     </div>
@@ -59,17 +59,17 @@
         <img class="img-grid col" alt="Filippo Champagne" src="assets/prova.png" />
         <img class="img-grid col" alt="Filippo Champagne" src="assets/prova.png" />
     </div>
-    <div class="row mt-3 mb-3">
+    <div class="row my-3">
         <img class="img-grid col" alt="Filippo Champagne" src="assets/prova.png" />
         <img class="img-grid col" alt="Filippo Champagne" src="assets/prova.png" />
         <img class="img-grid col" alt="Filippo Champagne" src="assets/prova.png" />
     </div>
-    <div class="row mt-3 mb-3">
+    <div class="row my-3">
         <img class="img-grid col" alt="Filippo Champagne" src="assets/prova.png" />
         <img class="img-grid col" alt="Filippo Champagne" src="assets/prova.png" />
         <img class="img-grid col" alt="Filippo Champagne" src="assets/prova.png" />
     </div>
-    <div class="row mt-3 mb-3">
+    <div class="row my-3">
         <img class="img-grid col" alt="Filippo Champagne" src="assets/prova.png" />
         <img class="img-grid col" alt="Filippo Champagne" src="assets/prova.png" />
         <img class="img-grid col" alt="Filippo Champagne" src="assets/prova.png" />
