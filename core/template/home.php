@@ -90,6 +90,7 @@
             for (let i = 0; i < videoTags.length; i++) {
                 $(videoTags[i]).removeClass("d-none");
             }
+            $("#videoOverlay").css("background-image", "linear-gradient(0deg, var(--background), rgba(248, 215, 165, 0) 40%)");
             e.stopPropagation();
         }
     }
@@ -104,6 +105,7 @@
             for (let i = 2; i < videoTags.length; i++) {
                 $(videoTags[i]).addClass("d-none");
             }
+            $("#videoOverlay").css("background-image", "linear-gradient(0deg, var(--background), rgba(248, 215, 165, 0) 20%)");
             e.stopPropagation();
         }
     }
@@ -327,7 +329,6 @@
                 })
         });
     });
-
 
     const showSwalShare = () => {
         let swalContent = `
