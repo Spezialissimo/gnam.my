@@ -3,7 +3,7 @@
         <h1 class="fw-bold">Notifiche</h1>
     </div>
     <div id="pageContentDiv" class="row-md-8 overflow-auto align-content-center">
-        <div class="container" id="notificationsContainer">
+        <div class="container h-auto" id="notificationsContainer">
             <?php for ($i=0; $i < 15; $i++) { ?>
             <div class="row m-1 p-0">
                 <button role="button" class="notificationBtn btn btn-bounce rounded-pill bg-primary p-0 notification-pill-text">

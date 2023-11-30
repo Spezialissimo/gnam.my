@@ -207,6 +207,10 @@ input[type=file]::file-selector-button, input[type=file]::file-selector-button:h
 	animation: loadingspin 1s linear infinite;
 }
 
+#notificationsContainer {
+	height: inherit !important;
+}
+
 @keyframes loadingspin {
 	100% {
 		transform: rotate(360deg)
