@@ -61,6 +61,7 @@
                 </div>
             </div>
             <hr>
+            <p id="noIngredientsText" class="d-none">Non hai selezionato ingredienti.</p>
             <div class="text-center" id="searchedIngredients">${modalContent}</div>
             <hr>
             <div class="row m-0 p-0">
@@ -75,6 +76,9 @@
 
         const modal = showSwal('Scegli Ingredienti', html);
 
+        if (ingredients.length == 0) {
+            $("#noIngredientsText").removeClass("d-none");
+        }
         $('#searchIngredientIcon').on("click", addIngredient);
         $('#resetIngredients').on("click", resetIngredients);
         $('#searchIngredients').keypress(function(event) {
@@ -93,6 +97,9 @@
         if (!newIngredient || ingredients.includes(newIngredient)) {
             return;
         }
+        if (ingredients.length == 0) {
+            $("#noIngredientsText").addClass("d-none");
+        }
         ingredients.push(newIngredient);
         $("#searchedIngredients").append('<div class="row text-black m-0 p-0 align-items-center"><div class="col-3 m-0 p-1"><p class="m-0 fs-7">' + newIngredient + '</p></div><div class="col-3 m-0 p-1"><select class="form-select bg-primary rounded shadow-sm fs-7"><option>1</option><option>2</option><option>3</option></select></div><div class="col-4 m-0 p-1"><select class="form-select bg-primary rounded shadow-sm fs-7"><option>c.ino</option><option>gr.</option><option>qb</option></select></div><div class="col-2 m-0 p-1"><button type="button" class="btn btn-bounce bg-primary text-black fs-7" onclick="removeIngredient(this)"><i class="fa-solid fa-trash-can" aria-hidden="true"></i></button></div></div>');
         $('#searchIngredients').val('');
@@ -107,6 +114,9 @@
             ingredients.splice(indexToRemove, 1);
             ingredientEntry.remove();
             $('#ingredientsCount').html(ingredients.length);
+            if (ingredients.length == 0) {
+                $("#noIngredientsText").removeClass("d-none");
+            }
         }
     }
 
@@ -114,6 +124,7 @@
         ingredients = [];
         $("#searchedIngredients").empty();
         $('#ingredientsCount').html(ingredients.length);
+        $("#noIngredientsText").removeClass("d-none");
     }
 
     const openHashtags = () => {
@@ -130,6 +141,7 @@
                         </div>
                     </div>
                     <hr>
+                    <p id="noHashtagsText" class="d-none">Non hai selezionato hashtag.</p>
                     <div class="text-center" id="searchedHashtags">${modalContent}</div>
                     <hr>
                     <div class="row m-0 p-0">
@@ -143,6 +155,9 @@
 
         const modal = showSwal('Scegli hashtag', html);
 
+        if (hashtags.length == 0) {
+            $("#noHashtagsText").removeClass("d-none");
+        }
         $('#searchHashtagIcon').on("click", addHashtag);
         $('#resetHashtags').on("click", resetHashtags);
         $('#hashtagInput').keypress(function(event) {
@@ -168,6 +183,9 @@
         if (hashtags.includes(newHashtag)) {
             return;
         }
+        if (hashtags.length == 0) {
+            $("#noHashtagsText").addClass("d-none");
+        }
         hashtags.push(newHashtag);
         $("#searchedHashtags").append('<p class="text-black"><button type="button" class="btn btn-bounce bg-primary" onclick="removeHashtag(this)"><i class="fa-solid fa-trash-can"></i></button>&nbsp' + newHashtag + '</p>');
         $('#hashtagInput').val('');
@@ -179,12 +197,16 @@
         hashtags.splice(indexToRemove, 1);
         $(element).parent().remove();
         $('#hashtagsCount').html(hashtags.length);
+        if (hashtags.length == 0) {
+            $("#noHashtagsText").removeClass("d-none");
+        }
     }
 
     const resetHashtags = () => {
         hashtags = [];
         $("#searchedHashtags").empty();
         $('#hashtagsCount').html(hashtags.length);
+        $("#noHashtagsText").removeClass("d-none");
     }
 
     const publish = () => {
