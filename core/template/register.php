@@ -1,4 +1,4 @@
-<div class="d-flex flex-column align-items-center p-4 h-100 justify-content-center text-center">
+<div class="align-content-center p-4 h-100 text-center">
     <h1 class="fw-bold">Registrati</h1>
     <input type="text" class="form-control bg-primary rounded shadow-sm mb-3 mt-3" placeholder="Username" id="username" />
     <input type="password" class="form-control bg-primary rounded shadow-sm mb-3 mt-3" placeholder="Password" id="password" />
@@ -24,14 +24,14 @@
             showToast("error", "<p class='fs-6 text-center pt-3'>Le password non coincidono</p>");
             return;
         }
-        
+
         $.post("core/?doRegister", "username=" + username + "&password=" + password + "&rpassword=", (result) => {
             if (result.includes("success")) {
                 showToast("success", "<p class='fs-6 text-center pt-3'>Fatto! Accesso in corso...</p>", "home.php");
             } else showToast("error", "<p class='fs-6 text-center pt-3'>Errore!</p>");
         });
     }
-    
+
     $(document).keypress(function(e) {
         if (e.which == 13) {
             register();

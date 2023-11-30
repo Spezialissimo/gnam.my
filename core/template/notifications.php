@@ -2,7 +2,7 @@
     <div id="headerDiv" class="row-2 py-2">
         <h1 class="fw-bold">Notifiche</h1>
     </div>
-    <div id="pageContentDiv" class="row-md-8 overflow-auto">
+    <div id="pageContentDiv" class="row-md-8 overflow-auto align-content-center">
         <div class="container" id="notificationsContainer">
             <?php for ($i=0; $i < 10; $i++) { ?>
             <div class="row m-1 p-0">

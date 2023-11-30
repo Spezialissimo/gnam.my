@@ -188,3 +188,10 @@ input[type=file]::file-selector-button, input[type=file]::file-selector-button:h
 	max-height: 40vh;
 	overflow: auto;
 }
+
+.align-content-center {
+	display : flex;
+	flex-flow: column;
+	align-items: center;
+	justify-content: center;
+}
