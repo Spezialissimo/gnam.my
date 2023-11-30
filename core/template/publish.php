@@ -22,8 +22,8 @@
         <!-- ingredients -->
         <div class="row-sm pt-2 pb-0 ">
             <!-- Button con counter -->
-            <button type="button" onclick="chooseIngredients();" class="btn btn-bounce rounded-pill bg-secondary fw-bold text-white">
-                Ingredienti <span class="badge rounded-pill bg-accent">0</span>
+            <button type="button" class="btn btn-bounce rounded-pill bg-secondary fw-bold text-white" id="ingredientsButton">
+                Ingredienti <span class="badge rounded-pill bg-accent" id="ingredientsCount">0</span>
             </button>
         </div>
         <!-- tag -->
@@ -41,65 +41,78 @@
 </div>
 
 <script>
-    const chooseIngredients = () => {
+    let hashtags = [];
+    let ingredients = [];
+
+    const openIngredients = () => {
+        let modalContent = '';
+
+        if (ingredients.length > 0) {
+            modalContent = ingredients.map(ingredient => '<div class="row fw-bold m-0 p-0 align-items-center"><div class="col-3 m-0 p-1"><p class="m-0 fs-7">' + ingredient + '</p></div><div class="col-3 m-0 p-1"><select class="form-select bg-primary rounded shadow-sm fs-7"><option>1</option><option>2</option><option>3</option></select></div><div class="col-4 m-0 p-1"><select class="form-select bg-primary rounded shadow-sm fs-7"><option>c.ino</option><option>gr.</option><option>qb</option></select></div><div class="col-2 m-0 p-1"><button type="button" class="btn btn-bounce bg-primary text-black fs-7" onclick="removeIngredient(this)"><i class="fa-solid fa-trash-can" aria-hidden="true"></i></button></div></div>').join('');
+        }
+
         let html = `
             <div class="row-md-2 py-2">
                 <div class="input-group rounded">
                     <span class="input-group-text bg-primary border-0">
                         <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
                     </span>
-                    <input type="text" class="form-control bg-primary shadow-sm" placeholder="Cerca Ingredienti">
+                    <input type="text" class="form-control bg-primary shadow-sm" placeholder="Cerca Ingredienti" id="searchIngredients">
                 </div>
             </div>
             <hr>
-            <div class="text-center" id="searchedIngredients">
-                <div class="row fw-bold m-0 p-0 align-items-center">
-                    <div class="col-3 m-0 p-1">
-                        <p class="m-0 fs-7">Cannella</p>
-                    </div>
-                    <div class="col-3 m-0 p-1">
-                        <select class="form-select bg-primary rounded shadow-sm fs-7">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                        </select>
-                    </div>
-                    <div class="col-4 m-0 p-1">
-                        <select class="form-select bg-primary rounded shadow-sm fs-7">
-                            <option>c.ino</option>
-                            <option>gr.</option>
-                            <option>qb</option>
-                        </select>
-                    </div>
-                    <div class="col-2 m-0 p-1">
-                        <button type="button" class="btn btn-bounce bg-primary text-black fs-7">
-                            <i class="fa-solid fa-trash-can" aria-hidden="true"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
+            <div class="text-center" id="searchedIngredients">${modalContent}</div>
             <hr>
             <div class="row m-0 p-0">
                 <div class="col-6">
-                    <button type="button" class="btn btn-bounce rounded-pill bg-alert fw-bold text-white w-100" id="reset">Reset</button>
+                    <button type="button" class="btn btn-bounce rounded-pill bg-alert fw-bold text-white w-100" onclick="resetIngredients()">Reset</button>
                 </div>
                 <div class="col-6">
-                    <button type="button" class="btn btn-bounce rounded-pill bg-accent fw-bold text-white w-100" id="addElement">Ok</button>
+                    <button type="button" class="btn btn-bounce rounded-pill bg-accent fw-bold text-white w-100" id="okButtonIngredients">Ok</button>
                 </div>
             </div>
         `;
-        showSwal('Scegli Ingredienti', html);
+
+        const modal = showSwal('Scegli Ingredienti', html);
+
+        $('#searchIngredients').keypress(function(event) {
+            if (event.which === 13) {
+                addIngredient();
+            }
+        });
+
+        $('#okButtonIngredients').click(function() {
+            closeSwal();
+        });        
     }
 
-
-    const publish = () => {
-        // TO DO: Handling dati con PHP
-
-        let html = '<div class="row-md-2 py-2 text-center text-black"><i class="fa-solid fa-check fa-2xl"></i></div>';
-        showSwalSmall('Gnam pubblicato', html);
+    const addIngredient = () => {
+        let newIngredient = $('#searchIngredients').val().trim();
+        if (!newIngredient || ingredients.includes(newIngredient)) {
+            return;
+        }
+        ingredients.push(newIngredient);
+        $("#searchedIngredients").append('<div class="row fw-bold m-0 p-0 align-items-center"><div class="col-3 m-0 p-1"><p class="m-0 fs-7">' + newIngredient + '</p></div><div class="col-3 m-0 p-1"><select class="form-select bg-primary rounded shadow-sm fs-7"><option>1</option><option>2</option><option>3</option></select></div><div class="col-4 m-0 p-1"><select class="form-select bg-primary rounded shadow-sm fs-7"><option>c.ino</option><option>gr.</option><option>qb</option></select></div><div class="col-2 m-0 p-1"><button type="button" class="btn btn-bounce bg-primary text-black fs-7" onclick="removeIngredient(this)"><i class="fa-solid fa-trash-can" aria-hidden="true"></i></button></div></div>');
+        $('#searchIngredients').val('');
+        $('#ingredientsCount').html(ingredients.length);
     }
 
-    let hashtags = [];
+    const removeIngredient = (element) => {
+        const ingredientEntry = $(element).closest('.row');
+        const ingredientName = ingredientEntry.find('p').text().trim();
+        const indexToRemove = ingredients.indexOf(ingredientName);
+        if (indexToRemove !== -1) {
+            ingredients.splice(indexToRemove, 1);
+            ingredientEntry.remove();
+            $('#ingredientsCount').html(ingredients.length);
+        }
+    }
+
+    const resetIngredients = () => {
+        ingredients = [];
+        $("#searchedIngredients").empty();
+        $('#ingredientsCount').html(ingredients.length);
+    }
 
     const openHashtags = () => {
         let modalContent = '';
@@ -154,7 +167,6 @@
         $('#hashtagsCount').html(hashtags.length);
     }
 
-
     const removeHashtag = (element) => {
         let indexToRemove = $(element).parent().index();
         hashtags.splice(indexToRemove, 1);
@@ -168,6 +180,14 @@
         $('#hashtagsCount').html(hashtags.length);
     }
 
+    const publish = () => {
+        // TO DO: Handling dati con PHP
+
+        let html = '<div class="row-md-2 py-2 text-center text-black"><i class="fa-solid fa-check fa-2xl"></i></div>';
+        showSwalSmall('Gnam pubblicato', html);
+    }
+
     $("#publishBtn").on("click", publish);
     $("#hashtagsButton").on("click", openHashtags);
+    $("#ingredientsButton").on("click", openIngredients);
 </script>
