@@ -42,7 +42,7 @@
         let modalContent = '';
 
         if (ingredients.length > 0) {
-            modalContent = ingredients.map(ingredient => '<p class="fw-bold"><button type="button" class="btn btn-bounce bg-primary text-black" onclick="removeIngredient(this)"><i class="fa-solid fa-trash-can"></i></button>&nbsp' + ingredient + '</p>').join('');
+            modalContent = ingredients.map(ingredient => '<p class="text-black"><button type="button" class="btn btn-bounce bg-primary" onclick="removeIngredient(this)"><i class="fa-solid fa-trash-can"></i></button>&nbsp' + ingredient + '</p>').join('');
         }
 
         let html = `<div class="row-md-2 py-2">
@@ -91,7 +91,7 @@
             $("#noIngredientsText").addClass("d-none");
         }
         ingredients.push(newIngredient);
-        $("#searchedIngredients").append('<p class="fw-bold"><button type="button" class="btn btn-bounce bg-primary text-black" onclick="removeIngredient(this)"><i class="fa-solid fa-trash-can"></i></button>&nbsp' + newIngredient + '</p>');
+        $("#searchedIngredients").append('<p class="text-black"><button type="button" class="btn btn-bounce bg-primary" onclick="removeIngredient(this)"><i class="fa-solid fa-trash-can"></i></button>&nbsp' + newIngredient + '</p>');
         $('#ingredientInput').val('');
         $('#ingredientsCount').html(ingredients.length);
     }
