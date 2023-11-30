@@ -121,29 +121,81 @@
         ingredients.forEach(i => $("#ingredients").append(i));
     }
 
+    const replyButtonHandler = (e) => {
+        let parent = $(e.target).closest('.subcomment');
+        if (parent.length == 0) {
+            parent = $(e.target).closest('.comment');
+        }
+        const commenterName = parent.find(".commenterName:first").text();
+        $("#replyToDiv").removeClass("d-none");
+        $("#replyToName").text(commenterName);
+        commentToReplyID = parent.attr("id");
+    }
+
+    commentIndex = 3;
     const publishComment = (e) => {
         const username = 'admin';
         const commentText = $("#commentField").val();
-        let comment = `<div id="comment-0 class="container comment">
-                                        <div class="row">
-                                        <div class="col-2 p-0">
-                                        <img class="border border-2 border-dark rounded-circle w-100" alt="Filippo Champagne"
-                                                    src="assets/prova-profile.png" />
-                                            </div>
-                                            <div class="col">
-                                                <div class="row-md-1 text-start">
-                                                    <a href="/profile.php" class="commenterName text-link">` + username + `</a>
-                                                </div>
-                                                <div class="row-md text-normal-black fs-7 text-start">
-                                                <p class="m-0">` + commentText + `</p>
-                                                </div>
-                                                <div class="row-md-1 text-start">
-                                                    <span class="text-button fw-bold color-accent fs-7 ">Rispondi</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>`;
-        $(".comment:last").append(comment);
+        if (commentToReplyID == null) {
+            let comment =
+                `<div id="comment-`+commentIndex+`" class="container comment">
+                    <div class="row">
+                        <div class="col-2 p-0">
+                        <img class="border border-2 border-dark rounded-circle w-100" alt="Filippo Champagne"
+                                    src="assets/prova-profile.png" />
+                        </div>
+                        <div class="col">
+                            <div class="row-md-1 text-start">
+                                <a href="/profile.php" class="commenterName text-link"> ` + username + `</a>
+                            </div>
+                            <div class="row-md text-normal-black fs-7 text-start">
+                            <p class="m-0">` + commentText + `</p>
+                            </div>
+                            <div class="row-md-1 text-start">
+                                <span class="replyButton text-button fw-bold color-accent fs-7 ">Rispondi</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+            $(".comment:last").append(comment);
+        } else {
+            let comment = `
+                <div id="comment-`+commentIndex+`" class="container subcomment">
+                    <div class="row">
+                        <div class="col-1 p-0">
+                            <img class="border border-2 border-dark rounded-circle w-100" alt="Filippo Champagne"
+                                src="assets/prova-profile.png" />
+                        </div>
+                        <div class="col ps-1">
+                            <div class="row-md-1 text-start">
+                                <a href="/profile.php" class="commenterName text-link">` + username + `</a>
+                            </div>
+                            <div class="row-md text-normal-black fs-7 text-start">
+                                <p class="m-0">` + commentText + `</p>
+                            </div>
+                            <div class="row-md-1 text-start">
+                                <span class="replyButton text-button fw-bold color-accent fs-7">Rispondi</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+            if($("#" + commentToReplyID).hasClass("subcomment")) {
+                if ($("#" + commentToReplyID).siblings().length == 0) {
+                    $("#" + commentToReplyID).insertAfter(comment);
+                } else {
+                    $("#" + commentToReplyID).siblings(":last").insertAfter(comment);
+                }
+            } else if($("#" + commentToReplyID).find(".subcomment").length > 0) {
+                $("#" + commentToReplyID).find(".subcomment:last").insertAfter(comment);
+            } else {
+                const prefix = `<div class="row"><div class="col-2"></div><div class="col">`;
+                const suffix = `</div></div>`;
+                $("#" + commentToReplyID).append(prefix + comment + suffix);
+            }
+        }
+
+        commentIndex++;
+        $(".replyButton").on("click", replyButtonHandler);
     }
 
     $(window).on("load", function() {
@@ -261,7 +313,9 @@
                                             <div class="row">
                                                 <div class="col-2"></div>
                                                 <div class="col">
+
                                                 <!-- Sottocommento -->
+
                                                     <div id="comment-2" class="container subcomment">
                                                         <div class="row">
                                                             <div class="col-1 p-0">
@@ -316,17 +370,7 @@
                     $("#replyToDiv").addClass("d-none");
                     commentToReplyID = null;
                 });
-                $(".replyButton").on("click", function (e) {
-                    let parent = $(this).closest('.subcomment');
-
-                    if (parent.length == 0) {
-                        parent = $(this).closest('.comment');
-                    }
-                    const commenterName = parent.find(".commenterName:first").text();
-                    $("#replyToDiv").removeClass("d-none");
-                    $("#replyToName").text(commenterName);
-                    commentToReplyID = parent.attr("id");
-                })
+                $(".replyButton").on("click", replyButtonHandler);
         });
     });
 
