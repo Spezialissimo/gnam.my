@@ -41,12 +41,15 @@
     </div>
   </div>
   <div class="row align-items-center text-center mt-2">
-        <div class="col fw-bold">   <!-- TODO: con JS si swappa classe fw-bold -->
+        <div class="col-1"></div>
+        <div class="col-3 fw-bold">   <!-- TODO: con JS si swappa classe fw-bold -->
             <p class="mb-0">Post</p>
         </div>
-        <div class="col">
+        <div class="col-2"></div>
+        <div class="col-5">
         <p class="mb-0">Gnam Piaciuti</p>
         </div>
+        <div class="col-1"></div>
     </div>
     <div class="row row justify-content-center">
         <hr class="w-75" id="horizontalLine" />
