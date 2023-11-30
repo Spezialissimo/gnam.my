@@ -120,6 +120,31 @@
         ingredients.forEach(i => $("#ingredients").append(i));
     }
 
+    const publishComment = (e) => {
+        const username = 'admin';
+        const commentText = $("#commentField").val();
+        let comment = `<div id="comment-0 class="container comment">
+                                        <div class="row">
+                                        <div class="col-2 p-0">
+                                        <img class="border border-2 border-dark rounded-circle w-100" alt="Filippo Champagne"
+                                                    src="assets/prova-profile.png" />
+                                            </div>
+                                            <div class="col">
+                                                <div class="row-md-1 text-start">
+                                                    <a href="/profile.php" class="text-link">` + username + `</a>
+                                                </div>
+                                                <div class="row-md text-normal-black fs-7 text-start">
+                                                <p class="m-0">` + commentText + `</p>
+                                                </div>
+                                                <div class="row-md-1 text-start">
+                                                    <span class="text-button fw-bold color-accent fs-7 ">Rispondi</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>`;
+        $(".comment:last").append(comment);
+    }
+
     $(window).on("load", function() {
         isDescriptionShort = true;
         $("#videoDescription").on("click", showFullDescription);
@@ -172,6 +197,108 @@
                 likeButton.addClass("color-secondary");
                 likeButton.removeClass("color-alert");
             }
+        });
+
+        $("#commentsButton").on("click", function() {
+            let html = `
+                <div class="container modal-content-lg">
+                    <div class="row-8">
+                        <div class="container>
+                            <div class="col">
+                                <div class="row">
+
+                                    <!-- Commento -->
+                                    <div id="comment-0 class="container comment">
+                                        <div class="row">
+                                            <div class="col-2 p-0">
+                                            <img class="border border-2 border-dark rounded-circle w-100" alt="Filippo Champagne"
+                                                        src="assets/prova-profile.png" />
+                                            </div>
+                                            <div class="col">
+                                                <div class="row-md-1 text-start">
+                                                    <a href="/profile.php" class="text-link">CiccioGamer89</a>
+                                                </div>
+                                                <div class="row-md text-normal-black fs-7 text-start">
+                                                <p class="m-0">ad un certo punto ho scritto: con tutto quello che mi è costata quella
+                                                        crostata, e
+                                                        guardando,
+                                                        ho notato che costata... e crostata... hanno di differenza solo una lettera, e questo
+                                                        per me
+                                                        è incredibile cioè, va bene che 1+1 fa 2, ma questa è una scoperta pazzesca cioè...
+                                                        ragazzi... vi potete vantare tutta una vita, l\'abbiamo scoperta noi paguri questa
+                                                        cosa...
+                                                        costata... cro cioè crostata... ragazzi è pazzesco, pazzesco</p>
+                                                </div>
+                                                <div class="row-md-1 text-start">
+                                                    <span class="text-button fw-bold color-accent fs-7 ">Rispondi</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Commento con risposta -->
+                                    <div id="comment-1" class="container comment">
+                                        <div class="row">
+                                            <div class="col-2 p-0">
+                                                <img class="border border-2 border-dark rounded-circle w-100" alt="Filippo Champagne"
+                                                        src="assets/prova-profile.png" />
+                                                        </div>
+                                                <div class="col">
+                                                    <div class="row-md-1 text-start">
+                                                        <a href="/profile.php" class="text-link">Pello</a>
+                                                        </div>
+                                                        <div class="row-md text-normal-black fs-7 text-start">
+                                                        <p class="m-0">sono gay sono gay sono gay sono gay sono gay sono gay sono gay sono gay sono
+                                                        gay sono gay sono gay sono gay sono gay sono gay sono gay sono gay sono gay sono gay
+                                                            sono gay sono gay sono gay sono gay sono</p>
+                                                            </div>
+                                                            <div class="row-md-1 text-start">
+                                                        <span class="text-button fw-bold color-accent fs-7">Rispondi</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-2"></div>
+                                                <div class="col">
+                                                <!-- Sottocommento -->
+                                                    <div id="subcomment-0" class="container subcomment">
+                                                        <div class="row">
+                                                            <div class="col-1 p-0">
+                                                                <img class="border border-2 border-dark rounded-circle w-100" alt="Filippo Champagne"
+                                                                    src="assets/prova-profile.png" />
+                                                            </div>
+                                                            <div class="col ps-1">
+                                                                <div class="row-md-1 text-start">
+                                                                    <a href="/profile.php" class="text-link">Pier</a>
+                                                                </div>
+                                                                <div class="row-md text-normal-black fs-7 text-start">
+                                                                    <p class="m-0">Io di più</p>
+                                                                </div>
+                                                                <div class="row-md-1 text-start">
+                                                                    <span class="text-button fw-bold color-accent fs-7">Rispondi</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-1">
+                        <div class="input-group rounded">
+                            <input id="commentField" type="text" class="fs-7 form-control bg-primary shadow-sm" placeholder="Insercisci commento...">
+                            <span id="commentButton" class="input-group-text bg-primary border-0  fs-7">Commenta</span>
+                        </div>
+                    </div>
+                </div>`;
+
+                showSwal('Commenti', html);
+                $("#commentButton").on("click", publishComment);
         });
     });
 
