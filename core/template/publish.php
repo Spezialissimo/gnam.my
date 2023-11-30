@@ -54,7 +54,7 @@
         let html = `
             <div class="row-md-2 py-2">
                 <div class="input-group rounded">
-                    <span class="input-group-text bg-primary border-0">
+                    <span class="input-group-text bg-primary border-0" id="searchIngredientIcon">
                         <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
                     </span>
                     <input type="text" class="form-control bg-primary shadow-sm" placeholder="Cerca Ingredienti" id="searchIngredients">
@@ -75,6 +75,7 @@
 
         const modal = showSwal('Scegli Ingredienti', html);
 
+        $('#searchIngredientIcon').on("click", addIngredient);
         $('#searchIngredients').keypress(function(event) {
             if (event.which === 13) {
                 addIngredient();
@@ -83,7 +84,7 @@
 
         $('#okButtonIngredients').click(function() {
             closeSwal();
-        });        
+        });
     }
 
     const addIngredient = () => {
@@ -123,7 +124,7 @@
 
         let html = `<div class="row-md-2 py-2">
                         <div class="input-group rounded">
-                            <span class="input-group-text bg-primary border-0"><i class="fa-solid fa-magnifying-glass"></i></span>
+                            <span class="input-group-text bg-primary border-0" id="searchHashtagIcon"><i class="fa-solid fa-magnifying-glass"></i></span>
                             <input type="text" id="hashtagInput" class="form-control bg-primary shadow-sm" placeholder="Cerca Hashtag">
                         </div>
                     </div>
@@ -141,6 +142,7 @@
 
         const modal = showSwal('Scegli hashtag', html);
 
+        $('#searchHashtagIcon').on("click", addHashtag);
         $('#hashtagInput').keypress(function(event) {
             if (event.which === 13) {
                 addHashtag();
