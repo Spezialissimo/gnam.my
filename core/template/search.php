@@ -5,7 +5,7 @@
     <!-- search field -->
     <div class="row-md-2 py-2">
         <div class="input-group rounded">
-            <span class="input-group-text bg-primary border-0"><i class="fa-solid fa-magnifying-glass"></i></span>
+            <span class="input-group-text bg-primary border-0" id="searchIcon"><i class="fa-solid fa-magnifying-glass"></i></span>
             <input type="text" class="form-control bg-primary shadow-sm" placeholder="Cerca">
     	</div>
     </div>
@@ -47,7 +47,7 @@
 
         let html = `<div class="row-md-2 py-2">
                         <div class="input-group rounded">
-                            <span class="input-group-text bg-primary border-0"><i class="fa-solid fa-magnifying-glass"></i></span>
+                            <span class="input-group-text bg-primary border-0" id="searchIngredientsIcon"><i class="fa-solid fa-magnifying-glass"></i></span>
                             <input type="text" id="ingredientInput" class="form-control bg-primary shadow-sm" placeholder="Cerca Ingredienti">
                         </div>
                     </div>
@@ -65,6 +65,7 @@
 
         const modal = showSwal('Scegli ingredienti', html);
 
+        $('#searchIngredientsIcon').on("click", addIngredient);
         $('#ingredientInput').keypress(function(event) {
             if (event.which === 13) {
                 addIngredient();
@@ -100,17 +101,22 @@
         $('#ingredientsCount').html(ingredients.length);
     }
 
+    const searchVideos = () => {
+        $('#loaderDiv').addClass('d-flex').removeClass('d-none');
+        setTimeout(function() {
+            $('#loaderDiv').removeClass('d-flex').addClass('d-none');
+            $('#pageContentDiv').removeClass('d-none').addClass('d-inline-block');
+        }, 1000);
+    }
+
     $("#ingredientsButton").on("click", openIngredients);
 
     $(document).ready(function(){
-        $(document).keypress(function(event){
-            if(event.which === 13){
-                $('#loaderDiv').addClass('d-flex').removeClass('d-none');
-                setTimeout(function() {
-                    $('#loaderDiv').removeClass('d-flex').addClass('d-none');
-                    $('#pageContentDiv').removeClass('d-none').addClass('d-inline-block');
-                }, 1000);
+        $(document).keypress(function(e) {
+            if (e.which === 13){
+                searchVideos();
             }
         });
+        $('#searchIcon').on("click", searchVideos);
     });
 </script>
