@@ -17,7 +17,12 @@
         </button>
     </div>
 </div>
-<div class="container text-center font-text overflow-auto" id="pageContentDiv">
+
+<div class="d-none justify-content-center align-items-center mt-5" id="loaderDiv">
+  <div class="loadingspinner"></div>
+</div>
+
+<div class="d-none container text-center font-text overflow-auto" id="pageContentDiv">
     <!-- search results content -->
         <?php
             for ($i=0; $i < 10; $i++) {
@@ -96,4 +101,16 @@
     }
 
     $("#ingredientsButton").on("click", openIngredients);
+
+    $(document).ready(function(){
+        $(document).keypress(function(event){
+            if(event.which === 13){
+                $('#loaderDiv').addClass('d-flex').removeClass('d-none');
+                setTimeout(function() {
+                    $('#loaderDiv').removeClass('d-flex').addClass('d-none');
+                    $('#pageContentDiv').removeClass('d-none').addClass('d-inline-block');
+                }, 1000);
+            }
+        });
+    });
 </script>

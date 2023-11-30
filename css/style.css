@@ -195,3 +195,20 @@ input[type=file]::file-selector-button, input[type=file]::file-selector-button:h
 	align-items: center;
 	justify-content: center;
 }
+
+.loadingspinner {
+	pointer-events: none;
+	width: 2.5em;
+	height: 2.5em;
+	border: 0.4em solid transparent;
+	border-color: var(--primary);
+	border-top-color: var(--accent);
+	border-radius: 50%;
+	animation: loadingspin 1s linear infinite;
+}
+
+@keyframes loadingspin {
+	100% {
+		transform: rotate(360deg)
+	}
+}
