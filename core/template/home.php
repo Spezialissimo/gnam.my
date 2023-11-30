@@ -12,9 +12,7 @@
                     </div>
                 </a>
                 <div class="row" id="videoDescription">
-                    <span class="fs-7 m-0" id="videoDescriptionShort">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis blandit, tortor ut gravida pellentesque, risus.
-                        <span class="fs-7 m-0 color-accent">Leggi di piú...</span>
-                    </span>
+                    <p class="fs-7 m-0" id="videoDescriptionShort">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis blandit, tortor ut gravida pellentesque, risus. Leggi di piú...</p>
                     <p class="fs-7 m-0 d-none" id="videoDescriptionLong">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin malesuada pharetra odio lobortis vulputate. Aliquam maximus ac nibh semper placerat. Maecenas pellentesque elementum auctor. Cras vel venenatis urna.</p>
                 </div>
                 <div class="row" id="videoTags">
@@ -92,7 +90,6 @@
             for (let i = 0; i < videoTags.length; i++) {
                 $(videoTags[i]).removeClass("d-none");
             }
-            $("#videoOverlay").css("background-image", "linear-gradient(0deg, var(--background), rgba(248, 215, 165, 0) 40%)");
             e.stopPropagation();
         }
     }
@@ -107,7 +104,6 @@
             for (let i = 2; i < videoTags.length; i++) {
                 $(videoTags[i]).addClass("d-none");
             }
-            $("#videoOverlay").css("background-image", "linear-gradient(0deg, var(--background), rgba(248, 215, 165, 0) 30%)");
             e.stopPropagation();
         }
     }
@@ -183,23 +179,31 @@
                         </div>
                     </div>
                 </div>`;
-            if($("#" + commentToReplyID).hasClass("subcomment")) {
-                if ($("#" + commentToReplyID).siblings().length == 0) {
-                    $("#" + commentToReplyID).insertAfter(comment);
-                } else {
-                    $("#" + commentToReplyID).siblings(":last").insertAfter(comment);
-                }
-            } else if($("#" + commentToReplyID).find(".subcomment").length > 0) {
-                $("#" + commentToReplyID).find(".subcomment:last").insertAfter(comment);
+
+            const $commentToReply = $("#" + commentToReplyID);
+            if ($commentToReply.hasClass("subcomment")) {
+                const $parent = $commentToReply.parent();
+                const shouldAppend = $commentToReply.siblings().length === 0;
+                shouldAppend ? $parent.append(comment) : $parent.append(comment);
+            } else if ($commentToReply.find(".subcomment").length > 0) {
+                $commentToReply.find(".subcomment:last").parent().append(comment);
             } else {
                 const prefix = `<div class="row"><div class="col-2"></div><div class="col">`;
                 const suffix = `</div></div>`;
-                $("#" + commentToReplyID).append(prefix + comment + suffix);
+                $commentToReply.append(prefix + comment + suffix);
             }
+
         }
 
         commentIndex++;
+        hideReplyToBox();
+        $("#commentField").val("");
         $(".replyButton").on("click", replyButtonHandler);
+    }
+
+    const hideReplyToBox = (e) => {
+        $("#replyToDiv").addClass("d-none");
+        commentToReplyID = null;
     }
 
     $(window).on("load", function() {
@@ -209,9 +213,11 @@
         $("#videoOverlay").on("click", showShortDescription);
         $("#recipeButton").on("click", function() {
             let html = `
-                <div class="d-flex align-items-center justify-content-center mb-2">
-                    <p class="m-0 me-2 fs-6">Numero di porzioni:</p>
-                    <div class="mx-0 ps-0">
+                <div class="row my-2">
+                    <div class="col-8 d-flex align-items-center justify-content-end">
+                        <p class="m-0 fs-6">Numero di porzioni:</p>
+                    </div>
+                    <div class="col-3 mx-0 ps-0">
                         <select class="form-select bg-primary rounded shadow-sm fs-6" id="portionsSelect">
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -219,12 +225,12 @@
                         </select>
                     </div>
                 </div>
-                <div class="row mx-0 my-2">
-                    <div class="col-6 d-flex align-items-center justify-content-start">
-                        <p class="m-0 p-0 fs-6 fw-bold">Nome:</p>
+                <div class="row my-2">
+                    <div class="col-6 d-flex align-items-center justify-content-start ps-3">
+                        <p class="m-0 fs-6 fw-bold">Nome:</p>
                     </div>
-                    <div class="col-6 d-flex align-items-center justify-content-end">
-                        <p class="m-0 p-0 fs-6 fw-bold">Quantità</p>
+                    <div class="col-6 d-flex align-items-center justify-content-end pe-3">
+                        <p class="m-0 fs-6 fw-bold">Quantità</p>
                     </div>
                 </div>
                 <hr class="my-2">
@@ -368,27 +374,15 @@
 
                 showSwal('Commenti', html);
                 $("#commentButton").on("click", publishComment);
-                $("#closeReplyTo").on("click", function (e) {
-                    $("#replyToDiv").addClass("d-none");
-                    commentToReplyID = null;
-                });
+                $("#closeReplyTo").on("click", hideReplyToBox);
                 $(".replyButton").on("click", replyButtonHandler);
         });
     });
 
-    const showSwalShare = () => {
-        let swalContent = `
-            <div class='row-md-2 py-2 text-center text-black'>
-                <div class='container'>
-                    <div class='col'>
-                        <div class='row-9 py-4'><i class='fa-solid fa-share-nodes fa-2xl'></i></div>
-                        <div class='row-3 pt-3'><button type='button' class='btn btn-bounce rounded-pill bg-accent fw-bold
-                                text-white'>Copia link</button></div>
-                    </div>
-                </div>
-            </div>
-        `;
-        showSwalSmall('<p class="fs-5">Condividi Gnam</p>', swalContent);
+
+    const showSwalShare = (e) => {
+        let swalContent = '<div class=\'row-md-2 py-2 text-center text-black\'><div class=\'container\'><div class=\'col\'><div class=\'row-9 py-4\'><i class=\'fa-solid fa-share-nodes fa-2xl\'></i></div><div class=\'row-3 pt-3\'><button type=\'button\' class=\'btn btn-bounce rounded-pill bg-accent fw-bold text-white\'>Copia link</button></div></div></div></div>';
+        showSwalSmall('Condividi Gnam', swalContent);
     }
 
     $("#shareButton").on("click", showSwalShare);
