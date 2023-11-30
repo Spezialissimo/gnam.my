@@ -12,7 +12,9 @@
                     </div>
                 </a>
                 <div class="row" id="videoDescription">
-                    <p class="fs-7 m-0" id="videoDescriptionShort">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis blandit, tortor ut gravida pellentesque, risus. Leggi di piú...</p>
+                    <span class="fs-7 m-0" id="videoDescriptionShort">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis blandit, tortor ut gravida pellentesque, risus.
+                        <span class="fs-7 m-0 color-accent">Leggi di piú...</span>
+                    </span>
                     <p class="fs-7 m-0 d-none" id="videoDescriptionLong">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin malesuada pharetra odio lobortis vulputate. Aliquam maximus ac nibh semper placerat. Maecenas pellentesque elementum auctor. Cras vel venenatis urna.</p>
                 </div>
                 <div class="row" id="videoTags">
@@ -105,7 +107,7 @@
             for (let i = 2; i < videoTags.length; i++) {
                 $(videoTags[i]).addClass("d-none");
             }
-            $("#videoOverlay").css("background-image", "linear-gradient(0deg, var(--background), rgba(248, 215, 165, 0) 20%)");
+            $("#videoOverlay").css("background-image", "linear-gradient(0deg, var(--background), rgba(248, 215, 165, 0) 30%)");
             e.stopPropagation();
         }
     }

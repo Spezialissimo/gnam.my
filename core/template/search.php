@@ -4,7 +4,7 @@
     </div>
     <!-- search field -->
     <div class="row-md-2 py-2">
-        <div class="input-group rounded">
+        <div class="input-group rounded" id="searchBar">
             <span class="input-group-text bg-primary border-0" id="searchIcon"><i class="fa-solid fa-magnifying-glass"></i></span>
             <input type="text" class="form-control bg-primary shadow-sm" placeholder="Cerca">
     	</div>
@@ -130,7 +130,7 @@
     $("#ingredientsButton").on("click", openIngredients);
 
     $(document).ready(function(){
-        $(document).keypress(function(e) {
+        $('#searchBar').keypress(function(e) {
             if (e.which === 13){
                 searchVideos();
             }
