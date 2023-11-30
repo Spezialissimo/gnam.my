@@ -65,7 +65,7 @@
             <hr>
             <div class="row m-0 p-0">
                 <div class="col-6">
-                    <button type="button" class="btn btn-bounce rounded-pill bg-alert fw-bold text-white w-100" onclick="resetIngredients()">Reset</button>
+                    <button type="button" class="btn btn-bounce rounded-pill bg-alert fw-bold text-white w-100" id="resetIngredients">Reset</button>
                 </div>
                 <div class="col-6">
                     <button type="button" class="btn btn-bounce rounded-pill bg-accent fw-bold text-white w-100" id="okButtonIngredients">Ok</button>
@@ -76,6 +76,7 @@
         const modal = showSwal('Scegli Ingredienti', html);
 
         $('#searchIngredientIcon').on("click", addIngredient);
+        $('#resetIngredients').on("click", resetIngredients);
         $('#searchIngredients').keypress(function(event) {
             if (event.which === 13) {
                 addIngredient();
@@ -133,7 +134,7 @@
                     <hr>
                     <div class="row m-0 p-0">
                         <div class="col-6">
-                            <button type="button" class="btn btn-bounce rounded-pill bg-alert fw-bold text-white w-100" onclick="resetHashtags()">Reset</button>
+                            <button type="button" class="btn btn-bounce rounded-pill bg-alert fw-bold text-white w-100" id="resetHashtags">Reset</button>
                         </div>
                         <div class="col-6">
                             <button type="button" id="okButton" class="btn btn-bounce rounded-pill bg-accent fw-bold text-white w-100">Ok</button>
@@ -143,6 +144,7 @@
         const modal = showSwal('Scegli hashtag', html);
 
         $('#searchHashtagIcon').on("click", addHashtag);
+        $('#resetHashtags').on("click", resetHashtags);
         $('#hashtagInput').keypress(function(event) {
             if (event.which === 13) {
                 addHashtag();

@@ -3,7 +3,7 @@
     <input type="text" class="form-control bg-primary rounded shadow-sm mb-3 mt-3" placeholder="Username" id="username" />
     <input type="password" class="form-control bg-primary rounded shadow-sm mb-3 mt-3" placeholder="Password" id="password" />
     <input type="password" class="form-control bg-primary rounded shadow-sm mb-3 mt-3" placeholder="Conferma Password" id="rpassword" />
-    <button type="button" class="btn btn-bounce rounded-pill bg-accent fw-bold text-white w-50 mt-3" onclick="register();">Registrati</button>
+    <button type="button" class="btn btn-bounce rounded-pill bg-accent fw-bold text-white w-50 mt-3" id="registerButton">Registrati</button>
     <hr class="mt-3">
     <p class="h6 fw-bold">Hai già un account?</p>
     <a href="login.php" role="button" class="btn btn-bounce rounded-pill bg-accent fw-bold text-white">Accedi</a>
@@ -37,4 +37,6 @@
             register();
         }
     });
+
+    $("#registerButton").on("click", register);
 </script>
