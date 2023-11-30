@@ -77,6 +77,8 @@
 
 <script>
     let isDescriptionShort = true;
+    let selectedPortions = 1;
+
     const showFullDescription = (e) => {
         if (isDescriptionShort) {
             isDescriptionShort = false;
@@ -105,11 +107,62 @@
         }
     }
 
+    const drawAllIngredients = (e) => {
+        let ingredients = [`
+            <div class="row m-0 p-0 align-items-center">
+                <div class="col-8 m-0 p-1 d-flex align-items-center justify-content-start">
+                    <p class="m-0 fs-6">Cannella</p>
+                </div>
+            <div class="col-4 m-0 p-1 d-flex align-items-center justify-content-end">
+                    <p class="m-0 fs-6 fw-bold ">50 gr.</p>
+                </div>
+            </div>`];
+        ingredients.forEach(i => $("#ingredients").append(i));
+    }
+
     $(window).on("load", function() {
         isDescriptionShort = true;
         $("#videoDescription").on("click", showFullDescription);
         $("#videoTags").on("click", showFullDescription);
         $("#videoOverlay").on("click", showShortDescription);
+        $("#recipeButton").on("click", function() {
+            let html = `
+                <div class="row my-2">
+                    <div class="col-8 d-flex align-items-center justify-content-end">
+                        <p class="m-0 fs-6">Numero di porzioni:</p>
+                    </div>
+                    <div class="col-3 mx-0 ps-0">
+                        <select class="form-select bg-primary rounded shadow-sm fs-6" id="portionsSelect">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row my-2">
+                    <div class="col-6 d-flex align-items-center justify-content-start ps-3">
+                        <p class="m-0 fs-6 fw-bold">Nome:</p>
+                    </div>
+                    <div class="col-6 d-flex align-items-center justify-content-end pe-3">
+                        <p class="m-0 fs-6 fw-bold">Quantità</p>
+                    </div>
+                </div>
+                <hr class="my-2">
+                <div class="text-center" id="ingredients">
+                </div>
+                <hr class="m-0 mt-2">
+                </div>
+            `;
+            showSwal('Ricetta', html);
+            $('#portionsSelect option[value="' + selectedPortions + '"]').attr("selected", true);
+            $("#portionsSelect").on("change", function(e) {
+                $("#ingredients").empty();
+                selectedPortions = this.value;
+                drawAllIngredients();
+            });
+            drawAllIngredients();
+        });
+
         $("#likeButton").on("click", function() {
             let likeButton = $("#likeButton").children().children();
             if (likeButton.hasClass("color-secondary")) {
