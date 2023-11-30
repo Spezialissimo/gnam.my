@@ -42,11 +42,11 @@
   </div>
   <div class="row align-items-center text-center mt-2">
         <div class="col-1"></div>
-        <div class="col-3 fw-bold">   <!-- TODO: con JS si swappa classe fw-bold -->
+        <div class="col-3 fw-bold" id="allPostsButton">
             <p class="mb-0">Post</p>
         </div>
         <div class="col-2"></div>
-        <div class="col-5">
+        <div class="col-5" id="likedPostsButton">
         <p class="mb-0">Gnam Piaciuti</p>
         </div>
         <div class="col-1"></div>
@@ -80,11 +80,27 @@
 </div>
 
 <script>
+    let isShowingAllPosts = true;
+
+    const showAllPosts = (e) => {
+        if (!isShowingAllPosts) {
+            isShowingAllPosts = true;
+            $("#allPostsButton").addClass("fw-bold");
+            $("#likedPostsButton").removeClass("fw-bold");
+        }
+    }
+
+    const showLikedPosts = (e) => {
+        if (isShowingAllPosts) {
+            isShowingAllPosts = false;
+            $("#allPostsButton").removeClass("fw-bold");
+            $("#likedPostsButton").addClass("fw-bold");
+        }
+    }
 
     const showSwalShare = (e) => {
         let swalContent = '<div class=\'row-md-2 py-2 text-center text-black\'><div class=\'container\'><div class=\'col\'><div class=\'row-9 py-4\'><i class=\'fa-solid fa-share-nodes fa-2xl\'></i></div><div class=\'row-3 pt-3\'><button type=\'button\' class=\'btn btn-bounce rounded-pill bg-accent fw-bold text-white\'>Copia link</button></div></div></div></div>';
         showSwalSmall('Condividi Profilo', swalContent);
-
     }
 
     const showSwalFollower = (e) => {
@@ -101,4 +117,6 @@
     $("#followerButton").on("click", showSwalFollower);
     $("#followedButton").on("click", showSwalFollowed);
     $("#shareButton").on("click", showSwalShare);
+    $("#allPostsButton").on("click", showAllPosts);
+    $("#likedPostsButton").on("click", showLikedPosts);
 </script>
