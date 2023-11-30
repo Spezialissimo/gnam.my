@@ -110,6 +110,10 @@ input[type=file]::file-selector-button, input[type=file]::file-selector-button:h
 	font-size: 150% !important;
 }
 
+.swal2-toast {
+	height: 18vh !important;
+}
+
 .text-button {
 	border: none;
 	background-color: transparent;

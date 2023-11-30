@@ -23,6 +23,29 @@ const showSwalSmall = (title, html) => {
     })
 };
 
+const showToast = (type, message, redirectURL) => {
+    const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        }
+    });
+    Toast.fire({
+        icon: type,
+        title: message
+    });
+    if (redirectURL) {
+        setTimeout(() => {
+            window.location.href = redirectURL;
+        }, 3000);
+    }
+}
+
 const closeSwal = () => {
     Swal.close();
 };
