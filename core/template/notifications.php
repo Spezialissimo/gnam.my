@@ -4,7 +4,7 @@
     </div>
     <div id="pageContentDiv" class="row-md-8 overflow-auto align-content-center">
         <div class="container" id="notificationsContainer">
-            <?php for ($i=0; $i < 10; $i++) { ?>
+            <?php for ($i=0; $i < 15; $i++) { ?>
             <div class="row m-1 p-0">
                 <button role="button" class="notificationBtn btn btn-bounce rounded-pill bg-primary p-0 notification-pill-text">
                     <div class="container">
@@ -23,11 +23,11 @@
             </button>
             </div>
             <?php } ?>
-        </div>
-        <div class="row-md-4 py-2">
             <p class="fs-6 d-none" id="emptyNotificationsText">Non hai nuove notifiche.</p>
-            <button type="button" class="btn btn-bounce rounded-pill bg-secondary fw-bold text-white" id="clearNotificationsButton">Segna come lette</button>
         </div>
+    </div>
+    <div class="row-md-4 pt-3 pb-4" id="footerDiv">
+        <button type="button" class="btn btn-bounce rounded-pill bg-secondary fw-bold text-white" id="clearNotificationsButton">Segna come lette</button>
     </div>
 </div>
 

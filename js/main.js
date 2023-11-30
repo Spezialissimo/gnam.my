@@ -61,7 +61,12 @@ const resizeContentDiv = () => {
     if (pageContent.length > 0) {
         let navbar = $("#navbarDiv");
         let header = $("#headerDiv");
-        pageContent.css("height", window.innerHeight - navbar.outerHeight() - header.outerHeight() + "px");
+        let footer = $("#footerDiv");
+        if (footer.length > 0) {
+            pageContent.css("height", window.innerHeight - navbar.outerHeight() - header.outerHeight() - footer.outerHeight() + "px");
+        } else {
+            pageContent.css("height", window.innerHeight - navbar.outerHeight() - header.outerHeight() + "px");
+        }
     }
 };
 
