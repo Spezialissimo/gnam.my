@@ -81,6 +81,7 @@
     let isDescriptionShort = true;
     let selectedPortions = 1;
     let commentToReplyID = null;
+    let commentIndex = 3;
 
     const showFullDescription = (e) => {
         if (isDescriptionShort) {
@@ -112,7 +113,7 @@
         }
     }
 
-    const drawAllIngredients = (e) => {
+    const drawAllIngredients = () => {
         let ingredients = [`
             <div class="row m-0 p-0 align-items-center">
                 <div class="col-8 m-0 p-1 d-flex align-items-center justify-content-start">
@@ -135,11 +136,11 @@
         $("#replyToName").text(commenterName);
         commentToReplyID = parent.attr("id");
     }
-
-    commentIndex = 3;
-    const publishComment = (e) => {
+    
+    const publishComment = () => {
         const username = 'admin';
         const commentText = $("#commentField").val();
+        if(commentText.length === 0) return;
         if (commentToReplyID == null) {
             let comment =
                 `<div id="comment-`+commentIndex+`" class="container comment">
@@ -205,7 +206,7 @@
         $(".replyButton").on("click", replyButtonHandler);
     }
 
-    const hideReplyToBox = (e) => {
+    const hideReplyToBox = () => {
         $("#replyToDiv").addClass("d-none");
         commentToReplyID = null;
     }
@@ -381,8 +382,7 @@
         });
     });
 
-
-    const showSwalShare = (e) => {
+    const showSwalShare = () => {
         let swalContent = `
             <div class='row-md-2 py-2 text-center text-black'>
                 <div class='container'>
