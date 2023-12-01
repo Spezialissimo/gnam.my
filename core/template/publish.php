@@ -94,13 +94,13 @@
 
         const modal = showSwal('Scegli Ingredienti', html);
         ingredients.forEach(ingredient => {
-            $('#' + ingredient[0] + 'Quantity').val(ingredient[1]);
-            $('#' + ingredient[0] + 'Scale').val(ingredient[2]);
-            $('#' + ingredient[0] + 'Quantity').on("change", function() {
-                ingredient[1] = $('#' + ingredient[0] + 'Quantity').val();
+            $('[id="' + ingredient[0] + 'Quantity"]').val(ingredient[1]);
+            $('[id="' + ingredient[0] + 'Scale"]').val(ingredient[2]);
+            $('[id="' + ingredient[0] + 'Quantity"]').on("change", function() {
+                ingredient[1] = $('[id="' + ingredient[0] + 'Quantity"]').val();
             });
-            $('#' + ingredient[0] + 'Scale').on("change", function() {
-                ingredient[2] = $('#' + ingredient[0] + 'Scale').val();
+            $('[id="' + ingredient[0] + 'Scale"]').on("change", function() {
+                ingredient[2] = $('[id="' + ingredient[0] + 'Scale"]').val();
             });
         });
 
@@ -147,13 +147,13 @@
         if (ingredients.length == 0) {
             $("#noIngredientsText").addClass("d-none");
         }
-        ingredients.push([newIngredient, $('#' + newIngredient + 'Quantity').val(), $('#' + newIngredient + 'Scale').val()]);
+        ingredients.push([newIngredient, $('[id="' + newIngredient + 'Quantity"]').val(), $('[id="' + newIngredient + 'Scale"]').val()]);
         let newIngredientIndex = ingredients.length - 1;
-        $('#' + newIngredient + 'Quantity').on("change", function() {
-            ingredients[newIngredientIndex][1] = $('#' + newIngredient + 'Quantity').val();
+        $('[id="' + newIngredient + 'Quantity"]').on("change", function() {
+            ingredients[newIngredientIndex][1] = $('[id="' + newIngredient + 'Quantity"]').val();
         });
-        $('#' + newIngredient + 'Scale').on("change", function() {
-            ingredients[newIngredientIndex][2] = $('#' + newIngredient + 'Scale').val();
+        $('[id="' + newIngredient + 'Scale"]').on("change", function() {
+            ingredients[newIngredientIndex][2] = $('[id="' + newIngredient + 'Scale"]').val();
         });
         $('#searchIngredients').val('');
         $('#ingredientsCount').html(ingredients.length);
