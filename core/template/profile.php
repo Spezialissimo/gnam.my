@@ -423,10 +423,17 @@
         `;
         showSwal('Impostazioni', swalContent);
 
-        $(document).ready(function(){
+        $(document).ready(function() {
             $('#saveButton').hide();
-            $('input[type=file]').change(function(){
+            $('input[type=file]').change(function() {
                 $('#saveButton').show();
+            });
+
+            $('#saveButton').click(function() {
+                // TODO Upload foto
+                
+                closeSwal();
+                showToast('success', '<p class="fs-5">Foto profilo cambiata con successo!</p>');
             });
         });
     }
