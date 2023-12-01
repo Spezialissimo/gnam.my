@@ -158,16 +158,13 @@
     }
 
     const removeIngredient = (element) => {
-        const ingredientEntry = $(element).closest('.row');
-        const ingredientName = ingredientEntry.find('p').text().trim();
-        const indexToRemove = ingredients.indexOf(ingredientName);
-        if (indexToRemove !== -1) {
-            ingredients.splice(indexToRemove, 1);
-            ingredientEntry.remove();
-            $('#ingredientsCount').html(ingredients.length);
-            if (ingredients.length == 0) {
-                $("#noIngredientsText").removeClass("d-none");
-            }
+        let ingredientRow = $(element).closest('.row');
+        let ingredientName = ingredientRow.find('p').text().trim();
+        ingredients = ingredients.filter(ingredient => ingredient[0] !== ingredientName);
+        ingredientRow.remove();
+        $('#ingredientsCount').html(ingredients.length);
+        if (ingredients.length === 0) {
+            $("#noIngredientsText").removeClass("d-none");
         }
     }
 
