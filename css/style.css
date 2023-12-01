@@ -159,14 +159,13 @@ input[type=file]::file-selector-button, input[type=file]::file-selector-button:h
 	border: none;
 }
 
-.nav-btn:active {
+.nav-btn:active, .nav-btn:visited {
 	color: var(--accent) !important;
 }
 
-.nav-btn:visited {
-	color: var(--accent) !important;
+.notification-btn:active {
+	border: none;
 }
-
 
 .text-link, .text-link:hover, .text-link::selection {
 	color: black;
