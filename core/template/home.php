@@ -58,17 +58,26 @@
             <div class="col-2">
                 <div class="container p-0">
                     <div class="col">
-                        <div class="row pt-4" id="likeButton">
-                            <span><i class="fa-solid fa-heart fa-2xl fa-fw color-secondary"></i></span>
-                        </div>
-                        <div class="row pt-4" id="recipeButton">
+                        <div class="row pb-4" id="recipeButton">
                             <span><i class="fa-solid fa-utensils fa-2xl fa-fw color-secondary"></i></span>
                         </div>
-                        <div class="row pt-4" id="commentsButton">
+                        <div class="row" id="likeButton">
+                            <span><i class="fa-solid fa-heart fa-2xl fa-fw color-secondary"></i></span>
+                        </div>
+                        <div class="row pt-2 color-accent fw-bold d-flex center-self-center center-items-center">
+                            <span id="likeCounter">100k</span>
+                        </div>
+                        <div class="row pt-2" id="commentsButton">
                             <span><i class="fa-solid fa-comment-dots fa-2xl fa-fw color-secondary"></i></span>
                         </div>
-                        <div class="row pt-4" id="shareButton">
+                        <div class="row pt-2 color-accent fw-bold d-flex center-self-center center-items-center">
+                            <span id="commenterCounter">1mln</span>
+                        </div>
+                        <div class="row pt-2" id="shareButton">
                             <span><i class="fa-solid fa-share-nodes fa-2xl fa-fw color-secondary"></i></span>
+                        </div>
+                        <div class="row pt-2 pb-1 color-accent fw-bold d-flex center-self-center center-items-center">
+                            <span id="shareCounter">7mld</span>
                         </div>
                     </div>
                 </div>
@@ -136,7 +145,7 @@
         $("#replyToName").text(commenterName);
         commentToReplyID = parent.attr("id");
     }
-    
+
     const publishComment = () => {
         const username = 'admin';
         const commentText = $("#commentField").val();
