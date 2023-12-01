@@ -122,7 +122,7 @@
 
     const addIngredient = () => {
         let newIngredient = $('#searchIngredients').val().trim();
-        if (!newIngredient || ingredients.includes(newIngredient)) {
+        if (!newIngredient || ingredients.some(([ingredient]) => ingredient === newIngredient)) {
             return;
         }
         $("#searchedIngredients").append(`
@@ -167,6 +167,7 @@
             $("#noIngredientsText").removeClass("d-none");
         }
     }
+
 
     const resetIngredients = () => {
         ingredients = [];
