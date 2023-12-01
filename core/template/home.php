@@ -382,7 +382,7 @@
                         </div>
                         <div class="input-group rounded">
                             <input id="commentField" type="text" class="fs-7 form-control bg-primary shadow-sm" placeholder="Insercisci commento...">
-                            <span id="commentButton" class="input-group-text bg-primary border-0  fs-7">Commenta</span>
+                            <span id="commentButton" class="input-group-text bg-primary border-0 fs-7 fw-bold">Commenta</span>
                         </div>
                     </div>
                 </div>`;

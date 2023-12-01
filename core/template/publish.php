@@ -53,11 +53,9 @@
                     <div class="col-3 m-0 p-1">
                         <p class="m-0 fs-7">${ingredient[0]}</p>
                     </div>
-                    <div class="col-3 m-0 p-1"><select id="${ingredient[0]}Quantity" class="form-select bg-primary rounded shadow-sm fs-7 text-black">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                        </select></div>
+                    <div class="col-3 m-0 p-1">
+                        <input type="number" id="${ingredient[0]}Quantity" class="form-control bg-primary rounded shadow-sm fs-7 text-black" placeholder="1" />
+                    </div>
                     <div class="col-4 m-0 p-1"><select id="${ingredient[0]}Scale" class="form-select bg-primary rounded shadow-sm fs-7 text-black">
                             <option>c.ino</option>
                             <option>gr.</option>
@@ -118,6 +116,8 @@
         $('#okButtonIngredients').click(function() {
             closeSwal();
         });
+
+        console.log(ingredients);
     }
 
     const addIngredient = () => {
@@ -130,11 +130,9 @@
                 <div class="col-3 m-0 p-1">
                     <p class="m-0 fs-7">${newIngredient}</p>
                 </div>
-                <div class="col-3 m-0 p-1"><select id="${newIngredient}Quantity" class="form-select bg-primary rounded shadow-sm fs-7 text-black">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                    </select></div>
+                <div class="col-3 m-0 p-1">
+                    <input type="number" id="${newIngredient}Quantity" class="form-control bg-primary rounded shadow-sm fs-7 text-black" placeholder="1" />
+                </div>
                 <div class="col-4 m-0 p-1"><select id="${newIngredient}Scale" class="form-select bg-primary rounded shadow-sm fs-7 text-black">
                         <option>c.ino</option>
                         <option>gr.</option>
