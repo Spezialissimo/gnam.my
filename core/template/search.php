@@ -6,7 +6,7 @@
     <div class="row-md-2 py-2">
         <div class="input-group rounded" id="searchBar">
             <span class="input-group-text bg-primary border-0" id="searchIcon"><i class="fa-solid fa-magnifying-glass"></i></span>
-            <input type="text" class="form-control bg-primary shadow-sm" placeholder="Cerca">
+            <input type="text" class="form-control bg-primary shadow-sm" placeholder="Cerca" id="searchBarInput" />
     	</div>
     </div>
     <!-- ingredients -->
@@ -120,10 +120,12 @@
     }
 
     const searchVideos = () => {
+        $('#searchBarInput').val('');
+        $('#pageContentDiv').addClass('d-none');
         $('#loaderDiv').addClass('d-flex').removeClass('d-none');
         setTimeout(function() {
             $('#loaderDiv').removeClass('d-flex').addClass('d-none');
-            $('#pageContentDiv').removeClass('d-none').addClass('d-inline-block');
+            $('#pageContentDiv').removeClass('d-none');
         }, 1000);
     }
 
