@@ -10,10 +10,13 @@
                         <div class="container">
                             <div class="row">
                                 <div class="p-1 col-2 d-flex flex-wrap align-items-center">
-                                    <img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"/>
+                                    <img class="border border-1 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"/>
                                 </div>
                                 <div class="col align-self-center fs-7">
                                     <div class="m-0 text-link d-inline">Nome utente </div> <span class="m-0 text-normal-black">ha messo mi piace al tuo Gnam!</span>
+                                </div>
+                                <div class="col-1 m-0 ps-3 pe-0 pt-2 pb-2 d-flex">
+                                    <div class="vr"></div>
                                 </div>
                                 <div class="col-2 align-self-center">
                                     <span class="m-0 text-normal-black">1h</span>
