@@ -104,12 +104,13 @@
                     <div class='col'>
                         <div class='row-9 py-4'><i class='fa-solid fa-share-nodes fa-2xl'></i></div>
                         <div class='row-3 pt-3'><button type='button' class='btn btn-bounce rounded-pill bg-accent fw-bold
-                                text-white'>Copia link</button></div>
+                                text-white' id="copyLinkButton">Copia link</button></div>
                     </div>
                 </div>
             </div>
         `;
         showSwalSmall('Condividi Profilo', swalContent);
+        $("#copyLinkButton").on("click", copyCurrentPageLink);
     }
 
     const showSwalFollower = () => {
@@ -404,4 +405,5 @@
     $("#shareButton").on("click", showSwalShare);
     $("#allPostsButton").on("click", showAllPosts);
     $("#likedPostsButton").on("click", showLikedPosts);
+    
 </script>

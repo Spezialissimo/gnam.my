@@ -389,12 +389,13 @@
                     <div class='col'>
                         <div class='row-9 py-4'><i class='fa-solid fa-share-nodes fa-2xl'></i></div>
                         <div class='row-3 pt-3'><button type='button' class='btn btn-bounce rounded-pill bg-accent fw-bold
-                                text-white'>Copia link</button></div>
+                                text-white' id="copyGnamLinkButton">Copia link</button></div>
                     </div>
                 </div>
             </div>
         `;
         showSwalSmall('<p class="fs-5">Condividi Gnam</p>', swalContent);
+        $("#copyGnamLinkButton").on("click", copyCurrentPageLink);
     }
 
     $("#shareButton").on("click", showSwalShare);

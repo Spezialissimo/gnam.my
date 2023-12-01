@@ -50,6 +50,17 @@ const closeSwal = () => {
     Swal.close();
 };
 
+const copyCurrentPageLink = () => {
+    let currentPageLink = window.location.href;
+    navigator.clipboard.writeText(currentPageLink)
+        .then(function() {
+            showToast("success", "Link copiato nella clipboard");
+        })
+        .catch(function(err) {
+            console.error("Impossibile copiare il link nella clipboard: ", err);
+        });
+}    
+
 const resizeContentDiv = () => {
     let page = $("#pageDiv");
     if (page.length > 0) {
