@@ -51,14 +51,14 @@
             modalContent = ingredients.map(ingredient => `
                 <div class="row m-0 p-0 align-items-center text-black">
                     <div class="col-3 m-0 p-1">
-                        <p class="m-0 fs-7">${ingredient}</p>
+                        <p class="m-0 fs-7">${ingredient[0]}</p>
                     </div>
-                    <div class="col-3 m-0 p-1"><select class="form-select bg-primary rounded shadow-sm fs-7 text-black">
+                    <div class="col-3 m-0 p-1"><select id="${ingredient[0]}Quantity" class="form-select bg-primary rounded shadow-sm fs-7 text-black">
                             <option>1</option>
                             <option>2</option>
                             <option>3</option>
                         </select></div>
-                    <div class="col-4 m-0 p-1"><select class="form-select bg-primary rounded shadow-sm fs-7 text-black">
+                    <div class="col-4 m-0 p-1"><select id="${ingredient[0]}Scale" class="form-select bg-primary rounded shadow-sm fs-7 text-black">
                             <option>c.ino</option>
                             <option>gr.</option>
                             <option>qb</option>
@@ -93,6 +93,16 @@
         `;
 
         const modal = showSwal('Scegli Ingredienti', html);
+        ingredients.forEach(ingredient => {
+            $('#' + ingredient[0] + 'Quantity').val(ingredient[1]);
+            $('#' + ingredient[0] + 'Scale').val(ingredient[2]);
+            $('#' + ingredient[0] + 'Quantity').on("change", function() {
+                ingredient[1] = $('#' + ingredient[0] + 'Quantity').val();
+            });
+            $('#' + ingredient[0] + 'Scale').on("change", function() {
+                ingredient[2] = $('#' + ingredient[0] + 'Scale').val();
+            });
+        });
 
         if (ingredients.length == 0) {
             $("#noIngredientsText").removeClass("d-none");
@@ -115,21 +125,17 @@
         if (!newIngredient || ingredients.includes(newIngredient)) {
             return;
         }
-        if (ingredients.length == 0) {
-            $("#noIngredientsText").addClass("d-none");
-        }
-        ingredients.push(newIngredient);
         $("#searchedIngredients").append(`
             <div class="row text-black m-0 p-0 align-items-center text-black">
                 <div class="col-3 m-0 p-1">
                     <p class="m-0 fs-7">${newIngredient}</p>
                 </div>
-                <div class="col-3 m-0 p-1"><select class="form-select bg-primary rounded shadow-sm fs-7 text-black">
+                <div class="col-3 m-0 p-1"><select id="${newIngredient}Quantity" class="form-select bg-primary rounded shadow-sm fs-7 text-black">
                         <option>1</option>
                         <option>2</option>
                         <option>3</option>
                     </select></div>
-                <div class="col-4 m-0 p-1"><select class="form-select bg-primary rounded shadow-sm fs-7 text-black">
+                <div class="col-4 m-0 p-1"><select id="${newIngredient}Scale" class="form-select bg-primary rounded shadow-sm fs-7 text-black">
                         <option>c.ino</option>
                         <option>gr.</option>
                         <option>qb</option>
@@ -138,6 +144,17 @@
                         onclick="removeIngredient(this)"><i class="fa-solid fa-trash-can" aria-hidden="true"></i></button></div>
             </div>
         `);
+        if (ingredients.length == 0) {
+            $("#noIngredientsText").addClass("d-none");
+        }
+        ingredients.push([newIngredient, $('#' + newIngredient + 'Quantity').val(), $('#' + newIngredient + 'Scale').val()]);
+        let newIngredientIndex = ingredients.length - 1;
+        $('#' + newIngredient + 'Quantity').on("change", function() {
+            ingredients[newIngredientIndex][1] = $('#' + newIngredient + 'Quantity').val();
+        });
+        $('#' + newIngredient + 'Scale').on("change", function() {
+            ingredients[newIngredientIndex][2] = $('#' + newIngredient + 'Scale').val();
+        });
         $('#searchIngredients').val('');
         $('#ingredientsCount').html(ingredients.length);
     }
