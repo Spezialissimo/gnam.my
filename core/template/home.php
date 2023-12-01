@@ -64,20 +64,20 @@
                         <div class="row" id="likeButton">
                             <span><i class="fa-solid fa-heart fa-2xl fa-fw color-secondary"></i></span>
                         </div>
-                        <div class="row pt-2 color-accent fw-bold d-flex center-self-center center-items-center">
-                            <span id="likeCounter">100k</span>
+                        <div class="row pt-2 color-accent fw-bold text-center">
+                            <span id="likesCounter">10</span>
                         </div>
                         <div class="row pt-2" id="commentsButton">
                             <span><i class="fa-solid fa-comment-dots fa-2xl fa-fw color-secondary"></i></span>
                         </div>
-                        <div class="row pt-2 color-accent fw-bold d-flex center-self-center center-items-center">
-                            <span id="commenterCounter">1mln</span>
+                        <div class="row pt-2 color-accent fw-bold text-center">
+                            <span id="commentsCounter">2</span>
                         </div>
                         <div class="row pt-2" id="shareButton">
                             <span><i class="fa-solid fa-share-nodes fa-2xl fa-fw color-secondary"></i></span>
                         </div>
-                        <div class="row pt-2 pb-1 color-accent fw-bold d-flex center-self-center center-items-center">
-                            <span id="shareCounter">7mld</span>
+                        <div class="row pt-2 color-accent fw-bold text-center">
+                            <span id="shareCounter">3</span>
                         </div>
                     </div>
                 </div>
@@ -211,6 +211,7 @@
 
         commentIndex++;
         hideReplyToBox();
+        $("#commentsCounter").text(parseInt($("#commentsCounter").text()) + 1);
         $("#commentField").val("");
         $(".replyButton").on("click", replyButtonHandler);
     }
@@ -266,9 +267,11 @@
             if (likeButton.hasClass("color-secondary")) {
                 likeButton.removeClass("color-secondary");
                 likeButton.addClass("color-alert");
+                $("#likesCounter").text(parseInt($("#likesCounter").text()) + 1);
             } else {
                 likeButton.addClass("color-secondary");
                 likeButton.removeClass("color-alert");
+                $("#likesCounter").text(parseInt($("#likesCounter").text()) - 1);
             }
         });
 
@@ -404,7 +407,11 @@
             </div>
         `;
         showSwalSmall('<p class="fs-5">Condividi Gnam</p>', swalContent);
-        $("#copyGnamLinkButton").on("click", copyCurrentPageLink);
+        $("#copyGnamLinkButton").on("click", function () {
+            // qua ovviamente si dovrà fare in modo che possa farlo solo per lo gnam corrente
+            $("#shareCounter").text(parseInt($("#shareCounter").text()) + 1);
+            copyCurrentPageLink();
+        });
     }
 
     $("#shareButton").on("click", showSwalShare);
