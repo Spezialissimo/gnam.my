@@ -116,8 +116,6 @@
         $('#okButtonIngredients').click(function() {
             closeSwal();
         });
-
-        console.log(ingredients);
     }
 
     const addIngredient = () => {
@@ -167,7 +165,6 @@
             $("#noIngredientsText").removeClass("d-none");
         }
     }
-
 
     const resetIngredients = () => {
         ingredients = [];
