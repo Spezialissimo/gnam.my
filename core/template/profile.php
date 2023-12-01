@@ -1,7 +1,4 @@
-<div class="container text-center" id="headerDiv">
-    <div class="row text-end">
-        <a class="btn text-button fw-bold color-accent text-end" href="#">Log out</a>
-    </div>
+<div class="container text-center mt-3" id="headerDiv">
     <div class="row">
         <div class="col-4">
             <img class="border border-2 border-dark rounded-circle w-100" alt="Filippo Champagne" src="assets/prova-profile.png" />
@@ -35,8 +32,12 @@
             <button type="button" class="btn btn-bounce rounded-pill bg-primary fw-bold text-black w-100">Segui</button>
         </div>
         <div class="col-4 px-0">
-
             <button id="shareButton" type="button" class="btn btn-bounce rounded-pill bg-primary fw-bold text-black w-100">Condividi</button>
+        </div>
+        <div class="col-2">
+            <button type="button" class="btn btn-bounce rounded-pill bg-primary fw-bold text-black" id="settingsButton">
+                <i class="fa-solid fa-gear fa-l"></i>
+            </button>
         </div>
     </div>
     <div class="row align-items-center text-center mt-2">
@@ -256,7 +257,6 @@
         showSwal('Follower', swalContent);
     }
 
-
     const showSwalFollowed = () => {
         let swalContent = `
             <ul class="list-group modal-content-lg">
@@ -400,10 +400,41 @@
         showSwal('Seguiti', swalContent);
     }
 
+    const showSwalSettings = () => {
+        let swalContent = `
+            <div class='row-md-2 py-2 text-center text-black overflow-hidden'>
+                <div class='container px-0'>
+                    <div class='row mb-3'>
+                        <div class='col'>
+                            <p class="fs-5">Cambia immagine profilo:</p>
+                            <input type="file" class="form-control bg-primary rounded shadow-sm" />
+                        </div>
+                    </div>
+                    <div class='row justify-content-center'>
+                        <div class='col-4' id="saveButton">
+                            <a role='button' class='btn btn-bounce rounded-pill bg-accent fw-bold text-white'>Salva</a>
+                        </div>
+                        <div class='col-5'>
+                            <a role='button' class='btn btn-bounce rounded-pill bg-alert fw-bold text-white'>Log out</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        showSwal('Impostazioni', swalContent);
+
+        $(document).ready(function(){
+            $('#saveButton').hide();
+            $('input[type=file]').change(function(){
+                $('#saveButton').show();
+            });
+        });
+    }
+
     $("#followerButton").on("click", showSwalFollower);
     $("#followedButton").on("click", showSwalFollowed);
     $("#shareButton").on("click", showSwalShare);
     $("#allPostsButton").on("click", showAllPosts);
     $("#likedPostsButton").on("click", showLikedPosts);
-    
+    $("#settingsButton").on("click", showSwalSettings);
 </script>
