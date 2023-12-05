@@ -43,6 +43,7 @@
 <script>
     let hashtags = [];
     let ingredients = [];
+    let selectedPortions = 1;
 
     const openIngredients = () => {
         let modalContent = '';
@@ -57,7 +58,7 @@
                         <input type="number" id="${ingredient[0]}Quantity" class="form-control bg-primary rounded shadow-sm fs-7 text-black" placeholder="1" />
                     </div>
                     <div class="col-4 m-0 p-1"><select id="${ingredient[0]}Scale" class="form-select bg-primary rounded shadow-sm fs-7 text-black">
-                            <option>c.ino</option>
+                            <option>ml</option>
                             <option>gr.</option>
                             <option>qb</option>
                         </select></div>
@@ -68,7 +69,17 @@
         }
 
         let html = `
-            <div class="row-md-2 py-2">
+            <div class="d-flex align-items-center justify-content-center mb-2">
+                <p class="m-0 me-2 fs-6">Numero di porzioni:</p>
+                <div class="mx-0 ps-0">
+                    <select class="form-select bg-primary rounded shadow-sm fs-6" id="portionsSelect">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row mx-0 my-2">
                 <div class="input-group rounded">
                     <span class="input-group-text bg-primary border-0" id="searchIngredientIcon">
                         <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
@@ -91,6 +102,10 @@
         `;
 
         const modal = showSwal('Scegli Ingredienti', html);
+        $('#portionsSelect option[value="' + selectedPortions + '"]').attr("selected", true);
+        $("#portionsSelect").on("change", function(e) {
+            selectedPortions = this.value;
+        });
         ingredients.forEach(ingredient => {
             $('[id="' + ingredient[0] + 'Quantity"]').val(ingredient[1]);
             $('[id="' + ingredient[0] + 'Scale"]').val(ingredient[2]);
@@ -132,7 +147,7 @@
                     <input type="number" id="${newIngredient}Quantity" class="form-control bg-primary rounded shadow-sm fs-7 text-black" placeholder="1" />
                 </div>
                 <div class="col-4 m-0 p-1"><select id="${newIngredient}Scale" class="form-select bg-primary rounded shadow-sm fs-7 text-black">
-                        <option>c.ino</option>
+                        <option>ml</option>
                         <option>gr.</option>
                         <option>qb</option>
                     </select></div>
