@@ -113,8 +113,17 @@
                 ingredient[1] = $('[id="' + ingredient[0] + 'Quantity"]').val();
             });
             $('[id="' + ingredient[0] + 'Scale"]').on("change", function() {
+                if (ingredient[2] == "qb") {
+                    $('[id="' + ingredient[0] + 'Quantity"]').removeClass("d-none");
+                }
                 ingredient[2] = $('[id="' + ingredient[0] + 'Scale"]').val();
+                if (ingredient[2] == "qb") {
+                    $('[id="' + ingredient[0] + 'Quantity"]').addClass("d-none");
+                }
             });
+            if (ingredient[2] == "qb") {
+                $('[id="' + ingredient[0] + 'Quantity"]').addClass("d-none");
+            }
         });
 
         if (ingredients.length == 0) {
@@ -164,8 +173,17 @@
             ingredients[newIngredientIndex][1] = $('[id="' + newIngredient + 'Quantity"]').val();
         });
         $('[id="' + newIngredient + 'Scale"]').on("change", function() {
+            if (ingredients[newIngredientIndex][2] == "qb") {
+                $('[id="' + newIngredient + 'Quantity"]').removeClass("d-none");
+            }
             ingredients[newIngredientIndex][2] = $('[id="' + newIngredient + 'Scale"]').val();
+            if (ingredients[newIngredientIndex][2] == "qb") {
+                $('[id="' + newIngredient + 'Quantity"]').addClass("d-none");
+            }
         });
+        if (ingredients[newIngredientIndex][2] == "qb") {
+            $('[id="' + newIngredient + 'Quantity"]').addClass("d-none");
+        }
         $('#searchIngredients').val('');
         $('#ingredientsCount').html(ingredients.length);
     }
