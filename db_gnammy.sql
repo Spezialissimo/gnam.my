@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Dic 06, 2023 alle 14:06
+-- Creato il: Dic 06, 2023 alle 14:37
 -- Versione del server: 10.4.18-MariaDB
 -- Versione PHP: 8.0.3
 
@@ -28,7 +28,6 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `comments` (
-  `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `gnam_id` int(11) NOT NULL,
   `parent_comment_id` int(11) DEFAULT NULL,
@@ -55,7 +54,7 @@ CREATE TABLE `following` (
 
 CREATE TABLE `gnams` (
   `id` int(11) NOT NULL,
-  `author_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
   `description` varchar(500) NOT NULL,
   `share_count` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -81,7 +80,7 @@ CREATE TABLE `gnam_ingredients` (
   `ingredient_id` int(11) NOT NULL,
   `gnam_id` int(11) NOT NULL,
   `quantity` int(11) DEFAULT NULL,
-  `unit_of_measure_id` int(11) NOT NULL
+  `measurement_unit_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -121,6 +120,17 @@ CREATE TABLE `likes` (
 -- --------------------------------------------------------
 
 --
+-- Struttura della tabella `measurement_units`
+--
+
+CREATE TABLE `measurement_units` (
+  `id` int(11) NOT NULL,
+  `name` varchar(5) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Struttura della tabella `notifications`
 --
 
@@ -147,17 +157,6 @@ CREATE TABLE `notification_types` (
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `unit_of_measure`
---
-
-CREATE TABLE `unit_of_measure` (
-  `id` int(11) NOT NULL,
-  `name` varchar(5) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
 -- Struttura della tabella `users`
 --
 
@@ -175,7 +174,7 @@ CREATE TABLE `users` (
 -- Indici per le tabelle `comments`
 --
 ALTER TABLE `comments`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`user_id`,`timestamp`);
 
 --
 -- Indici per le tabelle `following`
@@ -220,6 +219,12 @@ ALTER TABLE `likes`
   ADD PRIMARY KEY (`user_id`,`gnam_id`);
 
 --
+-- Indici per le tabelle `measurement_units`
+--
+ALTER TABLE `measurement_units`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indici per le tabelle `notifications`
 --
 ALTER TABLE `notifications`
@@ -232,12 +237,6 @@ ALTER TABLE `notification_types`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indici per le tabelle `unit_of_measure`
---
-ALTER TABLE `unit_of_measure`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indici per le tabelle `users`
 --
 ALTER TABLE `users`
@@ -246,12 +245,6 @@ ALTER TABLE `users`
 --
 -- AUTO_INCREMENT per le tabelle scaricate
 --
-
---
--- AUTO_INCREMENT per la tabella `comments`
---
-ALTER TABLE `comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT per la tabella `gnams`
@@ -272,15 +265,15 @@ ALTER TABLE `ingredients`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT per la tabella `notification_types`
+-- AUTO_INCREMENT per la tabella `measurement_units`
 --
-ALTER TABLE `notification_types`
+ALTER TABLE `measurement_units`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT per la tabella `unit_of_measure`
+-- AUTO_INCREMENT per la tabella `notification_types`
 --
-ALTER TABLE `unit_of_measure`
+ALTER TABLE `notification_types`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
