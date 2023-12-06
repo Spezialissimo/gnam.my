@@ -25,7 +25,7 @@
             return;
         }
 
-        $.post("core/?doRegister", "username=" + username + "&password=" + password + "&rpassword=", (result) => {
+        $.post("core/?auth", "username=" + username + "&password=" + password + "&rpassword=", (result) => {
             if (result.includes("success")) {
                 showToast("success", "<p class='fs-6 text-center pt-3'>Fatto! Accesso in corso...</p>", "home.php");
             } else showToast("error", "<p class='fs-6 text-center pt-3'>Errore!</p>");
