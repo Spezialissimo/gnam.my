@@ -1,7 +1,7 @@
 <?php
 
 define('DB_HOST', 'localhost');
-define('DB_NAME', 'nome_db');
+define('DB_NAME', 'db_gnammy');
 define('DB_USER', 'root');
 define('DB_PASSWORD', '');
 
