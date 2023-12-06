@@ -2,8 +2,8 @@
 
 define('DB_HOST', 'localhost');
 define('DB_NAME', 'db_gnammy');
-define('DB_USER', 'root');
-define('DB_PASSWORD', '');
+define('DB_USER', 'gnammy');
+define('DB_PASSWORD', 'gnammy');
 
 // Opzioni per query safe
 $options = [
@@ -24,6 +24,6 @@ date_default_timezone_set('Europe/Rome');
 foreach($_POST as $value) {
     $value = htmlspecialchars($value);
     $value = $db->quote($value);
-}   
+}
 
 ?>

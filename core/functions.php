@@ -20,7 +20,7 @@ function aggiungiPiattoAMenu($codMenu, $codPiatto) {
     try {
         $stmt->execute();
         return "Piatto inserito nel menù."; // DA cambiare con json
-    } catch(PDOException $e) {        
+    } catch(PDOException $e) {
         return "Errore nell'esecuzione della query: " . $e->getMessage();
     }
 }
@@ -39,12 +39,24 @@ function register($username, $password){
     global $db;
     $password_hash = hash_password($password);
 
-    $stmt = $db->prepare("INSERT INTO `users` (`id`, `name`, `password`) VALUES (NULL, :nome, :passwordHash)");    
+    $stmt = $db->prepare("INSERT INTO `users` (`id`, `name`, `password`) VALUES (NULL, :nome, :passwordHash)");
     $stmt->bindParam(':nome', $username);
     $stmt->bindParam(':passwordHash', $password_hash);
 
     $stmt->execute();
     return json_encode(["status" => "success", "message" => "Utente registrato con successo."]);
+}
+
+function getNotifications() {
+    // ottieni notifiche con target_user_id = user_id in sessione e seen == 0
+    $notifications = array(
+            array("source_user_name" => "NoyzNachos", "gnam_id" => "2", "template_text" => " ciao!", "timestamp" => "2"),
+            array("source_user_name" => "SferaEImpasta", "gnam_id" => "2", "template_text" => " ciao!", "timestamp" => "4")
+    );
+    usort($notifications, function($n1, $n2) {
+        return $n2["timestamp"] <=> $n1["timestamp"];
+    });
+    return $notifications;
 }
 
 ?>
