@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Dic 06, 2023 alle 14:37
+-- Creato il: Dic 06, 2023 alle 16:03
 -- Versione del server: 10.4.18-MariaDB
 -- Versione PHP: 8.0.3
 
@@ -28,6 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `comments` (
+  `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `gnam_id` int(11) NOT NULL,
   `parent_comment_id` int(11) DEFAULT NULL,
@@ -174,31 +175,39 @@ CREATE TABLE `users` (
 -- Indici per le tabelle `comments`
 --
 ALTER TABLE `comments`
-  ADD PRIMARY KEY (`user_id`,`timestamp`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_nome_chiave_gnam` (`gnam_id`),
+  ADD KEY `fk_nome_chiave_userid` (`user_id`),
+  ADD KEY `fk_nome_chiave_pcid` (`parent_comment_id`);
 
 --
 -- Indici per le tabelle `following`
 --
 ALTER TABLE `following`
-  ADD PRIMARY KEY (`follower_user_id`,`followed_user_id`);
+  ADD PRIMARY KEY (`follower_user_id`,`followed_user_id`),
+  ADD KEY `fk_nome_chiave_followed` (`followed_user_id`);
 
 --
 -- Indici per le tabelle `gnams`
 --
 ALTER TABLE `gnams`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_nome_chiave_user_id` (`user_id`);
 
 --
 -- Indici per le tabelle `gnam_hashtags`
 --
 ALTER TABLE `gnam_hashtags`
-  ADD PRIMARY KEY (`hashtag_id`,`gnam_id`);
+  ADD PRIMARY KEY (`hashtag_id`,`gnam_id`),
+  ADD KEY `fk_nome_chiave_gnam_id` (`gnam_id`);
 
 --
 -- Indici per le tabelle `gnam_ingredients`
 --
 ALTER TABLE `gnam_ingredients`
-  ADD PRIMARY KEY (`ingredient_id`,`gnam_id`);
+  ADD PRIMARY KEY (`ingredient_id`,`gnam_id`),
+  ADD KEY `fk_nome_chiave_measurement` (`measurement_unit_id`),
+  ADD KEY `fk_nome_chiave_gnam_id_ingredients` (`gnam_id`);
 
 --
 -- Indici per le tabelle `hashtags`
@@ -216,7 +225,8 @@ ALTER TABLE `ingredients`
 -- Indici per le tabelle `likes`
 --
 ALTER TABLE `likes`
-  ADD PRIMARY KEY (`user_id`,`gnam_id`);
+  ADD PRIMARY KEY (`user_id`,`gnam_id`),
+  ADD KEY `fk_nome_chiave_gnams` (`gnam_id`);
 
 --
 -- Indici per le tabelle `measurement_units`
@@ -228,7 +238,10 @@ ALTER TABLE `measurement_units`
 -- Indici per le tabelle `notifications`
 --
 ALTER TABLE `notifications`
-  ADD PRIMARY KEY (`source_user_id`,`target_user_id`,`timestamp`);
+  ADD PRIMARY KEY (`source_user_id`,`target_user_id`,`timestamp`),
+  ADD KEY `fk_nome_chiave_tui` (`target_user_id`),
+  ADD KEY `fk_nome_chiave_gnam_id_notifications` (`gnam_id`),
+  ADD KEY `fk_nome_chiave_notification` (`notification_type_id`);
 
 --
 -- Indici per le tabelle `notification_types`
@@ -245,6 +258,12 @@ ALTER TABLE `users`
 --
 -- AUTO_INCREMENT per le tabelle scaricate
 --
+
+--
+-- AUTO_INCREMENT per la tabella `comments`
+--
+ALTER TABLE `comments`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT per la tabella `gnams`
@@ -281,6 +300,63 @@ ALTER TABLE `notification_types`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Limiti per le tabelle scaricate
+--
+
+--
+-- Limiti per la tabella `comments`
+--
+ALTER TABLE `comments`
+  ADD CONSTRAINT `fk_nome_chiave_gnam` FOREIGN KEY (`gnam_id`) REFERENCES `gnams` (`id`),
+  ADD CONSTRAINT `fk_nome_chiave_pcid` FOREIGN KEY (`parent_comment_id`) REFERENCES `comments` (`id`),
+  ADD CONSTRAINT `fk_nome_chiave_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `fk_nome_chiave_userid` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+
+--
+-- Limiti per la tabella `following`
+--
+ALTER TABLE `following`
+  ADD CONSTRAINT `fk_nome_chiave_followed` FOREIGN KEY (`followed_user_id`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `fk_nome_chiave_follower` FOREIGN KEY (`follower_user_id`) REFERENCES `users` (`id`);
+
+--
+-- Limiti per la tabella `gnams`
+--
+ALTER TABLE `gnams`
+  ADD CONSTRAINT `fk_nome_chiave_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+
+--
+-- Limiti per la tabella `gnam_hashtags`
+--
+ALTER TABLE `gnam_hashtags`
+  ADD CONSTRAINT `fk_nome_chiave_gnam_id` FOREIGN KEY (`gnam_id`) REFERENCES `gnams` (`id`),
+  ADD CONSTRAINT `fk_nome_chiave_hashtag` FOREIGN KEY (`hashtag_id`) REFERENCES `hashtags` (`id`);
+
+--
+-- Limiti per la tabella `gnam_ingredients`
+--
+ALTER TABLE `gnam_ingredients`
+  ADD CONSTRAINT `fk_nome_chiave_gnam_id_ingredients` FOREIGN KEY (`gnam_id`) REFERENCES `gnams` (`id`),
+  ADD CONSTRAINT `fk_nome_chiave_ingredient` FOREIGN KEY (`ingredient_id`) REFERENCES `ingredients` (`id`),
+  ADD CONSTRAINT `fk_nome_chiave_measurement` FOREIGN KEY (`measurement_unit_id`) REFERENCES `measurement_units` (`id`);
+
+--
+-- Limiti per la tabella `likes`
+--
+ALTER TABLE `likes`
+  ADD CONSTRAINT `fk_nome_chiave_gnams` FOREIGN KEY (`gnam_id`) REFERENCES `gnams` (`id`),
+  ADD CONSTRAINT `fk_nome_chiave_user_likes` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+
+--
+-- Limiti per la tabella `notifications`
+--
+ALTER TABLE `notifications`
+  ADD CONSTRAINT `fk_nome_chiave_gnam_id_notifications` FOREIGN KEY (`gnam_id`) REFERENCES `gnams` (`id`),
+  ADD CONSTRAINT `fk_nome_chiave_notification` FOREIGN KEY (`notification_type_id`) REFERENCES `notification_types` (`id`),
+  ADD CONSTRAINT `fk_nome_chiave_sui` FOREIGN KEY (`source_user_id`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `fk_nome_chiave_tui` FOREIGN KEY (`target_user_id`) REFERENCES `users` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
