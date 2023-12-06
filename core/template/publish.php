@@ -7,17 +7,17 @@
         <!-- video chooser field -->
         <div class="row-md px-4 h4">
             <h2 class="fw-bold">Scegli video</h2>
-            <input type="file" class="form-control bg-primary rounded shadow-sm" />
+            <input type="file" class="form-control bg-primary rounded shadow-sm" id="videoInput" accept="video/*" />
         </div>
         <!-- thumbnail chooser field -->
         <div class="row-md px-4 h4">
             <h2 class="fw-bold">Scegli copertina</h2>
-            <input type="file" class="form-control bg-primary rounded shadow-sm" />
+            <input type="file" class="form-control bg-primary rounded shadow-sm" id="thumbnailInput" accept="image/*" />
         </div>
         <!-- description field -->
         <div class="row-md-6 px-4 h4">
             <h2 class="fw-bold">Descrizione</h2>
-            <textarea class="form-control bg-primary rounded shadow-sm" rows="3"></textarea>
+            <textarea class="form-control bg-primary rounded shadow-sm" rows="3" id="descriptionInput"></textarea>
         </div>
         <!-- ingredients -->
         <div class="row-sm pt-2 pb-0 ">
@@ -295,10 +295,31 @@
     }
 
     const publish = () => {
-        // TO DO: Handling dati con PHP
+        if ($("#videoInput").prop("files").length != 1) {
+            let html = `<div class="row-md-2 py-2 text-center text-black"><p>Nessun video selezionato!</p><i class="fa-solid fa-triangle-exclamation fa-2xl color-alert"></i></div>`;
+            showSwalSmall('Errore!', html);
+        } else {
+            let formData = new FormData();
+            formData.append("video", $("#videoInput").prop("files")[0]);
+            formData.append("description", $("#descriptionInput").val());
+            formData.append("ingredients", ingredients);
+            formData.append("hashtags", hashtags);
+            if ($("#thumbnailInput").prop("files").length == 1) {
+                formData.append("thumbnail", $("#thumbnailInput").prop("files")[0]);
+            }
 
-        let html = `<div class="row-md-2 py-2 text-center text-black"><i class="fa-solid fa-check fa-2xl"></i></div>`;
-        showSwalSmall('Gnam pubblicato', html);
+            $.ajax({
+                url : 'boh.php',
+                type : 'POST',
+                data : formData,
+                processData: false,
+                contentType: false,
+                success : function(data) {
+                    let html = `<div class="row-md-2 py-2 text-center text-black"><i class="fa-solid fa-check fa-2xl"></i></div>`;
+                    showSwalSmall('Gnam pubblicato', html);
+                }
+            });
+        }
     }
 
     $("#publishBtn").on("click", publish);
