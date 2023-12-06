@@ -164,7 +164,7 @@ CREATE TABLE `notification_types` (
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `name` varchar(20) NOT NULL,
-  `password` varchar(50) NOT NULL
+  `password` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --

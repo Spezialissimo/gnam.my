@@ -25,10 +25,11 @@
             return;
         }
 
-        $.post("core/?auth", "username=" + username + "&password=" + password + "&rpassword=", (result) => {
-            if (result.includes("success")) {
-                showToast("success", "<p class='fs-6 text-center pt-3'>Fatto! Accesso in corso...</p>", "home.php");
-            } else showToast("error", "<p class='fs-6 text-center pt-3'>Errore!</p>");
+        $.post("core/?signin", "username=" + username + "&password=" + password + "&rpassword=" + rpassword, (result) => {
+            let decodedResult = JSON.parse(result);            
+            if (decodedResult.status === "success") {
+                showToast(decodedResult.status, "<p class='fs-6 text-center pt-3'>" + decodedResult.message + "</p>", "home.php");
+            } else showToast(decodedResult.status, "<p class='fs-6 text-center pt-3'>" + decodedResult.message + "</p>");
         });
     }
 
