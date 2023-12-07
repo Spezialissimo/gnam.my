@@ -1,12 +1,19 @@
-<?php require_once("core/functions.php"); ?>
+<?php
+if(isset($_POST['clearNotifications']))
+{
+    // TODO: rimuovi tutte le notifiche
+}
+?>
 
 <div class="container text-center font-text">
     <div id="headerDiv" class="row-2 py-2">
         <h1 class="fw-bold">Notifiche</h1>
     </div>
     <div id="pageContentDiv" class="row-md-8 overflow-auto align-content-center">
-        <div class="container h-auto" id="notificationsContainer">
-            <?php foreach (getNotifications($_SESSION["api_key"]) as $notification) { ?>
+        <?php $notifications = getNotifications($_SESSION["api_key"]);
+            if (count($notifications) > 0) { ?>
+            <div class="container h-auto" id="notificationsContainer">
+                <?php foreach ($notifications as $notification) { ?>
                 <div class="row m-1 p-0">
                     <a role="button" href="home.php?q=<?php echo $notification['gnam_id'] ?>" class="btn btn-bounce rounded-pill bg-primary p-0 notification-pill-text notification-btn">
                         <div class="container">
@@ -27,18 +34,13 @@
                         </div>
                     </a>
                 </div>
-            <?php } ?>
-        </div>
-    </div>
-    <div class="row-md-4 pt-3 pb-4" id="footerDiv">
-        <button type="button" class="btn btn-bounce rounded-pill bg-secondary fw-bold text-white" id="clearNotificationsButton">Segna come lette</button>
+                <?php } ?>
+                <form class="row-md-4 pt-3 pb-4" id="footerDiv" method="post">
+                    <input type="submit" name="clearNotifications" class="btn btn-bounce rounded-pill bg-secondary fw-bold text-white" value="Segna come lette" />
+                </form>
+            </div>
+        <?php } else { ?>
+        <p class="fs-6">Non hai nuove notifiche.</p>
+        <?php } ?>
     </div>
 </div>
-
-<script>
-    $("#clearNotificationsButton").on("click", function() {
-        $("#notificationsContainer").empty();
-        $("#clearNotificationsButton").addClass("d-none");
-        $("#notificationsContainer").append('<p class="fs-6" id="emptyNotificationsText">Non hai nuove notifiche.</p>');
-    });
-</script>
