@@ -45,7 +45,7 @@ body {
 }
 
 .color-alert {
-	color: var(--alert);
+	color: var(--alert) !important;
 }
 
 input:focus,
@@ -160,7 +160,7 @@ input[type=file]::file-selector-button, input[type=file]::file-selector-button:h
 }
 
 .nav-btn:active, .nav-btn:visited {
-	color: var(--accent) !important;
+	color: inherit;
 }
 
 .notification-btn:active {

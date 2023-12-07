@@ -30,12 +30,19 @@ $_SESSION["api_key"] = "ciao";
 <body class="bg h-100">
 	<?php if (/*isloggedIn()*/ true) { ?>
 	<script>
+		const checkNotifications = () => {
+			$.get("api/notifications.php", { api_key: "<?php echo $_SESSION['api_key']; ?>" }, function(data) {
+				if (data > 0) {
+					$("#notificationsNavbarButton").addClass("color-alert");
+				} else {
+					$("#notificationsNavbarButton").removeClass("color-alert");
+				}
+			});
+		};
+
 		$(window).on("load", function() {
-			setInterval(function() {
-				$.get("api/notifications.php", { api_key: "<?php echo $_SESSION['api_key']; ?>" }, function(data) {
-					$("#notificationsCount").val(data);
-				});
-			}, 2000);
+			checkNotifications();
+			setInterval(checkNotifications, 2000);
 		});
 	</script>
 	<?php } ?>
