@@ -54,12 +54,12 @@
             modalContent = ingredients.map(ingredient => `
                 <div class="row m-0 p-0 align-items-center text-black">
                     <div class="col-3 m-0 p-1">
-                        <p class="m-0 fs-7">${ingredient[0]}</p>
+                        <p class="m-0 fs-7">${ingredient["name"]}</p>
                     </div>
                     <div class="col-3 m-0 p-1">
-                        <input type="number" id="${ingredient[0]}Quantity" class="form-control bg-primary rounded shadow-sm fs-7 text-black" placeholder="1" />
+                        <input type="number" id="${ingredient["name"]}Quantity" class="form-control bg-primary rounded shadow-sm fs-7 text-black" placeholder="1" />
                     </div>
-                    <div class="col-4 m-0 p-1"><select id="${ingredient[0]}Scale" class="form-select bg-primary rounded shadow-sm fs-7 text-black">
+                    <div class="col-4 m-0 p-1"><select id="${ingredient["name"]}MeasurementUnit" class="form-select bg-primary rounded shadow-sm fs-7 text-black">
                             <option>ml</option>
                             <option>gr.</option>
                             <option>qb</option>
@@ -109,22 +109,22 @@
             selectedPortions = this.value;
         });
         ingredients.forEach(ingredient => {
-            $('[id="' + ingredient[0] + 'Quantity"]').val(ingredient[1]);
-            $('[id="' + ingredient[0] + 'Scale"]').val(ingredient[2]);
-            $('[id="' + ingredient[0] + 'Quantity"]').on("change", function() {
-                ingredient[1] = $('[id="' + ingredient[0] + 'Quantity"]').val();
+            $('[id="' + ingredient["name"] + 'Quantity"]').val(ingredient["quantity"]);
+            $('[id="' + ingredient["name"] + 'MeasurementUnit"]').val(ingredient["measurement_unit"]);
+            $('[id="' + ingredient["name"] + 'Quantity"]').on("change", function() {
+                ingredient["quantity"] = $('[id="' + ingredient["name"] + 'Quantity"]').val();
             });
-            $('[id="' + ingredient[0] + 'Scale"]').on("change", function() {
-                if (ingredient[2] == "qb") {
-                    $('[id="' + ingredient[0] + 'Quantity"]').removeClass("d-none");
+            $('[id="' + ingredient["name"] + 'MeasurementUnit"]').on("change", function() {
+                if (ingredient["measurement_unit"] == "qb") {
+                    $('[id="' + ingredient["name"] + 'Quantity"]').removeClass("d-none");
                 }
-                ingredient[2] = $('[id="' + ingredient[0] + 'Scale"]').val();
-                if (ingredient[2] == "qb") {
-                    $('[id="' + ingredient[0] + 'Quantity"]').addClass("d-none");
+                ingredient["measurement_unit"] = $('[id="' + ingredient["name"] + 'MeasurementUnit"]').val();
+                if (ingredient["measurement_unit"] == "qb") {
+                    $('[id="' + ingredient["name"] + 'Quantity"]').addClass("d-none");
                 }
             });
-            if (ingredient[2] == "qb") {
-                $('[id="' + ingredient[0] + 'Quantity"]').addClass("d-none");
+            if (ingredient["measurement_unit"] == "qb") {
+                $('[id="' + ingredient["name"] + 'Quantity"]').addClass("d-none");
             }
         });
 
@@ -157,7 +157,7 @@
                 <div class="col-3 m-0 p-1">
                     <input type="number" id="${newIngredient}Quantity" class="form-control bg-primary rounded shadow-sm fs-7 text-black" placeholder="1" />
                 </div>
-                <div class="col-4 m-0 p-1"><select id="${newIngredient}Scale" class="form-select bg-primary rounded shadow-sm fs-7 text-black">
+                <div class="col-4 m-0 p-1"><select id="${newIngredient}MeasurementUnit" class="form-select bg-primary rounded shadow-sm fs-7 text-black">
                         <option>ml</option>
                         <option>gr.</option>
                         <option>qb</option>
@@ -169,21 +169,21 @@
         if (ingredients.length == 0) {
             $("#noIngredientsText").addClass("d-none");
         }
-        ingredients.push([newIngredient, $('[id="' + newIngredient + 'Quantity"]').val(), $('[id="' + newIngredient + 'Scale"]').val()]);
+        ingredients.push({"name": newIngredient, "quantity": $('[id="' + newIngredient + 'Quantity"]').val(), "measurement_unit": $('[id="' + newIngredient + 'MeasurementUnit"]').val()});
         let newIngredientIndex = ingredients.length - 1;
         $('[id="' + newIngredient + 'Quantity"]').on("change", function() {
-            ingredients[newIngredientIndex][1] = $('[id="' + newIngredient + 'Quantity"]').val();
+            ingredients[newIngredientIndex]["quantity"] = $('[id="' + newIngredient + 'Quantity"]').val();
         });
-        $('[id="' + newIngredient + 'Scale"]').on("change", function() {
-            if (ingredients[newIngredientIndex][2] == "qb") {
+        $('[id="' + newIngredient + 'MeasurementUnit"]').on("change", function() {
+            if (ingredients[newIngredientIndex]["measurement_unit"] == "qb") {
                 $('[id="' + newIngredient + 'Quantity"]').removeClass("d-none");
             }
-            ingredients[newIngredientIndex][2] = $('[id="' + newIngredient + 'Scale"]').val();
-            if (ingredients[newIngredientIndex][2] == "qb") {
+            ingredients[newIngredientIndex]["measurement_unit"] = $('[id="' + newIngredient + 'MeasurementUnit"]').val();
+            if (ingredients[newIngredientIndex]["measurement_unit"] == "qb") {
                 $('[id="' + newIngredient + 'Quantity"]').addClass("d-none");
             }
         });
-        if (ingredients[newIngredientIndex][2] == "qb") {
+        if (ingredients[newIngredientIndex]["measurement_unit"] == "qb") {
             $('[id="' + newIngredient + 'Quantity"]').addClass("d-none");
         }
         $('#searchIngredients').val('');
@@ -193,7 +193,7 @@
     const removeIngredient = (element) => {
         let ingredientRow = $(element).closest('.row');
         let ingredientName = ingredientRow.find('p').text().trim();
-        ingredients = ingredients.filter(ingredient => ingredient[0] !== ingredientName);
+        ingredients = ingredients.filter(ingredient => ingredient["name"] !== ingredientName);
         ingredientRow.remove();
         $('#ingredientsCount').html(ingredients.length);
         if (ingredients.length === 0) {

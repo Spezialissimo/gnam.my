@@ -32,7 +32,7 @@ if (isset($_FILES["video"]) && isset($_FILES["thumbnail"]) && isset($_POST["api_
     if (isset($_POST["hashtags"]) && count($_POST["hashtags"]) > 0) {
         foreach ($_POST["hashtags"] as $hashtag) {
             $stmt = $db->prepare("INSERT INTO `gnam_hashtags` (`hashtag_id`, `gnam_id`) VALUES (:hashtag_id, :gnam_id)");
-            $stmt->bindParam(':hashtag_id', getHashtagFromText($hashtag["text"])["id"]);
+            $stmt->bindParam(':hashtag_id', getHashtagFromText($hashtag)["id"]);
             $stmt->bindParam(':gnam_id', $newVideoId);
             $stmt->execute();
         }
