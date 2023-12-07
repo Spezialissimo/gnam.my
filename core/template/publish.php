@@ -309,12 +309,12 @@
             }
 
             $.ajax({
-                url : 'boh.php',
+                url : 'upload.php',
                 type : 'POST',
                 data : formData,
                 processData: false,
                 contentType: false,
-                success : function(data) {
+                success : function() {
                     let html = `<div class="row-md-2 py-2 text-center text-black"><i class="fa-solid fa-check fa-2xl"></i></div>`;
                     showSwalSmall('Gnam pubblicato', html);
                 }
