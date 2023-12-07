@@ -48,11 +48,19 @@ function register($username, $password){
 }
 
 function getNotifications($api_key) {
-    // ottieni notifiche con target_user_id = user con api_key e seen == 0
     $notifications = array(
             array("source_user_name" => "NoyzNachos", "gnam_id" => "2", "template_text" => " ciao!", "timestamp" => "2"),
             array("source_user_name" => "SferaEImpasta", "gnam_id" => "2", "template_text" => " ciao!", "timestamp" => "4")
     );
+
+    // global $db;
+    // $stmt = $db->prepare("SELECT u.name AS source_user_name, n.gnam_id, nt.template_text, n.timestamp
+    //     FROM (`notifications` AS n INNER JOIN `users` AS u ON n.target_user_id = u.id) INNER JOIN `notification_types` AS nt ON n.notification_type_id = nt.id
+    //     WHERE u.api_key == :api_key AND n.seen == 0");
+    // $stmt->bindParam(':api_key', $api_key);
+    // $stmt->execute();
+    // $notifications = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+
     usort($notifications, function($n1, $n2) {
         return $n2["timestamp"] <=> $n1["timestamp"];
     });

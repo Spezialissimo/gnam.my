@@ -6,10 +6,14 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 
 if (isset($_FILES["video"]) && isset($_POST["api_key"])) {
     if (!isset($_POST["thumbnail"])) {
-        // TODO: crea thumbnail
+        // TODO: crea e salva thumbnail
     }
 
-    // TODO: upload del video sull'utente con quella certa api_key
+    global $db;
+    $stmt = $db->prepare("INSERT INTO `gnams` (`user_id`, `description`, `share_count`) VALUES (:user_id, :description, 0)");
+    $stmt->bindParam(':user_id', $_SESSION["user_id"]);
+    $stmt->bindParam(':description', $_POST["description"]);
+    $stmt->execute();
     http_response_code(200);
 } else {
     http_response_code(400);

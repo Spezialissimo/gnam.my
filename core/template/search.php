@@ -28,9 +28,9 @@
             for ($i=0; $i < 10; $i++) {
                 ?>
             <div class="row my-2">
-                <img class="img-grid col" alt="Filippo Champagne" src="assets/prova.png" />
-                <img class="img-grid col" alt="Filippo Champagne" src="assets/prova.png" />
-                <img class="img-grid col" alt="Filippo Champagne" src="assets/prova.png" />
+                <img class="img-grid col" alt="Filippo Champagne" src="assets/gnams_thumbnails/prova.png" />
+                <img class="img-grid col" alt="Filippo Champagne" src="assets/gnams_thumbnails/prova.png" />
+                <img class="img-grid col" alt="Filippo Champagne" src="assets/gnams_thumbnails/prova.png" />
             </div>
         <?php } ?>
 </div>

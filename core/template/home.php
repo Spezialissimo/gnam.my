@@ -1,11 +1,11 @@
-<video class="w-100 h-100 object-fit-fill p-0" autoplay disablepictureinpicture loop playsinline preload="auto" poster="assets/prova.png" src="assets/prova.mp4"></video>
+<video class="w-100 h-100 object-fit-fill p-0" autoplay disablepictureinpicture loop playsinline preload="auto" poster="assets/gnams_thumbnails/prova.png" src="assets/gnams/prova.mp4"></video>
 <div class="video-overlay" id="videoOverlay">
     <div class="container">
         <div class="row mb-3">
             <div class="col-10 align-self-end">
                 <a href="profile.php" class="row text-link">
                     <div class="col-3">
-                        <img class="border border-2 border-dark rounded-circle w-100" alt="Filippo Champagne" src="assets/prova-profile.png" />
+                        <img class="border border-2 border-dark rounded-circle w-100" alt="Filippo Champagne" src="assets/profile_pictures/prova.png" />
                     </div>
                     <div class="col-9 d-flex align-items-center p-0">
                         <p class="fs-6 fw-bold m-0">Profilo Nome</p>
@@ -156,7 +156,7 @@
                     <div class="row">
                         <div class="col-2 p-0">
                         <img class="border border-2 border-dark rounded-circle w-100" alt="Filippo Champagne"
-                                    src="assets/prova-profile.png" />
+                                    src="assets/profile_pictures/prova.png" />
                         </div>
                         <div class="col">
                             <div class="row-md-1 text-start">
@@ -178,7 +178,7 @@
                     <div class="row">
                         <div class="col-1 p-0">
                             <img class="border border-2 border-dark rounded-circle w-100" alt="Filippo Champagne"
-                                src="assets/prova-profile.png" />
+                                src="assets/profile_pictures/prova.png" />
                         </div>
                         <div class="col ps-1">
                             <div class="row-md-1 text-start">
@@ -288,7 +288,7 @@
                                         <div class="row">
                                             <div class="col-2 p-0">
                                             <img class="border border-2 border-dark rounded-circle w-100" alt="Filippo Champagne"
-                                                        src="assets/prova-profile.png" />
+                                                        src="assets/profile_pictures/prova.png" />
                                             </div>
                                             <div class="col">
                                                 <div class="row-md-1 text-start">
@@ -317,7 +317,7 @@
                                         <div class="row">
                                             <div class="col-2 p-0">
                                                 <img class="border border-2 border-dark rounded-circle w-100" alt="Filippo Champagne"
-                                                        src="assets/prova-profile.png" />
+                                                        src="assets/profile_pictures/prova.png" />
                                                         </div>
                                                 <div class="col">
                                                     <div class="row-md-1 text-start">
@@ -343,7 +343,7 @@
                                                         <div class="row">
                                                             <div class="col-1 p-0">
                                                                 <img class="border border-2 border-dark rounded-circle w-100" alt="Filippo Champagne"
-                                                                    src="assets/prova-profile.png" />
+                                                                    src="assets/profile_pictures/prova.png" />
                                                             </div>
                                                             <div class="col ps-1">
                                                                 <div class="row-md-1 text-start">

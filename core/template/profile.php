@@ -1,7 +1,7 @@
 <div class="container text-center mt-3" id="headerDiv">
     <div class="row">
         <div class="col-4">
-            <img class="border border-2 border-dark rounded-circle w-100" alt="Filippo Champagne" src="assets/prova-profile.png" />
+            <img class="border border-2 border-dark rounded-circle w-100" alt="Filippo Champagne" src="assets/profile_pictures/prova.png" />
         </div>
         <div class="col-8">
             <div class="row">
@@ -58,24 +58,24 @@
 
 <div class="container overflow-y-scroll" id="pageContentDiv">
     <div class="row">
-        <img class="img-grid col" alt="Filippo Champagne" src="assets/prova.png" />
-        <img class="img-grid col" alt="Filippo Champagne" src="assets/prova.png" />
-        <img class="img-grid col" alt="Filippo Champagne" src="assets/prova.png" />
+        <img class="img-grid col" alt="Filippo Champagne" src="assets/gnams_thumbnails/prova.png" />
+        <img class="img-grid col" alt="Filippo Champagne" src="assets/gnams_thumbnails/prova.png" />
+        <img class="img-grid col" alt="Filippo Champagne" src="assets/gnams_thumbnails/prova.png" />
     </div>
     <div class="row my-3">
-        <img class="img-grid col" alt="Filippo Champagne" src="assets/prova.png" />
-        <img class="img-grid col" alt="Filippo Champagne" src="assets/prova.png" />
-        <img class="img-grid col" alt="Filippo Champagne" src="assets/prova.png" />
+        <img class="img-grid col" alt="Filippo Champagne" src="assets/gnams_thumbnails/prova.png" />
+        <img class="img-grid col" alt="Filippo Champagne" src="assets/gnams_thumbnails/prova.png" />
+        <img class="img-grid col" alt="Filippo Champagne" src="assets/gnams_thumbnails/prova.png" />
     </div>
     <div class="row my-3">
-        <img class="img-grid col" alt="Filippo Champagne" src="assets/prova.png" />
-        <img class="img-grid col" alt="Filippo Champagne" src="assets/prova.png" />
-        <img class="img-grid col" alt="Filippo Champagne" src="assets/prova.png" />
+        <img class="img-grid col" alt="Filippo Champagne" src="assets/gnams_thumbnails/prova.png" />
+        <img class="img-grid col" alt="Filippo Champagne" src="assets/gnams_thumbnails/prova.png" />
+        <img class="img-grid col" alt="Filippo Champagne" src="assets/gnams_thumbnails/prova.png" />
     </div>
     <div class="row my-3">
-        <img class="img-grid col" alt="Filippo Champagne" src="assets/prova.png" />
-        <img class="img-grid col" alt="Filippo Champagne" src="assets/prova.png" />
-        <img class="img-grid col" alt="Filippo Champagne" src="assets/prova.png" />
+        <img class="img-grid col" alt="Filippo Champagne" src="assets/gnams_thumbnails/prova.png" />
+        <img class="img-grid col" alt="Filippo Champagne" src="assets/gnams_thumbnails/prova.png" />
+        <img class="img-grid col" alt="Filippo Champagne" src="assets/gnams_thumbnails/prova.png" />
     </div>
 </div>
 
@@ -120,7 +120,7 @@
                 <li class="list-group-item bg border-0"><a href="#" class="text-link">
                         <div class="container">
                             <div class="row">
-                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div>
+                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/profile_pictures/prova.png"></div>
                                 <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
                             </div>
                         </div>
@@ -128,7 +128,7 @@
                 <li class="list-group-item bg border-0"><a href="#" class="text-link">
                         <div class="container">
                             <div class="row">
-                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div>
+                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/profile_pictures/prova.png"></div>
                                 <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
                             </div>
                         </div>
@@ -136,7 +136,7 @@
                 <li class="list-group-item bg border-0"><a href="#" class="text-link">
                         <div class="container">
                             <div class="row">
-                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div>
+                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/profile_pictures/prova.png"></div>
                                 <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
                             </div>
                         </div>
@@ -144,7 +144,7 @@
                 <li class="list-group-item bg border-0"><a href="#" class="text-link">
                         <div class="container">
                             <div class="row">
-                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div>
+                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/profile_pictures/prova.png"></div>
                                 <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
                             </div>
                         </div>
@@ -152,7 +152,7 @@
                 <li class="list-group-item bg border-0"><a href="#" class="text-link">
                         <div class="container">
                             <div class="row">
-                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div>
+                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/profile_pictures/prova.png"></div>
                                 <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
                             </div>
                         </div>
@@ -160,7 +160,7 @@
                 <li class="list-group-item bg border-0"><a href="#" class="text-link">
                         <div class="container">
                             <div class="row">
-                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div>
+                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/profile_pictures/prova.png"></div>
                                 <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
                             </div>
                         </div>
@@ -168,7 +168,7 @@
                 <li class="list-group-item bg border-0"><a href="#" class="text-link">
                         <div class="container">
                             <div class="row">
-                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div>
+                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/profile_pictures/prova.png"></div>
                                 <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
                             </div>
                         </div>
@@ -176,7 +176,7 @@
                 <li class="list-group-item bg border-0"><a href="#" class="text-link">
                         <div class="container">
                             <div class="row">
-                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div>
+                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/profile_pictures/prova.png"></div>
                                 <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
                             </div>
                         </div>
@@ -184,7 +184,7 @@
                 <li class="list-group-item bg border-0"><a href="#" class="text-link">
                         <div class="container">
                             <div class="row">
-                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div>
+                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/profile_pictures/prova.png"></div>
                                 <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
                             </div>
                         </div>
@@ -192,7 +192,7 @@
                 <li class="list-group-item bg border-0"><a href="#" class="text-link">
                         <div class="container">
                             <div class="row">
-                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div>
+                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/profile_pictures/prova.png"></div>
                                 <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
                             </div>
                         </div>
@@ -200,7 +200,7 @@
                 <li class="list-group-item bg border-0"><a href="#" class="text-link">
                         <div class="container">
                             <div class="row">
-                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div>
+                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/profile_pictures/prova.png"></div>
                                 <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
                             </div>
                         </div>
@@ -208,7 +208,7 @@
                 <li class="list-group-item bg border-0"><a href="#" class="text-link">
                         <div class="container">
                             <div class="row">
-                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div>
+                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/profile_pictures/prova.png"></div>
                                 <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
                             </div>
                         </div>
@@ -216,7 +216,7 @@
                 <li class="list-group-item bg border-0"><a href="#" class="text-link">
                         <div class="container">
                             <div class="row">
-                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div>
+                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/profile_pictures/prova.png"></div>
                                 <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
                             </div>
                         </div>
@@ -224,7 +224,7 @@
                 <li class="list-group-item bg border-0"><a href="#" class="text-link">
                         <div class="container">
                             <div class="row">
-                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div>
+                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/profile_pictures/prova.png"></div>
                                 <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
                             </div>
                         </div>
@@ -232,7 +232,7 @@
                 <li class="list-group-item bg border-0"><a href="#" class="text-link">
                         <div class="container">
                             <div class="row">
-                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div>
+                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/profile_pictures/prova.png"></div>
                                 <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
                             </div>
                         </div>
@@ -240,7 +240,7 @@
                 <li class="list-group-item bg border-0"><a href="#" class="text-link">
                         <div class="container">
                             <div class="row">
-                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div>
+                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/profile_pictures/prova.png"></div>
                                 <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
                             </div>
                         </div>
@@ -248,7 +248,7 @@
                 <li class="list-group-item bg border-0"><a href="#" class="text-link">
                         <div class="container">
                             <div class="row">
-                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div>
+                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/profile_pictures/prova.png"></div>
                                 <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
                             </div>
                         </div>
@@ -263,7 +263,7 @@
                 <li class="list-group-item bg border-0"><a href="#" class="text-link">
                         <div class="container">
                             <div class="row">
-                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div>
+                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/profile_pictures/prova.png"></div>
                                 <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
                             </div>
                         </div>
@@ -271,7 +271,7 @@
                 <li class="list-group-item bg border-0"><a href="#" class="text-link">
                         <div class="container">
                             <div class="row">
-                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div>
+                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/profile_pictures/prova.png"></div>
                                 <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
                             </div>
                         </div>
@@ -279,7 +279,7 @@
                 <li class="list-group-item bg border-0"><a href="#" class="text-link">
                         <div class="container">
                             <div class="row">
-                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div>
+                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/profile_pictures/prova.png"></div>
                                 <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
                             </div>
                         </div>
@@ -287,7 +287,7 @@
                 <li class="list-group-item bg border-0"><a href="#" class="text-link">
                         <div class="container">
                             <div class="row">
-                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div>
+                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/profile_pictures/prova.png"></div>
                                 <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
                             </div>
                         </div>
@@ -295,7 +295,7 @@
                 <li class="list-group-item bg border-0"><a href="#" class="text-link">
                         <div class="container">
                             <div class="row">
-                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div>
+                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/profile_pictures/prova.png"></div>
                                 <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
                             </div>
                         </div>
@@ -303,7 +303,7 @@
                 <li class="list-group-item bg border-0"><a href="#" class="text-link">
                         <div class="container">
                             <div class="row">
-                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div>
+                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/profile_pictures/prova.png"></div>
                                 <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
                             </div>
                         </div>
@@ -311,7 +311,7 @@
                 <li class="list-group-item bg border-0"><a href="#" class="text-link">
                         <div class="container">
                             <div class="row">
-                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div>
+                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/profile_pictures/prova.png"></div>
                                 <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
                             </div>
                         </div>
@@ -319,7 +319,7 @@
                 <li class="list-group-item bg border-0"><a href="#" class="text-link">
                         <div class="container">
                             <div class="row">
-                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div>
+                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/profile_pictures/prova.png"></div>
                                 <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
                             </div>
                         </div>
@@ -327,7 +327,7 @@
                 <li class="list-group-item bg border-0"><a href="#" class="text-link">
                         <div class="container">
                             <div class="row">
-                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div>
+                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/profile_pictures/prova.png"></div>
                                 <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
                             </div>
                         </div>
@@ -335,7 +335,7 @@
                 <li class="list-group-item bg border-0"><a href="#" class="text-link">
                         <div class="container">
                             <div class="row">
-                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div>
+                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/profile_pictures/prova.png"></div>
                                 <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
                             </div>
                         </div>
@@ -343,7 +343,7 @@
                 <li class="list-group-item bg border-0"><a href="#" class="text-link">
                         <div class="container">
                             <div class="row">
-                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div>
+                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/profile_pictures/prova.png"></div>
                                 <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
                             </div>
                         </div>
@@ -351,7 +351,7 @@
                 <li class="list-group-item bg border-0"><a href="#" class="text-link">
                         <div class="container">
                             <div class="row">
-                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div>
+                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/profile_pictures/prova.png"></div>
                                 <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
                             </div>
                         </div>
@@ -359,7 +359,7 @@
                 <li class="list-group-item bg border-0"><a href="#" class="text-link">
                         <div class="container">
                             <div class="row">
-                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div>
+                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/profile_pictures/prova.png"></div>
                                 <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
                             </div>
                         </div>
@@ -367,7 +367,7 @@
                 <li class="list-group-item bg border-0"><a href="#" class="text-link">
                         <div class="container">
                             <div class="row">
-                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div>
+                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/profile_pictures/prova.png"></div>
                                 <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
                             </div>
                         </div>
@@ -375,7 +375,7 @@
                 <li class="list-group-item bg border-0"><a href="#" class="text-link">
                         <div class="container">
                             <div class="row">
-                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div>
+                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/profile_pictures/prova.png"></div>
                                 <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
                             </div>
                         </div>
@@ -383,7 +383,7 @@
                 <li class="list-group-item bg border-0"><a href="#" class="text-link">
                         <div class="container">
                             <div class="row">
-                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div>
+                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/profile_pictures/prova.png"></div>
                                 <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
                             </div>
                         </div>
@@ -391,7 +391,7 @@
                 <li class="list-group-item bg border-0"><a href="#" class="text-link">
                         <div class="container">
                             <div class="row">
-                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/prova-profile.png"></div>
+                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/profile_pictures/prova.png"></div>
                                 <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
                             </div>
                         </div>
@@ -431,7 +431,7 @@
 
             $('#saveButton').click(function() {
                 // TODO Upload foto
-                
+
                 closeSwal();
                 showToast('success', '<p class="fs-5">Foto profilo cambiata con successo!</p>');
             });
