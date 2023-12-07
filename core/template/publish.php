@@ -8,6 +8,7 @@
         <div class="row-md px-4 h4">
             <h2 class="fw-bold">Scegli video</h2>
             <input type="file" class="form-control bg-primary rounded shadow-sm" id="videoInput" accept="video/*" />
+            <video id="hiddenVideoDiv" class="d-none" style="height: 1px!important; width: 1px!important"></video>
             <canvas id="videoCanvas" class="d-none"></canvas>
         </div>
         <!-- thumbnail chooser field -->
@@ -295,56 +296,47 @@
         $("#noHashtagsText").removeClass("d-none");
     }
 
-    let videoDiv = document.createElement('video');
+    const uploadVideo = (formData) => {
+        $.ajax({
+            url : 'https://webhook.site/6228cf23-e069-4082-b4d5-e3f439e6d98b',
+            type : 'POST',
+            data : formData,
+            processData: false,
+            contentType: false,
+            success : function(data) {
+                let html = `<div class="row-md-2 py-2 text-center text-black"><i class="fa-solid fa-check fa-2xl"></i></div>`;
+                showSwalSmall('Gnam pubblicato', html);
+            }
+        });
+    }
+
     const publish = () => {
         if ($("#videoInput").prop("files").length != 1) {
             let html = `<div class="row-md-2 py-2 text-center text-black"><p>Nessun video selezionato!</p><i class="fa-solid fa-triangle-exclamation fa-2xl color-alert"></i></div>`;
             showSwalSmall('Errore!', html);
         } else {
+            let formData = new FormData();
+            formData.append("video", $("#videoInput").prop("files")[0]);
+            formData.append("description", $("#descriptionInput").val());
+            formData.append("ingredients", ingredients);
+            formData.append("hashtags", hashtags);
+            formData.append("api_key", "<?php echo $_SESSION['api_key']; ?>");
             if ($("#thumbnailInput").prop("files").length == 1) {
-                let formData = new FormData();
                 formData.append("thumbnail", $("#thumbnailInput").prop("files")[0]);
-                formData.append("video", $("#videoInput").prop("files")[0]);
-                formData.append("description", $("#descriptionInput").val());
-                formData.append("ingredients", ingredients);
-                formData.append("hashtags", hashtags);
-                formData.append("api_key", "<?php echo $_SESSION['api_key']; ?>");
-                $.ajax({
-                    url : 'https://webhook.site/6228cf23-e069-4082-b4d5-e3f439e6d98b',
-                    type : 'POST',
-                    data : formData,
-                    processData: false,
-                    contentType: false,
-                    success : function(data) {
-                        let html = `<div class="row-md-2 py-2 text-center text-black"><i class="fa-solid fa-check fa-2xl"></i></div>`;
-                        showSwalSmall('Gnam pubblicato', html);
-                    }
-                });
+                uploadVideo(formData);
             } else {
-                let videoCanvas = $("#videoCanvas")[0];
-                videoCanvas.width = videoDiv.videoWidth;
-                videoCanvas.height = videoDiv.videoHeight;
-                videoCanvas.getContext("2d").drawImage(videoDiv, 0, 0, videoCanvas.width, videoCanvas.height);
-                videoCanvas.toBlob(function(blob) {
-                    let formData = new FormData();
-                    formData.append("video", $("#videoInput").prop("files")[0]);
-                    formData.append("description", $("#descriptionInput").val());
-                    formData.append("ingredients", ingredients);
-                    formData.append("hashtags", hashtags);
-                    formData.append("api_key", "<?php echo $_SESSION['api_key']; ?>");
-                    formData.append("thumbnail", blob, "blob.png");
-                    $.ajax({
-                        url : 'https://webhook.site/6228cf23-e069-4082-b4d5-e3f439e6d98b',
-                        type : 'POST',
-                        data : formData,
-                        processData: false,
-                        contentType: false,
-                        success : function(data) {
-                            let html = `<div class="row-md-2 py-2 text-center text-black"><i class="fa-solid fa-check fa-2xl"></i></div>`;
-                            showSwalSmall('Gnam pubblicato', html);
-                        }
-                    });
-                });
+                $("#hiddenVideoDiv").removeClass("d-none");
+                setTimeout(function() {
+                    let videoCanvas = $("#videoCanvas")[0];
+                    videoCanvas.width = $("#hiddenVideoDiv")[0].videoWidth;
+                    videoCanvas.height = $("#hiddenVideoDiv")[0].videoHeight;
+                    videoCanvas.getContext("2d").drawImage($("#hiddenVideoDiv")[0], 0, 0, videoCanvas.width, videoCanvas.height);
+                    videoCanvas.toBlob(function(blob) {
+                        formData.append("thumbnail", blob, "blob.png");
+                        uploadVideo(formData);
+                    }, "image/png");
+                    $("#hiddenVideoDiv").addClass("d-none");
+                }, 200);
             }
         }
     }
@@ -353,6 +345,6 @@
     $("#hashtagsButton").on("click", openHashtags);
     $("#ingredientsButton").on("click", openIngredients);
     $("#videoInput").on("change", function() {
-        videoDiv.src = URL.createObjectURL($("#videoInput").prop("files")[0]);
+        $("#hiddenVideoDiv").attr("src", URL.createObjectURL($("#videoInput").prop("files")[0]));
     });
 </script>
