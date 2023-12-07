@@ -8,7 +8,7 @@
         <div class="row-md px-4 h4">
             <h2 class="fw-bold">Scegli video</h2>
             <input type="file" class="form-control bg-primary rounded shadow-sm" id="videoInput" accept="video/*" />
-            <video id="hiddenVideoDiv" class="d-none" style="height: 1px!important; width: 1px!important"></video>
+            <video id="hiddenVideoDiv" class="d-none position-absolute" style="height: 1px!important; width: 1px!important"></video>
             <canvas id="videoCanvas" class="d-none"></canvas>
         </div>
         <!-- thumbnail chooser field -->
@@ -298,7 +298,7 @@
 
     const uploadVideo = (formData) => {
         $.ajax({
-            url : 'https://webhook.site/6228cf23-e069-4082-b4d5-e3f439e6d98b',
+            url : 'api/videos.php',
             type : 'POST',
             data : formData,
             processData: false,
