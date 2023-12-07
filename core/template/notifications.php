@@ -6,7 +6,7 @@
     </div>
     <div id="pageContentDiv" class="row-md-8 overflow-auto align-content-center">
         <div class="container h-auto" id="notificationsContainer">
-            <?php foreach (getNotifications() as $notification) { ?>
+            <?php foreach (getNotifications($_SESSION["api_key"]) as $notification) { ?>
                 <div class="row m-1 p-0">
                     <a role="button" href="home.php?q=<?php echo $notification['gnam_id'] ?>" class="btn btn-bounce rounded-pill bg-primary p-0 notification-pill-text notification-btn">
                         <div class="container">

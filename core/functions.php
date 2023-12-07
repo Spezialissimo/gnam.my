@@ -47,8 +47,8 @@ function register($username, $password){
     return json_encode(["status" => "success", "message" => "Utente registrato con successo."]);
 }
 
-function getNotifications() {
-    // ottieni notifiche con target_user_id = user_id in sessione e seen == 0
+function getNotifications($api_key) {
+    // ottieni notifiche con target_user_id = user con api_key e seen == 0
     $notifications = array(
             array("source_user_name" => "NoyzNachos", "gnam_id" => "2", "template_text" => " ciao!", "timestamp" => "2"),
             array("source_user_name" => "SferaEImpasta", "gnam_id" => "2", "template_text" => " ciao!", "timestamp" => "4")

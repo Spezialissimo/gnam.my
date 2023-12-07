@@ -3,7 +3,10 @@
 require_once("core/functions.php");
 if (!isloggedIn() && PAGE_TITLE != 'Login' && PAGE_TITLE != 'Registrati') {
 	// header('Location: http://localhost/login.php');
-} ?>
+}
+// TODO far si che sia quella dell'utente loggato
+$_SESSION["api_key"] = "ciao";
+?>
 
 <!DOCTYPE html>
 <html class="h-100">
@@ -29,7 +32,7 @@ if (!isloggedIn() && PAGE_TITLE != 'Login' && PAGE_TITLE != 'Registrati') {
 	<script>
 		$(window).on("load", function() {
 			setInterval(function() {
-				$.get("api/notifications.php", function(data) {
+				$.get("api/notifications.php", { api_key: "<?php echo $_SESSION['api_key']; ?>" }, function(data) {
 					$("#notificationsCount").val(data);
 				});
 			}, 2000);

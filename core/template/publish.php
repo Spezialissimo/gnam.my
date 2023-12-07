@@ -304,6 +304,7 @@
             formData.append("description", $("#descriptionInput").val());
             formData.append("ingredients", ingredients);
             formData.append("hashtags", hashtags);
+            formData.append("api_key", "<?php echo $_SESSION['api_key']; ?>");
             if ($("#thumbnailInput").prop("files").length == 1) {
                 formData.append("thumbnail", $("#thumbnailInput").prop("files")[0]);
             }
@@ -314,7 +315,7 @@
                 data : formData,
                 processData: false,
                 contentType: false,
-                success : function() {
+                success : function(data) {
                     let html = `<div class="row-md-2 py-2 text-center text-black"><i class="fa-solid fa-check fa-2xl"></i></div>`;
                     showSwalSmall('Gnam pubblicato', html);
                 }
