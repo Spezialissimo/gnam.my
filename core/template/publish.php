@@ -309,7 +309,7 @@
             }
 
             $.ajax({
-                url : 'upload.php',
+                url : 'api/videos.php',
                 type : 'POST',
                 data : formData,
                 processData: false,

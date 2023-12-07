@@ -1,8 +1,10 @@
 <?php
 
-// Check if user is logged in
+require_once("core/functions.php");
+if (!isloggedIn() && PAGE_TITLE != 'Login' && PAGE_TITLE != 'Registrati') {
+	// header('Location: http://localhost/login.php');
+} ?>
 
-?>
 <!DOCTYPE html>
 <html class="h-100">
 <head>
@@ -23,6 +25,17 @@
 	<title>Gnam.my - <?php echo PAGE_TITLE ?></title>
 </head>
 <body class="bg h-100">
+	<?php if (/*isloggedIn()*/ true) { ?>
+	<script>
+		$(window).on("load", function() {
+			setInterval(function() {
+				$.get("api/notifications.php", function(data) {
+					$("#notificationsCount").val(data);
+				});
+			}, 2000);
+		});
+	</script>
+	<?php } ?>
 	<main class="h-100">
 	<?php if(PAGE_TITLE != 'Login' && PAGE_TITLE != 'Registrati') { ?>
 		<div class="container p-0">
