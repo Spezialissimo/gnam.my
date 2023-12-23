@@ -4,6 +4,10 @@ require_once('databaseConnection.php');
 
 $key = "28682ecb41c022e5b88686138e40e1d8"; // Da cambiare metodo, la key è un esempio
 
+function response($type, $message) {
+    return json_encode(["status" => $type, "message" => $message]);
+}
+
 function generateUUID() {
     $data = openssl_random_pseudo_bytes(16);
     $data[6] = chr(ord($data[6]) & 0x0f | 0x40);
@@ -12,8 +16,11 @@ function generateUUID() {
 }
 
 function isloggedIn() {
-    session_start();
-    return isset($_SESSION['id']) && $_SESSION['logged_in'] == "1";
+    if (session_status() == PHP_SESSION_NONE) {
+        session_name("secure");
+        session_start();
+    }
+    return isset($_SESSION['id']) && isset($_SESSION['api_key']);
 }
 
 function hash_password($password) {
@@ -21,8 +28,18 @@ function hash_password($password) {
     return hash("SHA256", $password . $key);
  }
 
-function register($username, $password){
+function register($username, $password) {
     global $db;
+
+    $stmt = $db->prepare("SELECT * FROM `users` WHERE `name` = :nome");
+    $stmt->bindParam(':nome', $username);
+    $stmt->execute();
+    $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    if(count($rows) > 0) {
+        return response("error", "Username già in uso.");
+    }
+
     $password_hash = hash_password($password);
     $apiKey = generateUUID();
 
@@ -30,9 +47,42 @@ function register($username, $password){
     $stmt->bindParam(':apiKey', $apiKey);
     $stmt->bindParam(':nome', $username);
     $stmt->bindParam(':passwordHash', $password_hash);
-
     $stmt->execute();
-    return json_encode(["status" => "success", "message" => "Utente registrato con successo."]);
+
+    return login($username, $password);
+}
+
+function login($username, $password) {
+    global $db;
+    global $key;
+    
+    $stmt = $db->prepare("SELECT * FROM `users` WHERE `name` = :nome");
+    $stmt->bindParam(':nome', $username);
+    $stmt->execute();
+    $rows = $stmt->fetch();
+
+    $password_hash = hash_password($password);
+    $real_password = ($rows['password']);
+
+    if($password_hash == $real_password) {
+            session_name("secure");
+            session_start();
+            
+			$_SESSION['id'] = $rows['id'];			
+            $_SESSION['api_key'] = $rows['api_key'];
+            $_SESSION['username'] = $rows['name'];
+            
+            return response("success", "Fatto! Ti stiamo reindirizzando...");
+    } else {
+        return response("error", "Credenziali non valide.");
+    }
+}
+
+function logout() {
+    session_name("secure");
+    session_start();
+    session_destroy();
+    header("Location: login.php");
 }
 
 function getUserFromApiKey($api_key) {

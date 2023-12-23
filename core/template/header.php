@@ -1,13 +1,16 @@
 <?php
 
 require_once("core/functions.php");
-if (!isloggedIn() && PAGE_TITLE != 'Login' && PAGE_TITLE != 'Registrati') {
-	// header('Location: http://localhost/login.php');
-}
-// TODO far si che sia quella dell'utente loggato
-$_SESSION["api_key"] = "ciao";
-?>
 
+if (!isloggedIn() && PAGE_TITLE != 'Login' && PAGE_TITLE != 'Registrati') {
+	header("Location: login.php");
+}
+
+if (isloggedIn() && (PAGE_TITLE == 'Login' || PAGE_TITLE == 'Registrati')) {
+	header("Location: profile.php");
+}
+
+?>
 <!DOCTYPE html>
 <html class="h-100">
 <head>
@@ -28,7 +31,7 @@ $_SESSION["api_key"] = "ciao";
 	<title>Gnam.my - <?php echo PAGE_TITLE ?></title>
 </head>
 <body class="bg h-100">
-	<?php if (/*isloggedIn()*/ true) { ?>
+	<?php if (isloggedIn()) { ?>
 	<script>
 		const checkNotifications = () => {
 			$.get("api/notifications.php", { api_key: "<?php echo $_SESSION['api_key']; ?>" }, function(data) {

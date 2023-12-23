@@ -25,7 +25,7 @@
             return;
         }
 
-        $.post("core/?signin", "username=" + username + "&password=" + password + "&rpassword=" + rpassword, (result) => {
+        $.post("core/?register", "username=" + username + "&password=" + password + "&rpassword=" + rpassword, (result) => {
             let decodedResult = JSON.parse(result);            
             if (decodedResult.status === "success") {
                 showToast(decodedResult.status, "<p class='fs-6 text-center pt-3'>" + decodedResult.message + "</p>", "home.php");

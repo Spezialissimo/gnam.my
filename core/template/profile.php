@@ -414,7 +414,7 @@
                         <div class='col-4' id="saveButton">
                             <a role='button' class='btn btn-bounce rounded-pill bg-accent fw-bold text-white'>Salva</a>
                         </div>
-                        <div class='col-5'>
+                        <div class='col-5' id="logoutButton">
                             <a role='button' class='btn btn-bounce rounded-pill bg-alert fw-bold text-white'>Log out</a>
                         </div>
                     </div>
@@ -435,6 +435,10 @@
                 closeSwal();
                 showToast('success', '<p class="fs-5">Foto profilo cambiata con successo!</p>');
             });
+
+            $('#logoutButton').click(function() {
+                window.location.href = "logout.php";
+            });
         });
     }
 
@@ -444,4 +448,5 @@
     $("#allPostsButton").on("click", showAllPosts);
     $("#likedPostsButton").on("click", showLikedPosts);
     $("#settingsButton").on("click", showSwalSettings);
+    $("#logoutButton").on("click", logOut);
 </script>

@@ -9,7 +9,7 @@ $action = key($_GET);
 
 switch ($action) {
 
-    case "signin":
+    case "register":
         $username = filter_input(INPUT_POST, "username", FILTER_SANITIZE_STRING);
         $password = filter_input(INPUT_POST, "password", FILTER_SANITIZE_STRING);
         $rpassword = filter_input(INPUT_POST, "rpassword", FILTER_SANITIZE_STRING);
@@ -19,6 +19,13 @@ switch ($action) {
         }
         
         echo register($username, $password);
+        break;
+
+    case "login":
+        $username = filter_input(INPUT_POST, "username", FILTER_SANITIZE_STRING);
+        $password = filter_input(INPUT_POST, "password", FILTER_SANITIZE_STRING);
+        
+        echo login($username, $password);
         break;
 
     default:
