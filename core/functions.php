@@ -87,7 +87,7 @@ function logout() {
 
 function getUserFromApiKey($api_key) {
     global $db;
-    $stmt = $db->prepare("SELECT * FROM `users` WHERE api_key == :api_key");
+    $stmt = $db->prepare("SELECT * FROM `users` WHERE api_key = :api_key");
     $stmt->bindParam(':api_key', $api_key);
     $stmt->execute();
     return $stmt->fetch(PDO::FETCH_ASSOC);
@@ -95,7 +95,7 @@ function getUserFromApiKey($api_key) {
 
 function getIngredientFromName($ingredient_name) {
     global $db;
-    $stmt = $db->prepare("SELECT * FROM `ingredients` WHERE name == :name");
+    $stmt = $db->prepare("SELECT * FROM `ingredients` WHERE `name` = :name");
     $stmt->bindParam(':name', $ingredient_name);
     $stmt->execute();
     return $stmt->fetch(PDO::FETCH_ASSOC);
@@ -103,7 +103,7 @@ function getIngredientFromName($ingredient_name) {
 
 function getHashtagFromText($hashtag_text) {
     global $db;
-    $stmt = $db->prepare("SELECT * FROM `hashtags` WHERE text == :text");
+    $stmt = $db->prepare("SELECT * FROM `hashtags` WHERE `text` = :text");
     $stmt->bindParam(':text', $hashtag_text);
     $stmt->execute();
     return $stmt->fetch(PDO::FETCH_ASSOC);
@@ -111,7 +111,7 @@ function getHashtagFromText($hashtag_text) {
 
 function getMeasurementUnitFromName($measurement_unit_name) {
     global $db;
-    $stmt = $db->prepare("SELECT * FROM `measurement_units` WHERE name == :name");
+    $stmt = $db->prepare("SELECT * FROM `measurement_units` WHERE `name` = :name");
     $stmt->bindParam(':name', $measurement_unit_name);
     $stmt->execute();
     return $stmt->fetch(PDO::FETCH_ASSOC);
@@ -126,7 +126,7 @@ function getNotifications($api_key) {
     global $db;
     $stmt = $db->prepare("SELECT u.name AS source_user_name, n.gnam_id, nt.template_text, n.timestamp
         FROM (`notifications` AS n INNER JOIN `users` AS u ON n.target_user_id = u.id) INNER JOIN `notification_types` AS nt ON n.notification_type_id = nt.id
-        WHERE u.api_key == :api_key AND n.seen == 0");
+        WHERE u.api_key = :api_key AND n.seen = 0");
     $stmt->bindParam(':api_key', $api_key);
     $stmt->execute();
     $notifications = $stmt->fetchAll(PDO::FETCH_ASSOC);

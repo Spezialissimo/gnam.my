@@ -5,7 +5,7 @@
         </div>
         <div class="col-8">
             <div class="row">
-                <div class="h4 mt-2 ps-0">GiorgioneErRomano</div>
+                <div class="h4 mt-2 ps-0"><?php echo $_SESSION['username']; ?></div>
             </div>
             <div class="row">
 
