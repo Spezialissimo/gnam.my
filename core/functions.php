@@ -4,25 +4,11 @@ require_once('databaseConnection.php');
 
 $key = "28682ecb41c022e5b88686138e40e1d8"; // Da cambiare metodo, la key è un esempio
 
-// Esempio funzione safe
-function aggiungiPiattoAMenu($codMenu, $codPiatto) {
-
-    // collegameto al db che abbiamo già
-    global $db;
-
-    // preparazione query con placeholders a piacimento (in questo caso :codPiatto e :codMenu)
-    $stmt = $db->prepare("INSERT INTO `inserimento` (`codicePiatto`, `codiceMenu`) VALUES (:codPiatto, :codMenu)");
-
-    // assegnazione dei valori ai placeholders
-    $stmt->bindParam(':codPiatto', $codPiatto);
-    $stmt->bindParam(':codMenu', $codMenu);
-
-    try {
-        $stmt->execute();
-        return "Piatto inserito nel menù."; // DA cambiare con json
-    } catch(PDOException $e) {
-        return "Errore nell'esecuzione della query: " . $e->getMessage();
-    }
+function generateUUID() {
+    $data = openssl_random_pseudo_bytes(16);
+    $data[6] = chr(ord($data[6]) & 0x0f | 0x40);
+    $data[8] = chr(ord($data[8]) & 0x3f | 0x80);
+    return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));
 }
 
 function isloggedIn() {
@@ -38,8 +24,10 @@ function hash_password($password) {
 function register($username, $password){
     global $db;
     $password_hash = hash_password($password);
+    $apiKey = generateUUID();
 
-    $stmt = $db->prepare("INSERT INTO `users` (`id`, `name`, `password`) VALUES (NULL, :nome, :passwordHash)");
+    $stmt = $db->prepare("INSERT INTO `users` (`id`, `api_key`, `name`, `password`) VALUES (NULL, :apiKey, :nome, :passwordHash)");
+    $stmt->bindParam(':apiKey', $apiKey);
     $stmt->bindParam(':nome', $username);
     $stmt->bindParam(':passwordHash', $password_hash);
 

@@ -2,10 +2,11 @@
 
 define('DB_HOST', 'localhost');
 define('DB_NAME', 'db_gnammy');
-define('DB_USER', 'gnammy');
-define('DB_PASSWORD', 'gnammy');
+define('DB_USER', 'root');
+define('DB_PASSWORD', '');
 
-// Opzioni per query safe
+date_default_timezone_set('Europe/Rome');
+
 $options = [
     PDO::ATTR_EMULATE_PREPARES => false,
     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
@@ -18,9 +19,6 @@ try {
     die("Errore di connessione al database: " . $e->getMessage());
 }
 
-date_default_timezone_set('Europe/Rome');
-
-// Sanificazione veloce POST
 foreach($_POST as $value) {
     $value = htmlspecialchars($value);
     $value = $db->quote($value);
