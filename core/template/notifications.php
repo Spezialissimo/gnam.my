@@ -2,8 +2,8 @@
 
 if(isset($_POST['clearNotifications'])) {
     global $db;
-    $stmt = $db->prepare("UPDATE `notifications` SET `seen` = 1 WHERE `seen` = 0 AND `target_user_id` = :user_id)");
-    $stmt->bindParam(':user_id', $_SESSION["user_id"]);
+    $stmt = $db->prepare("UPDATE `notifications` SET `seen` = 1 WHERE `seen` = 0 AND `target_user_id` = :user_id");
+    $stmt->bindParam(':user_id', $_SESSION["id"]);
     $stmt->execute();
 }
 
@@ -26,7 +26,7 @@ if(isset($_POST['clearNotifications'])) {
                                     <img class="border border-1 border-dark rounded-circle w-100 align-middle" alt="<?php echo $notification['source_user_name'] ?>" src="assets/profile_pictures/prova.png"/>
                                 </div>
                                 <div class="col align-self-center fs-7">
-                                    <div class="m-0 text-link d-inline"><?php echo $notification["source_user_name"];?></div><span class="m-0 text-normal-black"><?php echo $notification["template_text"];?></span>
+                                    <div class="m-0 text-link d-inline"><?php echo $notification["source_user_name"];?></div><span class="m-0 text-normal-black"> <?php echo $notification["template_text"];?></span>
                                 </div>
                                 <div class="col-1 m-0 ps-3 pe-0 pt-2 pb-2 d-flex">
                                     <div class="vr"></div>
