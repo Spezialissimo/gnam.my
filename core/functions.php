@@ -149,6 +149,77 @@ function getNotifications($api_key)
     return $notifications;
 }
 
+function getUserFollowers($username) {
+    global $db;
+    $stmt = $db->prepare("SELECT u.name, u.profile_picture FROM `users` AS u
+        INNER JOIN `following` AS f
+        ON u.id = f.follower_user_id
+        WHERE f.followed_user_id = (SELECT id FROM `users` WHERE `name` = :username)
+        ORDER BY u.name ASC");
+    $stmt->bindParam(':username', $username);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function getUserFollowed($username) {
+    global $db;
+    $stmt = $db->prepare("SELECT u.name, u.profile_picture FROM `users` AS u
+        INNER JOIN `following` AS f
+        ON u.id = f.followed_user_id
+        WHERE f.follower_user_id = (SELECT id FROM `users` WHERE `name` = :username)
+        ORDER BY u.name ASC");
+    $stmt->bindParam(':username', $username);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function isCurrentUserFollowing($username) {
+    global $db;
+    $stmt = $db->prepare("SELECT * FROM `following` WHERE `follower_user_id` = :follower_user_id AND `followed_user_id` = (SELECT id FROM `users` WHERE `name` = :username)");
+    $stmt->bindParam(':follower_user_id', $_SESSION["id"]);
+    $stmt->bindParam(':username', $username);
+    $stmt->execute();
+    return count($stmt->fetchAll(PDO::FETCH_ASSOC)) > 0;
+}
+
+function toggleFollowUser($api_key, $username) {
+    global $db;
+    $currentUser = getUserFromApiKey($api_key);
+
+    if($currentUser["name"] == $username) {
+        return response("error", "Non puoi seguire te stesso.");
+    }
+
+    $stmt = $db->prepare("SELECT * FROM `users` WHERE `name` = :username");
+    $stmt->bindParam(':username', $username);
+    $stmt->execute();
+    $userToFollow = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    if(count($userToFollow) == 0) {
+        return response("error", "Utente non trovato.");
+    }
+
+    $stmt = $db->prepare("SELECT * FROM `following` WHERE `follower_user_id` = :follower_user_id AND `followed_user_id` = :followed_user_id");
+    $stmt->bindParam(':follower_user_id', $currentUser["id"]);
+    $stmt->bindParam(':followed_user_id', $userToFollow[0]["id"]);
+    $stmt->execute();
+    $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    if(count($rows) > 0) {
+        $stmt = $db->prepare("DELETE FROM `following` WHERE `follower_user_id` = :follower_user_id AND `followed_user_id` = :followed_user_id");
+        $stmt->bindParam(':follower_user_id', $currentUser["id"]);
+        $stmt->bindParam(':followed_user_id', $userToFollow[0]["id"]);
+        $stmt->execute();
+        return response("success", "Segui");
+    } else {
+        $stmt = $db->prepare("INSERT INTO `following` (`follower_user_id`, `followed_user_id`) VALUES (:follower_user_id, :followed_user_id)");
+        $stmt->bindParam(':follower_user_id', $currentUser["id"]);
+        $stmt->bindParam(':followed_user_id', $userToFollow[0]["id"]);
+        $stmt->execute();
+        return response("success", "Seguito");
+    }
+}
+
 function getInitialGnamsForHome($api_key)
 {
     global $db;
@@ -175,16 +246,16 @@ function getInitialGnamsForHome($api_key)
         array_push($gnamsInfo, [
             'id' => $gnam['id'],
             'shares' => $gnam['share_count'],
-            'short_description' => substr($gnam['description'], 0, 97).'...',
             'description' => $gnam['description'],
-            'user_name' => $gnamUserName,
-            'user_id' => $gnam['user_id'],
+            'userName' => $gnamUserName,
+            'userId' => $gnam['user_id'],
             'comments' => $gnamComments,
             'tags' => $gnamTags,
             'likes_count' => $gnamLikes,
             'recipe' => $gnamRecipe
         ]);
     }
+
 
     return $gnamsInfo;
 }
@@ -309,3 +380,4 @@ function getNewGnamsForSearch($ingredients, $textfield, $api_key)
     $gnams = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $gnams;
 }
+
