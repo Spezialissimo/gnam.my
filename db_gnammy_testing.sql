@@ -274,8 +274,7 @@ CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `api_key` varchar(50) NOT NULL,
   `name` varchar(20) NOT NULL,
-  `password` varchar(100) NOT NULL,
-  `profile_picture` varchar(20) NOT NULL
+  `password` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
