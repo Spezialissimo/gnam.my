@@ -35,7 +35,7 @@ if (isloggedIn() && (PAGE_TITLE == 'Login' || PAGE_TITLE == 'Registrati')) {
 	<script>
 		const checkNotifications = () => {
 			$.get("api/notifications.php", { api_key: "<?php echo $_SESSION['api_key']; ?>" }, function(data) {
-				if (data > 0) {
+				if (JSON.parse(data).length > 0) {
 					$("#notificationsNavbarButton").addClass("color-alert");
 				} else {
 					$("#notificationsNavbarButton").removeClass("color-alert");

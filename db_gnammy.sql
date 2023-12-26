@@ -136,6 +136,7 @@ CREATE TABLE `measurement_units` (
 --
 
 CREATE TABLE `notifications` (
+  `id` int(11) NOT NULL,
   `source_user_id` int(11) NOT NULL,
   `target_user_id` int(11) NOT NULL,
   `gnam_id` int(11) DEFAULT NULL,
@@ -239,7 +240,7 @@ ALTER TABLE `measurement_units`
 -- Indici per le tabelle `notifications`
 --
 ALTER TABLE `notifications`
-  ADD PRIMARY KEY (`source_user_id`,`target_user_id`,`timestamp`),
+  ADD PRIMARY KEY (`id`),
   ADD KEY `fk_nome_chiave_tui` (`target_user_id`),
   ADD KEY `fk_nome_chiave_gnam_id_notifications` (`gnam_id`),
   ADD KEY `fk_nome_chiave_notification` (`notification_type_id`);
@@ -300,6 +301,12 @@ ALTER TABLE `notification_types`
 -- AUTO_INCREMENT per la tabella `users`
 --
 ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT per la tabella `notifications`
+--
+ALTER TABLE `notifications`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --

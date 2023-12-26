@@ -228,6 +228,7 @@ INSERT INTO `measurement_units` (`id`, `name`) VALUES
 --
 
 CREATE TABLE `notifications` (
+  `id` int(11) NOT NULL,
   `source_user_id` int(11) NOT NULL,
   `target_user_id` int(11) NOT NULL,
   `gnam_id` int(11) DEFAULT NULL,
@@ -240,9 +241,9 @@ CREATE TABLE `notifications` (
 -- Dump dei dati per la tabella `notifications`
 --
 
-INSERT INTO `notifications` (`source_user_id`, `target_user_id`, `gnam_id`, `notification_type_id`, `timestamp`, `seen`) VALUES
-(13, 12, 1, 1, '1703587658', 0),
-(14, 12, 1, 1, '1703587463', 0);
+INSERT INTO `notifications` (`id`, `source_user_id`, `target_user_id`, `gnam_id`, `notification_type_id`, `timestamp`, `seen`) VALUES
+(0, 13, 12, 1, 1, '1703587658', 0),
+(1, 14, 12, 1, 1, '1703587463', 0);
 
 -- --------------------------------------------------------
 
@@ -282,9 +283,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `api_key`, `name`, `password`) VALUES
-(12, 'b181e2fa-5ddd-4a4b-aeb3-e73991b80de3', 'Pier', '5bf0ebcaf4201ae8e47d0ca95cb6b74cb6f8d925cab0312705e2a76aa3d6fe73', 'prova.png'),
-(13, 'f71082fc-a900-402c-9939-7f6e443de809', 'Davide', '265b636f3d2724bd88e305cfdd9880faa8593cd8839db828a2a03c9920cc11b8', 'prova.png'),
-(14, '123e11ec-24c4-45b6-8416-3eafeda8d1c3', 'Pello', '26b223dd8514f0815170156a0e797ab24d0fb6ff4ea361646435127d29880bcf', 'prova.png');
+(12, 'b181e2fa-5ddd-4a4b-aeb3-e73991b80de3', 'Pier', '5bf0ebcaf4201ae8e47d0ca95cb6b74cb6f8d925cab0312705e2a76aa3d6fe73'),
+(13, 'f71082fc-a900-402c-9939-7f6e443de809', 'Davide', '265b636f3d2724bd88e305cfdd9880faa8593cd8839db828a2a03c9920cc11b8'),
+(14, '123e11ec-24c4-45b6-8416-3eafeda8d1c3', 'Pello', '26b223dd8514f0815170156a0e797ab24d0fb6ff4ea361646435127d29880bcf');
 
 --
 -- Indici per le tabelle scaricate
@@ -357,7 +358,7 @@ ALTER TABLE `measurement_units`
 -- Indici per le tabelle `notifications`
 --
 ALTER TABLE `notifications`
-  ADD PRIMARY KEY (`source_user_id`,`target_user_id`,`timestamp`),
+  ADD PRIMARY KEY (`id`),
   ADD KEY `fk_nome_chiave_tui` (`target_user_id`),
   ADD KEY `fk_nome_chiave_gnam_id_notifications` (`gnam_id`),
   ADD KEY `fk_nome_chiave_notification` (`notification_type_id`);
@@ -419,6 +420,12 @@ ALTER TABLE `notification_types`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT per la tabella `notifications`
+--
+ALTER TABLE `notifications`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Limiti per le tabelle scaricate

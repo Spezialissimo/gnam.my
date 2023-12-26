@@ -1,31 +1,7 @@
 # Gnam.my - A simple cooking-related social
 
 Gnam.my is a simple social about cooking written in PHP
-
-## Stato pagine
 Dim Mobile: 360 x 640
-- home
-- login
-- notifications
-- profile
-- register
-- search
-- share
-
-## Divisione pagine
-
-Davide:
-- Notifications [FATTO]
-- Search
-- Share
-
-Pier:
-- Login
-- Register
-- Profile
-
-Pello:
-- Home
 
 ## Experience prototyping
 

@@ -1,14 +1,3 @@
-<?php
-
-if(isset($_POST['clearNotifications'])) {
-    global $db;
-    $stmt = $db->prepare("UPDATE `notifications` SET `seen` = 1 WHERE `seen` = 0 AND `target_user_id` = :user_id");
-    $stmt->bindParam(':user_id', $_SESSION["id"]);
-    $stmt->execute();
-}
-
-?>
-
 <div class="container text-center font-text">
     <div id="headerDiv" class="row-2 py-2">
         <h1 class="fw-bold">Notifiche</h1>
@@ -39,12 +28,20 @@ if(isset($_POST['clearNotifications'])) {
                     </a>
                 </div>
                 <?php } ?>
-                <form class="row-md-4 pt-3 pb-4" id="footerDiv" method="post">
-                    <input type="submit" name="clearNotifications" class="btn btn-bounce rounded-pill bg-secondary fw-bold text-white" value="Segna come lette" />
-                </form>
+                <button id="clearNotificationsButton" class="btn btn-bounce rounded-pill bg-secondary fw-bold text-white">Segna come lette</button>
             </div>
         <?php } else { ?>
         <p class="fs-6">Non hai nuove notifiche.</p>
         <?php } ?>
     </div>
 </div>
+
+<script>
+    $("#clearNotificationsButton").on("click", function () {
+        $.ajax({
+            url : 'api/notifications.php',
+            type : 'DELETE',
+            data : { "api_key" : $_SESSION["api_key"] }
+        });
+    });
+</script>
