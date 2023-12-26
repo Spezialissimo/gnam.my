@@ -1,6 +1,7 @@
 <?php
     $gnams = getInitialGnamsForHome($_SESSION['api_key']);
     foreach ($gnams as $gnam) {
+
     ?>
 <video class="w-100 h-100 object-fit-fill p-0" autoplay disablepictureinpicture loop playsinline preload="auto" poster="assets/gnams_thumbnails/<?php echo $gnam['id']; ?>.png" src="assets/gnams/<?php echo $gnam['id']; ?>.mp4"></video>
 <div class="video-overlay" id="videoOverlay">

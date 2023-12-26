@@ -246,14 +246,16 @@ function getInitialGnamsForHome($api_key)
         array_push($gnamsInfo, [
             'id' => $gnam['id'],
             'shares' => $gnam['share_count'],
+            'short_description' => substr($gnam['description'], 0, 97) . '...',
             'description' => $gnam['description'],
-            'userName' => $gnamUserName,
-            'userId' => $gnam['user_id'],
+            'user_name' => $gnamUserName,
+            'user_id' => $gnam['user_id'],
             'comments' => $gnamComments,
             'tags' => $gnamTags,
             'likes_count' => $gnamLikes,
             'recipe' => $gnamRecipe
         ]);
+        break;
     }
 
 
