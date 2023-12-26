@@ -1,11 +1,12 @@
 <?php
-if(isset($_POST['clearNotifications']))
-{
+
+if(isset($_POST['clearNotifications'])) {
     global $db;
-    $stmt = $db->prepare("UPDATE `notifications` SET `seen` = 1 WHERE `seen` == 0 AND `target_user_id` == :user_id)");
+    $stmt = $db->prepare("UPDATE `notifications` SET `seen` = 1 WHERE `seen` = 0 AND `target_user_id` = :user_id)");
     $stmt->bindParam(':user_id', $_SESSION["user_id"]);
     $stmt->execute();
 }
+
 ?>
 
 <div class="container text-center font-text">
