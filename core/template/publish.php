@@ -214,7 +214,7 @@
         if (hashtags.length > 0) {
             modalContent = hashtags.map(hashtag => `
                 <p class="text-black"><button type="button" class="btn btn-bounce bg-primary text-black" onclick="removeHashtag(this)">
-                    <i class="fa-solid fa-trash-can"></i></button>&nbsp${hashtag}</p>
+                    <i class="fa-solid fa-trash-can"></i></button>&nbsp#${hashtag}</p>
             `).join('');
         }
 
@@ -263,7 +263,6 @@
         if(!newHashtag) {
             return
         }
-        newHashtag = '#' + newHashtag;
         if (hashtags.includes(newHashtag)) {
             return;
         }
@@ -273,7 +272,7 @@
         hashtags.push(newHashtag);
         $("#searchedHashtags").append(`
             <p class="text-black"><button type="button" class="btn btn-bounce bg-primary text-black" onclick="removeHashtag(this)">
-                <i class="fa-solid fa-trash-can"></i></button>&nbsp${newHashtag}</p>
+                <i class="fa-solid fa-trash-can"></i></button>&nbsp#${newHashtag}</p>
         `);
         $('#hashtagInput').val('');
         $('#hashtagsCount').html(hashtags.length);
@@ -298,7 +297,7 @@
 
     const uploadVideo = (formData) => {
         $.ajax({
-            url : 'api/videos.php',
+            url : 'api/gnams.php',
             type : 'POST',
             data : formData,
             processData: false,
@@ -318,8 +317,8 @@
             let formData = new FormData();
             formData.append("video", $("#videoInput").prop("files")[0]);
             formData.append("description", $("#descriptionInput").val());
-            formData.append("ingredients", ingredients);
-            formData.append("hashtags", hashtags);
+            formData.append("ingredients", JSON.stringify(ingredients));
+            formData.append("hashtags", JSON.stringify(hashtags));
             formData.append("api_key", "<?php echo $_SESSION['api_key']; ?>");
             if ($("#thumbnailInput").prop("files").length == 1) {
                 formData.append("thumbnail", $("#thumbnailInput").prop("files")[0]);
