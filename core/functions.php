@@ -4,21 +4,18 @@ require_once('databaseConnection.php');
 
 $key = "28682ecb41c022e5b88686138e40e1d8"; // Da cambiare metodo, la key è un esempio
 
-function response($type, $message)
-{
+function response($type, $message) {
     return json_encode(["status" => $type, "message" => $message]);
 }
 
-function generateUUID()
-{
+function generateUUID() {
     $data = openssl_random_pseudo_bytes(16);
     $data[6] = chr(ord($data[6]) & 0x0f | 0x40);
     $data[8] = chr(ord($data[8]) & 0x3f | 0x80);
     return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));
 }
 
-function isloggedIn()
-{
+function isloggedIn() {
     if (session_status() == PHP_SESSION_NONE) {
         session_name("secure");
         session_start();
@@ -26,14 +23,12 @@ function isloggedIn()
     return isset($_SESSION['id']) && isset($_SESSION['api_key']);
 }
 
-function hash_password($password)
-{
+function hash_password($password) {
     global $key;
     return hash("SHA256", $password . $key);
 }
 
-function register($username, $password)
-{
+function register($username, $password) {
     global $db;
 
     $stmt = $db->prepare("SELECT * FROM `users` WHERE `name` = :nome");
@@ -57,8 +52,7 @@ function register($username, $password)
     return login($username, $password);
 }
 
-function login($username, $password)
-{
+function login($username, $password) {
     global $db;
     global $key;
 
@@ -84,16 +78,14 @@ function login($username, $password)
     }
 }
 
-function logout()
-{
+function logout() {
     session_name("secure");
     session_start();
     session_destroy();
     header("Location: login.php");
 }
 
-function getUserFromApiKey($api_key)
-{
+function getUserFromApiKey($api_key) {
     global $db;
     $stmt = $db->prepare("SELECT * FROM `users` WHERE api_key = :api_key");
     $stmt->bindParam(':api_key', $api_key);
@@ -101,8 +93,7 @@ function getUserFromApiKey($api_key)
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
-function getIngredientFromName($ingredient_name)
-{
+function getIngredientFromName($ingredient_name) {
     global $db;
     $stmt = $db->prepare("SELECT * FROM `ingredients` WHERE `name` = :name");
     $stmt->bindParam(':name', $ingredient_name);
@@ -110,8 +101,7 @@ function getIngredientFromName($ingredient_name)
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
-function getHashtagFromText($hashtag_text)
-{
+function getHashtagFromText($hashtag_text) {
     global $db;
     $stmt = $db->prepare("SELECT * FROM `hashtags` WHERE `text` = :text");
     $stmt->bindParam(':text', $hashtag_text);
@@ -119,8 +109,7 @@ function getHashtagFromText($hashtag_text)
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
-function getMeasurementUnitFromName($measurement_unit_name)
-{
+function getMeasurementUnitFromName($measurement_unit_name) {
     global $db;
     $stmt = $db->prepare("SELECT * FROM `measurement_units` WHERE `name` = :name");
     $stmt->bindParam(':name', $measurement_unit_name);
@@ -128,8 +117,7 @@ function getMeasurementUnitFromName($measurement_unit_name)
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
-function getNotifications($api_key)
-{
+function getNotifications($api_key) {
     // $notifications = array(
     // array("source_user_name" => "NoyzNachos", "gnam_id" => "2", "template_text" => " ciao!", "timestamp" => "2"),
     // array("source_user_name" => "SferaEImpasta", "gnam_id" => "2", "template_text" => " ciao!", "timestamp" => "4")
@@ -220,8 +208,7 @@ function toggleFollowUser($api_key, $username) {
     }
 }
 
-function getInitialGnamsForHome($api_key)
-{
+function getInitialGnamsForHome($api_key) {
     global $db;
     // $stmt = $db->prepare("SELECT *
     //     FROM gnams g
@@ -245,7 +232,7 @@ function getInitialGnamsForHome($api_key)
 
         array_push($gnamsInfo, [
             'id' => $gnam['id'],
-            'shares' => $gnam['share_count'],
+            'shares_count' => $gnam['share_count'],
             'short_description' => substr($gnam['description'], 0, 97) . '...',
             'description' => $gnam['description'],
             'user_name' => $gnamUserName,
@@ -262,8 +249,7 @@ function getInitialGnamsForHome($api_key)
     return $gnamsInfo;
 }
 
-function getGnamUserName($user_id)
-{
+function getGnamUserName($user_id) {
     global $db;
     $stmt = $db->prepare("SELECT `name` FROM users WHERE id=:user_id");
     $stmt->bindParam(':user_id', $user_id);
@@ -271,28 +257,25 @@ function getGnamUserName($user_id)
     return ($stmt->fetch(PDO::FETCH_ASSOC))['name'];
 }
 
-function getGnamComments($gnam_id)
-{
+function getGnamComments($gnam_id) {
     global $db;
     $stmt = $db->prepare("SELECT * FROM comments WHERE gnam_id=:gnam_id");
     $stmt->bindParam(':gnam_id', $gnam_id);
     $stmt->execute();
-    return $stmt->fetch(PDO::FETCH_ASSOC);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function getGnamTags($gnam_id)
-{
+function getGnamTags($gnam_id) {
     global $db;
     $stmt = $db->prepare("SELECT ht.text, ht.icon FROM
         hashtags ht JOIN gnam_hashtags ght ON ht.id=ght.hashtag_id
         WHERE ght.gnam_id=:gnam_id");
     $stmt->bindParam(':gnam_id', $gnam_id);
     $stmt->execute();
-    return $stmt->fetch(PDO::FETCH_ASSOC);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function getGnamLikes($gnam_id)
-{
+function getGnamLikes($gnam_id) {
     global $db;
     $stmt = $db->prepare("SELECT COUNT(*) AS likes_count FROM likes WHERE gnam_id=:gnam_id");
     $stmt->bindParam(':gnam_id', $gnam_id);
@@ -300,8 +283,7 @@ function getGnamLikes($gnam_id)
     return ($stmt->fetch(PDO::FETCH_ASSOC))['likes_count'];
 }
 
-function getGnamRecipe($gnam_id)
-{
+function getGnamRecipe($gnam_id) {
     global $db;
     $stmt = $db->prepare("SELECT * FROM gnam_ingredients WHERE gnam_id=:gnam_id");
     $stmt->bindParam(':gnam_id', $gnam_id);
@@ -310,8 +292,7 @@ function getGnamRecipe($gnam_id)
 }
 
 
-function getSingleNewGnamForHome($api_key, $lastID)
-{
+function getSingleNewGnamForHome($api_key, $lastID) {
     global $db;
 
     // $stmt = $db->prepare("SELECT MAX(g.id)
@@ -343,8 +324,7 @@ function getSingleNewGnamForHome($api_key, $lastID)
 }
 
 
-function getNewGnamsForSearch($ingredients, $textfield, $api_key)
-{
+function getNewGnamsForSearch($ingredients, $textfield, $api_key) {
     global $db;
 
     if ($ingredients === null && ($textfield === null || $textfield === '')) {

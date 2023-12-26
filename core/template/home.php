@@ -1,7 +1,7 @@
 <?php
     $gnams = getInitialGnamsForHome($_SESSION['api_key']);
     foreach ($gnams as $gnam) {
-
+        
     ?>
 <video class="w-100 h-100 object-fit-fill p-0" autoplay disablepictureinpicture loop playsinline preload="auto" poster="assets/gnams_thumbnails/<?php echo $gnam['id']; ?>.png" src="assets/gnams/<?php echo $gnam['id']; ?>.mp4"></video>
 <div class="video-overlay" id="videoOverlay">
@@ -23,41 +23,39 @@
                     <p class="fs-7 m-0 d-none" id="videoDescriptionLong"><?php echo $gnam["description"]; ?></p>
                 </div>
                 <div class="row" id="videoTags">
+                    <?php
+                    if ($gnam["tags"] != null) {
+                        $count = 0;
+                        foreach ($gnam["tags"] as $hashtag) {
+                            if ($count < 2) {
+                    ?>
+                    <!-- TODO mettere class -->
                     <div class="col-4" id="videoTag">
                         <span class="badge rounded-pill bg-primary fw-light text-black">
-                            <i class="fa-solid fa-oil-can"></i>&nbsp #Untazzo
+                            <i class="fa-solid fa-oil-can"></i><?php echo "#".$hashtag["text"] ?>
                         </span>
                     </div>
-                    <div class="col-4" id="videoTag">
-                        <span class="badge rounded-pill bg-primary fw-light text-black">
-                            <i class="fa-solid fa-leaf"></i>&nbsp #Vegan
-                        </span>
-                    </div>
+                    <?php
+                            } else {
+                    ?>
                     <div class="col-4 d-none" id="videoTag">
                         <span class="badge rounded-pill bg-primary fw-light text-black">
-                            <i class="fa-solid fa-leaf"></i>&nbsp #Vegan
+                            <i class="fa-solid fa-leaf"></i><?php echo "#".$hashtag["text"] ?>
                         </span>
                     </div>
-                    <div class="col-4 d-none" id="videoTag">
-                        <span class="badge rounded-pill bg-primary fw-light text-black">
-                            <i class="fa-solid fa-leaf"></i>&nbsp #Vegan
-                        </span>
-                    </div>
-                    <div class="col-4 d-none" id="videoTag">
-                        <span class="badge rounded-pill bg-primary fw-light text-black">
-                            <i class="fa-solid fa-leaf"></i>&nbsp #Vegan
-                        </span>
-                    </div>
-                    <div class="col-4 d-none" id="videoTag">
-                        <span class="badge rounded-pill bg-primary fw-light text-black">
-                            <i class="fa-solid fa-leaf"></i>&nbsp #Vegan
-                        </span>
-                    </div>
-                    <div class="col-2 ps-0" id="moreTagsButton">
+                    <?php
+                            }
+                            $count++;
+                        }
+                    ?>
+                    <div class="col-2 pe-0" id="moreTagsButton">
                         <span class="badge rounded-pill bg-primary fw-light text-black">
                             <i class="fa-solid fa-ellipsis"></i>
                         </span>
                     </div>
+                    <?php
+                    }
+                    ?>
                 </div>
             </div>
             <div class="col-2">
@@ -70,19 +68,19 @@
                             <span><i class="fa-solid fa-heart fa-2xl fa-fw color-secondary"></i></span>
                         </div>
                         <div class="row pt-2 color-accent fw-bold text-center">
-                            <span id="likesCounter">10</span>
+                            <span id="likesCounter"><?php echo $gnam["likes_count"]; ?></span>
                         </div>
                         <div class="row pt-2" id="commentsButton">
                             <span><i class="fa-solid fa-comment-dots fa-2xl fa-fw color-secondary"></i></span>
                         </div>
                         <div class="row pt-2 color-accent fw-bold text-center">
-                            <span id="commentsCounter">2</span>
+                            <span id="commentsCounter"><?php echo count($gnam["comments"]); ?></span>
                         </div>
                         <div class="row pt-2" id="shareButton">
                             <span><i class="fa-solid fa-share-nodes fa-2xl fa-fw color-secondary"></i></span>
                         </div>
                         <div class="row pt-2 color-accent fw-bold text-center">
-                            <span id="shareCounter">3</span>
+                            <span id="shareCounter"><?php echo $gnam["shares_count"]; ?></span>
                         </div>
                     </div>
                 </div>
