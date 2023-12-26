@@ -1,21 +1,25 @@
-<video class="w-100 h-100 object-fit-fill p-0" autoplay disablepictureinpicture loop playsinline preload="auto" poster="assets/gnams_thumbnails/prova.png" src="assets/gnams/prova.mp4"></video>
+<?php
+    $gnams = getInitialGnamsForHome($_SESSION['api_key']);
+    foreach ($gnams as $gnam) {
+    ?>
+<video class="w-100 h-100 object-fit-fill p-0" autoplay disablepictureinpicture loop playsinline preload="auto" poster="assets/gnams_thumbnails/<?php echo $gnam['id']; ?>.png" src="assets/gnams/<?php echo $gnam['id']; ?>.mp4"></video>
 <div class="video-overlay" id="videoOverlay">
     <div class="container">
         <div class="row mb-3">
             <div class="col-10 align-self-end">
                 <a href="profile.php" class="row text-link">
                     <div class="col-3">
-                        <img class="border border-2 border-dark rounded-circle w-100" alt="Filippo Champagne" src="assets/profile_pictures/prova.png" />
+                        <img class="border border-2 border-dark rounded-circle w-100" alt="Filippo Champagne" src="assets/profile_pictures/<?php echo $gnam['user_id']; ?>.png" />
                     </div>
                     <div class="col-9 d-flex align-items-center p-0">
-                        <p class="fs-6 fw-bold m-0">Profilo Nome</p>
+                        <p class="fs-6 fw-bold m-0"><?php echo $gnam['user_name']; ?></p>
                     </div>
                 </a>
                 <div class="row" id="videoDescription">
-                    <span class="fs-7 m-0" id="videoDescriptionShort">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis blandit, tortor ut gravida pellentesque, risus.
+                    <span class="fs-7 m-0" id="videoDescriptionShort"><?php echo $gnam["short_description"]; ?>
                         <span class="fs-7 m-0 color-accent">Leggi di piú...</span>
                     </span>
-                    <p class="fs-7 m-0 d-none" id="videoDescriptionLong">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin malesuada pharetra odio lobortis vulputate. Aliquam maximus ac nibh semper placerat. Maecenas pellentesque elementum auctor. Cras vel venenatis urna.</p>
+                    <p class="fs-7 m-0 d-none" id="videoDescriptionLong"><?php echo $gnam["description"]; ?></p>
                 </div>
                 <div class="row" id="videoTags">
                     <div class="col-4" id="videoTag">
@@ -85,6 +89,9 @@
         </div>
     </div>
 </div>
+<?php
+    }
+?>
 
 <script>
     let isDescriptionShort = true;
