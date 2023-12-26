@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Dic 26, 2023 alle 12:04
+-- Creato il: Dic 26, 2023 alle 12:02
 -- Versione del server: 10.4.32-MariaDB
 -- Versione PHP: 8.2.12
 
@@ -36,6 +36,15 @@ CREATE TABLE `comments` (
   `timestamp` varchar(20) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dump dei dati per la tabella `comments`
+--
+
+INSERT INTO `comments` (`id`, `user_id`, `gnam_id`, `parent_comment_id`, `text`, `timestamp`) VALUES
+(1, 13, 1, NULL, 'Fra bomba! Spacca sta ricetta', '1703587698'),
+(2, 14, 1, NULL, 'Assurda bona dura :D', '1703587768'),
+(3, 14, 1, 1, 'Concordo!', '1703587858');
+
 -- --------------------------------------------------------
 
 --
@@ -46,6 +55,15 @@ CREATE TABLE `following` (
   `follower_user_id` int(11) NOT NULL,
   `followed_user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dump dei dati per la tabella `following`
+--
+
+INSERT INTO `following` (`follower_user_id`, `followed_user_id`) VALUES
+(12, 13),
+(12, 14),
+(13, 12);
 
 -- --------------------------------------------------------
 
@@ -60,6 +78,17 @@ CREATE TABLE `gnams` (
   `share_count` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dump dei dati per la tabella `gnams`
+--
+
+INSERT INTO `gnams` (`id`, `user_id`, `description`, `share_count`) VALUES
+(1, 12, 'Questo è uno gnam di prova, nun ciò voja', 21),
+(2, 12, 'Questo è un secondo gnam di prova, nun ciò voja', 21),
+(3, 12, 'Questo è un terzo gnam di prova, nun ciò voja', 21),
+(4, 13, 'Mi piacciono le ricette gustose', 23),
+(5, 14, 'Gnam veloce sull\'impepata di cozze', 34);
+
 -- --------------------------------------------------------
 
 --
@@ -70,6 +99,21 @@ CREATE TABLE `gnam_hashtags` (
   `hashtag_id` int(11) NOT NULL,
   `gnam_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dump dei dati per la tabella `gnam_hashtags`
+--
+
+INSERT INTO `gnam_hashtags` (`hashtag_id`, `gnam_id`) VALUES
+(1, 1),
+(1, 2),
+(1, 3),
+(1, 4),
+(1, 5),
+(2, 1),
+(3, 1),
+(4, 1),
+(4, 2);
 
 -- --------------------------------------------------------
 
@@ -84,6 +128,15 @@ CREATE TABLE `gnam_ingredients` (
   `measurement_unit_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dump dei dati per la tabella `gnam_ingredients`
+--
+
+INSERT INTO `gnam_ingredients` (`ingredient_id`, `gnam_id`, `quantity`, `measurement_unit_id`) VALUES
+(1, 1, 3, 1),
+(2, 1, 12, 1),
+(3, 1, 4, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -96,6 +149,16 @@ CREATE TABLE `hashtags` (
   `icon` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dump dei dati per la tabella `hashtags`
+--
+
+INSERT INTO `hashtags` (`id`, `text`, `icon`) VALUES
+(1, 'Healthy', 'prova.jpg'),
+(2, 'Pesante', 'prova.jpg'),
+(3, 'Untazzo', 'prova.jpg'),
+(4, 'Facile', 'prova.jpg');
+
 -- --------------------------------------------------------
 
 --
@@ -106,6 +169,17 @@ CREATE TABLE `ingredients` (
   `id` int(11) NOT NULL,
   `name` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dump dei dati per la tabella `ingredients`
+--
+
+INSERT INTO `ingredients` (`id`, `name`) VALUES
+(1, 'Farina'),
+(2, 'Formaggio'),
+(3, 'Acqua'),
+(4, 'Zucchero'),
+(5, 'Uova');
 
 -- --------------------------------------------------------
 
@@ -118,6 +192,14 @@ CREATE TABLE `likes` (
   `gnam_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dump dei dati per la tabella `likes`
+--
+
+INSERT INTO `likes` (`user_id`, `gnam_id`) VALUES
+(13, 1),
+(14, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -128,6 +210,16 @@ CREATE TABLE `measurement_units` (
   `id` int(11) NOT NULL,
   `name` varchar(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dump dei dati per la tabella `measurement_units`
+--
+
+INSERT INTO `measurement_units` (`id`, `name`) VALUES
+(1, 'gr'),
+(2, 'ml'),
+(3, 'qb'),
+(4, 'cucc.');
 
 -- --------------------------------------------------------
 
@@ -144,6 +236,14 @@ CREATE TABLE `notifications` (
   `seen` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dump dei dati per la tabella `notifications`
+--
+
+INSERT INTO `notifications` (`source_user_id`, `target_user_id`, `gnam_id`, `notification_type_id`, `timestamp`, `seen`) VALUES
+(13, 12, 1, 1, '1703587658', 0),
+(14, 12, 1, 1, '1703587463', 0);
+
 -- --------------------------------------------------------
 
 --
@@ -154,6 +254,15 @@ CREATE TABLE `notification_types` (
   `id` int(11) NOT NULL,
   `template_text` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dump dei dati per la tabella `notification_types`
+--
+
+INSERT INTO `notification_types` (`id`, `template_text`) VALUES
+(1, 'ha messo mi piace al tuo gnam'),
+(2, 'ha commentato un tuo gnam'),
+(3, 'ha iniziato a seguirti');
 
 -- --------------------------------------------------------
 
@@ -167,6 +276,15 @@ CREATE TABLE `users` (
   `name` varchar(20) NOT NULL,
   `password` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dump dei dati per la tabella `users`
+--
+
+INSERT INTO `users` (`id`, `api_key`, `name`, `password`) VALUES
+(12, 'b181e2fa-5ddd-4a4b-aeb3-e73991b80de3', 'Pier', '5bf0ebcaf4201ae8e47d0ca95cb6b74cb6f8d925cab0312705e2a76aa3d6fe73'),
+(13, 'f71082fc-a900-402c-9939-7f6e443de809', 'Davide', '265b636f3d2724bd88e305cfdd9880faa8593cd8839db828a2a03c9920cc11b8'),
+(14, '123e11ec-24c4-45b6-8416-3eafeda8d1c3', 'Pello', '26b223dd8514f0815170156a0e797ab24d0fb6ff4ea361646435127d29880bcf');
 
 --
 -- Indici per le tabelle scaricate
@@ -264,43 +382,43 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT per la tabella `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT per la tabella `gnams`
 --
 ALTER TABLE `gnams`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT per la tabella `hashtags`
 --
 ALTER TABLE `hashtags`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT per la tabella `ingredients`
 --
 ALTER TABLE `ingredients`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT per la tabella `measurement_units`
 --
 ALTER TABLE `measurement_units`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT per la tabella `notification_types`
 --
 ALTER TABLE `notification_types`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT per la tabella `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- Limiti per le tabelle scaricate
