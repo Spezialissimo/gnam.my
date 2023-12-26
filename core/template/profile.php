@@ -1,3 +1,13 @@
+<?php
+
+if(!isset($_GET['user'])) {
+    $_GET['user'] = $_SESSION['username'];
+}
+
+$followers = getUserFollowers($_GET['user']);
+$followed = getUserFollowed($_GET['user']);
+
+?>
 <div class="container text-center mt-3" id="headerDiv">
     <div class="row">
         <div class="col-4">
@@ -5,19 +15,19 @@
         </div>
         <div class="col-8">
             <div class="row">
-                <div class="h4 mt-2 ps-0"><?php echo $_SESSION['username']; ?></div>
+                <div class="h4 mt-2 ps-0"><?php echo $_GET['user']; ?></div>
             </div>
             <div class="row">
 
                 <a id="followerButton" href="#" class="col p-0 text-link">
                     <p class="fw-bold p-0 mb-0">Follower</p>
-                    <p class="text-normal-black">0</p>
+                    <p class="text-normal-black"><?php echo count($followers); ?></p>
                 </a>
 
                 <a id="followedButton" href="#" class="col p-0 text-link">
                     <div class="col p-0">
                         <p class="fw-bold mb-0">Seguiti</p>
-                        <p class="text-normal-black">0</p>
+                        <p class="text-normal-black"><?php echo count($followed); ?></p>
                     </div>
                 </a>
                 <div class="col p-0 text-link">
@@ -28,17 +38,21 @@
         </div>
     </div>
     <div class="row justify-content-center">
-        <div class="col-4">
-            <button type="button" class="btn btn-bounce rounded-pill bg-primary fw-bold text-black w-100">Segui</button>
-        </div>
+        <?php if($_GET['user'] != $_SESSION['username']) { ?>
+            <div class="col-4">
+                <button type="button" class="btn btn-bounce rounded-pill bg-primary fw-bold text-black w-100" id="followButton"><?php echo isCurrentUserFollowing($_GET['user']) ? "Seguito" : "Segui" ?></button>
+            </div>
+        <?php } ?>
         <div class="col-4 px-0">
             <button id="shareButton" type="button" class="btn btn-bounce rounded-pill bg-primary fw-bold text-black w-100">Condividi</button>
         </div>
-        <div class="col-2">
-            <button type="button" class="btn btn-bounce rounded-pill bg-primary fw-bold text-black" id="settingsButton">
-                <i class="fa-solid fa-gear fa-l"></i>
-            </button>
-        </div>
+        <?php if($_GET['user'] == $_SESSION['username']) { ?>
+            <div class="col-2">
+                <button type="button" class="btn btn-bounce rounded-pill bg-primary fw-bold text-black" id="settingsButton">
+                    <i class="fa-solid fa-gear fa-l"></i>
+                </button>
+            </div>
+        <?php } ?>
     </div>
     <div class="row align-items-center text-center mt-2">
         <div class="col-1"></div>
@@ -82,6 +96,15 @@
 <script>
     let isShowingAllPosts = true;
 
+    const followUser = () => {
+        $.post("core/?followUser", "username=<?php echo $_GET['user'] ?>&apiKey=<?php echo $_SESSION['api_key'] ?>", (result) => {
+            let decodedResult = JSON.parse(result);            
+            if (decodedResult.status === "success") {
+                $("#followButton").text(decodedResult.message);
+            } else showToast(decodedResult.status, "<p class='fs-6 text-center pt-3'>" + decodedResult.message + "</p>");
+        });
+    }
+
     const showAllPosts = () => {
         if (!isShowingAllPosts) {
             isShowingAllPosts = true;
@@ -117,142 +140,19 @@
     const showSwalFollower = () => {
         let swalContent = `
             <ul class="list-group modal-content-lg">
-                <li class="list-group-item bg border-0"><a href="#" class="text-link">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/profile_pictures/prova.png"></div>
-                                <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
-                            </div>
-                        </div>
-                    </a></li>
-                <li class="list-group-item bg border-0"><a href="#" class="text-link">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/profile_pictures/prova.png"></div>
-                                <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
-                            </div>
-                        </div>
-                    </a></li>
-                <li class="list-group-item bg border-0"><a href="#" class="text-link">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/profile_pictures/prova.png"></div>
-                                <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
-                            </div>
-                        </div>
-                    </a></li>
-                <li class="list-group-item bg border-0"><a href="#" class="text-link">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/profile_pictures/prova.png"></div>
-                                <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
-                            </div>
-                        </div>
-                    </a></li>
-                <li class="list-group-item bg border-0"><a href="#" class="text-link">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/profile_pictures/prova.png"></div>
-                                <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
-                            </div>
-                        </div>
-                    </a></li>
-                <li class="list-group-item bg border-0"><a href="#" class="text-link">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/profile_pictures/prova.png"></div>
-                                <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
-                            </div>
-                        </div>
-                    </a></li>
-                <li class="list-group-item bg border-0"><a href="#" class="text-link">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/profile_pictures/prova.png"></div>
-                                <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
-                            </div>
-                        </div>
-                    </a></li>
-                <li class="list-group-item bg border-0"><a href="#" class="text-link">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/profile_pictures/prova.png"></div>
-                                <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
-                            </div>
-                        </div>
-                    </a></li>
-                <li class="list-group-item bg border-0"><a href="#" class="text-link">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/profile_pictures/prova.png"></div>
-                                <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
-                            </div>
-                        </div>
-                    </a></li>
-                <li class="list-group-item bg border-0"><a href="#" class="text-link">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/profile_pictures/prova.png"></div>
-                                <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
-                            </div>
-                        </div>
-                    </a></li>
-                <li class="list-group-item bg border-0"><a href="#" class="text-link">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/profile_pictures/prova.png"></div>
-                                <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
-                            </div>
-                        </div>
-                    </a></li>
-                <li class="list-group-item bg border-0"><a href="#" class="text-link">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/profile_pictures/prova.png"></div>
-                                <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
-                            </div>
-                        </div>
-                    </a></li>
-                <li class="list-group-item bg border-0"><a href="#" class="text-link">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/profile_pictures/prova.png"></div>
-                                <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
-                            </div>
-                        </div>
-                    </a></li>
-                <li class="list-group-item bg border-0"><a href="#" class="text-link">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/profile_pictures/prova.png"></div>
-                                <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
-                            </div>
-                        </div>
-                    </a></li>
-                <li class="list-group-item bg border-0"><a href="#" class="text-link">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/profile_pictures/prova.png"></div>
-                                <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
-                            </div>
-                        </div>
-                    </a></li>
-                <li class="list-group-item bg border-0"><a href="#" class="text-link">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/profile_pictures/prova.png"></div>
-                                <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
-                            </div>
-                        </div>
-                    </a></li>
-                <li class="list-group-item bg border-0"><a href="#" class="text-link">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/profile_pictures/prova.png"></div>
-                                <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
-                            </div>
-                        </div>
-                    </a></li>
+                <?php                    
+                    foreach ($followers as $f) {
+                        echo '
+                            <li class="list-group-item bg border-0"><a href="#" class="text-link">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Foto profilo di ' . $f['name'] . '" src="assets/profile_pictures/' . $f['profile_picture'] . '"></div>
+                                        <div class="col-8 d-flex flex-wrap align-items-center">' . $f['name'] . '</div>
+                                    </div>
+                                </div>
+                            </a></li>';
+                    }
+                ?>
             </ul>`;
         showSwal('Follower', swalContent);
     }
@@ -260,142 +160,20 @@
     const showSwalFollowed = () => {
         let swalContent = `
             <ul class="list-group modal-content-lg">
-                <li class="list-group-item bg border-0"><a href="#" class="text-link">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/profile_pictures/prova.png"></div>
-                                <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
-                            </div>
-                        </div>
-                    </a></li>
-                <li class="list-group-item bg border-0"><a href="#" class="text-link">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/profile_pictures/prova.png"></div>
-                                <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
-                            </div>
-                        </div>
-                    </a></li>
-                <li class="list-group-item bg border-0"><a href="#" class="text-link">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/profile_pictures/prova.png"></div>
-                                <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
-                            </div>
-                        </div>
-                    </a></li>
-                <li class="list-group-item bg border-0"><a href="#" class="text-link">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/profile_pictures/prova.png"></div>
-                                <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
-                            </div>
-                        </div>
-                    </a></li>
-                <li class="list-group-item bg border-0"><a href="#" class="text-link">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/profile_pictures/prova.png"></div>
-                                <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
-                            </div>
-                        </div>
-                    </a></li>
-                <li class="list-group-item bg border-0"><a href="#" class="text-link">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/profile_pictures/prova.png"></div>
-                                <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
-                            </div>
-                        </div>
-                    </a></li>
-                <li class="list-group-item bg border-0"><a href="#" class="text-link">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/profile_pictures/prova.png"></div>
-                                <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
-                            </div>
-                        </div>
-                    </a></li>
-                <li class="list-group-item bg border-0"><a href="#" class="text-link">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/profile_pictures/prova.png"></div>
-                                <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
-                            </div>
-                        </div>
-                    </a></li>
-                <li class="list-group-item bg border-0"><a href="#" class="text-link">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/profile_pictures/prova.png"></div>
-                                <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
-                            </div>
-                        </div>
-                    </a></li>
-                <li class="list-group-item bg border-0"><a href="#" class="text-link">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/profile_pictures/prova.png"></div>
-                                <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
-                            </div>
-                        </div>
-                    </a></li>
-                <li class="list-group-item bg border-0"><a href="#" class="text-link">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/profile_pictures/prova.png"></div>
-                                <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
-                            </div>
-                        </div>
-                    </a></li>
-                <li class="list-group-item bg border-0"><a href="#" class="text-link">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/profile_pictures/prova.png"></div>
-                                <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
-                            </div>
-                        </div>
-                    </a></li>
-                <li class="list-group-item bg border-0"><a href="#" class="text-link">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/profile_pictures/prova.png"></div>
-                                <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
-                            </div>
-                        </div>
-                    </a></li>
-                <li class="list-group-item bg border-0"><a href="#" class="text-link">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/profile_pictures/prova.png"></div>
-                                <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
-                            </div>
-                        </div>
-                    </a></li>
-                <li class="list-group-item bg border-0"><a href="#" class="text-link">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/profile_pictures/prova.png"></div>
-                                <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
-                            </div>
-                        </div>
-                    </a></li>
-                <li class="list-group-item bg border-0"><a href="#" class="text-link">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/profile_pictures/prova.png"></div>
-                                <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
-                            </div>
-                        </div>
-                    </a></li>
-                <li class="list-group-item bg border-0"><a href="#" class="text-link">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Filippo Champagne" src="assets/profile_pictures/prova.png"></div>
-                                <div class="col-8 d-flex flex-wrap align-items-center">Nome utente</div>
-                            </div>
-                        </div>
-                    </a></li>
+                <?php
+                    foreach($followed as $f) {
+                        echo '
+                            <li class="list-group-item bg border-0"><a href="#" class="text-link">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Foto profilo di ' . $f['name'] . '" src="assets/profile_pictures/' . $f['profile_picture'] . '"></div>
+                                        <div class="col-8 d-flex flex-wrap align-items-center">' . $f['name'] . '</div>
+                                    </div>
+                                </div>
+                            </a></li>
+                        ';
+                    }
+                ?>
             </ul>`;
         showSwal('Seguiti', swalContent);
     }
@@ -447,6 +225,6 @@
     $("#shareButton").on("click", showSwalShare);
     $("#allPostsButton").on("click", showAllPosts);
     $("#likedPostsButton").on("click", showLikedPosts);
+    $("#followButton").on("click", followUser);
     $("#settingsButton").on("click", showSwalSettings);
-    $("#logoutButton").on("click", logOut);
 </script>

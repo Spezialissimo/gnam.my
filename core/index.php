@@ -28,6 +28,13 @@ switch ($action) {
         echo login($username, $password);
         break;
 
+    case "followUser":
+        $username = filter_input(INPUT_POST, "username", FILTER_SANITIZE_STRING);
+        $api_key = filter_input(INPUT_POST, "apiKey", FILTER_SANITIZE_STRING);
+        
+        echo toggleFollowUser($api_key, $username);
+        break;
+
     default:
         die("L'azione richiesta non è valida.");
         break;

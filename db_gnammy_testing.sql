@@ -87,7 +87,7 @@ INSERT INTO `gnams` (`id`, `user_id`, `description`, `share_count`) VALUES
 (2, 12, 'Questo è un secondo gnam di prova, nun ciò voja', 21),
 (3, 12, 'Questo è un terzo gnam di prova, nun ciò voja', 21),
 (4, 13, 'Mi piacciono le ricette gustose', 23),
-(5, 14, 'Gnam veloce sull\'impepata di cozze', 34);
+(5, 14, 'Gnam veloce su impepata di cozze', 34);
 
 -- --------------------------------------------------------
 
@@ -274,7 +274,8 @@ CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `api_key` varchar(50) NOT NULL,
   `name` varchar(20) NOT NULL,
-  `password` varchar(100) NOT NULL
+  `password` varchar(100) NOT NULL,
+  `profile_picture` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -282,9 +283,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `api_key`, `name`, `password`) VALUES
-(12, 'b181e2fa-5ddd-4a4b-aeb3-e73991b80de3', 'Pier', '5bf0ebcaf4201ae8e47d0ca95cb6b74cb6f8d925cab0312705e2a76aa3d6fe73'),
-(13, 'f71082fc-a900-402c-9939-7f6e443de809', 'Davide', '265b636f3d2724bd88e305cfdd9880faa8593cd8839db828a2a03c9920cc11b8'),
-(14, '123e11ec-24c4-45b6-8416-3eafeda8d1c3', 'Pello', '26b223dd8514f0815170156a0e797ab24d0fb6ff4ea361646435127d29880bcf');
+(12, 'b181e2fa-5ddd-4a4b-aeb3-e73991b80de3', 'Pier', '5bf0ebcaf4201ae8e47d0ca95cb6b74cb6f8d925cab0312705e2a76aa3d6fe73', 'prova.png'),
+(13, 'f71082fc-a900-402c-9939-7f6e443de809', 'Davide', '265b636f3d2724bd88e305cfdd9880faa8593cd8839db828a2a03c9920cc11b8', 'prova.png'),
+(14, '123e11ec-24c4-45b6-8416-3eafeda8d1c3', 'Pello', '26b223dd8514f0815170156a0e797ab24d0fb6ff4ea361646435127d29880bcf', 'prova.png');
 
 --
 -- Indici per le tabelle scaricate
