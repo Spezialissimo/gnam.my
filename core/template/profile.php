@@ -11,14 +11,13 @@ $followed = getUserFollowed($_GET['user']);
 <div class="container text-center mt-3" id="headerDiv">
     <div class="row">
         <div class="col-4">
-            <img class="border border-2 border-dark rounded-circle w-100" alt="<?php echo $_GET['user'] ?>" src="assets/profile_pictures/prova.png" />
+            <img class="border border-2 border-dark rounded-circle w-100" alt="<?php echo $_GET['user'] ?>" src="assets/profile_pictures/<?php echo getUserFromUsername($_GET['user'])['id'] ?>.jpg" />
         </div>
         <div class="col-8">
             <div class="row">
                 <div class="h4 mt-2 ps-0"><?php echo $_GET['user']; ?></div>
             </div>
             <div class="row">
-
                 <a id="followerButton" href="#" class="col p-0 text-link">
                     <p class="fw-bold p-0 mb-0">Follower</p>
                     <p class="text-normal-black"><?php echo count($followers); ?></p>
@@ -70,28 +69,35 @@ $followed = getUserFollowed($_GET['user']);
     </div>
 </div>
 
+<?php
+    $userGnams = getUserGnams($_GET['user']);
+    
+    if(count($userGnams) > 0) {
+?>
 <div class="container overflow-y-scroll" id="pageContentDiv">
     <div class="row">
-        <img class="img-grid col" alt="Filippo Champagne" src="assets/gnams_thumbnails/prova.png" />
-        <img class="img-grid col" alt="Filippo Champagne" src="assets/gnams_thumbnails/prova.png" />
-        <img class="img-grid col" alt="Filippo Champagne" src="assets/gnams_thumbnails/prova.png" />
-    </div>
-    <div class="row my-3">
-        <img class="img-grid col" alt="Filippo Champagne" src="assets/gnams_thumbnails/prova.png" />
-        <img class="img-grid col" alt="Filippo Champagne" src="assets/gnams_thumbnails/prova.png" />
-        <img class="img-grid col" alt="Filippo Champagne" src="assets/gnams_thumbnails/prova.png" />
-    </div>
-    <div class="row my-3">
-        <img class="img-grid col" alt="Filippo Champagne" src="assets/gnams_thumbnails/prova.png" />
-        <img class="img-grid col" alt="Filippo Champagne" src="assets/gnams_thumbnails/prova.png" />
-        <img class="img-grid col" alt="Filippo Champagne" src="assets/gnams_thumbnails/prova.png" />
-    </div>
-    <div class="row my-3">
-        <img class="img-grid col" alt="Filippo Champagne" src="assets/gnams_thumbnails/prova.png" />
-        <img class="img-grid col" alt="Filippo Champagne" src="assets/gnams_thumbnails/prova.png" />
-        <img class="img-grid col" alt="Filippo Champagne" src="assets/gnams_thumbnails/prova.png" />
-    </div>
+        <?php
+            for($i = 0; $i < count($userGnams); $i++) {
+                echo '<img class="img-grid col-4" alt="Copertina Gnam di ' . $_GET['user'] . '" src="assets/gnams_thumbnails/' . $userGnams[$i]['id'] . '.jpg" />';
+                if($i % 2 == 0 && $i != 0) {
+                    echo '</div><div class="row my-3">';
+                }
+                if($i == count($userGnams) - 1) {
+                    echo '</div>';
+                }
+            }
+            echo '</div>';
+        ?>
 </div>
+<?php
+    } else {
+        echo '
+        <div class="row row text-center mt-3">
+            <div class="fs-6">Nessuno Gnam pubblicato.</div>
+        </div>
+        ';
+    }
+?>
 
 <script>
     let isShowingAllPosts = true;
@@ -146,7 +152,7 @@ $followed = getUserFollowed($_GET['user']);
                             <li class="list-group-item bg border-0 btn-bounce"><a href="profile.php?user=' . $f['name'] . '" class="text-link">
                                 <div class="container">
                                     <div class="row">
-                                        <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Foto profilo di ' . $f['name'] . '" src="assets/profile_pictures/prova.png"></div>
+                                        <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Foto profilo di ' . $f['name'] . '" src="assets/profile_pictures/' . $f['id'] . '.jpg"></div>
                                         <div class="col-8 d-flex flex-wrap align-items-center">' . $f['name'] . '</div>
                                     </div>
                                 </div>
@@ -166,7 +172,7 @@ $followed = getUserFollowed($_GET['user']);
                             <li class="list-group-item bg border-0 btn-bounce"><a href="profile.php?user=' . $f['name'] . '" class="text-link">
                                 <div class="container">
                                     <div class="row">
-                                        <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Foto profilo di ' . $f['name'] . '" src="assets/profile_pictures/prova.png"></div>
+                                        <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Foto profilo di ' . $f['name'] . '" src="assets/profile_pictures/' . $f['id'] . '.jpg"></div>
                                         <div class="col-8 d-flex flex-wrap align-items-center">' . $f['name'] . '</div>
                                     </div>
                                 </div>

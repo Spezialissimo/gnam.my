@@ -84,6 +84,14 @@ function getUserFromApiKey($api_key) {
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
+function getUserFromUsername($username) {
+    global $db;
+    $stmt = $db->prepare("SELECT * FROM `users` WHERE `name` = :name");
+    $stmt->bindParam(':name', $username);
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
 function getIngredientFromName($ingredient_name) {
     global $db;
     $stmt = $db->prepare("SELECT * FROM `ingredients` WHERE `name` = :name");
@@ -122,7 +130,7 @@ function getNotifications($api_key) {
 
 function getUserFollowers($username) {
     global $db;
-    $stmt = $db->prepare("SELECT u.name FROM `users` AS u
+    $stmt = $db->prepare("SELECT u.id, u.name FROM `users` AS u
         INNER JOIN `following` AS f
         ON u.id = f.follower_user_id
         WHERE f.followed_user_id = (SELECT id FROM `users` WHERE `name` = :username)
@@ -134,7 +142,7 @@ function getUserFollowers($username) {
 
 function getUserFollowed($username) {
     global $db;
-    $stmt = $db->prepare("SELECT u.name FROM `users` AS u
+    $stmt = $db->prepare("SELECT u.id, u.name FROM `users` AS u
         INNER JOIN `following` AS f
         ON u.id = f.followed_user_id
         WHERE f.follower_user_id = (SELECT id FROM `users` WHERE `name` = :username)
@@ -384,4 +392,12 @@ function getPrettyTimeDiff($t1, $t2) {
             }
         }
     }
+}
+
+function getUserGnams($username) {
+    global $db;
+    $stmt = $db->prepare("SELECT `id` FROM `gnams` WHERE `user_id` = (SELECT id FROM `users` WHERE `name` = :username)");
+    $stmt->bindParam(':username', $username);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }

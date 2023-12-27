@@ -41,9 +41,9 @@ CREATE TABLE `comments` (
 --
 
 INSERT INTO `comments` (`id`, `user_id`, `gnam_id`, `parent_comment_id`, `text`, `timestamp`) VALUES
-(1, 13, 1, NULL, 'Fra bomba! Spacca sta ricetta', '1703587698'),
-(2, 14, 1, NULL, 'Assurda bona dura :D', '1703587768'),
-(3, 14, 1, 1, 'Concordo!', '1703587858');
+(1, 2, 1, NULL, 'Fra bomba! Spacca sta ricetta', '1703587698'),
+(2, 3, 1, NULL, 'Assurda bona dura :D', '1703587768'),
+(3, 3, 1, 1, 'Concordo!', '1703587858');
 
 -- --------------------------------------------------------
 
@@ -61,9 +61,9 @@ CREATE TABLE `following` (
 --
 
 INSERT INTO `following` (`follower_user_id`, `followed_user_id`) VALUES
-(12, 13),
-(12, 14),
-(13, 12);
+(1, 2),
+(1, 3),
+(2, 1);
 
 -- --------------------------------------------------------
 
@@ -83,11 +83,11 @@ CREATE TABLE `gnams` (
 --
 
 INSERT INTO `gnams` (`id`, `user_id`, `description`, `share_count`) VALUES
-(1, 12, 'Questo è uno gnam di prova, nun ciò voja', 21),
-(2, 12, 'Questo è un secondo gnam di prova, nun ciò voja', 21),
-(3, 12, 'Questo è un terzo gnam di prova, nun ciò voja', 21),
-(4, 13, 'Mi piacciono le ricette gustose', 23),
-(5, 14, 'Gnam veloce su impepata di cozze', 34);
+(1, 1, 'Questo è uno gnam di prova, nun ciò voja', 21),
+(2, 1, 'Questo è un secondo gnam di prova, nun ciò voja', 21),
+(3, 1, 'Questo è un terzo gnam di prova, nun ciò voja', 21),
+(4, 2, 'Mi piacciono le ricette gustose', 23),
+(5, 3, 'Gnam veloce su impepata di cozze', 34);
 
 -- --------------------------------------------------------
 
@@ -197,8 +197,8 @@ CREATE TABLE `likes` (
 --
 
 INSERT INTO `likes` (`user_id`, `gnam_id`) VALUES
-(13, 1),
-(14, 1);
+(2, 1),
+(3, 1);
 
 -- --------------------------------------------------------
 
@@ -242,8 +242,8 @@ CREATE TABLE `notifications` (
 --
 
 INSERT INTO `notifications` (`id`, `source_user_id`, `target_user_id`, `gnam_id`, `notification_type_id`, `timestamp`, `seen`) VALUES
-(0, 13, 12, 1, 1, '1703587658', 0),
-(1, 14, 12, 1, 1, '1703587463', 0);
+(0, 2, 1, 1, 1, '1703587658', 0),
+(1, 3, 1, 1, 1, '1703587463', 0);
 
 -- --------------------------------------------------------
 
@@ -283,9 +283,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `api_key`, `name`, `password`) VALUES
-(12, 'b181e2fa-5ddd-4a4b-aeb3-e73991b80de3', 'Pier', '$2y$10$kXif2Jxf6nOKvy4phXU5/.vSwsN/MSLPh/bbiv0uCWmRzi5RWvcB2'),
-(13, 'f71082fc-a900-402c-9939-7f6e443de809', 'Davide', '$2y$10$xYyrLMqKJs1S/uqeI0WBJ.Xr2FiE6ggVW0Y9f1IjNKSTGi3BN1mUe'),
-(14, '123e11ec-24c4-45b6-8416-3eafeda8d1c3', 'Pello', '$2y$10$zE2MhZEPbr1VYFCCvbVNq.GGj3zmBPXeDOTNJFrF0q6GccK5A9/tO');
+(1, 'b181e2fa-5ddd-4a4b-aeb3-e73991b80de3', 'Pier', '$2y$10$kXif2Jxf6nOKvy4phXU5/.vSwsN/MSLPh/bbiv0uCWmRzi5RWvcB2'),
+(2, 'f71082fc-a900-402c-9939-7f6e443de809', 'Davide', '$2y$10$xYyrLMqKJs1S/uqeI0WBJ.Xr2FiE6ggVW0Y9f1IjNKSTGi3BN1mUe'),
+(3, '123e11ec-24c4-45b6-8416-3eafeda8d1c3', 'Pello', '$2y$10$zE2MhZEPbr1VYFCCvbVNq.GGj3zmBPXeDOTNJFrF0q6GccK5A9/tO');
 
 --
 -- Indici per le tabelle scaricate
