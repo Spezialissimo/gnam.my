@@ -22,6 +22,7 @@ if (isset($_REQUEST["api_key"])) {
             if (isset($_POST["id"])) {
                 $stmt->bindParam(':id', $_POST["id"]);
             }
+            $stmt->execute();
             http_response_code(200);
         } else {
             http_response_code(400);
