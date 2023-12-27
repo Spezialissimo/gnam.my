@@ -1,10 +1,9 @@
 <div class="swiper h-100">
     <div class="swiper-wrapper">
-
         <?php
-        $gnams = getInitialGnamsForHome($_SESSION['api_key']);
-        foreach ($gnams as $gnam) {
 
+
+        foreach ($gnams as $gnam) {
         ?>
             <div class="swiper-slide">
                 <video class="w-100 h-100 object-fit-fill p-0" autoplay disablepictureinpicture loop playsinline preload="auto" poster="assets/gnams_thumbnails/<?php echo $gnam['id']; ?>.jpg" src="assets/gnams/<?php echo $gnam['id']; ?>.mp4"></video>
@@ -242,6 +241,7 @@
     }
 
     $(window).on("load", function() {
+        $.get
         isDescriptionShort = true;
         $("#videoDescription").on("click", showFullDescription);
         $("#videoTags").on("click", showFullDescription);

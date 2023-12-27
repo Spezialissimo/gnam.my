@@ -201,16 +201,39 @@ function toggleFollowUser($api_key, $username) {
     }
 }
 
-function getInitialGnamsForHome($api_key) {
+function getGnamInfoFromId($gnam_id) {
     global $db;
-    // $stmt = $db->prepare("SELECT *
-    //     FROM gnams g
-    //     JOIN users u ON g.user_id = u.user_id
-    //     JOIN following f ON u.user_id = f.followed_id
-    //     WHERE u.api_key = :api_key;");
-    // $stmt->bindParam(':api_key', $api_key);
     $stmt = $db->prepare("SELECT *
-        FROM gnams g LIMIT 10");
+        FROM gnams g WHERE id=:gnam_id");
+    $stmt->bindParam(':gnam_id', $gnam_id);
+    $stmt->execute();
+    $gnam = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    $gnamUserName = getGnamUserName($gnam['user_id']);
+    $gnamComments = getGnamComments($gnam['id']);
+    $gnamTags = getGnamTags($gnam['id']);
+    $gnamLikes = getGnamLikes($gnam['id']);
+    $gnamRecipe = getGnamRecipe($gnam['id']);
+    return [
+        'id' => $gnam['id'],
+        'shares_count' => $gnam['share_count'],
+        'short_description' => substr($gnam['description'], 0, 97) . '...',
+        'description' => $gnam['description'],
+        'user_name' => $gnamUserName,
+        'user_id' => $gnam['user_id'],
+        'comments' => $gnamComments,
+        'tags' => $gnamTags,
+        'likes_count' => $gnamLikes,
+        'recipe' => $gnamRecipe
+    ];
+}
+
+function getRandomGnams() {
+    global $db;
+    $stmt = $db->prepare("SELECT *
+        FROM gnams g
+        ORDER BY RAND()
+        LIMIT 5");
     $stmt->execute();
     $gnams = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -240,6 +263,8 @@ function getInitialGnamsForHome($api_key) {
 
     return $gnamsInfo;
 }
+
+
 
 function getGnamUserName($user_id) {
     global $db;

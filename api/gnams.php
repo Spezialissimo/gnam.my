@@ -8,7 +8,9 @@ require_once("../core/functions.php");
 if (isset($_REQUEST["api_key"])) {
     if ($_SERVER['REQUEST_METHOD'] == "GET") {
         http_response_code(200);
-        // TODO
+        if(isset($_GET['gnam'])){
+            echo json_encode(getGnamInfoFromId($_GET['gnam']));
+        }
     } else if ($_SERVER['REQUEST_METHOD'] == "POST") {
         if (isset($_POST["action"]) && strtoupper($_POST["action"]) == "CREATE") {
             http_response_code(200);
