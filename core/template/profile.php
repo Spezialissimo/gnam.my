@@ -146,7 +146,7 @@ $followed = getUserFollowed($_GET['user']);
                             <li class="list-group-item bg border-0"><a href="#" class="text-link">
                                 <div class="container">
                                     <div class="row">
-                                        <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Foto profilo di ' . $f['name'] . '" src="assets/profile_pictures/' . $f['profile_picture'] . '"></div>
+                                        <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Foto profilo di ' . $f['name'] . '" src="assets/profile_pictures/prova.png"></div>
                                         <div class="col-8 d-flex flex-wrap align-items-center">' . $f['name'] . '</div>
                                     </div>
                                 </div>
@@ -166,7 +166,7 @@ $followed = getUserFollowed($_GET['user']);
                             <li class="list-group-item bg border-0"><a href="#" class="text-link">
                                 <div class="container">
                                     <div class="row">
-                                        <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Foto profilo di ' . $f['name'] . '" src="assets/profile_pictures/' . $f['profile_picture'] . '"></div>
+                                        <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Foto profilo di ' . $f['name'] . '" src="assets/profile_pictures/prova.png"></div>
                                         <div class="col-8 d-flex flex-wrap align-items-center">' . $f['name'] . '</div>
                                     </div>
                                 </div>
