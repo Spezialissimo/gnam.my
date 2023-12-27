@@ -1,90 +1,91 @@
 <div class="swiper h-100">
     <div class="swiper-wrapper">
 
-    <?php
-    $gnams = getInitialGnamsForHome($_SESSION['api_key']);
-    foreach ($gnams as $gnam) {
+        <?php
+        $gnams = getInitialGnamsForHome($_SESSION['api_key']);
+        foreach ($gnams as $gnam) {
 
-    ?>
-        <div class="swiper-slide">
-            <video class="w-100 h-100 object-fit-fill p-0" autoplay disablepictureinpicture loop playsinline preload="auto" poster="assets/gnams_thumbnails/<?php echo $gnam['id']; ?>.png" src="assets/gnams/<?php echo $gnam['id']; ?>.mp4"></video>
-            <div class="video-overlay" id="videoOverlay">
-                <div class="container">
-                    <div class="row mb-3">
-                        <div class="col-10 align-self-end">
-                            <a href="profile.php" class="row text-link">
-                                <div class="col-3">
-                                    <img class="border border-2 border-dark rounded-circle w-100" alt="Filippo Champagne" src="assets/profile_pictures/<?php echo $gnam['user_id']; ?>.png" />
+        ?>
+            <div class="swiper-slide">
+                <video class="w-100 h-100 object-fit-fill p-0" autoplay disablepictureinpicture loop playsinline preload="auto" poster="assets/gnams_thumbnails/<?php echo $gnam['id']; ?>.jpg" src="assets/gnams/<?php echo $gnam['id']; ?>.mp4"></video>
+                <div class="video-overlay" id="videoOverlay">
+                    <div class="container">
+                        <div class="row mb-3">
+                            <div class="col-10 align-self-end">
+                                <a href="profile.php" class="row text-link">
+                                    <div class="col-3">
+                                        <img class="border border-2 border-dark rounded-circle w-100" alt="Filippo Champagne" src="assets/profile_pictures/<?php echo $gnam['user_id']; ?>.jpg" />
+                                    </div>
+                                    <div class="col-9 d-flex align-items-center p-0">
+                                        <p class="fs-6 fw-bold m-0"><?php echo $gnam['user_name']; ?></p>
+                                    </div>
+                                </a>
+                                <div class="row" id="videoDescription">
+                                    <span class="fs-7 m-0" id="videoDescriptionShort"><?php echo $gnam["short_description"]; ?>
+                                        <span class="fs-7 m-0 color-accent">Leggi di piú...</span>
+                                    </span>
+                                    <p class="fs-7 m-0 d-none" id="videoDescriptionLong"><?php echo $gnam["description"]; ?></p>
                                 </div>
-                                <div class="col-9 d-flex align-items-center p-0">
-                                    <p class="fs-6 fw-bold m-0"><?php echo $gnam['user_name']; ?></p>
-                                </div>
-                            </a>
-                            <div class="row" id="videoDescription">
-                                <span class="fs-7 m-0" id="videoDescriptionShort"><?php echo $gnam["short_description"]; ?>
-                                    <span class="fs-7 m-0 color-accent">Leggi di piú...</span>
-                                </span>
-                                <p class="fs-7 m-0 d-none" id="videoDescriptionLong"><?php echo $gnam["description"]; ?></p>
-                            </div>
-                            <div class="row" id="videoTags">
-                                <?php
-                                if ($gnam["tags"] != null) {
-                                    $count = 0;
-                                    foreach ($gnam["tags"] as $hashtag) {
-                                        if ($count < 2) {
-                                ?>
-                                            <!-- TODO mettere class -->
-                                            <div class="col-4" id="videoTag">
-                                                <span class="badge rounded-pill bg-primary fw-light text-black">
-                                                    <i class="fa-solid fa-oil-can"></i><?php echo "#" . $hashtag["text"] ?>
-                                                </span>
-                                            </div>
-                                        <?php
-                                        } else {
-                                        ?>
-                                            <div class="col-4 d-none" id="videoTag">
-                                                <span class="badge rounded-pill bg-primary fw-light text-black">
-                                                    <i class="fa-solid fa-leaf"></i><?php echo "#" . $hashtag["text"] ?>
-                                                </span>
-                                            </div>
+                                <div class="row" id="videoTags">
                                     <?php
+                                    if ($gnam["tags"] != null) {
+                                        $count = 0;
+                                        foreach ($gnam["tags"] as $hashtag) {
+                                            if ($count < 2) {
+                                    ?>
+                                                <!-- TODO mettere class -->
+                                                <div class="col-4" id="videoTag">
+                                                    <span class="badge rounded-pill bg-primary fw-light text-black">
+                                                        <i class="fa-solid fa-oil-can"></i><?php echo "#" . $hashtag["text"] ?>
+                                                    </span>
+                                                </div>
+                                            <?php
+                                            } else {
+                                            ?>
+                                                <div class="col-4 d-none" id="videoTag">
+                                                    <span class="badge rounded-pill bg-primary fw-light text-black">
+                                                        <i class="fa-solid fa-leaf"></i><?php echo "#" . $hashtag["text"] ?>
+                                                    </span>
+                                                </div>
+                                        <?php
+                                            }
+                                            $count++;
                                         }
-                                        $count++;
+                                        ?>
+                                        <div class="col-2 pe-0" id="moreTagsButton">
+                                            <span class="badge rounded-pill bg-primary fw-light text-black">
+                                                <i class="fa-solid fa-ellipsis"></i>
+                                            </span>
+                                        </div>
+                                    <?php
                                     }
                                     ?>
-                                    <div class="col-2 pe-0" id="moreTagsButton">
-                                        <span class="badge rounded-pill bg-primary fw-light text-black">
-                                            <i class="fa-solid fa-ellipsis"></i>
-                                        </span>
-                                    </div>
-                                <?php
-                                }
-                                ?>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-2">
-                            <div class="container p-0">
-                                <div class="col">
-                                    <div class="row pb-4" id="recipeButton">
-                                        <span><i class="fa-solid fa-utensils fa-2xl fa-fw color-secondary"></i></span>
-                                    </div>
-                                    <div class="row" id="likeButton">
-                                        <span><i class="fa-solid fa-heart fa-2xl fa-fw color-secondary"></i></span>
-                                    </div>
-                                    <div class="row pt-2 color-accent fw-bold text-center">
-                                        <span id="likesCounter"><?php echo $gnam["likes_count"]; ?></span>
-                                    </div>
-                                    <div class="row pt-2" id="commentsButton">
-                                        <span><i class="fa-solid fa-comment-dots fa-2xl fa-fw color-secondary"></i></span>
-                                    </div>
-                                    <div class="row pt-2 color-accent fw-bold text-center">
-                                        <span id="commentsCounter"><?php echo count($gnam["comments"]); ?></span>
-                                    </div>
-                                    <div class="row pt-2" id="shareButton">
-                                        <span><i class="fa-solid fa-share-nodes fa-2xl fa-fw color-secondary"></i></span>
-                                    </div>
-                                    <div class="row pt-2 color-accent fw-bold text-center">
-                                        <span id="shareCounter"><?php echo $gnam["shares_count"]; ?></span>
+                            <div class="col-2">
+                                <div class="container p-0">
+                                    <div class="col">
+                                        <div class="row pb-4" id="recipeButton">
+                                            <span><i class="fa-solid fa-utensils fa-2xl fa-fw color-secondary"></i></span>
+                                        </div>
+                                        <div class="row" id="likeButton">
+                                            <span><i class="fa-solid fa-heart fa-2xl fa-fw color-secondary"></i></span>
+                                        </div>
+                                        <div class="row pt-2 color-accent fw-bold text-center">
+                                            <span id="likesCounter"><?php echo $gnam["likes_count"]; ?></span>
+                                        </div>
+                                        <div class="row pt-2" id="commentsButton">
+                                            <span><i class="fa-solid fa-comment-dots fa-2xl fa-fw color-secondary"></i></span>
+                                        </div>
+                                        <div class="row pt-2 color-accent fw-bold text-center">
+                                            <span id="commentsCounter"><?php echo count($gnam["comments"]); ?></span>
+                                        </div>
+                                        <div class="row pt-2" id="shareButton">
+                                            <span><i class="fa-solid fa-share-nodes fa-2xl fa-fw color-secondary"></i></span>
+                                        </div>
+                                        <div class="row pt-2 color-accent fw-bold text-center">
+                                            <span id="shareCounter"><?php echo $gnam["shares_count"]; ?></span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -92,11 +93,10 @@
                     </div>
                 </div>
             </div>
-        </div>
         <?php
-                }
+        }
         ?>
-</div>
+    </div>
 </div>
 <script>
     const swiper = new Swiper('.swiper', {

@@ -146,6 +146,7 @@ input[type=file]::file-selector-button, input[type=file]::file-selector-button:h
 }
 
 .page-overlay {
+	z-index: 1;
 	bottom: 0;
 	left: 0;
 	width: 100%;
