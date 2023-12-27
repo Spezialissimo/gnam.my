@@ -8,7 +8,7 @@
             <div class="container h-auto" id="notificationsContainer">
                 <?php foreach ($notifications as $notification) { ?>
                 <div class="row m-1 p-0">
-                    <a role="button" href="home.php?q=<?php echo $notification['gnam_id'] ?>" class="btn btn-bounce rounded-pill bg-primary p-0 notification-pill-text notification-btn">
+                    <button id="notification<?php echo $notification['notification_id'] ?>" class="btn btn-bounce rounded-pill bg-primary p-0 notification-pill-text notification-btn">
                         <div class="container">
                             <div class="row">
                                 <div class="p-1 col-2 d-flex flex-wrap align-items-center">
@@ -41,7 +41,24 @@
         $.ajax({
             url : 'api/notifications.php',
             type : 'DELETE',
-            data : { "api_key" : $_SESSION["api_key"] }
+            data : { "api_key" : '<?php echo $_SESSION["api_key"] ?>' }
+        });
+    });
+
+    notifications = <?php echo json_encode($notifications) ?>;
+    notifications.forEach(notification => {
+        $("#notification" + notification["notification_id"]).on("click", function () {
+            $.ajax({
+                url : 'api/notifications.php',
+                type : 'DELETE',
+                data : {
+                    "api_key" : '<?php echo $_SESSION["api_key"] ?>',
+                    "id" : notification["notification_id"]
+                },
+                success : function() {
+                    window.location = "home.php?q=" + notification["gnam_id"];
+                }
+            });
         });
     });
 </script>

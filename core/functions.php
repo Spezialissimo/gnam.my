@@ -119,7 +119,7 @@ function getMeasurementUnitFromName($measurement_unit_name) {
 
 function getNotifications($api_key) {
     global $db;
-    $stmt = $db->prepare("SELECT u.name AS source_user_name, n.gnam_id, nt.template_text, n.timestamp
+    $stmt = $db->prepare("SELECT u.name AS source_user_name, n.id as notification_id, n.gnam_id, nt.template_text, n.timestamp
         FROM (`notifications` AS n INNER JOIN `users` AS u ON n.target_user_id = u.id) INNER JOIN `notification_types` AS nt ON n.notification_type_id = nt.id
         WHERE u.api_key = :api_key AND n.seen = 0
         ORDER BY n.timestamp DESC");
