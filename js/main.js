@@ -7,7 +7,7 @@ const showSwal = (title, html) => {
         showCancelButton: false,
         showConfirmButton: false,
         allowOutsideClick: false
-    })
+    });
 };
 
 const showSwalSmall = (title, html) => {
@@ -20,7 +20,20 @@ const showSwalSmall = (title, html) => {
         showCancelButton: false,
         showConfirmButton: false,
         allowOutsideClick: false
-    })
+    });
+};
+
+const showSwalSmallOnClose = (title, html, onClose) => {
+    Swal.fire({
+        title: title,
+        html: html,
+        background: "#F8D7A5",
+        width: '70vw',
+        showCloseButton: true,
+        showCancelButton: false,
+        showConfirmButton: false,
+        allowOutsideClick: false,
+    }).then(onClose);
 };
 
 const showToast = (type, message, redirectURL) => {
@@ -59,7 +72,7 @@ const copyCurrentPageLink = () => {
         .catch(function(err) {
             console.error("Impossibile copiare il link nella clipboard: ", err);
         });
-}    
+}
 
 const resizeContentDiv = () => {
     let page = $("#pageDiv");

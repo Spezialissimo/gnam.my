@@ -310,7 +310,9 @@
             contentType: false,
             success : function(data) {
                 let html = `<div class="row-md-2 py-2 text-center text-black"><i class="fa-solid fa-check fa-2xl"></i></div>`;
-                showSwalSmall('Gnam pubblicato', html);
+                showSwalSmallOnClose('Gnam pubblicato', html, () => {
+                    window.location.reload();
+                });
             }
         });
     }
