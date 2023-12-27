@@ -43,6 +43,16 @@
 </div>
 
 <script>
+    let measurementUnits = <?php
+        global $db;
+        $stmt = $db->prepare("SELECT `name` FROM `measurement_units`");
+        $stmt->execute();
+        echo json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
+    ?>;
+    let measurementUnitsOptions = "";
+    measurementUnits.forEach(unit => {
+        measurementUnitsOptions += "<option>" + unit["name"] + "</option>";
+    });
     let hashtags = [];
     let ingredients = [];
     let selectedPortions = 1;
@@ -59,11 +69,8 @@
                     <div class="col-3 m-0 p-1">
                         <input type="number" id="${ingredient["name"]}Quantity" class="form-control bg-primary rounded shadow-sm fs-7 text-black" placeholder="1" />
                     </div>
-                    <div class="col-4 m-0 p-1"><select id="${ingredient["name"]}MeasurementUnit" class="form-select bg-primary rounded shadow-sm fs-7 text-black">
-                            <option>ml</option>
-                            <option>gr.</option>
-                            <option>qb</option>
-                        </select></div>
+                    <div class="col-4 m-0 p-1"><select id="${ingredient["name"]}MeasurementUnit" class="form-select bg-primary rounded shadow-sm fs-7 text-black">` +
+                        measurementUnitsOptions + `</select></div>
                     <div class="col-2 m-0 p-1"><button type="button" class="btn btn-bounce bg-primary text-black fs-7"
                             onclick="removeIngredient(this)"><i class="fa-solid fa-trash-can" aria-hidden="true"></i></button></div>
                 </div>
@@ -78,6 +85,7 @@
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
+                        <option value="3">4</option>
                     </select>
                 </div>
             </div>
@@ -157,11 +165,8 @@
                 <div class="col-3 m-0 p-1">
                     <input type="number" id="${newIngredient}Quantity" class="form-control bg-primary rounded shadow-sm fs-7 text-black" placeholder="1" />
                 </div>
-                <div class="col-4 m-0 p-1"><select id="${newIngredient}MeasurementUnit" class="form-select bg-primary rounded shadow-sm fs-7 text-black">
-                        <option>ml</option>
-                        <option>gr.</option>
-                        <option>qb</option>
-                    </select></div>
+                <div class="col-4 m-0 p-1"><select id="${newIngredient}MeasurementUnit" class="form-select bg-primary rounded shadow-sm fs-7 text-black">` +
+                    measurementUnitsOptions + `</select></div>
                 <div class="col-2 m-0 p-1"><button type="button" class="btn btn-bounce bg-primary text-black fs-7"
                         onclick="removeIngredient(this)"><i class="fa-solid fa-trash-can" aria-hidden="true"></i></button></div>
             </div>
