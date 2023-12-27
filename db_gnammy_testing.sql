@@ -283,9 +283,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `api_key`, `name`, `password`) VALUES
-(12, 'b181e2fa-5ddd-4a4b-aeb3-e73991b80de3', 'Pier', '5bf0ebcaf4201ae8e47d0ca95cb6b74cb6f8d925cab0312705e2a76aa3d6fe73'),
-(13, 'f71082fc-a900-402c-9939-7f6e443de809', 'Davide', '265b636f3d2724bd88e305cfdd9880faa8593cd8839db828a2a03c9920cc11b8'),
-(14, '123e11ec-24c4-45b6-8416-3eafeda8d1c3', 'Pello', '26b223dd8514f0815170156a0e797ab24d0fb6ff4ea361646435127d29880bcf');
+(12, 'b181e2fa-5ddd-4a4b-aeb3-e73991b80de3', 'Pier', '$2y$10$kXif2Jxf6nOKvy4phXU5/.vSwsN/MSLPh/bbiv0uCWmRzi5RWvcB2'),
+(13, 'f71082fc-a900-402c-9939-7f6e443de809', 'Davide', '$2y$10$xYyrLMqKJs1S/uqeI0WBJ.Xr2FiE6ggVW0Y9f1IjNKSTGi3BN1mUe'),
+(14, '123e11ec-24c4-45b6-8416-3eafeda8d1c3', 'Pello', '$2y$10$zE2MhZEPbr1VYFCCvbVNq.GGj3zmBPXeDOTNJFrF0q6GccK5A9/tO');
 
 --
 -- Indici per le tabelle scaricate
