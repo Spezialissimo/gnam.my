@@ -49,10 +49,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['action'])) {
 
                 if ($fileExtension === "jpg") {
                     if (move_uploaded_file($_FILES['image']['tmp_name'], $imagePath)) {
-                        echo json_encode(array('status' => 'success', 'message' => 'Immagine aggiornata con successo'));
+                        echo json_encode(['status' => 'success', 'message' => 'Immagine aggiornata con successo']);
                     } else {
                         http_response_code(500);
-                        echo json_encode(array('status' => 'error', 'message' => 'Errore durante il caricamento dell\'immagine'));
+                        echo json_encode(['status' => 'error', 'message' => 'Errore durante il caricamento dell\'immagine']);
                     }
                 } else {
                     http_response_code(400);
