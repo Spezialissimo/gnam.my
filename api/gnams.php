@@ -22,13 +22,12 @@ if (isset($_REQUEST["api_key"])) {
             $stmt->execute();
             $newVideoId = $db->lastInsertId();
 
-            /*
+            global $assetsPath;
             $videoFileType = strtolower(pathinfo($_FILES["video"]["name"], PATHINFO_EXTENSION));
-            file_put_contents('../assets/gnams/' . $newVideoId . '.' . $videoFileType, file_get_contents($_FILES["video"]));
+            move_uploaded_file($_FILES['video']['tmp_name'], $assetsPath . 'gnams/' . $newVideoId . '.' . $videoFileType);
 
             $imageFileType = strtolower(pathinfo($_FILES["thumbnail"]["name"], PATHINFO_EXTENSION));
-            file_put_contents('../assets/gnams_thumbnails/' . $newVideoId . '.' . $imageFileType, file_get_contents($_FILES["thumbnail"]));
-            */
+            move_uploaded_file($_FILES['thumbnail']['tmp_name'], $assetsPath . 'gnams_thumbnails/' . $newVideoId . '.' . $imageFileType);
 
             if (isset($_POST["ingredients"])) {
                 foreach (json_decode($_POST["ingredients"], true) as $ingredient) {

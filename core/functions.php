@@ -2,6 +2,8 @@
 
 require_once('databaseConnection.php');
 
+$assetsPath = "/opt/lampp/htdocs/assets/";
+
 function response($type, $message) {
     return json_encode(["status" => $type, "message" => $message]);
 }
