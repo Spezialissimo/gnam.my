@@ -3,7 +3,9 @@
         <h1 class="fw-bold">Notifiche</h1>
     </div>
     <div id="pageContentDiv" class="row-md-8 overflow-auto align-content-center">
-        <?php $notifications = getNotifications($_SESSION["api_key"]);
+        <?php
+            global $assetsPath;
+            $notifications = getNotifications($_SESSION["api_key"]);
             if (count($notifications) > 0) { ?>
             <div class="container h-auto" id="notificationsContainer">
                 <?php foreach ($notifications as $notification) { ?>
@@ -12,7 +14,7 @@
                         <div class="container">
                             <div class="row">
                                 <div class="p-1 col-2 d-flex flex-wrap align-items-center">
-                                    <img class="border border-1 border-dark rounded-circle w-100 align-middle" alt="<?php echo $notification['source_user_name'] ?>" src="assets/profile_pictures/prova.png"/>
+                                    <img class="border border-1 border-dark rounded-circle w-100 align-middle" alt="<?php echo $notification['source_user_name'] ?>" src="<?php echo 'assets/profile_pictures/' . $notification['source_user_id'] . '.jpg' ?>"/>
                                 </div>
                                 <div class="col align-self-center fs-7">
                                     <div class="m-0 text-link d-inline"><?php echo $notification["source_user_name"];?></div><span class="m-0 text-normal-black"> <?php echo $notification["template_text"];?></span>

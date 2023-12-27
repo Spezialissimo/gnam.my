@@ -120,11 +120,11 @@ function getMeasurementUnitFromName($measurement_unit_name) {
 
 function getNotifications($api_key) {
     global $db;
-    $stmt = $db->prepare("SELECT u.name AS source_user_name, n.id as notification_id, n.gnam_id, nt.template_text, n.timestamp
-        FROM (`notifications` AS n INNER JOIN `users` AS u ON n.target_user_id = u.id) INNER JOIN `notification_types` AS nt ON n.notification_type_id = nt.id
-        WHERE u.api_key = :api_key AND n.seen = 0
+    $stmt = $db->prepare("SELECT u.name AS source_user_name, n.source_user_id, n.id as notification_id, n.gnam_id, nt.template_text, n.timestamp
+        FROM (`notifications` AS n INNER JOIN `users` AS u ON n.source_user_id = u.id) INNER JOIN `notification_types` AS nt ON n.notification_type_id = nt.id
+        WHERE n.target_user_id = :user_id AND n.seen = 0
         ORDER BY n.timestamp DESC");
-    $stmt->bindParam(':api_key', $api_key);
+    $stmt->bindParam(':user_id', getUserFromApiKey($api_key)["id"]);
     $stmt->execute();
     $notifications = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $notifications;
