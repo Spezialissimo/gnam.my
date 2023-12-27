@@ -44,7 +44,7 @@ function register($username, $password) {
     $stmt->bindParam(':passwordHash', $hashed_password);
     $stmt->execute();
 
-    return login($username, $password);
+    return response("success", "Utente registrato.");
 }
 
 function login($username, $password) {
@@ -55,8 +55,12 @@ function login($username, $password) {
     $stmt->bindParam(':nome', $username);
     $stmt->execute();
     $rows = $stmt->fetch();
-    $real_password = ($rows['password']);
 
+    if(!$rows) {
+        return response("error", "Nessun utente trovato.");
+    }
+
+    $real_password = ($rows['password']);
     if (password_verify($password, $real_password)) {
         session_name("secure");
         session_start();

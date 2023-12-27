@@ -18,8 +18,11 @@
             return;
         }
 
-        $.post("core/?login", "username=" + username + "&password=" + password, (result) => {
-            let decodedResult = JSON.parse(result);            
+        $.post("api/login.php", {
+            "username": username,
+            "password": password
+        }, (result) => {
+            let decodedResult = JSON.parse(result);
             if (decodedResult.status === "success") {
                 showToast(decodedResult.status, "<p class='fs-6 text-center pt-3'>" + decodedResult.message + "</p>", "home.php");
             } else showToast(decodedResult.status, "<p class='fs-6 text-center pt-3'>" + decodedResult.message + "</p>");

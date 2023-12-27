@@ -21,13 +21,6 @@ switch ($action) {
         echo register($username, $password);
         break;
 
-    case "login":
-        $username = filter_input(INPUT_POST, "username", FILTER_SANITIZE_STRING);
-        $password = filter_input(INPUT_POST, "password", FILTER_SANITIZE_STRING);
-        
-        echo login($username, $password);
-        break;
-
     case "followUser":
         $username = filter_input(INPUT_POST, "username", FILTER_SANITIZE_STRING);
         $api_key = filter_input(INPUT_POST, "apiKey", FILTER_SANITIZE_STRING);
