@@ -2,7 +2,7 @@
 
 require_once('databaseConnection.php');
 
-$assetsPath = "/opt/lampp/htdocs/assets/";
+$assetsPath = str_replace("core", "assets", __DIR__) . DIRECTORY_SEPARATOR;
 
 function response($type, $message) {
     return json_encode(["status" => $type, "message" => $message]);
