@@ -21,7 +21,7 @@
                                     <div class="vr"></div>
                                 </div>
                                 <div class="col-2 align-self-center">
-                                    <span class="m-0 text-normal-black"><?php echo $notification["timestamp"];?></span>
+                                    <span class="m-0 text-normal-black"><?php echo getPrettyTimeDiff($notification["timestamp"], time()); ?></span>
                                 </div>
                             </div>
                         </div>

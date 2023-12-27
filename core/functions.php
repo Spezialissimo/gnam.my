@@ -355,3 +355,24 @@ function getNewGnamsForSearch($ingredients, $textfield, $api_key) {
     return $gnams;
 }
 
+function getPrettyTimeDiff($t1, $t2) {
+    $t1 = new DateTime(date('Y/m/d h:i:s', $t1));
+    $t2 = new DateTime(date('Y/m/d h:i:s', $t2));
+    $interval = $t2->diff($t1);
+    $days = $interval->format("%d");
+    if ($days > 0) {
+        return $days . "d";
+    } else {
+        $hours = $interval->format("%H");
+        if ($hours > 0) {
+            return $hours . "h";
+        } else {
+            $minutes = $interval->format("%m");
+            if ($minutes > 0) {
+                return $minutes . "m";
+            } else {
+                return $interval->format("%s") . "s";
+            }
+        }
+    }
+}
