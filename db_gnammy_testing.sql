@@ -124,7 +124,7 @@ INSERT INTO `gnam_hashtags` (`hashtag_id`, `gnam_id`) VALUES
 CREATE TABLE `gnam_ingredients` (
   `ingredient_id` int(11) NOT NULL,
   `gnam_id` int(11) NOT NULL,
-  `quantity` int(11) DEFAULT NULL,
+  `quantity` float DEFAULT NULL,
   `measurement_unit_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
