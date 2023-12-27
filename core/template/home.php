@@ -1,4 +1,4 @@
-<div class="swiper">
+<div class="swiper h-100">
     <div class="swiper-wrapper">
 
     <?php
