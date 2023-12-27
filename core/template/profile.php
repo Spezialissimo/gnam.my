@@ -70,15 +70,14 @@ $followed = getUserFollowed($_GET['user']);
 </div>
 
 <?php
-    $userGnams = getUserGnams($_GET['user']);
-    
+    $userGnams = getUserGnams($_GET['user']);    
     if(count($userGnams) > 0) {
 ?>
 <div class="container overflow-y-scroll" id="pageContentDiv">
     <div class="row">
         <?php
             for($i = 0; $i < count($userGnams); $i++) {
-                echo '<img class="img-grid col-4" alt="Copertina Gnam di ' . $_GET['user'] . '" src="assets/gnams_thumbnails/' . $userGnams[$i]['id'] . '.jpg" />';
+                echo '<img class="img-grid col-4 btn-bounce" onclick="window.location.href = \'home.php?video=' . $userGnams[$i]['id'] . '\'" alt="Copertina Gnam di ' . $_GET['user'] . '" src="assets/gnams_thumbnails/' . $userGnams[$i]['id'] . '.jpg" />';
                 if($i % 2 == 0 && $i != 0) {
                     echo '</div><div class="row my-3">';
                 }
