@@ -332,6 +332,7 @@
             formData.append("description", $("#descriptionInput").val());
             formData.append("ingredients", JSON.stringify(scaledIngredients));
             formData.append("hashtags", JSON.stringify(hashtags));
+            formData.append("action", "create");
             formData.append("api_key", "<?php echo $_SESSION['api_key']; ?>");
             if ($("#thumbnailInput").prop("files").length == 1) {
                 formData.append("thumbnail", $("#thumbnailInput").prop("files")[0]);

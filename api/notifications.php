@@ -6,38 +6,31 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 require_once("../core/functions.php");
 
 if (isset($_REQUEST["api_key"])) {
-    switch ($_SERVER['REQUEST_METHOD']) {
-        case 'GET':
-            http_response_code(200);
-            echo json_encode(getNotifications($_REQUEST["api_key"]));
-            break;
-
-        case 'POST':
-            if (isset($_POST["action"]) && strtoupper($_POST["action"]) == "DELETE") {
-                global $db;
-                $query = "UPDATE `notifications` SET `seen` = 1 WHERE `seen` = 0 AND `target_user_id` = :user_id";
-                if (isset($_POST["id"])) {
-                    $query = $query . " AND `id` = :id";
-                }
-
-                $stmt = $db->prepare($query);
-                $stmt->bindParam(':user_id', getUserFromApiKey($_REQUEST["api_key"])["id"]);
-                if (isset($_POST["id"])) {
-                    $stmt->bindParam(':id', $_POST["id"]);
-                }
-
-                if ($stmt->execute()) {
-                    http_response_code(200);
-                } else {
-                    http_response_code(400);
-                }
+    if ($_SERVER['REQUEST_METHOD'] == "GET") {
+        http_response_code(200);
+        echo json_encode(getNotifications($_REQUEST["api_key"]));
+    } else if ($_SERVER['REQUEST_METHOD'] == "POST") {
+        if (isset($_POST["action"]) && strtoupper($_POST["action"]) == "DELETE") {
+            global $db;
+            $query = "UPDATE `notifications` SET `seen` = 1 WHERE `seen` = 0 AND `target_user_id` = :user_id";
+            if (isset($_POST["id"])) {
+                $query = $query . " AND `id` = :id";
             }
-            break;
 
-        default:
+            $stmt = $db->prepare($query);
+            $stmt->bindParam(':user_id', getUserFromApiKey($_REQUEST["api_key"])["id"]);
+            if (isset($_POST["id"])) {
+                $stmt->bindParam(':id', $_POST["id"]);
+            }
+            http_response_code(200);
+        } else {
             http_response_code(400);
-            break;
+        }
+    } else {
+        http_response_code(400);
     }
+} else {
+    http_response_code(400);
 }
 
 ?>

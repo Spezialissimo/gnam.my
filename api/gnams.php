@@ -1,18 +1,16 @@
 <?php
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: multipart/form-data; charset=UTF-8");
-header("Access-Control-Allow-Methods: GET, POST, PUT");
+header("Access-Control-Allow-Methods: GET, POST");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 require_once("../core/functions.php");
 
 if (isset($_REQUEST["api_key"])) {
-    switch ($_SERVER['REQUEST_METHOD']) {
-        case 'GET':
-            http_response_code(200);
-            // TODO
-            break;
-
-        case 'POST':
+    if ($_SERVER['REQUEST_METHOD'] == "GET") {
+        http_response_code(200);
+        // TODO
+    } else if ($_SERVER['REQUEST_METHOD'] == "POST") {
+        if (isset($_POST["action"]) && strtoupper($_POST["action"]) == "CREATE") {
             if (!isset($_FILES["video"]) || !isset($_FILES["thumbnail"])) {
                 http_response_code(400);
             }
@@ -51,16 +49,14 @@ if (isset($_REQUEST["api_key"])) {
                 }
             }
             http_response_code(200);
-            break;
-
-        case 'PUT':
-            // TODO
-            break;
-
-        default:
+        } else {
             http_response_code(400);
-            break;
+        }
+    } else {
+        http_response_code(400);
     }
+} else {
+    http_response_code(400);
 }
 
 ?>
