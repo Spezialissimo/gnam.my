@@ -49,7 +49,6 @@ function register($username, $password) {
 
 function login($username, $password) {
     global $db;
-    global $key;
 
     $stmt = $db->prepare("SELECT * FROM `users` WHERE `name` = :nome");
     $stmt->bindParam(':nome', $username);

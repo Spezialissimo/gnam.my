@@ -122,7 +122,11 @@ $followed = getUserFollowed($_GET['user']);
 
 <script>
     const followUser = () => {
-        $.post("core/?followUser", "username=<?php echo $_GET['user'] ?>&apiKey=<?php echo $_SESSION['api_key'] ?>", (result) => {
+        $.post("api/users.php", {
+            username: "<?php echo $_GET['user'] ?>",
+            api_key: "<?php echo $_SESSION['api_key'] ?>",
+            action: "toggleFollowState"
+        }, (result) => {
             let decodedResult = JSON.parse(result);            
             if (decodedResult.status === "success") {
                 $("#followButton").text(decodedResult.message);
