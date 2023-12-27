@@ -7,14 +7,14 @@
         <!-- video chooser field -->
         <div class="row-md px-4 h4">
             <h2 class="fw-bold">Scegli video</h2>
-            <input type="file" class="form-control bg-primary rounded shadow-sm" id="videoInput" accept="video/*" />
+            <input type="file" class="form-control bg-primary rounded shadow-sm" id="videoInput" accept="video/mp4" />
             <video id="hiddenVideoDiv" class="d-none position-absolute" style="height: 1px!important; width: 1px!important"></video>
             <canvas id="videoCanvas" class="d-none"></canvas>
         </div>
         <!-- thumbnail chooser field -->
         <div class="row-md px-4 h4">
             <h2 class="fw-bold">Scegli copertina</h2>
-            <input type="file" class="form-control bg-primary rounded shadow-sm" id="thumbnailInput" accept="image/*" />
+            <input type="file" class="form-control bg-primary rounded shadow-sm" id="thumbnailInput" accept="image/jpg, image/jpeg, image/png" />
         </div>
         <!-- description field -->
         <div class="row-md-6 px-4 h4">

@@ -11,6 +11,7 @@ if (isset($_REQUEST["api_key"])) {
         // TODO
     } else if ($_SERVER['REQUEST_METHOD'] == "POST") {
         if (isset($_POST["action"]) && strtoupper($_POST["action"]) == "CREATE") {
+            http_response_code(200);
             if (!isset($_FILES["video"]) || !isset($_FILES["thumbnail"])) {
                 http_response_code(400);
             }
@@ -24,10 +25,28 @@ if (isset($_REQUEST["api_key"])) {
 
             global $assetsPath;
             $videoFileType = strtolower(pathinfo($_FILES["video"]["name"], PATHINFO_EXTENSION));
-            move_uploaded_file($_FILES['video']['tmp_name'], $assetsPath . 'gnams/' . $newVideoId . '.' . $videoFileType);
+            if ($videoFileType === "mp4") {
+                move_uploaded_file($_FILES['video']['tmp_name'], $assetsPath . 'gnams/' . $newVideoId . '.' . $videoFileType);
+            } else {
+                http_response_code(400);
+            }
 
             $imageFileType = strtolower(pathinfo($_FILES["thumbnail"]["name"], PATHINFO_EXTENSION));
-            move_uploaded_file($_FILES['thumbnail']['tmp_name'], $assetsPath . 'gnams_thumbnails/' . $newVideoId . '.' . $imageFileType);
+            if ($imageFileType === "jpeg") {
+                $imageFileType = "jpg";
+            }
+            if ($imageFileType === "jpg" || $imageFileType === "png") {
+                $imagePath = $assetsPath . 'gnams_thumbnails/' . $newVideoId . '.' . $imageFileType;
+                move_uploaded_file($_FILES['thumbnail']['tmp_name'], $imagePath);
+                if ($imageFileType === "png") {
+                    $jpgImage = imagecreatefrompng($imagePath);
+                    imagejpeg($jpgImage, $assetsPath . 'gnams_thumbnails/' . $newVideoId . '.jpg');
+                    imagedestroy($jpgImage);
+                    unlink($imagePath);
+                }
+            } else {
+                http_response_code(400);
+            }
 
             if (isset($_POST["ingredients"])) {
                 foreach (json_decode($_POST["ingredients"], true) as $ingredient) {
@@ -47,7 +66,6 @@ if (isset($_REQUEST["api_key"])) {
                     $stmt->execute();
                 }
             }
-            http_response_code(200);
         } else {
             http_response_code(400);
         }
