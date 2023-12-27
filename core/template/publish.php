@@ -320,10 +320,17 @@
             let html = `<div class="row-md-2 py-2 text-center text-black"><p>Nessun video selezionato!</p><i class="fa-solid fa-triangle-exclamation fa-2xl color-alert"></i></div>`;
             showSwalSmall('Errore!', html);
         } else {
+            let scaledIngredients = [];
+            ingredients.forEach(i => {
+                newI = i;
+                newI["quantity"] /= selectedPortions;
+                scaledIngredients.push(newI);
+            });
+
             let formData = new FormData();
             formData.append("video", $("#videoInput").prop("files")[0]);
             formData.append("description", $("#descriptionInput").val());
-            formData.append("ingredients", JSON.stringify(ingredients));
+            formData.append("ingredients", JSON.stringify(scaledIngredients));
             formData.append("hashtags", JSON.stringify(hashtags));
             formData.append("api_key", "<?php echo $_SESSION['api_key']; ?>");
             if ($("#thumbnailInput").prop("files").length == 1) {
