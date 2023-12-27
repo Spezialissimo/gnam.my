@@ -22,8 +22,7 @@ if (isset($_REQUEST["api_key"])) {
             $stmt->bindParam(':user_id', getUserFromApiKey($_POST["api_key"])["id"]);
             $stmt->bindParam(':description', $_POST["description"]);
             $stmt->execute();
-            // $newVideoId = $stmt->lastInsertId(); TODO NON FUNZIONA PERCHÈ BOH
-            $newVideoId = 19;
+            $newVideoId = $db->lastInsertId();
 
             /*
             $videoFileType = strtolower(pathinfo($_FILES["video"]["name"], PATHINFO_EXTENSION));
