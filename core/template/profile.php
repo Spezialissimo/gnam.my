@@ -11,7 +11,7 @@ $followed = getUserFollowed($_GET['user']);
 <div class="container text-center mt-3" id="headerDiv">
     <div class="row">
         <div class="col-4">
-            <img class="border border-2 border-dark rounded-circle w-100" alt="Filippo Champagne" src="assets/profile_pictures/prova.png" />
+            <img class="border border-2 border-dark rounded-circle w-100" alt="<?php echo $_GET['user'] ?>" src="assets/profile_pictures/prova.png" />
         </div>
         <div class="col-8">
             <div class="row">
@@ -143,7 +143,7 @@ $followed = getUserFollowed($_GET['user']);
                 <?php                    
                     foreach ($followers as $f) {
                         echo '
-                            <li class="list-group-item bg border-0"><a href="#" class="text-link">
+                            <li class="list-group-item bg border-0 btn-bounce"><a href="profile.php?user=' . $f['name'] . '" class="text-link">
                                 <div class="container">
                                     <div class="row">
                                         <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Foto profilo di ' . $f['name'] . '" src="assets/profile_pictures/prova.png"></div>
@@ -163,7 +163,7 @@ $followed = getUserFollowed($_GET['user']);
                 <?php
                     foreach($followed as $f) {
                         echo '
-                            <li class="list-group-item bg border-0"><a href="#" class="text-link">
+                            <li class="list-group-item bg border-0 btn-bounce"><a href="profile.php?user=' . $f['name'] . '" class="text-link">
                                 <div class="container">
                                     <div class="row">
                                         <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Foto profilo di ' . $f['name'] . '" src="assets/profile_pictures/prova.png"></div>
