@@ -38,26 +38,23 @@
 
 <script>
     $("#clearNotificationsButton").on("click", function () {
-        $.ajax({
-            url : 'api/notifications.php',
-            type : 'DELETE',
-            data : { "api_key" : '<?php echo $_SESSION["api_key"] ?>' }
+        $.post('api/notifications.php', {
+            "api_key" : '<?php echo $_SESSION["api_key"] ?>',
+            "action" : "delete"
+        }, function (data, status) {
+            window.location.reload();
         });
     });
 
     notifications = <?php echo json_encode($notifications) ?>;
     notifications.forEach(notification => {
         $("#notification" + notification["notification_id"]).on("click", function () {
-            $.ajax({
-                url : 'api/notifications.php',
-                type : 'DELETE',
-                data : {
-                    "api_key" : '<?php echo $_SESSION["api_key"] ?>',
-                    "id" : notification["notification_id"]
-                },
-                success : function() {
-                    window.location = "home.php?q=" + notification["gnam_id"];
-                }
+            $.post('api/notifications.php', {
+                "api_key" : '<?php echo $_SESSION["api_key"] ?>',
+                "id" : notification["notification_id"],
+                "action" : "delete"
+            }, function(data, status) {
+                window.location = "home.php?q=" + notification["gnam_id"];
             });
         });
     });
