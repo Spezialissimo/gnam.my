@@ -53,6 +53,7 @@
     measurementUnits.forEach(unit => {
         measurementUnitsOptions += "<option>" + unit["name"] + "</option>";
     });
+
     let hashtags = [];
     let ingredients = [];
     let selectedPortions = 1;
@@ -154,7 +155,7 @@
 
     const addIngredient = () => {
         let newIngredient = $('#searchIngredients').val().trim();
-        if (!newIngredient || ingredients.some(([ingredient]) => ingredient === newIngredient)) {
+        if (!newIngredient || ingredients.some(i => i["name"] === newIngredient)) {
             return;
         }
         $("#searchedIngredients").append(`
