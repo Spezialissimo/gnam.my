@@ -206,26 +206,46 @@ function getInitialGnamsForHome($api_key) {
 
     $gnamsInfo = array();
 
-    foreach ($gnams as $gnam) {
-        $gnamUserName = getGnamUserName($gnam['user_id']);
-        $gnamComments = getGnamComments($gnam['id']);
-        $gnamTags = getGnamTags($gnam['id']);
-        $gnamLikes = getGnamLikes($gnam['id']);
-        $gnamRecipe = getGnamRecipe($gnam['id']);
+    // foreach ($gnams as $gnam) {
+    //     $gnamUserName = getGnamUserName($gnam['user_id']);
+    //     $gnamComments = getGnamComments($gnam['id']);
+    //     $gnamTags = getGnamTags($gnam['id']);
+    //     $gnamLikes = getGnamLikes($gnam['id']);
+    //     $gnamRecipe = getGnamRecipe($gnam['id']);
+
+    //     array_push($gnamsInfo, [
+    //         'id' => $gnam['id'],
+    //         'shares_count' => $gnam['share_count'],
+    //         'short_description' => substr($gnam['description'], 0, 97) . '...',
+    //         'description' => $gnam['description'],
+    //         'user_name' => $gnamUserName,
+    //         'user_id' => $gnam['user_id'],
+    //         'comments' => $gnamComments,
+    //         'tags' => $gnamTags,
+    //         'likes_count' => $gnamLikes,
+    //         'recipe' => $gnamRecipe
+    //     ]);
+    // }
+
+    for ($i=0; $i < 2; $i++) {
+        $gnamUserName = 'nome';
+        $gnamComments = array();
+        $gnamTags = array();
+        $gnamLikes = '1';
+        $gnamRecipe = array();
 
         array_push($gnamsInfo, [
-            'id' => $gnam['id'],
-            'shares_count' => $gnam['share_count'],
-            'short_description' => substr($gnam['description'], 0, 97) . '...',
-            'description' => $gnam['description'],
+            'id' => '1',
+            'shares_count' => '1',
+            'short_description' => 'ciao cioa cioa cioa',
+            'description' => 'ciao cioa cioa cioa',
             'user_name' => $gnamUserName,
-            'user_id' => $gnam['user_id'],
+            'user_id' => '12',
             'comments' => $gnamComments,
             'tags' => $gnamTags,
             'likes_count' => $gnamLikes,
             'recipe' => $gnamRecipe
         ]);
-        break;
     }
 
 

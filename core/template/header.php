@@ -28,6 +28,14 @@ if (isloggedIn() && (PAGE_TITLE == 'Login' || PAGE_TITLE == 'Registrati')) {
 
 	<script src="https://kit.fontawesome.com/1df86e7f33.js" crossorigin="anonymous"></script>
 
+	<link
+	rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+	/>
+
+	<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+
 	<title>Gnam.my - <?php echo PAGE_TITLE ?></title>
 </head>
 <body class="bg h-100">
