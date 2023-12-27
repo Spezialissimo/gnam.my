@@ -2,8 +2,6 @@
 
 require_once('databaseConnection.php');
 
-$key = "28682ecb41c022e5b88686138e40e1d8"; // Da cambiare metodo, la key è un esempio
-
 function response($type, $message) {
     return json_encode(["status" => $type, "message" => $message]);
 }
@@ -23,11 +21,6 @@ function isloggedIn() {
     return isset($_SESSION['id']) && isset($_SESSION['api_key']);
 }
 
-function hash_password($password) {
-    global $key;
-    return hash("SHA256", $password . $key);
-}
-
 function register($username, $password) {
     global $db;
 
@@ -40,13 +33,13 @@ function register($username, $password) {
         return response("error", "Username già in uso.");
     }
 
-    $password_hash = hash_password($password);
+    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
     $apiKey = generateUUID();
 
     $stmt = $db->prepare("INSERT INTO `users` (`id`, `api_key`, `name`, `password`) VALUES (NULL, :apiKey, :nome, :passwordHash)");
     $stmt->bindParam(':apiKey', $apiKey);
     $stmt->bindParam(':nome', $username);
-    $stmt->bindParam(':passwordHash', $password_hash);
+    $stmt->bindParam(':passwordHash', $hashed_password);
     $stmt->execute();
 
     return login($username, $password);
@@ -60,11 +53,9 @@ function login($username, $password) {
     $stmt->bindParam(':nome', $username);
     $stmt->execute();
     $rows = $stmt->fetch();
-
-    $password_hash = hash_password($password);
     $real_password = ($rows['password']);
 
-    if ($password_hash == $real_password) {
+    if (password_verify($password, $real_password)) {
         session_name("secure");
         session_start();
 
@@ -283,7 +274,6 @@ function getGnamRecipe($gnam_id) {
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
-
 function getSingleNewGnamForHome($api_key, $lastID) {
     global $db;
 
@@ -314,7 +304,6 @@ function getSingleNewGnamForHome($api_key, $lastID) {
     $gnams = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $gnams;
 }
-
 
 function getNewGnamsForSearch($ingredients, $textfield, $api_key) {
     global $db;
