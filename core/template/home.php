@@ -241,7 +241,31 @@
     }
 
     $(window).on("load", function() {
-        $.get
+        if(isset($_GET['gnam'])) {
+            $.get("api/gnams.php", {
+                api_key: "<?php echo $_SESSION['api_key']; ?>",
+                gnam: $_GET['gnam'] }, function(data) {
+
+			});
+        } else {
+            $.get("api/search.php", {
+                api_key: "<?php echo $_SESSION['api_key']; ?>",
+                random: '5'
+            }, function(data) {
+                var gnams_id = JSON.parse(data);
+
+                gnams_id.forEach(function(id) {
+                    $.get("api/gnams.php", {
+                        api_key: "<?php echo $_SESSION['api_key']; ?>",
+                        gnam: id
+                    }, function(gnamsData) {
+                        // Puoi elaborare i dati ottenuti da gnams.php qui
+                    });
+                });
+            });
+
+        }
+
         isDescriptionShort = true;
         $("#videoDescription").on("click", showFullDescription);
         $("#videoTags").on("click", showFullDescription);
