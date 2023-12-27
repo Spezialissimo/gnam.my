@@ -55,12 +55,12 @@ $followed = getUserFollowed($_GET['user']);
     </div>
     <div class="row align-items-center text-center mt-2">
         <div class="col-1"></div>
-        <div class="col-3 fw-bold" id="allPostsButton">
-            <p class="mb-0">Post</p>
+        <div class="col-3">
+            <p class="mb-0 fw-bold" id="allPostsButton">Post</p>
         </div>
         <div class="col-2"></div>
-        <div class="col-5" id="likedPostsButton">
-            <p class="mb-0">Gnam Piaciuti</p>
+        <div class="col-5">
+            <p class="mb-0" id="likedPostsButton">Gnam Piaciuti</p>
         </div>
         <div class="col-1"></div>
     </div>
@@ -69,38 +69,58 @@ $followed = getUserFollowed($_GET['user']);
     </div>
 </div>
 
-<?php
-    $userGnams = getUserGnams($_GET['user']);    
-    if(count($userGnams) > 0) {
-?>
 <div class="container overflow-y-scroll" id="pageContentDiv">
-    <div class="row">
+    <div id="postedGnams">
         <?php
-            for($i = 0; $i < count($userGnams); $i++) {
-                echo '<img class="img-grid col-4 btn-bounce" onclick="window.location.href = \'home.php?video=' . $userGnams[$i]['id'] . '\'" alt="Copertina Gnam di ' . $_GET['user'] . '" src="assets/gnams_thumbnails/' . $userGnams[$i]['id'] . '.jpg" />';
-                if($i % 2 == 0 && $i != 0) {
-                    echo '</div><div class="row my-3">';
+            $userGnams = getUserGnams($_GET['user']);
+
+            if(count($userGnams) > 0) {
+                echo '<div class="row">';
+                for($i = 0; $i < count($userGnams); $i++) {
+                    echo '<img class="img-grid col-4 btn-bounce" onclick="window.location.href = \'home.php?video=' . $userGnams[$i]['id'] . '\'" alt="Copertina Gnam di ' . $_GET['user'] . '" src="assets/gnams_thumbnails/' . $userGnams[$i]['id'] . '.jpg" />';
+                    if($i % 2 == 0 && $i != 0) {
+                        echo '</div><div class="row my-3">';
+                    }
+                    if($i == count($userGnams) - 1) {
+                        echo '</div>';
+                    }
                 }
-                if($i == count($userGnams) - 1) {
-                    echo '</div>';
-                }
+            } else {
+                echo '
+                <div class="row row text-center mt-3">
+                    <div class="fs-6">Nessuno Gnam pubblicato.</div>
+                </div>
+                ';
             }
-            echo '</div>';
         ?>
+    </div>
+    <div id="likedGnams">
+        <?php
+            $userLikedGnams = getUserLikedGnams($_GET['user']);
+
+            if(count($userLikedGnams) > 0) {
+                echo '<div class="row">';
+                for($i = 0; $i < count($userLikedGnams); $i++) {
+                    echo '<img class="img-grid col-4 btn-bounce" onclick="window.location.href = \'home.php?video=' . $userLikedGnams[$i]['gnam_id'] . '\'" alt="Copertina Gnam di ' . $_GET['user'] . '" src="assets/gnams_thumbnails/' . $userLikedGnams[$i]['gnam_id'] . '.jpg" />';
+                    if($i % 2 == 0 && $i != 0) {
+                        echo '</div><div class="row my-3">';
+                    }
+                    if($i == count($userLikedGnams) - 1) {
+                        echo '</div>';
+                    }
+                }
+            } else {
+                echo '
+                <div class="row row text-center mt-3">
+                    <div class="fs-6">Nessuno Gnam fra i preferiti.</div>
+                </div>
+                ';
+            }
+        ?>
+    </div>
 </div>
-<?php
-    } else {
-        echo '
-        <div class="row row text-center mt-3">
-            <div class="fs-6">Nessuno Gnam pubblicato.</div>
-        </div>
-        ';
-    }
-?>
 
 <script>
-    let isShowingAllPosts = true;
-
     const followUser = () => {
         $.post("core/?followUser", "username=<?php echo $_GET['user'] ?>&apiKey=<?php echo $_SESSION['api_key'] ?>", (result) => {
             let decodedResult = JSON.parse(result);            
@@ -110,19 +130,17 @@ $followed = getUserFollowed($_GET['user']);
         });
     }
 
-    const showAllPosts = () => {
-        if (!isShowingAllPosts) {
-            isShowingAllPosts = true;
-            $("#allPostsButton").addClass("fw-bold");
-            $("#likedPostsButton").removeClass("fw-bold");
-        }
-    }
-
-    const showLikedPosts = () => {
-        if (isShowingAllPosts) {
-            isShowingAllPosts = false;
-            $("#allPostsButton").removeClass("fw-bold");
-            $("#likedPostsButton").addClass("fw-bold");
+    const toggleGnamToVisualize = () => {
+        if(event.target.id === 'allPostsButton') {
+            $('#likedPostsButton').removeClass('fw-bold');
+            $('#allPostsButton').addClass('fw-bold');
+            $('#likedGnams').hide();
+            $('#postedGnams').show();
+        } else {
+            $('#allPostsButton').removeClass('fw-bold');
+            $('#likedPostsButton').addClass('fw-bold');
+            $('#postedGnams').hide();
+            $('#likedGnams').show();
         }
     }
 
@@ -228,8 +246,9 @@ $followed = getUserFollowed($_GET['user']);
     $("#followerButton").on("click", showSwalFollower);
     $("#followedButton").on("click", showSwalFollowed);
     $("#shareButton").on("click", showSwalShare);
-    $("#allPostsButton").on("click", showAllPosts);
-    $("#likedPostsButton").on("click", showLikedPosts);
+    $("#allPostsButton").on("click", toggleGnamToVisualize);
+    $("#likedPostsButton").on("click", toggleGnamToVisualize);
     $("#followButton").on("click", followUser);
     $("#settingsButton").on("click", showSwalSettings);
+    $("#likedGnams").hide();
 </script>
