@@ -38,6 +38,30 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['action'])) {
                 http_response_code(400);
             }
             break;
+
+        case "updateProfileImage":
+            if (isset($_FILES['image']) && isset($_POST['api_key'])) {
+                http_response_code(200);
+
+                $userId = getUserFromApiKey($_POST['api_key'])['id'];
+                $targetDirectory = 'assets/profile_pictures/';
+                $fileExtension = strtolower(pathinfo($_FILES["image"]["name"], PATHINFO_EXTENSION));
+                $imagePath = $_SERVER['DOCUMENT_ROOT'] . '/Gnam.my/gnam.my/assets/profile_pictures/' . $userId . '.' . $fileExtension;
+
+                if ($fileExtension === "jpg") {
+                    if (move_uploaded_file($_FILES['image']['tmp_name'], $imagePath)) {
+                        echo json_encode(array('status' => 'success', 'message' => 'Immagine aggiornata con successo'));
+                    } else {
+                        http_response_code(500);
+                        echo json_encode(array('status' => 'error', 'message' => 'Errore durante il caricamento dell\'immagine'));
+                    }
+                } else {
+                    http_response_code(400);
+                }
+            } else {
+                http_response_code(400);
+            }
+            break;
             
         default:
             http_response_code(400);

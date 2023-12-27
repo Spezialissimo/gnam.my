@@ -11,7 +11,7 @@ $followed = getUserFollowed($_GET['user']);
 <div class="container text-center mt-3" id="headerDiv">
     <div class="row">
         <div class="col-4">
-            <img class="border border-2 border-dark rounded-circle w-100" alt="<?php echo $_GET['user'] ?>" src="assets/profile_pictures/<?php echo getUserFromUsername($_GET['user'])['id'] ?>.jpg" />
+            <img class="border border-2 border-dark rounded-circle w-100" alt="<?php echo $_GET['user'] ?>" src="assets/profile_pictures/<?php echo getUserFromUsername($_GET['user'])['id'] ?>.jpg?v=<?php echo time(); ?>" />
         </div>
         <div class="col-8">
             <div class="row">
@@ -212,7 +212,7 @@ $followed = getUserFollowed($_GET['user']);
                     <div class='row mb-3'>
                         <div class='col'>
                             <p class="fs-5">Cambia immagine profilo:</p>
-                            <input type="file" class="form-control bg-primary rounded shadow-sm" />
+                            <input type="file" class="form-control bg-primary rounded shadow-sm" id="newProfileImage" />
                         </div>
                     </div>
                     <div class='row justify-content-center'>
@@ -235,10 +235,28 @@ $followed = getUserFollowed($_GET['user']);
             });
 
             $('#saveButton').click(function() {
-                // TODO Upload foto
+                let imageFile = $('#newProfileImage')[0].files[0];
+                let formData = new FormData();
+                formData.append('image', imageFile);
+                formData.append("action", "updateProfileImage");
+                formData.append("api_key", "<?php echo $_SESSION['api_key']; ?>");
 
-                closeSwal();
-                showToast('success', '<p class="fs-5">Foto profilo cambiata con successo!</p>');
+                $.ajax({
+                    url: 'api/users.php',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        let decodedResult = JSON.parse(response);   
+                        let html = `<div class="row-md-2 py-2 text-center text-black"><i class="fa-solid fa-check fa-2xl"></i></div>`;
+                        if (decodedResult.status === "success") {
+                            showSwalSmallOnClose('Fatto', html, () => {
+                                window.location.reload();
+                            });
+                        } else showToast(decodedResult.status, "<p class='fs-6 text-center pt-3'>" + decodedResult.message + "</p>");
+                    }
+                });
             });
 
             $('#logoutButton').click(function() {
