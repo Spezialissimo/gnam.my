@@ -213,7 +213,6 @@ function getGnamInfoFromId($gnam_id) {
     $gnam = $stmt->fetch(PDO::FETCH_ASSOC);
 
     $gnamUserName = getGnamUserName($gnam['user_id']);
-    $gnamComments = getGnamComments($gnam['id']);
     $gnamTags = getGnamTags($gnam['id']);
     $gnamLikes = getGnamLikes($gnam['id']);
     $gnamRecipe = getGnamRecipe($gnam['id']);
@@ -224,7 +223,6 @@ function getGnamInfoFromId($gnam_id) {
         'description' => $gnam['description'],
         'user_name' => $gnamUserName,
         'user_id' => $gnam['user_id'],
-        'comments' => $gnamComments,
         'tags' => $gnamTags,
         'likes_count' => $gnamLikes,
         'recipe' => $gnamRecipe

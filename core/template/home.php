@@ -1,67 +1,67 @@
 <div class="swiper h-100">
-    <div class="swiper-wrapper">
-            <div class="swiper-slide">
-                <video id="gnamPlayer" class="w-100 h-100 object-fit-fill p-0" autoplay disablepictureinpicture loop playsinline preload="auto" poster="assets/gnams_thumbnails/1.jpg" src="assets/gnams/1.mp4"></video>
-                <div class="video-overlay" id="videoOverlay">
-                    <div class="container">
-                        <div class="row mb-3">
-                            <div class="col-10 align-self-end">
-                                <a href="profile.php" class="row text-link">
-                                    <div class="col-3">
-                                        <img class="border border-2 border-dark rounded-circle w-100" alt="Filippo Champagne" src="assets/profile_pictures/<?php echo $gnam['user_id']; ?>.jpg" />
-                                    </div>
-                                    <div class="col-9 d-flex align-items-center p-0">
-                                        <p class="fs-6 fw-bold m-0">name</p>
-                                    </div>
-                                </a>
-                                <div class="row" id="videoDescription">
-                                    <span class="fs-7 m-0" id="videoDescriptionShort">description
-                                        <span class="fs-7 m-0 color-accent">Leggi di piú...</span>
-                                    </span>
-                                    <p class="fs-7 m-0 d-none" id="videoDescriptionLong">description</p>
+    <div id="gnamSlider" class="swiper-wrapper">
+        <!-- questo lo lascio perche diventera il dummy -->
+        <div id="dummySlide" class="swiper-slide">
+            <video id="gnamPlayer" class="w-100 h-100 object-fit-fill p-0" autoplay disablepictureinpicture loop playsinline preload="auto" poster="assets/gnams_thumbnails/1.jpg" src="assets/gnams/1.mp4"></video>
+            <div class="video-overlay" id="videoOverlay">
+                <div class="container">
+                    <div class="row mb-3">
+                        <div class="col-10 align-self-end">
+                            <a href="profile.php" class="row text-link">
+                                <div class="col-3">
+                                    <img class="border border-2 border-dark rounded-circle w-100" alt="Filippo Champagne" src="assets/profile_pictures/<?php echo $gnam['user_id']; ?>.jpg" />
                                 </div>
-                                <div class="row" id="videoTags">
-                                    <div class="col-4" class="videoTag">
-                                        <span class="badge rounded-pill bg-primary fw-light text-black">
-                                            <i class="fa-solid fa-oil-can"></i>tag1
-                                        </span>
-                                    </div>
-                                    <div class="col-4 d-none" class="videoTag">
-                                        <span class="badge rounded-pill bg-primary fw-light text-black">
-                                            <i class="fa-solid fa-leaf"></i>tag2
-                                        </span>
-                                    </div>
-                                    <div class="col-2 pe-0" id="moreTagsButton">
-                                        <span class="badge rounded-pill bg-primary fw-light text-black">
-                                            <i class="fa-solid fa-ellipsis"></i>
-                                        </span>
-                                    </div>
+                                <div class="col-9 d-flex align-items-center p-0">
+                                    <p class="fs-6 fw-bold m-0">name</p>
+                                </div>
+                            </a>
+                            <div class="row" id="videoDescription">
+                                <span class="fs-7 m-0" id="videoDescriptionShort">description
+                                    <span class="fs-7 m-0 color-accent">Leggi di piú...</span>
+                                </span>
+                                <p class="fs-7 m-0 d-none" id="videoDescriptionLong">description</p>
+                            </div>
+                            <div class="row" id="videoTags">
+                                <div class="col-4" class="videoTag">
+                                    <span class="badge rounded-pill bg-primary fw-light text-black">
+                                        <i class="fa-solid fa-oil-can"></i>tag1
+                                    </span>
+                                </div>
+                                <div class="col-4 d-none" class="videoTag">
+                                    <span class="badge rounded-pill bg-primary fw-light text-black">
+                                        <i class="fa-solid fa-leaf"></i>tag2
+                                    </span>
+                                </div>
+                                <div class="col-2 pe-0" id="moreTagsButton">
+                                    <span class="badge rounded-pill bg-primary fw-light text-black">
+                                        <i class="fa-solid fa-ellipsis"></i>
+                                    </span>
                                 </div>
                             </div>
-                            <div class="col-2">
-                                <div class="container p-0">
-                                    <div class="col">
-                                        <div class="row pb-4" id="recipeButton">
-                                            <span><i class="fa-solid fa-utensils fa-2xl fa-fw color-secondary"></i></span>
-                                        </div>
-                                        <div class="row" id="likeButton">
-                                            <span><i class="fa-solid fa-heart fa-2xl fa-fw color-secondary"></i></span>
-                                        </div>
-                                        <div class="row pt-2 color-accent fw-bold text-center">
-                                            <span id="likesCounter">10</span>
-                                        </div>
-                                        <div class="row pt-2" id="commentsButton">
-                                            <span><i class="fa-solid fa-comment-dots fa-2xl fa-fw color-secondary"></i></span>
-                                        </div>
-                                        <div class="row pt-2 color-accent fw-bold text-center">
-                                            <span id="commentsCounter">10</span>
-                                        </div>
-                                        <div class="row pt-2" id="shareButton">
-                                            <span><i class="fa-solid fa-share-nodes fa-2xl fa-fw color-secondary"></i></span>
-                                        </div>
-                                        <div class="row pt-2 color-accent fw-bold text-center">
-                                            <span id="shareCounter">10</span>
-                                        </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="container p-0">
+                                <div class="col">
+                                    <div class="row pb-4" id="recipeButton">
+                                        <span><i class="fa-solid fa-utensils fa-2xl fa-fw color-secondary"></i></span>
+                                    </div>
+                                    <div class="row" id="likeButton">
+                                        <span><i class="fa-solid fa-heart fa-2xl fa-fw color-secondary"></i></span>
+                                    </div>
+                                    <div class="row pt-2 color-accent fw-bold text-center">
+                                        <span id="likesCounter">10</span>
+                                    </div>
+                                    <div class="row pt-2" id="commentsButton">
+                                        <span><i class="fa-solid fa-comment-dots fa-2xl fa-fw color-secondary"></i></span>
+                                    </div>
+                                    <div class="row pt-2 color-accent fw-bold text-center">
+                                        <span id="commentsCounter">10</span>
+                                    </div>
+                                    <div class="row pt-2" id="shareButton">
+                                        <span><i class="fa-solid fa-share-nodes fa-2xl fa-fw color-secondary"></i></span>
+                                    </div>
+                                    <div class="row pt-2 color-accent fw-bold text-center">
+                                        <span id="shareCounter">10</span>
                                     </div>
                                 </div>
                             </div>
@@ -69,6 +69,7 @@
                     </div>
                 </div>
             </div>
+        </div>
     </div>
 </div>
 <script>
@@ -213,19 +214,84 @@
         $("#replyToDiv").addClass("d-none");
         commentToReplyID = null;
     }
-
-    const buildGnams = ($gnamsInfo) => {
-        debugger;
+    const addGnamSlide = (gnamsInfo) => {
+        let gnamHtml = `
+            <video id="gnamPlayer" class="w-100 h-100 object-fit-fill p-0" autoplay disablepictureinpicture loop playsinline preload="auto" poster="assets/gnams_thumbnails/` + gnamsInfo['id'] + `.jpg" src="assets/gnams/` + gnamsInfo['id'] + `.mp4"></video>
+            <div class="video-overlay" id="videoOverlay">
+                <div class="container">
+                    <div class="row mb-3">
+                        <div class="col-10 align-self-end">
+                            <a href="profile.php" class="row text-link">
+                                <div class="col-3">
+                                    <img class="border border-2 border-dark rounded-circle w-100" alt="Filippo Champagne" src="assets/profile_pictures`+gnamsInfo['user_id']+`.jpg" />
+                                </div>
+                                <div class="col-9 d-flex align-items-center p-0">
+                                    <p class="fs-6 fw-bold m-0">`+gnamsInfo['user_name']+`</p>
+                                </div>
+                            </a>
+                            <div class="row" id="videoDescription">
+                                <span class="fs-7 m-0" id="videoDescriptionShort">`+gnamsInfo['short_description']+`
+                                    <span class="fs-7 m-0 color-accent">Leggi di piú...</span>
+                                </span>
+                                <p class="fs-7 m-0 d-none" id="videoDescriptionLong">`+gnamsInfo['description']+`</p>
+                            </div>
+                            <div class="row" id="videoTags">
+                                <div class="col-2 pe-0" id="moreTagsButton">
+                                    <span class="badge rounded-pill bg-primary fw-light text-black">
+                                        <i class="fa-solid fa-ellipsis"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="container p-0">
+                                <div class="col">
+                                    <div class="row pb-4" id="recipeButton">
+                                        <span><i class="fa-solid fa-utensils fa-2xl fa-fw color-secondary"></i></span>
+                                    </div>
+                                    <div class="row" id="likeButton">
+                                        <span><i class="fa-solid fa-heart fa-2xl fa-fw color-secondary"></i></span>
+                                    </div>
+                                    <div class="row pt-2 color-accent fw-bold text-center">
+                                        <span id="likesCounter">`+gnamsInfo['likes_count']+`</span>
+                                    </div>
+                                    <div class="row pt-2" id="commentsButton">
+                                        <span><i class="fa-solid fa-comment-dots fa-2xl fa-fw color-secondary"></i></span>
+                                    </div>
+                                    <div class="row pt-2 color-accent fw-bold text-center">
+                                        <span id="commentsCounter">0</span>
+                                    </div>
+                                    <div class="row pt-2" id="shareButton">
+                                        <span><i class="fa-solid fa-share-nodes fa-2xl fa-fw color-secondary"></i></span>
+                                    </div>
+                                    <div class="row pt-2 color-accent fw-bold text-center">
+                                        <span id="shareCounter">`+gnamsInfo['shares_count']+`</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `
+        const slideElement = document.createElement('div');
+        slideElement.classList.add("swiper-slide");
+        slideElement.innerHTML = gnamHtml.trim();
+        if ($("#gnamSlider #dummySlide").length > 0) {
+            $("#gnamSlider #dummySlide").remove();
+        }
+        $("#gnamSlider").append(slideElement);
     }
 
     $(window).on("load", function() {
         const urlParams = new URLSearchParams(window.location.search);
-        if(urlParams.has('gnam')) {
+        if (urlParams.has('gnam')) {
             $.get("api/gnams.php", {
                 api_key: "<?php echo $_SESSION['api_key']; ?>",
-                gnam: urlParams.get('gnam') }, function(data) {
-                    buildGnams(JSON.parse(data))
-			});
+                gnam: urlParams.get('gnam')
+            }, function(data) {
+                addGnamSlide(JSON.parse(data));
+            });
         } else {
             $.get("api/search.php", {
                 api_key: "<?php echo $_SESSION['api_key']; ?>",
