@@ -259,7 +259,7 @@
                         api_key: "<?php echo $_SESSION['api_key']; ?>",
                         gnam: id
                     }, function(gnamsData) {
-                        // Puoi elaborare i dati ottenuti da gnams.php qui
+                        
                     });
                 });
             });

@@ -5,11 +5,11 @@ header("Access-Control-Allow-Methods: GET");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 require_once("../core/functions.php");
 
-if ($_SERVER['REQUEST_METHOD'] == "GET" && isset($_GET['action'])) {
+if ($_SERVER['REQUEST_METHOD'] == "GET" && isset($_GET['action']) && isset($_GET['api_key'])) {
 
     switch($_GET['action']) {
         case "byUsername":
-            if (isset($_GET['username']) && isset($_GET['api_key'])) {
+            if (isset($_GET['username'])) {
                 http_response_code(200);
 
                 $user = getUserFromApiKey($_GET['api_key']);
