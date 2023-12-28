@@ -207,10 +207,10 @@ function toggleFollowUser($api_key, $username) {
 function getGnamInfoFromId($gnam_id) {
     global $db;
     $stmt = $db->prepare("SELECT *
-        FROM gnams g WHERE id=:gnam_id");
+        FROM gnams WHERE id=:gnam_id");
     $stmt->bindParam(':gnam_id', $gnam_id);
     $stmt->execute();
-    $gnam = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $gnam = $stmt->fetch(PDO::FETCH_ASSOC);
 
     $gnamUserName = getGnamUserName($gnam['user_id']);
     $gnamComments = getGnamComments($gnam['id']);
