@@ -160,7 +160,11 @@ input[type=file]::file-selector-button, input[type=file]::file-selector-button:h
 	border: none;
 }
 
-.nav-btn:active, .nav-btn:visited, .nav-btn:hover {
+.nav-btn:active, .nav-btn:visited {
+	color: var(--accent) !important;
+}
+
+.nav-btn:hover {
 	color: var(--accent);
 }
 
