@@ -24,15 +24,6 @@
 
 <div class="d-none container text-center font-text overflow-auto" id="pageContentDiv">
     <!-- search results content -->
-        <?php
-            for ($i=0; $i < 10; $i++) {
-                ?>
-            <div class="row my-2">
-                <img class="img-grid col" alt="Filippo Champagne" src="assets/gnams_thumbnails/prova.png" />
-                <img class="img-grid col" alt="Filippo Champagne" src="assets/gnams_thumbnails/prova.png" />
-                <img class="img-grid col" alt="Filippo Champagne" src="assets/gnams_thumbnails/prova.png" />
-            </div>
-        <?php } ?>
 </div>
 
 <script>
@@ -120,13 +111,44 @@
     }
 
     const searchVideos = () => {
+        let query = $('#searchBarInput').val().trim();
+
+        if (!query) { return; }
+
         $('#searchBarInput').val('');
         $('#pageContentDiv').addClass('d-none');
         $('#loaderDiv').addClass('d-flex').removeClass('d-none');
-        setTimeout(function() {
+
+        $.get("api/search.php", {
+            username: query,
+            api_key: "<?php echo $_SESSION['api_key']; ?>",
+            action: "byUsername"
+        }, (result) => {
             $('#loaderDiv').removeClass('d-flex').addClass('d-none');
             $('#pageContentDiv').removeClass('d-none');
-        }, 1000);
+            $('#pageContentDiv').html('');
+            let decodedResult = JSON.parse(result);
+
+            if(result == '[]') {
+                $('#pageContentDiv').html('<div class="fs-6 mt-4">Nessuno gnam trovato.</div>');
+                return;
+            }
+
+            let gnamPerRow = 0;
+            for (let o in decodedResult) {
+                if (gnamPerRow == 0) $('#pageContentDiv').append('<div class="row my-2">');
+                $('#pageContentDiv').append(`<img class="img-grid col-4 btn-bounce" onclick="window.location.href = 'home.php?gnam=${decodedResult[o].id}'" alt="Copertina gnam" src="assets/gnams_thumbnails/${decodedResult[o].id}.jpg" />`);
+                gnamPerRow++;                
+                if (gnamPerRow == 3) {
+                    $('#pageContentDiv').append('</div>');
+                    gnamPerRow = 0;
+                }
+            }
+            
+            if (gnamPerRow > 0) {
+                $('#pageContentDiv').append('</div>');
+            }
+        });
     }
 
     $("#ingredientsButton").on("click", openIngredients);

@@ -11,7 +11,7 @@ $followed = getUserFollowed($_GET['user']);
 <div class="container text-center mt-3" id="headerDiv">
     <div class="row">
         <div class="col-4">
-            <img class="border border-2 border-dark rounded-circle w-100" alt="<?php echo $_GET['user'] ?>" src="assets/profile_pictures/<?php echo getUserFromUsername($_GET['user'])['id'] ?>.jpg?v=<?php echo time(); ?>" />
+            <img class="border border-2 border-dark rounded-circle w-100" alt="<?php echo $_GET['user'] ?>" src="assets/profile_pictures/<?php echo getUserFromUsername($_GET['user'])['id'] ?>.jpg" />
         </div>
         <div class="col-8">
             <div class="row">
@@ -77,7 +77,7 @@ $followed = getUserFollowed($_GET['user']);
             if(count($userGnams) > 0) {
                 echo '<div class="row">';
                 for($i = 0; $i < count($userGnams); $i++) {
-                    echo '<img class="img-grid col-4 btn-bounce" onclick="window.location.href = \'home.php?video=' . $userGnams[$i]['id'] . '\'" alt="Copertina Gnam di ' . $_GET['user'] . '" src="assets/gnams_thumbnails/' . $userGnams[$i]['id'] . '.jpg" />';
+                    echo '<img class="img-grid col-4 btn-bounce" onclick="window.location.href = \'home.php?gnam=' . $userGnams[$i]['id'] . '\'" alt="Copertina Gnam di ' . $_GET['user'] . '" src="assets/gnams_thumbnails/' . $userGnams[$i]['id'] . '.jpg" />';
                     if($i % 2 == 0 && $i != 0) {
                         echo '</div><div class="row my-3">';
                     }
@@ -101,7 +101,7 @@ $followed = getUserFollowed($_GET['user']);
             if(count($userLikedGnams) > 0) {
                 echo '<div class="row">';
                 for($i = 0; $i < count($userLikedGnams); $i++) {
-                    echo '<img class="img-grid col-4 btn-bounce" onclick="window.location.href = \'home.php?video=' . $userLikedGnams[$i]['gnam_id'] . '\'" alt="Copertina Gnam di ' . $_GET['user'] . '" src="assets/gnams_thumbnails/' . $userLikedGnams[$i]['gnam_id'] . '.jpg" />';
+                    echo '<img class="img-grid col-4 btn-bounce" onclick="window.location.href = \'home.php?gnam=' . $userLikedGnams[$i]['gnam_id'] . '\'" alt="Copertina Gnam di ' . $_GET['user'] . '" src="assets/gnams_thumbnails/' . $userLikedGnams[$i]['gnam_id'] . '.jpg" />';
                     if($i % 2 == 0 && $i != 0) {
                         echo '</div><div class="row my-3">';
                     }
