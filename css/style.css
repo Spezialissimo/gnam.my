@@ -160,8 +160,8 @@ input[type=file]::file-selector-button, input[type=file]::file-selector-button:h
 	border: none;
 }
 
-.nav-btn:active, .nav-btn:visited {
-	color: inherit;
+.nav-btn:active, .nav-btn:visited, .nav-btn:hover {
+	color: var(--accent);
 }
 
 .notification-btn:active {

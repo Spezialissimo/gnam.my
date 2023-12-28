@@ -45,7 +45,9 @@ if (isloggedIn() && (PAGE_TITLE == 'Login' || PAGE_TITLE == 'Registrati')) {
 			$.get("api/notifications.php", { api_key: "<?php echo $_SESSION['api_key']; ?>" }, function(data) {
 				if (JSON.parse(data).length > 0) {
 					$("#notificationsNavbarButton").addClass("color-alert");
+					$("#notificationsNavbarButton").removeClass("color-accent");
 				} else {
+					$("#notificationsNavbarButton").addClass("color-accent");
 					$("#notificationsNavbarButton").removeClass("color-alert");
 				}
 			});
