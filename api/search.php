@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET" && isset($_GET['action'])) {
                 http_response_code(200);
 
                 $user = getUserFromApiKey($_GET['api_key']);
-                
+
                 if($user) {
                     echo json_encode(getUserGnams($_GET['username']));
                 } else {
@@ -24,7 +24,11 @@ if ($_SERVER['REQUEST_METHOD'] == "GET" && isset($_GET['action'])) {
                 http_response_code(400);
             }
             break;
-
+        case "random":
+            // TODO mettere su tutto? non ho capito perche` pier l'ha messo detro
+            if (isset($_GET['api_key'])) {
+                echo json_decode(getRandomGnams());
+            }
         default:
             http_response_code(400);
             break;

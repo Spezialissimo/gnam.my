@@ -250,7 +250,7 @@
         } else {
             $.get("api/search.php", {
                 api_key: "<?php echo $_SESSION['api_key']; ?>",
-                random: '5'
+                action: 'random'
             }, function(data) {
                 var gnams_id = JSON.parse(data);
 

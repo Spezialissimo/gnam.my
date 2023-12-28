@@ -233,38 +233,14 @@ function getGnamInfoFromId($gnam_id) {
 
 function getRandomGnams() {
     global $db;
-    $stmt = $db->prepare("SELECT *
+    $stmt = $db->prepare("SELECT id
         FROM gnams g
         ORDER BY RAND()
         LIMIT 5");
     $stmt->execute();
     $gnams = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    $gnamsInfo = array();
-
-    foreach ($gnams as $gnam) {
-        $gnamUserName = getGnamUserName($gnam['user_id']);
-        $gnamComments = getGnamComments($gnam['id']);
-        $gnamTags = getGnamTags($gnam['id']);
-        $gnamLikes = getGnamLikes($gnam['id']);
-        $gnamRecipe = getGnamRecipe($gnam['id']);
-
-        array_push($gnamsInfo, [
-            'id' => $gnam['id'],
-            'shares_count' => $gnam['share_count'],
-            'short_description' => substr($gnam['description'], 0, 97) . '...',
-            'description' => $gnam['description'],
-            'user_name' => $gnamUserName,
-            'user_id' => $gnam['user_id'],
-            'comments' => $gnamComments,
-            'tags' => $gnamTags,
-            'likes_count' => $gnamLikes,
-            'recipe' => $gnamRecipe
-        ]);
-    }
-
-
-    return $gnamsInfo;
+    return $gnams;
 }
 
 
