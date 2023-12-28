@@ -9,7 +9,7 @@
                         <div class="col-10 align-self-end">
                             <a href="profile.php" class="row text-link">
                                 <div class="col-3">
-                                    <img class="border border-2 border-dark rounded-circle w-100" alt="Filippo Champagne" src="assets/profile_pictures/<?php echo $gnam['user_id']; ?>.jpg" />
+                                    <img class="border border-2 border-dark rounded-circle w-100" alt="Filippo Champagne" src="assets/profile_pictures/1.jpg" />
                                 </div>
                                 <div class="col-9 d-flex align-items-center p-0">
                                     <p class="fs-6 fw-bold m-0">name</p>
@@ -216,56 +216,52 @@
     }
     const addGnamSlide = (gnamsInfo) => {
         let gnamHtml = `
-            <video id="gnamPlayer" class="w-100 h-100 object-fit-fill p-0" autoplay disablepictureinpicture loop playsinline preload="auto" poster="assets/gnams_thumbnails/` + gnamsInfo['id'] + `.jpg" src="assets/gnams/` + gnamsInfo['id'] + `.mp4"></video>
-            <div class="video-overlay" id="videoOverlay">
+            <video id="gnamPlayer-` + gnamsInfo['id'] + `" class="w-100 h-100 object-fit-fill p-0" autoplay disablepictureinpicture loop playsinline preload="auto" poster="assets/gnams_thumbnails/` + gnamsInfo['id'] + `.jpg" src="assets/gnams/` + gnamsInfo['id'] + `.mp4"></video>
+            <div  id="videoOverlay-` + gnamsInfo['id'] + `" class="video-overlay">
                 <div class="container">
                     <div class="row mb-3">
                         <div class="col-10 align-self-end">
-                            <a href="profile.php" class="row text-link">
+                            <a href="profile.php?q=` + gnamsInfo['user_id'] + `" class="row text-link">
                                 <div class="col-3">
-                                    <img class="border border-2 border-dark rounded-circle w-100" alt="Filippo Champagne" src="assets/profile_pictures`+gnamsInfo['user_id']+`.jpg" />
+                                    <img class="border border-2 border-dark rounded-circle w-100" alt="Filippo Champagne" src="assets/profile_pictures/` + gnamsInfo['user_id'] + `.jpg" />
                                 </div>
                                 <div class="col-9 d-flex align-items-center p-0">
-                                    <p class="fs-6 fw-bold m-0">`+gnamsInfo['user_name']+`</p>
+                                    <p class="fs-6 fw-bold m-0">` + gnamsInfo['user_name'] + `</p>
                                 </div>
                             </a>
                             <div class="row" id="videoDescription">
-                                <span class="fs-7 m-0" id="videoDescriptionShort">`+gnamsInfo['short_description']+`
+                                <span id="videoDescriptionShort-` + gnamsInfo['id'] + `" class="fs-7 m-0">` + gnamsInfo['short_description'] + `
                                     <span class="fs-7 m-0 color-accent">Leggi di piú...</span>
                                 </span>
-                                <p class="fs-7 m-0 d-none" id="videoDescriptionLong">`+gnamsInfo['description']+`</p>
+                                <p id="videoDescriptionLong-` + gnamsInfo['id'] + `" class="fs-7 m-0 d-none">` + gnamsInfo['description'] + `</p>
                             </div>
-                            <div class="row" id="videoTags">
-                                <div class="col-2 pe-0" id="moreTagsButton">
-                                    <span class="badge rounded-pill bg-primary fw-light text-black">
-                                        <i class="fa-solid fa-ellipsis"></i>
-                                    </span>
-                                </div>
+                            <div class="row" id="videoTags-` + gnamsInfo['id'] + `">
+
                             </div>
                         </div>
                         <div class="col-2">
                             <div class="container p-0">
                                 <div class="col">
-                                    <div class="row pb-4" id="recipeButton">
+                                    <div class="row pb-4" id="recipeButton-` + gnamsInfo['id'] + `">
                                         <span><i class="fa-solid fa-utensils fa-2xl fa-fw color-secondary"></i></span>
                                     </div>
-                                    <div class="row" id="likeButton">
+                                    <div class="row" id="likeButto-` + gnamsInfo['id'] + `">
                                         <span><i class="fa-solid fa-heart fa-2xl fa-fw color-secondary"></i></span>
                                     </div>
                                     <div class="row pt-2 color-accent fw-bold text-center">
-                                        <span id="likesCounter">`+gnamsInfo['likes_count']+`</span>
+                                        <span id="likesCounter-` + gnamsInfo['id'] + `">` + gnamsInfo['likes_count'] + `</span>
                                     </div>
-                                    <div class="row pt-2" id="commentsButton">
+                                    <div class="row pt-2" id="commentsButton-` + gnamsInfo['id'] + `">
                                         <span><i class="fa-solid fa-comment-dots fa-2xl fa-fw color-secondary"></i></span>
                                     </div>
                                     <div class="row pt-2 color-accent fw-bold text-center">
-                                        <span id="commentsCounter">0</span>
+                                        <span id="commentsCounter-` + gnamsInfo['id'] + `">0</span>
                                     </div>
                                     <div class="row pt-2" id="shareButton">
                                         <span><i class="fa-solid fa-share-nodes fa-2xl fa-fw color-secondary"></i></span>
                                     </div>
                                     <div class="row pt-2 color-accent fw-bold text-center">
-                                        <span id="shareCounter">`+gnamsInfo['shares_count']+`</span>
+                                        <span id="shareCounter-` + gnamsInfo['id'] + `">` + gnamsInfo['shares_count'] + `</span>
                                     </div>
                                 </div>
                             </div>
@@ -277,6 +273,41 @@
         const slideElement = document.createElement('div');
         slideElement.classList.add("swiper-slide");
         slideElement.innerHTML = gnamHtml.trim();
+
+        let count = 0;
+        let tagHTML = '';
+
+        gnamsInfo['tags'].forEach(tag => {
+            let tagText = tag['text']; // Assumo che l'oggetto tag abbia una proprietà 'text'
+
+            if (count < 2) {
+                tagHTML += `
+                    <div class="col-4 videoTag">
+                        <span class="badge rounded-pill bg-primary fw-light text-black">
+                            <i class="fa-solid fa-oil-can"></i>${tagText}
+                        </span>
+                    </div>`;
+            } else {
+                tagHTML += `
+                    <div class="col-4 d-none videoTag">
+                        <span class="badge rounded-pill bg-primary fw-light text-black">
+                            <i class="fa-solid fa-leaf"></i>${tagText}
+                        </span>
+                    </div>`;
+            }
+            count++;
+
+        });
+
+        tagHTML += `
+            <div class="col-2 pe-0" id="moreTagsButton">
+                <span class="badge rounded-pill bg-primary fw-light text-black">
+                    <i class="fa-solid fa-ellipsis"></i>
+                </span>
+            </div>`;
+
+        slideElement.querySelector('#videoTags-' + gnamsInfo['id']).innerHTML = tagHTML;
+
         if ($("#gnamSlider #dummySlide").length > 0) {
             $("#gnamSlider #dummySlide").remove();
         }
