@@ -4,18 +4,21 @@ require_once('databaseConnection.php');
 
 $assetsPath = str_replace("core", "assets", __DIR__) . DIRECTORY_SEPARATOR;
 
-function response($type, $message) {
+function response($type, $message)
+{
     return json_encode(["status" => $type, "message" => $message]);
 }
 
-function generateUUID() {
+function generateUUID()
+{
     $data = openssl_random_pseudo_bytes(16);
     $data[6] = chr(ord($data[6]) & 0x0f | 0x40);
     $data[8] = chr(ord($data[8]) & 0x3f | 0x80);
     return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));
 }
 
-function isloggedIn() {
+function isloggedIn()
+{
     if (session_status() == PHP_SESSION_NONE) {
         session_name("secure");
         session_start();
@@ -23,7 +26,8 @@ function isloggedIn() {
     return isset($_SESSION['id']) && isset($_SESSION['api_key']);
 }
 
-function register($username, $password) {
+function register($username, $password)
+{
     global $db;
 
     $stmt = $db->prepare("SELECT * FROM `users` WHERE `name` = :nome");
@@ -47,7 +51,8 @@ function register($username, $password) {
     return response("success", "Utente registrato.");
 }
 
-function login($username, $password) {
+function login($username, $password)
+{
     global $db;
 
     $stmt = $db->prepare("SELECT * FROM `users` WHERE `name` = :nome");
@@ -55,7 +60,7 @@ function login($username, $password) {
     $stmt->execute();
     $rows = $stmt->fetch();
 
-    if(!$rows) {
+    if (!$rows) {
         return response("error", "Nessun utente trovato.");
     }
 
@@ -74,14 +79,16 @@ function login($username, $password) {
     }
 }
 
-function logout() {
+function logout()
+{
     session_name("secure");
     session_start();
     session_destroy();
     header("Location: login.php");
 }
 
-function getUserFromApiKey($api_key) {
+function getUserFromApiKey($api_key)
+{
     global $db;
     $stmt = $db->prepare("SELECT * FROM `users` WHERE api_key = :api_key");
     $stmt->bindParam(':api_key', $api_key);
@@ -89,7 +96,8 @@ function getUserFromApiKey($api_key) {
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
-function getUserFromUsername($username) {
+function getUserFromUsername($username)
+{
     global $db;
     $stmt = $db->prepare("SELECT * FROM `users` WHERE `name` = :name");
     $stmt->bindParam(':name', $username);
@@ -97,7 +105,8 @@ function getUserFromUsername($username) {
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
-function getIngredientFromName($ingredient_name) {
+function getIngredientFromName($ingredient_name)
+{
     global $db;
     $stmt = $db->prepare("SELECT * FROM `ingredients` WHERE `name` = :name");
     $stmt->bindParam(':name', $ingredient_name);
@@ -105,7 +114,8 @@ function getIngredientFromName($ingredient_name) {
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
-function getHashtagFromText($hashtag_text) {
+function getHashtagFromText($hashtag_text)
+{
     global $db;
     $stmt = $db->prepare("SELECT * FROM `hashtags` WHERE `text` = :text");
     $stmt->bindParam(':text', $hashtag_text);
@@ -113,7 +123,8 @@ function getHashtagFromText($hashtag_text) {
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
-function getMeasurementUnitFromName($measurement_unit_name) {
+function getMeasurementUnitFromName($measurement_unit_name)
+{
     global $db;
     $stmt = $db->prepare("SELECT * FROM `measurement_units` WHERE `name` = :name");
     $stmt->bindParam(':name', $measurement_unit_name);
@@ -121,7 +132,8 @@ function getMeasurementUnitFromName($measurement_unit_name) {
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
-function getNotifications($api_key) {
+function getNotifications($api_key)
+{
     global $db;
     $stmt = $db->prepare("SELECT u.name AS source_user_name, n.source_user_id, n.id as notification_id, n.gnam_id, nt.template_text, n.timestamp
         FROM (`notifications` AS n INNER JOIN `users` AS u ON n.source_user_id = u.id) INNER JOIN `notification_types` AS nt ON n.notification_type_id = nt.id
@@ -133,7 +145,8 @@ function getNotifications($api_key) {
     return $notifications;
 }
 
-function getUserFollowers($username) {
+function getUserFollowers($username)
+{
     global $db;
     $stmt = $db->prepare("SELECT u.id, u.name FROM `users` AS u
         INNER JOIN `following` AS f
@@ -145,7 +158,8 @@ function getUserFollowers($username) {
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function getUserFollowed($username) {
+function getUserFollowed($username)
+{
     global $db;
     $stmt = $db->prepare("SELECT u.id, u.name FROM `users` AS u
         INNER JOIN `following` AS f
@@ -157,7 +171,8 @@ function getUserFollowed($username) {
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function isCurrentUserFollowing($username) {
+function isCurrentUserFollowing($username)
+{
     global $db;
     $stmt = $db->prepare("SELECT * FROM `following` WHERE `follower_user_id` = :follower_user_id AND `followed_user_id` = (SELECT id FROM `users` WHERE `name` = :username)");
     $stmt->bindParam(':follower_user_id', $_SESSION["id"]);
@@ -166,11 +181,12 @@ function isCurrentUserFollowing($username) {
     return count($stmt->fetchAll(PDO::FETCH_ASSOC)) > 0;
 }
 
-function toggleFollowUser($api_key, $username) {
+function toggleFollowUser($api_key, $username)
+{
     global $db;
     $currentUser = getUserFromApiKey($api_key);
 
-    if($currentUser["name"] == $username) {
+    if ($currentUser["name"] == $username) {
         return response("error", "Non puoi seguire te stesso.");
     }
 
@@ -179,7 +195,7 @@ function toggleFollowUser($api_key, $username) {
     $stmt->execute();
     $userToFollow = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    if(count($userToFollow) == 0) {
+    if (count($userToFollow) == 0) {
         return response("error", "Utente non trovato.");
     }
 
@@ -189,7 +205,7 @@ function toggleFollowUser($api_key, $username) {
     $stmt->execute();
     $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    if(count($rows) > 0) {
+    if (count($rows) > 0) {
         $stmt = $db->prepare("DELETE FROM `following` WHERE `follower_user_id` = :follower_user_id AND `followed_user_id` = :followed_user_id");
         $stmt->bindParam(':follower_user_id', $currentUser["id"]);
         $stmt->bindParam(':followed_user_id', $userToFollow[0]["id"]);
@@ -204,7 +220,8 @@ function toggleFollowUser($api_key, $username) {
     }
 }
 
-function getGnamInfoFromId($gnam_id) {
+function getGnamInfoFromId($gnam_id)
+{
     global $db;
     $stmt = $db->prepare("SELECT *
         FROM gnams WHERE id=:gnam_id");
@@ -229,7 +246,8 @@ function getGnamInfoFromId($gnam_id) {
     ];
 }
 
-function getRandomGnams() {
+function getRandomGnams()
+{
     global $db;
     $stmt = $db->prepare("SELECT id
         FROM gnams g
@@ -243,7 +261,8 @@ function getRandomGnams() {
 
 
 
-function getGnamUserName($user_id) {
+function getGnamUserName($user_id)
+{
     global $db;
     $stmt = $db->prepare("SELECT `name` FROM users WHERE id=:user_id");
     $stmt->bindParam(':user_id', $user_id);
@@ -251,7 +270,8 @@ function getGnamUserName($user_id) {
     return ($stmt->fetch(PDO::FETCH_ASSOC))['name'];
 }
 
-function getGnamComments($gnam_id) {
+function getGnamComments($gnam_id)
+{
     global $db;
     $stmt = $db->prepare("SELECT * FROM comments WHERE gnam_id=:gnam_id");
     $stmt->bindParam(':gnam_id', $gnam_id);
@@ -259,7 +279,8 @@ function getGnamComments($gnam_id) {
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function getGnamTags($gnam_id) {
+function getGnamTags($gnam_id)
+{
     global $db;
     $stmt = $db->prepare("SELECT ht.text, ht.icon FROM
         hashtags ht JOIN gnam_hashtags ght ON ht.id=ght.hashtag_id
@@ -269,7 +290,8 @@ function getGnamTags($gnam_id) {
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function getGnamLikes($gnam_id) {
+function getGnamLikes($gnam_id)
+{
     global $db;
     $stmt = $db->prepare("SELECT COUNT(*) AS likes_count FROM likes WHERE gnam_id=:gnam_id");
     $stmt->bindParam(':gnam_id', $gnam_id);
@@ -277,15 +299,22 @@ function getGnamLikes($gnam_id) {
     return ($stmt->fetch(PDO::FETCH_ASSOC))['likes_count'];
 }
 
-function getGnamRecipe($gnam_id) {
+function getGnamRecipe($gnam_id)
+{
     global $db;
-    $stmt = $db->prepare("SELECT * FROM gnam_ingredients WHERE gnam_id=:gnam_id");
+    $stmt = $db->prepare("SELECT
+        i.name as `name`, gi.quantity as quantity, mu.name as measurement_unit
+        FROM gnam_ingredients gi
+        JOIN ingredients i ON gi.ingredient_id=i.id
+        JOIN measurement_units mu ON gi.measurement_unit_id=mu.id
+        WHERE gnam_id=:gnam_id");
     $stmt->bindParam(':gnam_id', $gnam_id);
     $stmt->execute();
-    return $stmt->fetch(PDO::FETCH_ASSOC);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function getSingleNewGnamForHome($api_key, $lastID) {
+function getSingleNewGnamForHome($api_key, $lastID)
+{
     global $db;
 
     // $stmt = $db->prepare("SELECT MAX(g.id)
@@ -316,7 +345,8 @@ function getSingleNewGnamForHome($api_key, $lastID) {
     return $gnams;
 }
 
-function getNewGnamsForSearch($ingredients, $textfield, $api_key) {
+function getNewGnamsForSearch($ingredients, $textfield, $api_key)
+{
     global $db;
 
     if ($ingredients === null && ($textfield === null || $textfield === '')) {
@@ -355,7 +385,8 @@ function getNewGnamsForSearch($ingredients, $textfield, $api_key) {
     return $gnams;
 }
 
-function getPrettyTimeDiff($t1, $t2) {
+function getPrettyTimeDiff($t1, $t2)
+{
     $t1 = new DateTime(date('Y/m/d h:i:s', $t1));
     $t2 = new DateTime(date('Y/m/d h:i:s', $t2));
     $interval = $t2->diff($t1);
@@ -377,7 +408,8 @@ function getPrettyTimeDiff($t1, $t2) {
     }
 }
 
-function getUserGnams($username) {
+function getUserGnams($username)
+{
     global $db;
     $stmt = $db->prepare("SELECT `id` FROM `gnams` WHERE `user_id` = (SELECT id FROM `users` WHERE `name` = :username)");
     $stmt->bindParam(':username', $username);
@@ -385,7 +417,8 @@ function getUserGnams($username) {
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function getUserLikedGnams($username) {
+function getUserLikedGnams($username)
+{
     global $db;
     $stmt = $db->prepare("SELECT `gnam_id` FROM `likes` WHERE `user_id` = (SELECT id FROM `users` WHERE `name` = :username)");
     $stmt->bindParam(':username', $username);

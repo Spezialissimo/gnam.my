@@ -145,17 +145,22 @@
     }
 
 
-    const drawAllIngredients = () => {
-        let ingredients = [`
+    const drawAllIngredients = (recipe) => {
+        $("#ingredients-" + currentGnamID).empty();
+        let ingredientsHTML = "";
+        recipe.forEach(ingredient => {
+
+            ingredientsHTML +=`
             <div class="row m-0 p-0 align-items-center">
                 <div class="col-8 m-0 p-1 d-flex align-items-center justify-content-start">
-                    <p class="m-0 fs-6">Cannella</p>
+                    <p class="m-0 fs-6">${ingredient["name"]}</p>
                 </div>
-            <div class="col-4 m-0 p-1 d-flex align-items-center justify-content-end">
-                    <p class="m-0 fs-6 fw-bold ">50 gr.</p>
+                <div class="col-4 m-0 p-1 d-flex align-items-center justify-content-end">
+                    <p class="m-0 fs-6 fw-bold ">${ingredient["quantity"]} ${ingredient["measurement_unit"]}</p>
                 </div>
-            </div>`];
-        ingredients.forEach(i => $("#ingredients").append(i));
+            </div>`;
+        });
+        $("#ingredients-" + currentGnamID).append(ingredientsHTML);
     }
 
     const replyButtonHandler = (e) => {
@@ -259,7 +264,7 @@
     }
 
 
-    const setInteractableItems = () => {
+    const setInteractableItems = (comments, recipe) => {
         // TODO likes API
         $("[id^='likeButton-']").each(function() {
             let likeButton = $(this);
@@ -289,6 +294,43 @@
         // commenti
 
         // ricette
+        $("#recipeButton-" + currentGnamID).on("click", function() {
+            let html = `
+                <div class="d-flex align-items-center justify-content-center mb-2">
+                    <p class="m-0 me-2 fs-6">Numero di porzioni:</p>
+                    <div class="mx-0 ps-0">
+                        <select class="form-select bg-primary rounded shadow-sm fs-6" id="portionsSelect">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row mx-0 my-2">
+                    <div class="col-6 d-flex align-items-center justify-content-start">
+                        <p class="m-0 p-0 fs-6 fw-bold">Nome:</p>
+                    </div>
+                    <div class="col-6 d-flex align-items-center justify-content-end">
+                        <p class="m-0 p-0 fs-6 fw-bold">Quantità</p>
+                    </div>
+                </div>
+                <hr class="my-2">
+                <div class="text-center" id="ingredients-${currentGnamID}">
+                </div>
+                <hr class="m-0 mt-2">
+                </div>
+            `;
+            showSwal('Ricetta', html);
+            $('#portionsSelect option[value="' + selectedPortions + '"]').attr("selected", true);
+            $("#portionsSelect").on("change", function(e) {
+                recipeWithUpdatedPortion = JSON.parse(JSON.stringify(recipe));
+                recipeWithUpdatedPortion.forEach(ingredient => {
+                    ingredient['quantity'] = ingredient['quantity'] * (this).value;
+                });
+                drawAllIngredients(recipeWithUpdatedPortion);
+            });
+            drawAllIngredients(recipe);
+        });
 
         // to user
         $("#userImage-" + currentGnamID).on("click", function() {
@@ -408,10 +450,11 @@
                 api_key: "<?php echo $_SESSION['api_key']; ?>",
                 gnam: urlParams.get('gnam')
             }, function(data) {
-                // TODO ovviamente da cambiare sta cosa
-                setCurrent(JSON.parse(data)['id'],JSON.parse(data)['user_id']);
-                addGnamSlide(JSON.parse(data));
-                setInteractableItems();
+                gnamInfo = JSON.parse(data);
+                setCurrent(gnamInfo['id'],gnamInfo['user_id']);
+                addGnamSlide(gnamInfo);
+                // TODO comments API
+                setInteractableItems(null, gnamInfo['recipe']);
             });
         } else {
             $.get("api/search.php", {
@@ -431,43 +474,6 @@
             });
 
         }
-
-
-        $("#recipeButton").on("click", function() {
-            let html = `
-                <div class="d-flex align-items-center justify-content-center mb-2">
-                    <p class="m-0 me-2 fs-6">Numero di porzioni:</p>
-                    <div class="mx-0 ps-0">
-                        <select class="form-select bg-primary rounded shadow-sm fs-6" id="portionsSelect">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row mx-0 my-2">
-                    <div class="col-6 d-flex align-items-center justify-content-start">
-                        <p class="m-0 p-0 fs-6 fw-bold">Nome:</p>
-                    </div>
-                    <div class="col-6 d-flex align-items-center justify-content-end">
-                        <p class="m-0 p-0 fs-6 fw-bold">Quantità</p>
-                    </div>
-                </div>
-                <hr class="my-2">
-                <div class="text-center" id="ingredients">
-                </div>
-                <hr class="m-0 mt-2">
-                </div>
-            `;
-            showSwal('Ricetta', html);
-            $('#portionsSelect option[value="' + selectedPortions + '"]').attr("selected", true);
-            $("#portionsSelect").on("change", function(e) {
-                $("#ingredients").empty();
-                selectedPortions = this.value;
-                drawAllIngredients();
-            });
-            drawAllIngredients();
-        });
 
         $("#commentsButton").on("click", function() {
             let html = `
