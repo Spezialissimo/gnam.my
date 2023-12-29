@@ -1,21 +1,26 @@
 <?php
 
-if(!isset($_GET['user'])) {
-    $_GET['user'] = $_SESSION['username'];
+$userId = filter_input(INPUT_GET, 'user', FILTER_SANITIZE_NUMBER_INT);
+
+if($userId === null || $userId <= 0 || !userExits($userId) || !isset($userId)) {
+    $_GET['user'] = $_SESSION['id'];
 }
 
-$followers = getUserFollowers($_GET['user']);
-$followed = getUserFollowed($_GET['user']);
+$user = getUser($_GET['user']);
+$followers = getUserFollowers($user['id']);
+$followed = getUserFollowed($user['id']);
+$userGnams = getUserGnams($user['id']);
+$userLikedGnams = getUserLikedGnams($user['id']);
 
 ?>
 <div class="container text-center mt-3" id="headerDiv">
     <div class="row">
         <div class="col-4">
-            <img class="border border-2 border-dark rounded-circle w-100" alt="<?php echo $_GET['user'] ?>" src="assets/profile_pictures/<?php echo getUserFromUsername($_GET['user'])['id'] ?>.jpg" />
+            <img class="border border-2 border-dark rounded-circle w-100" alt="Foto profilo di <?php echo $user['name'] ?>" src="assets/profile_pictures/<?php echo $user['id'] ?>.jpg" />
         </div>
         <div class="col-8">
             <div class="row">
-                <div class="h4 mt-2 ps-0"><?php echo $_GET['user']; ?></div>
+                <div class="h4 mt-2 ps-0"><?php echo $user['name'] ?></div>
             </div>
             <div class="row">
                 <a id="followerButton" href="#" class="col p-0 text-link">
@@ -31,21 +36,21 @@ $followed = getUserFollowed($_GET['user']);
                 </a>
                 <div class="col p-0 text-link">
                     <p class="fw-bold mb-0">Gnam</p>
-                    <p class="text-normal-black">0</p>
+                    <p class="text-normal-black"><?php echo count($userGnams); ?></p>
                 </div>
             </div>
         </div>
     </div>
     <div class="row justify-content-center">
-        <?php if($_GET['user'] != $_SESSION['username']) { ?>
+        <?php if($user['id'] != $_SESSION['id']) { ?>
             <div class="col-4">
-                <button type="button" class="btn btn-bounce rounded-pill bg-primary fw-bold text-black w-100" id="followButton"><?php echo isCurrentUserFollowing($_GET['user']) ? "Seguito" : "Segui" ?></button>
+                <button type="button" class="btn btn-bounce rounded-pill bg-primary fw-bold text-black w-100" id="followButton"><?php echo isCurrentUserFollowing($user['id']) ? "Seguito" : "Segui" ?></button>
             </div>
         <?php } ?>
         <div class="col-4 px-0">
             <button id="shareButton" type="button" class="btn btn-bounce rounded-pill bg-primary fw-bold text-black w-100">Condividi</button>
         </div>
-        <?php if($_GET['user'] == $_SESSION['username']) { ?>
+        <?php if($user['id'] == $_SESSION['id']) { ?>
             <div class="col-2">
                 <button type="button" class="btn btn-bounce rounded-pill bg-primary fw-bold text-black" id="settingsButton">
                     <i class="fa-solid fa-gear fa-l"></i>
@@ -72,12 +77,10 @@ $followed = getUserFollowed($_GET['user']);
 <div class="container overflow-y-scroll" id="pageContentDiv">
     <div id="postedGnams">
         <?php
-            $userGnams = getUserGnams($_GET['user']);
-
             if(count($userGnams) > 0) {
                 echo '<div class="row">';
                 for($i = 0; $i < count($userGnams); $i++) {
-                    echo '<img class="img-grid col-4 btn-bounce" onclick="window.location.href = \'home.php?gnam=' . $userGnams[$i]['id'] . '\'" alt="Copertina Gnam di ' . $_GET['user'] . '" src="assets/gnams_thumbnails/' . $userGnams[$i]['id'] . '.jpg" />';
+                    echo '<img class="img-grid col-4 btn-bounce" onclick="window.location.href = \'home.php?gnam=' . $userGnams[$i]['id'] . '\'" alt="Copertina Gnam di ' . $user['name'] . '" src="assets/gnams_thumbnails/' . $userGnams[$i]['id'] . '.jpg" />';
                     if($i % 2 == 0 && $i != 0) {
                         echo '</div><div class="row my-3">';
                     }
@@ -96,12 +99,10 @@ $followed = getUserFollowed($_GET['user']);
     </div>
     <div id="likedGnams">
         <?php
-            $userLikedGnams = getUserLikedGnams($_GET['user']);
-
             if(count($userLikedGnams) > 0) {
                 echo '<div class="row">';
                 for($i = 0; $i < count($userLikedGnams); $i++) {
-                    echo '<img class="img-grid col-4 btn-bounce" onclick="window.location.href = \'home.php?gnam=' . $userLikedGnams[$i]['gnam_id'] . '\'" alt="Copertina Gnam di ' . $_GET['user'] . '" src="assets/gnams_thumbnails/' . $userLikedGnams[$i]['gnam_id'] . '.jpg" />';
+                    echo '<img class="img-grid col-4 btn-bounce" onclick="window.location.href = \'home.php?gnam=' . $userLikedGnams[$i]['gnam_id'] . '\'" alt="Copertina Gnam di ' . $user['name'] . '" src="assets/gnams_thumbnails/' . $userLikedGnams[$i]['gnam_id'] . '.jpg" />';
                     if($i % 2 == 0 && $i != 0) {
                         echo '</div><div class="row my-3">';
                     }
@@ -123,7 +124,7 @@ $followed = getUserFollowed($_GET['user']);
 <script>
     const followUser = () => {
         $.post("api/users.php", {
-            username: "<?php echo $_GET['user'] ?>",
+            user_id: "<?php echo $user['id'] ?>",
             api_key: "<?php echo $_SESSION['api_key'] ?>",
             action: "toggleFollowState"
         }, (result) => {
@@ -167,17 +168,21 @@ $followed = getUserFollowed($_GET['user']);
     const showSwalFollower = () => {
         let swalContent = `
             <ul class="list-group modal-content-lg">
-                <?php                    
-                    foreach ($followers as $f) {
-                        echo '
-                            <li class="list-group-item bg border-0 btn-bounce"><a href="profile.php?user=' . $f['name'] . '" class="text-link">
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Foto profilo di ' . $f['name'] . '" src="assets/profile_pictures/' . $f['id'] . '.jpg"></div>
-                                        <div class="col-8 d-flex flex-wrap align-items-center">' . $f['name'] . '</div>
+                <?php
+                    if(count($followers) > 0) {
+                        foreach ($followers as $f) {
+                            echo '
+                                <li class="list-group-item bg border-0 btn-bounce"><a href="profile.php?user=' . $f['id'] . '" class="text-link">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Foto profilo di ' . $f['name'] . '" src="assets/profile_pictures/' . $f['id'] . '.jpg"></div>
+                                            <div class="col-8 d-flex flex-wrap align-items-center">' . $f['name'] . '</div>
+                                        </div>
                                     </div>
-                                </div>
-                            </a></li>';
+                                </a></li>';
+                        }
+                    } else {
+                        echo 'Nessun follower.';
                     }
                 ?>
             </ul>`;
@@ -188,17 +193,21 @@ $followed = getUserFollowed($_GET['user']);
         let swalContent = `
             <ul class="list-group modal-content-lg">
                 <?php
-                    foreach($followed as $f) {
-                        echo '
-                            <li class="list-group-item bg border-0 btn-bounce"><a href="profile.php?user=' . $f['name'] . '" class="text-link">
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Foto profilo di ' . $f['name'] . '" src="assets/profile_pictures/' . $f['id'] . '.jpg"></div>
-                                        <div class="col-8 d-flex flex-wrap align-items-center">' . $f['name'] . '</div>
+                    if(count($followed) > 0) {
+                        foreach($followed as $f) {
+                            echo '
+                                <li class="list-group-item bg border-0 btn-bounce"><a href="profile.php?user=' . $f['id'] . '" class="text-link">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Foto profilo di ' . $f['name'] . '" src="assets/profile_pictures/' . $f['id'] . '.jpg"></div>
+                                            <div class="col-8 d-flex flex-wrap align-items-center">' . $f['name'] . '</div>
+                                        </div>
                                     </div>
-                                </div>
-                            </a></li>
-                        ';
+                                </a></li>
+                            ';
+                        }
+                    } else {
+                        echo 'Nessun utente seguito.';
                     }
                 ?>
             </ul>`;

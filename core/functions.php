@@ -81,6 +81,16 @@ function logout() {
     header("Location: login.php");
 }
 
+function userExits($user_id) {
+    global $db;
+    $stmt = $db->prepare("SELECT * FROM `users` WHERE `id` = :id");
+    $stmt->bindParam(':id', $user_id);
+    $stmt->execute();
+    $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return count($rows) > 0;
+
+}
+
 function getUserFromApiKey($api_key) {
     global $db;
     $stmt = $db->prepare("SELECT * FROM `users` WHERE api_key = :api_key");
@@ -89,10 +99,10 @@ function getUserFromApiKey($api_key) {
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
-function getUserFromUsername($username) {
+function getUser($user_id) {
     global $db;
-    $stmt = $db->prepare("SELECT * FROM `users` WHERE `name` = :name");
-    $stmt->bindParam(':name', $username);
+    $stmt = $db->prepare("SELECT * FROM `users` WHERE id = :id");
+    $stmt->bindParam(':id', $user_id);
     $stmt->execute();
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
@@ -133,49 +143,49 @@ function getNotifications($api_key) {
     return $notifications;
 }
 
-function getUserFollowers($username) {
+function getUserFollowers($user_id) {
     global $db;
     $stmt = $db->prepare("SELECT u.id, u.name FROM `users` AS u
         INNER JOIN `following` AS f
         ON u.id = f.follower_user_id
-        WHERE f.followed_user_id = (SELECT id FROM `users` WHERE `name` = :username)
+        WHERE f.followed_user_id = :user_id
         ORDER BY u.name ASC");
-    $stmt->bindParam(':username', $username);
+    $stmt->bindParam(':user_id', $user_id);
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function getUserFollowed($username) {
+function getUserFollowed($user_id) {
     global $db;
     $stmt = $db->prepare("SELECT u.id, u.name FROM `users` AS u
         INNER JOIN `following` AS f
         ON u.id = f.followed_user_id
-        WHERE f.follower_user_id = (SELECT id FROM `users` WHERE `name` = :username)
+        WHERE f.follower_user_id = :user_id
         ORDER BY u.name ASC");
-    $stmt->bindParam(':username', $username);
+    $stmt->bindParam(':user_id', $user_id);
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function isCurrentUserFollowing($username) {
+function isCurrentUserFollowing($user_id) {
     global $db;
-    $stmt = $db->prepare("SELECT * FROM `following` WHERE `follower_user_id` = :follower_user_id AND `followed_user_id` = (SELECT id FROM `users` WHERE `name` = :username)");
+    $stmt = $db->prepare("SELECT * FROM `following` WHERE `follower_user_id` = :follower_user_id AND `followed_user_id` = :followed_user_id");
     $stmt->bindParam(':follower_user_id', $_SESSION["id"]);
-    $stmt->bindParam(':username', $username);
+    $stmt->bindParam(':followed_user_id', $user_id);
     $stmt->execute();
     return count($stmt->fetchAll(PDO::FETCH_ASSOC)) > 0;
 }
 
-function toggleFollowUser($api_key, $username) {
+function toggleFollowUser($api_key, $user_id) {
     global $db;
     $currentUser = getUserFromApiKey($api_key);
 
-    if ($currentUser["name"] == $username) {
+    if ($currentUser["id"] == $user_id) {
         return response("error", "Non puoi seguire te stesso.");
     }
-
-    $stmt = $db->prepare("SELECT * FROM `users` WHERE `name` = :username");
-    $stmt->bindParam(':username', $username);
+    
+    $stmt = $db->prepare("SELECT * FROM `users` WHERE `id` = :id");
+    $stmt->bindParam(':id', $user_id);
     $stmt->execute();
     $userToFollow = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -380,18 +390,18 @@ function getPrettyTimeDiff($t1, $t2) {
     }
 }
 
-function getUserGnams($username) {
+function getUserGnams($user_id) {
     global $db;
-    $stmt = $db->prepare("SELECT `id` FROM `gnams` WHERE `user_id` = (SELECT id FROM `users` WHERE `name` = :username)");
-    $stmt->bindParam(':username', $username);
+    $stmt = $db->prepare("SELECT * FROM `gnams` WHERE `user_id` = :user_id");
+    $stmt->bindParam(':user_id', $user_id);
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function getUserLikedGnams($username) {
+function getUserLikedGnams($user_id) {
     global $db;
-    $stmt = $db->prepare("SELECT `gnam_id` FROM `likes` WHERE `user_id` = (SELECT id FROM `users` WHERE `name` = :username)");
-    $stmt->bindParam(':username', $username);
+    $stmt = $db->prepare("SELECT * FROM `likes` WHERE `user_id` = :user_id");
+    $stmt->bindParam(':user_id', $user_id);
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
