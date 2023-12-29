@@ -1,6 +1,6 @@
 <div class="swiper h-100">
     <div id="gnamSlider" class="swiper-wrapper">
-        <!-- questo lo lascio perche diventera il dummy -->
+        <!-- TODO dummy -->
         <div id="dummySlide" class="swiper-slide">
             <video id="gnamPlayer" class="w-100 h-100 object-fit-fill p-0" autoplay disablepictureinpicture loop playsinline preload="auto" poster="assets/gnams_thumbnails/1.jpg" src="assets/gnams/1.mp4"></video>
             <div class="video-overlay" id="videoOverlay">
@@ -86,6 +86,7 @@
     let commentToReplyID = null;
     let commentIndex = 3;
     let currentGnamID = null;
+    let currentUserID = null;
 
     const showFullDescription = (e) => {
         if (isDescriptionShort) {
@@ -132,7 +133,7 @@
         showSwalSmall('<p class="fs-5">Condividi Gnam</p>', swalContent);
         $("#copyGnamLinkButton").on("click", function() {
             $("#shareCounter-" + currentGnamID).text(parseInt($("#shareCounter-" + currentGnamID).text()) + 1);
-            let gnamLink = "http://localhost/gnam.my/home.php?gnam=" + currentGnamID;
+            let gnamLink = buildURL("home", "gnam=" + currentGnamID);
             navigator.clipboard.writeText(gnamLink)
                 .then(function() {
                     showToast("success", "Link copiato nella clipboard");
@@ -243,6 +244,21 @@
         commentToReplyID = null;
     }
 
+    const buildURL = (siteSection, query) => {
+        return window.location.href.split("home")[0] + siteSection + ".php?" + query;
+    }
+
+    const redirectToCurrentGnamUserPage = () => {
+        let redirectPath = buildURL("profile", "user=" + currentUserID);
+        window.location.href = redirectPath;
+    }
+
+    const setCurrent = (gnamID, userID) => {
+        currentGnamID = gnamID;
+        currentUserID = userID;
+    }
+
+
     const setInteractableItems = () => {
         // TODO likes API
         $("[id^='likeButton-']").each(function() {
@@ -275,7 +291,13 @@
         // ricette
 
         // to user
+        $("#userImage-" + currentGnamID).on("click", function() {
+            redirectToCurrentGnamUserPage();
+        });
 
+        $("#userName-" + currentGnamID).on("click", function() {
+            redirectToCurrentGnamUserPage();
+        });
     }
 
     const addGnamSlide = (gnamsInfo) => {
@@ -287,10 +309,10 @@
                         <div class="col-10 align-self-end">
                             <div class="row text-link">
                                 <div class="col-3">
-                                    <img class="border border-2 border-dark rounded-circle w-100" alt="Filippo Champagne" src="assets/profile_pictures/${gnamsInfo['user_id']}.jpg" />
+                                    <img id="userImage-${gnamsInfo['id']}" class="border border-2 border-dark rounded-circle w-100" alt="Filippo Champagne" src="assets/profile_pictures/${gnamsInfo['user_id']}.jpg" />
                                 </div>
                                 <div class="col-9 d-flex align-items-center p-0">
-                                    <p class="fs-6 fw-bold m-0">${gnamsInfo['user_name']}</p>
+                                    <p id="userName-${gnamsInfo['id']}" class="fs-6 fw-bold m-0">${gnamsInfo['user_name']}</p>
                                 </div>
                             </div>
                             <div class="row" id="videoDescription">
@@ -386,7 +408,8 @@
                 api_key: "<?php echo $_SESSION['api_key']; ?>",
                 gnam: urlParams.get('gnam')
             }, function(data) {
-                currentGnamID = JSON.parse(data)['id'];
+                // TODO ovviamente da cambiare sta cosa
+                setCurrent(JSON.parse(data)['id'],JSON.parse(data)['user_id']);
                 addGnamSlide(JSON.parse(data));
                 setInteractableItems();
             });
