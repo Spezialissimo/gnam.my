@@ -42,13 +42,13 @@
         let html = `<div class="row-md-2 py-2">
                         <div class="input-group rounded">
                             <span class="input-group-text bg-primary border-0" id="searchIngredientsIcon"><i class="fa-solid fa-magnifying-glass"></i></span>
-                            <input type="text" id="ingredientInput" class="form-control bg-primary shadow-sm" placeholder="Cerca Ingredienti">
+                            <input type="text" id="ingredientInput" class="form-control bg-primary shadow-sm" placeholder="Cerca Ingredienti" />
                         </div>
                     </div>
-                    <hr>
+                    <hr />
                     <p id="noIngredientsText" class="d-none">Non hai selezionato ingredienti.</p>
                     <div class="text-center" id="searchedIngredients">${modalContent}</div>
-                    <hr>
+                    <hr />
                     <div class="row m-0 p-0">
                         <div class="col-6">
                             <button type="button" class="btn btn-bounce rounded-pill bg-alert fw-bold text-white w-100" id="resetIngredients">Reset</button>

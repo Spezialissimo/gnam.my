@@ -175,7 +175,7 @@ $userLikedGnams = getUserLikedGnams($user['id']);
                                 <li class="list-group-item bg border-0 btn-bounce"><a href="profile.php?user=' . $f['id'] . '" class="text-link">
                                     <div class="container">
                                         <div class="row">
-                                            <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Foto profilo di ' . $f['name'] . '" src="assets/profile_pictures/' . $f['id'] . '.jpg"></div>
+                                            <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Foto profilo di ' . $f['name'] . '" src="assets/profile_pictures/' . $f['id'] . '.jpg" /></div>
                                             <div class="col-8 d-flex flex-wrap align-items-center">' . $f['name'] . '</div>
                                         </div>
                                     </div>
@@ -199,7 +199,7 @@ $userLikedGnams = getUserLikedGnams($user['id']);
                                 <li class="list-group-item bg border-0 btn-bounce"><a href="profile.php?user=' . $f['id'] . '" class="text-link">
                                     <div class="container">
                                         <div class="row">
-                                            <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Foto profilo di ' . $f['name'] . '" src="assets/profile_pictures/' . $f['id'] . '.jpg"></div>
+                                            <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Foto profilo di ' . $f['name'] . '" src="assets/profile_pictures/' . $f['id'] . '.jpg" /></div>
                                             <div class="col-8 d-flex flex-wrap align-items-center">' . $f['name'] . '</div>
                                         </div>
                                     </div>

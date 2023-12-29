@@ -95,13 +95,13 @@
                     <span class="input-group-text bg-primary border-0" id="searchIngredientIcon">
                         <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
                     </span>
-                    <input type="text" class="form-control bg-primary shadow-sm" placeholder="Cerca Ingredienti" id="searchIngredients">
+                    <input type="text" class="form-control bg-primary shadow-sm" placeholder="Cerca Ingredienti" id="searchIngredients" />
                 </div>
             </div>
-            <hr>
+            <hr />
             <p id="noIngredientsText" class="d-none">Non hai selezionato ingredienti.</p>
             <div class="text-center" id="searchedIngredients">${modalContent}</div>
-            <hr>
+            <hr />
             <div class="row m-0 p-0">
                 <div class="col-6">
                     <button type="button" class="btn btn-bounce rounded-pill bg-alert fw-bold text-white w-100" id="resetIngredients">Reset</button>
@@ -227,13 +227,13 @@
         let html = `<div class="row-md-2 py-2">
                         <div class="input-group rounded">
                             <span class="input-group-text bg-primary border-0" id="searchHashtagIcon"><i class="fa-solid fa-magnifying-glass"></i></span>
-                            <input type="text" id="hashtagInput" class="form-control bg-primary shadow-sm" placeholder="Cerca Hashtag">
+                            <input type="text" id="hashtagInput" class="form-control bg-primary shadow-sm" placeholder="Cerca Hashtag" />
                         </div>
                     </div>
-                    <hr>
+                    <hr />
                     <p id="noHashtagsText" class="d-none">Non hai selezionato hashtag.</p>
                     <div class="text-center" id="searchedHashtags">${modalContent}</div>
-                    <hr>
+                    <hr />
                     <div class="row m-0 p-0">
                         <div class="col-6">
                             <button type="button" class="btn btn-bounce rounded-pill bg-alert fw-bold text-white w-100" id="resetHashtags">Reset</button>

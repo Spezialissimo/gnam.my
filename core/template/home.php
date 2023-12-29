@@ -314,10 +314,10 @@
                         <p class="m-0 p-0 fs-6 fw-bold">Quantità</p>
                     </div>
                 </div>
-                <hr class="my-2">
+                <hr class="my-2" />
                 <div class="text-center" id="ingredients-${currentGnamID}">
                 </div>
-                <hr class="m-0 mt-2">
+                <hr class="m-0 mt-2" />
                 </div>
             `;
             showSwal('Ricetta', html);
@@ -581,7 +581,7 @@
                             </div>
                         </div>
                         <div class="input-group rounded">
-                            <input id="commentField" type="text" class="fs-7 form-control bg-primary shadow-sm" placeholder="Insercisci commento...">
+                            <input id="commentField" type="text" class="fs-7 form-control bg-primary shadow-sm" placeholder="Insercisci commento..." />
                             <span id="commentButton" class="input-group-text bg-primary border-0 fs-7 fw-bold">Commenta</span>
                         </div>
                     </div>
