@@ -117,6 +117,33 @@
         }
     }
 
+    const showSwalShare = () => {
+        let swalContent = `
+            <div class='row-md-2 py-2 text-center text-black'>
+                <div class='container'>
+                    <div class='col'>
+                        <div class='row-9 py-4'><i class='fa-solid fa-share-nodes fa-2xl'></i></div>
+                        <div class='row-3 pt-3'><button type='button' class='btn btn-bounce rounded-pill bg-accent fw-bold
+                                text-white' id="copyGnamLinkButton">Copia link</button></div>
+                    </div>
+                </div>
+            </div>
+        `;
+        showSwalSmall('<p class="fs-5">Condividi Gnam</p>', swalContent);
+        $("#copyGnamLinkButton").on("click", function() {
+            $("#shareCounter-" + currentGnamID).text(parseInt($("#shareCounter-" + currentGnamID).text()) + 1);
+            let gnamLink = "http://localhost/gnam.my/home.php?gnam=" + currentGnamID;
+            navigator.clipboard.writeText(gnamLink)
+                .then(function() {
+                    showToast("success", "Link copiato nella clipboard");
+                })
+                .catch(function(err) {
+                    console.error("Impossibile copiare il link nella clipboard: ", err);
+                });
+        });
+    }
+
+
     const drawAllIngredients = () => {
         let ingredients = [`
             <div class="row m-0 p-0 align-items-center">
@@ -240,7 +267,14 @@
         $("#videoTags-" + currentGnamID).on("click", showFullDescription);
         $("#videoOverlay-" + currentGnamID).on("click", showShortDescription);
 
+        // condividi
+        $("#shareButton-" + currentGnamID).on("click", showSwalShare);
 
+        // commenti
+
+        // ricette
+
+        // to user
 
     }
 
@@ -287,7 +321,7 @@
                                     <div class="row pt-2 color-accent fw-bold text-center">
                                         <span id="commentsCounter-${gnamsInfo['id']}">0</span>
                                     </div>
-                                    <div class="row pt-2" id="shareButton">
+                                    <div class="row pt-2" id="shareButton-${gnamsInfo['id']}">
                                         <span><i class="fa-solid fa-share-nodes fa-2xl fa-fw color-secondary"></i></span>
                                     </div>
                                     <div class="row pt-2 color-accent fw-bold text-center">
@@ -530,26 +564,4 @@
             $(".replyButton").on("click", replyButtonHandler);
         });
     });
-
-    const showSwalShare = () => {
-        let swalContent = `
-            <div class='row-md-2 py-2 text-center text-black'>
-                <div class='container'>
-                    <div class='col'>
-                        <div class='row-9 py-4'><i class='fa-solid fa-share-nodes fa-2xl'></i></div>
-                        <div class='row-3 pt-3'><button type='button' class='btn btn-bounce rounded-pill bg-accent fw-bold
-                                text-white' id="copyGnamLinkButton">Copia link</button></div>
-                    </div>
-                </div>
-            </div>
-        `;
-        showSwalSmall('<p class="fs-5">Condividi Gnam</p>', swalContent);
-        $("#copyGnamLinkButton").on("click", function() {
-            // qua ovviamente si dovrà fare in modo che possa farlo solo per lo gnam corrente
-            $("#shareCounter").text(parseInt($("#shareCounter").text()) + 1);
-            copyCurrentPageLink();
-        });
-    }
-
-    $("#shareButton").on("click", showSwalShare);
 </script>
