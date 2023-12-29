@@ -85,18 +85,19 @@
     let selectedPortions = 1;
     let commentToReplyID = null;
     let commentIndex = 3;
+    let currentGnamID = null;
 
     const showFullDescription = (e) => {
         if (isDescriptionShort) {
             isDescriptionShort = false;
-            $("#videoDescriptionShort").addClass("d-none");
-            $("#videoDescriptionLong").removeClass("d-none");
-            $("#moreTagsButton").addClass("d-none");
-            let videoTags = $("[class='videoTag']");
+            $("#videoDescriptionShort-" + currentGnamID).addClass("d-none");
+            $("#videoDescriptionLong-" + currentGnamID).removeClass("d-none");
+            $("#moreTagsButton-" + currentGnamID).addClass("d-none");
+            let videoTags = $(".videoTag");
             for (let i = 0; i < videoTags.length; i++) {
                 $(videoTags[i]).removeClass("d-none");
             }
-            $("#videoOverlay").css("background-image", "linear-gradient(0deg, var(--background), rgba(248, 215, 165, 0) 40%)");
+            $("#videoOverlay-" + currentGnamID).css("background-image", "linear-gradient(0deg, var(--background), rgba(248, 215, 165, 0) 40%)");
             e.stopPropagation();
         }
     }
@@ -104,14 +105,14 @@
     const showShortDescription = (e) => {
         if (!isDescriptionShort) {
             isDescriptionShort = true;
-            $("#videoDescriptionLong").addClass("d-none");
-            $("#videoDescriptionShort").removeClass("d-none");
-            $("#moreTagsButton").removeClass("d-none");
-            let videoTags = $("[class='videoTag']");
+            $("#videoDescriptionLong-" + currentGnamID).addClass("d-none");
+            $("#videoDescriptionShort-" + currentGnamID).removeClass("d-none");
+            $("#moreTagsButton-" + currentGnamID).removeClass("d-none");
+            let videoTags = $(".videoTag");
             for (let i = 2; i < videoTags.length; i++) {
                 $(videoTags[i]).addClass("d-none");
             }
-            $("#videoOverlay").css("background-image", "linear-gradient(0deg, var(--background), rgba(248, 215, 165, 0) 30%)");
+            $("#videoOverlay-" + currentGnamID).css("background-image", "linear-gradient(0deg, var(--background), rgba(248, 215, 165, 0) 30%)");
             e.stopPropagation();
         }
     }
@@ -220,8 +221,8 @@
         $("[id^='likeButton-']").each(function() {
             let likeButton = $(this);
             let children = likeButton.children().children();
-            let id = likeButton.attr('id').split('-')[1];
-            let likesCounter = $("#likesCounter-" + id);
+            let likesCounter = $("#likesCounter-" + currentGnamID);
+
             likeButton.on("click", function() {
                 if (children.hasClass("color-secondary")) {
                     children.removeClass("color-secondary").addClass("color-alert");
@@ -233,7 +234,14 @@
             });
         });
 
-        
+        // TODO secondo me mettendo gli onclik a immagine e username si puo usare il click su tutta l'area
+        isDescriptionShort = true;
+        $("#videoDescriptionShort-" + currentGnamID).on("click", showFullDescription);
+        $("#videoTags-" + currentGnamID).on("click", showFullDescription);
+        $("#videoOverlay-" + currentGnamID).on("click", showShortDescription);
+
+
+
     }
 
     const addGnamSlide = (gnamsInfo) => {
@@ -243,14 +251,14 @@
                 <div class="container">
                     <div class="row mb-3">
                         <div class="col-10 align-self-end">
-                            <a href="profile.php?q=${gnamsInfo['user_id']}" class="row text-link">
+                            <div class="row text-link">
                                 <div class="col-3">
                                     <img class="border border-2 border-dark rounded-circle w-100" alt="Filippo Champagne" src="assets/profile_pictures/${gnamsInfo['user_id']}.jpg" />
                                 </div>
                                 <div class="col-9 d-flex align-items-center p-0">
                                     <p class="fs-6 fw-bold m-0">${gnamsInfo['user_name']}</p>
                                 </div>
-                            </a>
+                            </div>
                             <div class="row" id="videoDescription">
                                 <span id="videoDescriptionShort-${gnamsInfo['id']}" class="fs-7 m-0">${gnamsInfo['short_description']}
                                     <span class="fs-7 m-0 color-accent">Leggi di piú...</span>
@@ -306,14 +314,14 @@
                 tagHTML += `
                     <div class="col-4 videoTag">
                         <span class="badge rounded-pill bg-primary fw-light text-black">
-                            <i class="fa-solid fa-oil-can"></i>${tagText}
+                            <i class="fa-solid fa-oil-can"></i> ${tagText}
                         </span>
                     </div>`;
             } else {
                 tagHTML += `
                     <div class="col-4 d-none videoTag">
                         <span class="badge rounded-pill bg-primary fw-light text-black">
-                            <i class="fa-solid fa-leaf"></i>${tagText}
+                            <i class="fa-solid fa-leaf"></i> ${tagText}
                         </span>
                     </div>`;
             }
@@ -322,7 +330,7 @@
         });
 
         tagHTML += `
-            <div class="col-2 pe-0" id="moreTagsButton">
+            <div class="col-2 pe-0" id="moreTagsButton-${gnamsInfo['id']}">
                 <span class="badge rounded-pill bg-primary fw-light text-black">
                     <i class="fa-solid fa-ellipsis"></i>
                 </span>
@@ -344,6 +352,7 @@
                 api_key: "<?php echo $_SESSION['api_key']; ?>",
                 gnam: urlParams.get('gnam')
             }, function(data) {
+                currentGnamID = JSON.parse(data)['id'];
                 addGnamSlide(JSON.parse(data));
                 setInteractableItems();
             });
@@ -366,10 +375,7 @@
 
         }
 
-        isDescriptionShort = true;
-        $("#videoDescription").on("click", showFullDescription);
-        $("#videoTags").on("click", showFullDescription);
-        $("#videoOverlay").on("click", showShortDescription);
+
         $("#recipeButton").on("click", function() {
             let html = `
                 <div class="d-flex align-items-center justify-content-center mb-2">
