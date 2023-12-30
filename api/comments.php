@@ -6,10 +6,10 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 require_once("../core/functions.php");
 
 if (isset($_REQUEST["api_key"])) {
-    if ($_SERVER['REQUEST_METHOD'] == "GET") {
+     if ($_SERVER['REQUEST_METHOD'] == "GET") {
         http_response_code(200);
-        if(isset($_GET['gnam'])){
-            echo json_encode(getGnamComments($_GET['gnam']));
+        if(isset($_GET['gnam_id'])){
+            echo json_encode(getGnamComments($_GET['gnam_id']));
         }
     } else if ($_SERVER['REQUEST_METHOD'] == "POST") {
         http_response_code(200);

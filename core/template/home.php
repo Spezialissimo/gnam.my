@@ -150,7 +150,7 @@
         let ingredientsHTML = "";
         recipe.forEach(ingredient => {
 
-            ingredientsHTML +=`
+            ingredientsHTML += `
             <div class="row m-0 p-0 align-items-center">
                 <div class="col-8 m-0 p-1 d-flex align-items-center justify-content-start">
                     <p class="m-0 fs-6">${ingredient["name"]}</p>
@@ -263,6 +263,85 @@
         currentUserID = userID;
     }
 
+    const setComments = (comments) => {
+        let html = `
+                <div class="container modal-content-lg">
+                    <div class="row-8">
+                        <div class="container>
+                            <div class="col">
+                                <div id="commentsContainer" class="row">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-1 bg-primary rounded">
+                        <div class="rounded bg-primary p-1 d-none"  id="replyToDiv">
+                            <div class="rounded bg container">
+                                <div class="row">
+                                    <div class="col-11 align-items-center">
+                                        <span class="border-0 fs-7">Stai rispondendo a: <span id="replyToName" class="text-link"></span></span>
+                                    </div>
+                                    <div class="col-1 d-flex align-items-center p-0">
+                                        <i id="closeReplyTo" class="fa-solid fa-xmark color-accent"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-group rounded">
+                            <input id="commentField" type="text" class="fs-7 form-control bg-primary shadow-sm" placeholder="Insercisci commento..." />
+                            <span id="commentButton" class="input-group-text bg-primary border-0 fs-7 fw-bold">Commenta</span>
+                        </div>
+                    </div>
+                </div>`;
+
+        comments.sort((a, b) => {
+            if (a.parent_comment_id === null && b.parent_comment_id !== null) {
+                return -1;
+            } else if (a.parent_comment_id !== null && b.parent_comment_id === null) {
+                return 1;
+            } else {
+                return 0;
+            }
+        });
+        debugger;
+
+
+        comments.forEach(comment => {
+            if (comment['parent_comment_id'] != null) {
+                let commentHTML = `
+                    <div id="comment-0" class="container comment">
+                        <div class="row">
+                            <div class="col-2 p-0">
+                            <img class="border border-2 border-dark rounded-circle w-100" alt="Filippo Champagne"
+                                        src="assets/profile_pictures/prova.png" />
+                            </div>
+                            <div class="col">
+                                <div class="row-md-1 text-start">
+                                    <a href="/profile.php" class="commenterName text-link">CiccioGamer89</a>
+                                </div>
+                                <div class="row-md text-normal-black fs-7 text-start">
+                                <p class="m-0">ad un certo punto ho scritto: con tutto quello che mi è costata quella
+                                        crostata, e
+                                        guardando,
+                                        ho notato che costata... e crostata... hanno di differenza solo una lettera, e questo
+                                        per me
+                                        è incredibile cioè, va bene che 1+1 fa 2, ma questa è una scoperta pazzesca cioè...
+                                        ragazzi... vi potete vantare tutta una vita, l\'abbiamo scoperta noi paguri questa
+                                        cosa...
+                                        costata... cro cioè crostata... ragazzi è pazzesco, pazzesco</p>
+                                </div>
+                                <div class="row-md-1 text-start">
+                                    <span class="replyButton text-button fw-bold color-accent fs-7 ">Rispondi</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`
+            } else {
+
+            }
+        });
+    }
 
     const setInteractableItems = (comments, recipe) => {
         // TODO likes API
@@ -288,12 +367,8 @@
         $("#videoTags-" + currentGnamID).on("click", showFullDescription);
         $("#videoOverlay-" + currentGnamID).on("click", showShortDescription);
 
-        // condividi
         $("#shareButton-" + currentGnamID).on("click", showSwalShare);
 
-        // commenti
-
-        // ricette
         $("#recipeButton-" + currentGnamID).on("click", function() {
             let html = `
                 <div class="d-flex align-items-center justify-content-center mb-2">
@@ -332,7 +407,6 @@
             drawAllIngredients(recipe);
         });
 
-        // to user
         $("#userImage-" + currentGnamID).on("click", function() {
             redirectToCurrentGnamUserPage();
         });
@@ -451,10 +525,17 @@
                 gnam: urlParams.get('gnam')
             }, function(data) {
                 gnamInfo = JSON.parse(data);
-                setCurrent(gnamInfo['id'],gnamInfo['user_id']);
+                setCurrent(gnamInfo['id'], gnamInfo['user_id']);
                 addGnamSlide(gnamInfo);
-                // TODO comments API
-                setInteractableItems(null, gnamInfo['recipe']);
+                setInteractableItems(gnamInfo['recipe']);
+
+                $.get("api/comments.php", {
+                    api_key: "<?php echo $_SESSION['api_key']; ?>",
+                    gnam_id: urlParams.get('gnam')
+                }, function(commentsData) {
+                    comments = JSON.parse(commentsData);
+                    setComments(comments);
+                });
             });
         } else {
             $.get("api/search.php", {
@@ -592,5 +673,6 @@
             $("#closeReplyTo").on("click", hideReplyToBox);
             $(".replyButton").on("click", replyButtonHandler);
         });
+
     });
 </script>

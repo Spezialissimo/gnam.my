@@ -259,6 +259,7 @@ function getGnamUserName($user_id) {
     return ($stmt->fetch(PDO::FETCH_ASSOC))['name'];
 }
 
+// TODO ordina per timestamp
 function getGnamComments($gnam_id) {
     global $db;
     $stmt = $db->prepare("SELECT * FROM comments WHERE gnam_id=:gnam_id");
