@@ -74,21 +74,57 @@
 </div>
 <script>
     // TODO alt alle immagini
-
-    const swiper = new Swiper('.swiper', {
-        // Optional parameters
-        direction: 'vertical',
-        loop: false,
-    });
-
-
-
     let isDescriptionShort = true;
     let selectedPortions = 1;
     let commentToReplyID = null;
     let commentIndex = 3;
     let currentGnamID = null;
     let currentUserID = null;
+
+    $(window).on("load", function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('gnam')) {
+            $.get("api/gnams.php", {
+                api_key: "<?php echo $_SESSION['api_key']; ?>",
+                gnam: urlParams.get('gnam')
+            }, function(data) {
+                gnamInfo = JSON.parse(data);
+                setCurrent(gnamInfo['id'], gnamInfo['user_id']);
+                addGnamSlide(gnamInfo);
+                setInteractableItems(gnamInfo['recipe']);
+
+                $.get("api/comments.php", {
+                    api_key: "<?php echo $_SESSION['api_key']; ?>",
+                    gnam_id: urlParams.get('gnam')
+                }, function(commentsData) {
+                    comments = JSON.parse(commentsData);
+                    setComments(comments);
+                });
+            });
+        } else {
+            $.get("api/search.php", {
+                api_key: "<?php echo $_SESSION['api_key']; ?>",
+                action: 'random'
+            }, function(data) {
+                var gnams_id = JSON.parse(data);
+
+                gnams_id.forEach(function(id) {
+                    $.get("api/gnams.php", {
+                        api_key: "<?php echo $_SESSION['api_key']; ?>",
+                        gnam: id
+                    }, function(gnamsData) {
+
+                    });
+                });
+            });
+        }
+    });
+
+    const swiper = new Swiper('.swiper', {
+        // Optional parameters
+        direction: 'vertical',
+        loop: false,
+    });
 
     const showFullDescription = (e) => {
         if (isDescriptionShort) {
@@ -165,47 +201,6 @@
         $("#ingredients-" + currentGnamID).append(ingredientsHTML);
     }
 
-    const replyButtonHandler = (e) => {
-        const id = $(e.target).attr('id').split('-')[1];
-        const parent = $("#comment-" + id);
-        let commenterName = "";
-        if (parent.hasClass('subcomment')) {
-            commentToReplyID = $(e.target).attr('class').split(' ')[0].split('-')[1];
-        } else {
-            commentToReplyID = id;
-        }
-
-        commenterName = parent.find("#user_name-" + id).text();
-        $("#replyToDiv-" + currentGnamID).removeClass("d-none");
-        $("#replyToName-" + currentGnamID).text(commenterName);
-    }
-
-    const publishComment = () => {
-        const commentText = $("#commentField-" + currentGnamID).val();
-        if (commentText.length === 0) return;
-        $.post("api/comments.php", {
-            api_key: "<?php echo $_SESSION['api_key']; ?>",
-            "gnam_id": currentGnamID,
-            "text": commentText,
-            "parent_comment_id": commentToReplyID
-        }, (result) => {
-            $.get("api/comments.php", {
-                api_key: "<?php echo $_SESSION['api_key']; ?>",
-                gnam_id: currentGnamID
-            }, function(commentsData) {
-                let comments = JSON.parse(commentsData);
-                $("#commentsBoxContainer-" + currentGnamID)
-                    .parent().html(getCommentsHTML(comments));
-                setInteractableItemsComments(comments);
-            });
-        });
-    }
-
-    const hideReplyToBox = () => {
-        $("#replyToDiv-" + currentGnamID).addClass("d-none");
-        commentToReplyID = null;
-    }
-
     const buildURL = (siteSection, query) => {
         return window.location.href.split("home")[0] + siteSection + ".php?" + query;
     }
@@ -218,130 +213,6 @@
     const setCurrent = (gnamID, userID) => {
         currentGnamID = gnamID;
         currentUserID = userID;
-    }
-
-    const getCommentsHTML = (comments) => {
-        let commentContainerHTML = `
-            <div class="row-8 modal-content-lg">
-                <div class="container">
-                    <div class="col">
-                        <div id="commentsContainer" class="row">
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row-1 bg-primary rounded">
-                <div class="rounded bg-primary p-1 d-none"  id="replyToDiv-${currentGnamID}">
-                    <div class="rounded bg container">
-                        <div class="row">
-                            <div class="col-11 align-items-center">
-                                <span class="border-0 fs-7">Stai rispondendo a: <span id="replyToName-${currentGnamID}" class="text-link"></span></span>
-                            </div>
-                            <div class="col-1 d-flex align-items-center p-0">
-                                <i id="closeReplyTo-${currentGnamID}" class="fa-solid fa-xmark color-accent"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="input-group rounded">
-                    <input id="commentField-${currentGnamID}" type="text" class="fs-7 form-control bg-primary shadow-sm" placeholder="Insercisci commento..." />
-                    <span id="commentButton-${currentGnamID}" class="input-group-text bg-primary border-0 fs-7 fw-bold">Commenta</span>
-                </div>
-            </div>`;
-
-        let commentsContainerElement = document.createElement('div');
-        commentsContainerElement.classList.add("container");
-        commentsContainerElement.id = "commentsBoxContainer-" + currentGnamID;
-        commentsContainerElement.innerHTML = commentContainerHTML.trim();
-
-        comments.sort((a, b) => {
-            if (a.parent_comment_id === null && b.parent_comment_id !== null) {
-                return -1;
-            } else if (a.parent_comment_id !== null && b.parent_comment_id === null) {
-                return 1;
-            } else {
-                return a.timestamp - b.timestamp;
-            }
-        });
-
-
-        comments.forEach(comment => {
-            if (comment['parent_comment_id'] == null) {
-                let commentHTML = `
-                    <div id="comment-${comment['id']}" class="container comment py-1">
-                        <div class="row">
-                            <div class="col-2 p-0">
-                            <img class="border border-2 border-dark rounded-circle w-100" alt="${comment['user_name']}"
-                                        src="assets/profile_pictures/${comment['user_id']}.jpg" />
-                            </div>
-                            <div class="col">
-                                <div class="row-md-1 text-start">
-                                    <span id="user_name-${comment['id']}" class="text-link">${comment['user_name']}</span>
-                                </div>
-                                <div class="row-md text-normal-black fs-7 text-start">
-                                    <p class="m-0">${comment['text']}</p>
-                                </div>
-                                <div class="row-md-1 text-start">
-                                    <span id="replyButton-${comment['id']}" class="text-button fw-bold color-accent fs-7 ">Rispondi</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="subcommentsContainer-${comment['id']}" class="row d-none">
-                        </div>
-                    </div>`;
-
-                commentsContainerElement.querySelector('#commentsContainer').innerHTML += commentHTML;
-            } else {
-                let commentHTML = `
-                <div class="row">
-                    <div class="col-2"></div>
-                    <div class="col">
-                        <div id="comment-${comment['id']}" class="container subcomment py-1">
-                            <div class="row">
-                                <div class="col-2 p-0">
-                                <img class="border border-2 border-dark rounded-circle w-100" alt="${comment['user_name']}"
-                                            src="assets/profile_pictures/${comment['user_id']}.jpg" />
-                                </div>
-                                <div class="col">
-                                    <div class="row-md-1 text-start">
-                                        <span id="user_name-${comment['id']}" class="text-link">${comment['user_name']}</span>
-                                    </div>
-                                    <div class="row-md text-normal-black fs-7 text-start">
-                                    <p class="m-0">${comment['text']}</p>
-                                    </div>
-                                    <div class="row-md-1 text-start">
-                                        <span id="replyButton-${comment['id']}" class="replyTo-${comment['parent_comment_id']} text-button fw-bold color-accent fs-7 ">Rispondi</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>`;
-                commentsContainerElement.querySelector('#subcommentsContainer-' + comment['parent_comment_id']).classList.remove('d-none');
-                commentsContainerElement.querySelector('#subcommentsContainer-' + comment['parent_comment_id']).innerHTML += commentHTML;
-            }
-        });
-
-        return commentsContainerElement.outerHTML;
-    }
-
-    const setInteractableItemsComments = (comments) => {
-        const gnamId = comments[0]["gnam_id"];
-        comments.forEach(comment => {
-            $("#replyButton-" + comment['id']).on("click", replyButtonHandler);
-        });
-        $("#commentButton-" + gnamId).on("click", publishComment);
-        $("#closeReplyTo-" + gnamId).on("click", hideReplyToBox);
-    }
-
-    const setComments = (comments) => {
-        const gnamId = comments[0]["gnam_id"];
-        $("#commentsCounter-" + gnamId).text(comments.length);
-        $("#commentsButton-" + gnamId).on('click', function() {
-            showSwal('Commenti', getCommentsHTML(comments));
-            setInteractableItemsComments(comments);
-        });
     }
 
     const setInteractableItems = (comments, recipe) => {
@@ -518,42 +389,172 @@
     }
 
 
-    $(window).on("load", function() {
-        const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.has('gnam')) {
-            $.get("api/gnams.php", {
-                api_key: "<?php echo $_SESSION['api_key']; ?>",
-                gnam: urlParams.get('gnam')
-            }, function(data) {
-                gnamInfo = JSON.parse(data);
-                setCurrent(gnamInfo['id'], gnamInfo['user_id']);
-                addGnamSlide(gnamInfo);
-                setInteractableItems(gnamInfo['recipe']);
+    //#region Commenti
 
-                $.get("api/comments.php", {
-                    api_key: "<?php echo $_SESSION['api_key']; ?>",
-                    gnam_id: urlParams.get('gnam')
-                }, function(commentsData) {
-                    comments = JSON.parse(commentsData);
-                    setComments(comments);
-                });
-            });
+    const hideReplyToBox = () => {
+        $("#replyToDiv-" + currentGnamID).addClass("d-none");
+        commentToReplyID = null;
+    }
+
+    const replyButtonHandler = (e) => {
+        const id = $(e.target).attr('id').split('-')[1];
+        const parent = $("#comment-" + id);
+        let commenterName = "";
+        if (parent.hasClass('subcomment')) {
+            commentToReplyID = $(e.target).attr('class').split(' ')[0].split('-')[1];
         } else {
-            $.get("api/search.php", {
-                api_key: "<?php echo $_SESSION['api_key']; ?>",
-                action: 'random'
-            }, function(data) {
-                var gnams_id = JSON.parse(data);
-
-                gnams_id.forEach(function(id) {
-                    $.get("api/gnams.php", {
-                        api_key: "<?php echo $_SESSION['api_key']; ?>",
-                        gnam: id
-                    }, function(gnamsData) {
-
-                    });
-                });
-            });
+            commentToReplyID = id;
         }
-    });
+
+        commenterName = parent.find("#user_name-" + id).text();
+        $("#replyToDiv-" + currentGnamID).removeClass("d-none");
+        $("#replyToName-" + currentGnamID).text(commenterName);
+    }
+
+    const publishComment = () => {
+        const commentText = $("#commentField-" + currentGnamID).val();
+        if (commentText.length === 0) return;
+        $.post("api/comments.php", {
+            api_key: "<?php echo $_SESSION['api_key']; ?>",
+            "gnam_id": currentGnamID,
+            "text": commentText,
+            "parent_comment_id": commentToReplyID
+        }, (result) => {
+            $.get("api/comments.php", {
+                api_key: "<?php echo $_SESSION['api_key']; ?>",
+                gnam_id: currentGnamID
+            }, function(commentsData) {
+                let comments = JSON.parse(commentsData);
+                $("#commentsBoxContainer-" + currentGnamID)
+                    .parent().html(getCommentsHTML(comments));
+                setInteractableItemsComments(comments);
+            });
+        });
+    }
+
+    const getCommentsHTML = (comments) => {
+        let commentContainerHTML = `
+            <div class="row-8 modal-content-lg">
+                <div class="container">
+                    <div class="col">
+                        <div id="commentsContainer" class="row">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row-1 bg-primary rounded">
+                <div class="rounded bg-primary p-1 d-none"  id="replyToDiv-${currentGnamID}">
+                    <div class="rounded bg container">
+                        <div class="row">
+                            <div class="col-11 align-items-center">
+                                <span class="border-0 fs-7">Stai rispondendo a: <span id="replyToName-${currentGnamID}" class="text-link"></span></span>
+                            </div>
+                            <div class="col-1 d-flex align-items-center p-0">
+                                <i id="closeReplyTo-${currentGnamID}" class="fa-solid fa-xmark color-accent"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group rounded">
+                    <input id="commentField-${currentGnamID}" type="text" class="fs-7 form-control bg-primary shadow-sm" placeholder="Insercisci commento..." />
+                    <span id="commentButton-${currentGnamID}" class="input-group-text bg-primary border-0 fs-7 fw-bold">Commenta</span>
+                </div>
+            </div>`;
+
+        let commentsContainerElement = document.createElement('div');
+        commentsContainerElement.classList.add("container");
+        commentsContainerElement.id = "commentsBoxContainer-" + currentGnamID;
+        commentsContainerElement.innerHTML = commentContainerHTML.trim();
+
+        comments.sort((a, b) => {
+            if (a.parent_comment_id === null && b.parent_comment_id !== null) {
+                return -1;
+            } else if (a.parent_comment_id !== null && b.parent_comment_id === null) {
+                return 1;
+            } else {
+                return a.timestamp - b.timestamp;
+            }
+        });
+
+
+        comments.forEach(comment => {
+            if (comment['parent_comment_id'] == null) {
+                let commentHTML = `
+                    <div id="comment-${comment['id']}" class="container comment py-1">
+                        <div class="row">
+                            <div class="col-2 p-0">
+                            <img class="border border-2 border-dark rounded-circle w-100" alt="${comment['user_name']}"
+                                        src="assets/profile_pictures/${comment['user_id']}.jpg" />
+                            </div>
+                            <div class="col">
+                                <div class="row-md-1 text-start">
+                                    <span id="user_name-${comment['id']}" class="text-link">${comment['user_name']}</span>
+                                </div>
+                                <div class="row-md text-normal-black fs-7 text-start">
+                                    <p class="m-0">${comment['text']}</p>
+                                </div>
+                                <div class="row-md-1 text-start">
+                                    <span id="replyButton-${comment['id']}" class="text-button fw-bold color-accent fs-7 ">Rispondi</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="subcommentsContainer-${comment['id']}" class="row d-none">
+                        </div>
+                    </div>`;
+
+                commentsContainerElement.querySelector('#commentsContainer').innerHTML += commentHTML;
+            } else {
+                let commentHTML = `
+                <div class="row">
+                    <div class="col-2"></div>
+                    <div class="col">
+                        <div id="comment-${comment['id']}" class="container subcomment py-1">
+                            <div class="row">
+                                <div class="col-2 p-0">
+                                <img class="border border-2 border-dark rounded-circle w-100" alt="${comment['user_name']}"
+                                            src="assets/profile_pictures/${comment['user_id']}.jpg" />
+                                </div>
+                                <div class="col">
+                                    <div class="row-md-1 text-start">
+                                        <span id="user_name-${comment['id']}" class="text-link">${comment['user_name']}</span>
+                                    </div>
+                                    <div class="row-md text-normal-black fs-7 text-start">
+                                    <p class="m-0">${comment['text']}</p>
+                                    </div>
+                                    <div class="row-md-1 text-start">
+                                        <span id="replyButton-${comment['id']}" class="replyTo-${comment['parent_comment_id']} text-button fw-bold color-accent fs-7 ">Rispondi</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+                commentsContainerElement.querySelector('#subcommentsContainer-' + comment['parent_comment_id']).classList.remove('d-none');
+                commentsContainerElement.querySelector('#subcommentsContainer-' + comment['parent_comment_id']).innerHTML += commentHTML;
+            }
+        });
+
+        return commentsContainerElement.outerHTML;
+    }
+
+    const setInteractableItemsComments = (comments) => {
+        const gnamId = comments[0]["gnam_id"];
+        comments.forEach(comment => {
+            $("#replyButton-" + comment['id']).on("click", replyButtonHandler);
+        });
+        $("#commentButton-" + gnamId).on("click", publishComment);
+        $("#closeReplyTo-" + gnamId).on("click", hideReplyToBox);
+    }
+
+    const setComments = (comments) => {
+        const gnamId = comments[0]["gnam_id"];
+        $("#commentsCounter-" + gnamId).text(comments.length);
+        $("#commentsButton-" + gnamId).on('click', function() {
+            showSwal('Commenti', getCommentsHTML(comments));
+            setInteractableItemsComments(comments);
+        });
+    }
+
+    //#endregion
 </script>
