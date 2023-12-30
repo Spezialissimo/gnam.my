@@ -183,7 +183,7 @@ function toggleFollowUser($api_key, $user_id) {
     if ($currentUser["id"] == $user_id) {
         return response("error", "Non puoi seguire te stesso.");
     }
-    
+
     $stmt = $db->prepare("SELECT * FROM `users` WHERE `id` = :id");
     $stmt->bindParam(':id', $user_id);
     $stmt->execute();
@@ -298,37 +298,25 @@ function getGnamRecipe($gnam_id) {
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function getSingleNewGnamForHome($api_key, $lastID) {
+function postComment($currentUser_id, $gnam_id, $comment, $parent_comment_id) {
     global $db;
+    $stmt = null;
+    $timestamp = time();
+    $stmt = $db->prepare("INSERT INTO `comments`
+        (`user_id`, `gnam_id`, `parent_comment_id`, `text`, `timestamp`)
+            VALUES
+        (':current_user', ':gnam_id', ':parent_comment_id', ':text', ':timestamp');");
+    $stmt->bindParam(':current_user', $currentUser_id);
+    $stmt->bindParam(':parent_comment_id', $parent_comment_id); // se non c'é è null
+    $stmt->bindParam(':gnam_id', $gnam_id);
+    $stmt->bindParam(':text', $comment);
+    $stmt->bindParam(':timestamp', $timestamp);
+    $success = $stmt->execute();
 
-    // $stmt = $db->prepare("SELECT MAX(g.id)
-    //     FROM gnams g
-    //     JOIN users u ON g.user_id = u.user_id
-    //     JOIN following f ON u.user_id = f.followed_id
-    //     WHERE u.api_key = :api_key");
-    // $stmt->bindParam(':api_key', $api_key);
-    $stmtMaxID = $db->prepare("SELECT MAX(id) AS max_id FROM gnams");
-    $stmtMaxID->execute();
-    $maxIDResult = $stmtMaxID->fetch(PDO::FETCH_ASSOC);
-    $maxID = $maxIDResult['max_id'];
-
-    $nextID = $lastID < $maxID ? $lastID + 1 : $nextID = 1;
-
-    // $stmt = $db->prepare("SELECT *
-    //     FROM gnams g
-    //     JOIN users u ON g.user_id = u.user_id
-    //     JOIN following f ON u.user_id = f.followed_id
-    //     WHERE u.api_key = :api_key AND g.id = :nextID");
-    // $stmt->bindParam(':api_key', $api_key);
-    $stmt = $db->prepare("SELECT *
-        FROM gnams g
-        WHERE g.id = :nextID");
-    $stmt->bindParam(':nextID', $nextID);
-    $stmt->execute();
-    $gnams = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    return $gnams;
+    return $success;
 }
 
+// TODO mi sa che questo l'avevo fatto io (davide) per sbaglio, se non lo si usa e da radiare
 function getNewGnamsForSearch($ingredients, $textfield, $api_key) {
     global $db;
 
