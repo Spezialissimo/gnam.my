@@ -278,7 +278,9 @@ function getGnamUserName($user_id) {
 // TODO ordina per timestamp
 function getGnamComments($gnam_id) {
     global $db;
-    $stmt = $db->prepare("SELECT * FROM comments WHERE gnam_id=:gnam_id");
+    $stmt = $db->prepare("SELECT c.*, u.name as user_name
+        FROM comments c JOIN users u ON c.user_id=u.id
+        WHERE gnam_id=:gnam_id");
     $stmt->bindParam(':gnam_id', $gnam_id);
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
