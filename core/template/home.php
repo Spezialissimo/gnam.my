@@ -166,7 +166,6 @@
     }
 
     const replyButtonHandler = (e) => {
-        debugger;
         const id = $(e.target).attr('id').split('-')[1];
         const parent = $("#comment-" + id);
         let commenterName = "";
@@ -177,82 +176,96 @@
         }
 
         commenterName = parent.find("#user_name-" + id).text();
-        $("#replyToDiv").removeClass("d-none");
-        $("#replyToName").text(commenterName);
+        $("#replyToDiv-" + currentGnamID).removeClass("d-none");
+        $("#replyToName-" + currentGnamID).text(commenterName);
     }
 
     const publishComment = () => {
-    //     const username = 'admin';
-    //     const commentText = $("#commentField").val();
-    //     if (commentText.length === 0) return;
-    //     if (commentToReplyID == null) {
-    //         let comment =
-    //             `<div id="comment-${commentIndex}" class="container comment">
-    //                 <div class="row">
-    //                     <div class="col-2 p-0">
-    //                     <img class="border border-2 border-dark rounded-circle w-100" alt="Filippo Champagne"
-    //                                 src="assets/profile_pictures/prova.png" />
-    //                     </div>
-    //                     <div class="col">
-    //                         <div class="row-md-1 text-start">
-    //                             <a href="/profile.php" class="commenterName text-link"> ${username}</a>
-    //                         </div>
-    //                         <div class="row-md text-normal-black fs-7 text-start">
-    //                         <p class="m-0">${commentText}</p>
-    //                         </div>
-    //                         <div class="row-md-1 text-start">
-    //                             <span class="replyButton text-button fw-bold color-accent fs-7 ">Rispondi</span>
-    //                         </div>
-    //                     </div>
-    //                 </div>
-    //             </div>`;
-    //         $(".comment:last").append(comment);
-    //     } else {
-    //         let comment = `
-    //             <div id="comment-${commentIndex}" class="container subcomment">
-    //                 <div class="row">
-    //                     <div class="col-1 p-0">
-    //                         <img class="border border-2 border-dark rounded-circle w-100" alt="Filippo Champagne"
-    //                             src="assets/profile_pictures/prova.png" />
-    //                     </div>
-    //                     <div class="col ps-1">
-    //                         <div class="row-md-1 text-start">
-    //                             <a href="/profile.php" class="commenterName text-link">${username}</a>
-    //                         </div>
-    //                         <div class="row-md text-normal-black fs-7 text-start">
-    //                             <p class="m-0">${commentText}</p>
-    //                         </div>
-    //                         <div class="row-md-1 text-start">
-    //                             <span class="replyButton text-button fw-bold color-accent fs-7">Rispondi</span>
-    //                         </div>
-    //                     </div>
-    //                 </div>
-    //             </div>`;
+        const commentText = $("#commentField-" + currentGnamID).val();
+        if (commentText.length === 0) return;
 
-    //         const $commentToReply = $("#" + commentToReplyID);
-    //         if ($commentToReply.hasClass("subcomment")) {
-    //             const $parent = $commentToReply.parent();
-    //             const shouldAppend = $commentToReply.siblings().length === 0;
-    //             shouldAppend ? $parent.append(comment) : $parent.append(comment);
-    //         } else if ($commentToReply.find(".subcomment").length > 0) {
-    //             $commentToReply.find(".subcomment:last").parent().append(comment);
-    //         } else {
-    //             const prefix = `<div class="row"><div class="col-2"></div><div class="col">`;
-    //             const suffix = `</div></div>`;
-    //             $commentToReply.append(prefix + comment + suffix);
-    //         }
+            $.post("api/comments.php", {
+                api_key: "<?php echo $_SESSION['api_key']; ?>",
+                "gnam_id": currentGnamID,
+                "text": commentText,
+                "parent_comment_id": commentToReplyID
+            }, (result) => {
+                $.get("api/comments.php", {
+                    api_key: "<?php echo $_SESSION['api_key']; ?>",
+                    gnam_id: currentGnamID
+                }, function(commentsData) {
+                    comments = JSON.parse(commentsData);
+                    setComments(comments);
+                });
+            });
+        // if (commentToReplyID == null) {
+        //     let comment =
+        //         `<div id="comment-${commentIndex}" class="container comment">
+        //             <div class="row">
+        //                 <div class="col-2 p-0">
+        //                 <img class="border border-2 border-dark rounded-circle w-100" alt="Filippo Champagne"
+        //                             src="assets/profile_pictures/prova.png" />
+        //                 </div>
+        //                 <div class="col">
+        //                     <div class="row-md-1 text-start">
+        //                         <a href="/profile.php" class="commenterName text-link"> ${username}</a>
+        //                     </div>
+        //                     <div class="row-md text-normal-black fs-7 text-start">
+        //                     <p class="m-0">${commentText}</p>
+        //                     </div>
+        //                     <div class="row-md-1 text-start">
+        //                         <span class="replyButton text-button fw-bold color-accent fs-7 ">Rispondi</span>
+        //                     </div>
+        //                 </div>
+        //             </div>
+        //         </div>`;
+        //     $(".comment:last").append(comment);
+        // } else {
+        //     let comment = `
+        //         <div id="comment-${commentIndex}" class="container subcomment">
+        //             <div class="row">
+        //                 <div class="col-1 p-0">
+        //                     <img class="border border-2 border-dark rounded-circle w-100" alt="Filippo Champagne"
+        //                         src="assets/profile_pictures/prova.png" />
+        //                 </div>
+        //                 <div class="col ps-1">
+        //                     <div class="row-md-1 text-start">
+        //                         <a href="/profile.php" class="commenterName text-link">${username}</a>
+        //                     </div>
+        //                     <div class="row-md text-normal-black fs-7 text-start">
+        //                         <p class="m-0">${commentText}</p>
+        //                     </div>
+        //                     <div class="row-md-1 text-start">
+        //                         <span class="replyButton text-button fw-bold color-accent fs-7">Rispondi</span>
+        //                     </div>
+        //                 </div>
+        //             </div>
+        //         </div>`;
 
-    //     }
+        //     const $commentToReply = $("#" + commentToReplyID);
+        //     if ($commentToReply.hasClass("subcomment")) {
+        //         const $parent = $commentToReply.parent();
+        //         const shouldAppend = $commentToReply.siblings().length === 0;
+        //         shouldAppend ? $parent.append(comment) : $parent.append(comment);
+        //     } else if ($commentToReply.find(".subcomment").length > 0) {
+        //         $commentToReply.find(".subcomment:last").parent().append(comment);
+        //     } else {
+        //         const prefix = `<div class="row"><div class="col-2"></div><div class="col">`;
+        //         const suffix = `</div></div>`;
+        //         $commentToReply.append(prefix + comment + suffix);
+        //     }
 
-    //     commentIndex++;
-    //     hideReplyToBox();
-    //     $("#commentsCounter").text(parseInt($("#commentsCounter").text()) + 1);
-    //     $("#commentField").val("");
-    //     $(".replyButton").on("click", replyButtonHandler);
+        // }
+
+        // commentIndex++;
+        // hideReplyToBox();
+        // $("#commentsCounter").text(parseInt($("#commentsCounter").text()) + 1);
+        // $("#commentField").val("");
+        // $(".replyButton").on("click", replyButtonHandler);
     }
 
     const hideReplyToBox = () => {
-        $("#replyToDiv").addClass("d-none");
+        $("#replyToDiv-" + currentGnamID).addClass("d-none");
         commentToReplyID = null;
     }
 
@@ -285,21 +298,21 @@
                     </div>
                 </div>
                 <div class="row-1 bg-primary rounded">
-                    <div class="rounded bg-primary p-1 d-none"  id="replyToDiv">
+                    <div class="rounded bg-primary p-1 d-none"  id="replyToDiv-${currentGnamID}">
                         <div class="rounded bg container">
                             <div class="row">
                                 <div class="col-11 align-items-center">
-                                    <span class="border-0 fs-7">Stai rispondendo a: <span id="replyToName" class="text-link"></span></span>
+                                    <span class="border-0 fs-7">Stai rispondendo a: <span id="replyToName-${currentGnamID}" class="text-link"></span></span>
                                 </div>
                                 <div class="col-1 d-flex align-items-center p-0">
-                                    <i id="closeReplyTo-${gnamId}" class="fa-solid fa-xmark color-accent"></i>
+                                    <i id="closeReplyTo-${currentGnamID}" class="fa-solid fa-xmark color-accent"></i>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="input-group rounded">
-                        <input id="commentField" type="text" class="fs-7 form-control bg-primary shadow-sm" placeholder="Insercisci commento..." />
-                        <span id="commentButton" class="input-group-text bg-primary border-0 fs-7 fw-bold">Commenta</span>
+                        <input id="commentField-${currentGnamID}" type="text" class="fs-7 form-control bg-primary shadow-sm" placeholder="Insercisci commento..." />
+                        <span id="commentButton-${currentGnamID}" class="input-group-text bg-primary border-0 fs-7 fw-bold">Commenta</span>
                     </div>
                 </div>`;
 

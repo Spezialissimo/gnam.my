@@ -14,9 +14,9 @@ if (isset($_REQUEST["api_key"])) {
     } else if ($_SERVER['REQUEST_METHOD'] == "POST") {
         http_response_code(200);
         if(isset($_POST['gnam_id']) && $_POST['text']){
-            $user_id = getUserFromApiKey($_REQUEST["api_key"]);
-            $parent_id = isset($_POST["parent_comment_id"]) ? $_POST["parent_comment_id"] : null;
-            $success = postComment($user_id, $_POST['gnam'], $_POST['text'], $parent_id);
+            $user_id = getUserFromApiKey($_REQUEST["api_key"])["id"];
+            $parent_id = $_POST["parent_comment_id"] != "" ? $_POST["parent_comment_id"] : null;
+            $success = postComment($user_id, $_POST['gnam_id'], $_POST['text'], $parent_id);
             echo json_encode($success);
         }
     } else {

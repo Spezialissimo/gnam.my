@@ -322,17 +322,17 @@ function postComment($currentUser_id, $gnam_id, $comment, $parent_comment_id) {
     $stmt = null;
     $timestamp = time();
     $stmt = $db->prepare("INSERT INTO `comments`
-        (`user_id`, `gnam_id`, `parent_comment_id`, `text`, `timestamp`)
-            VALUES
-        (':current_user', ':gnam_id', ':parent_comment_id', ':text', ':timestamp');");
+    (`user_id`, `gnam_id`, `parent_comment_id`, `text`, `timestamp`)
+    VALUES
+    (:current_user, :gnam_id, :parent_comment_id, :text, :timestamp)");
+
     $stmt->bindParam(':current_user', $currentUser_id);
-    $stmt->bindParam(':parent_comment_id', $parent_comment_id); // se non c'é è null
+    $stmt->bindParam(':parent_comment_id', $parent_comment_id);
     $stmt->bindParam(':gnam_id', $gnam_id);
     $stmt->bindParam(':text', $comment);
     $stmt->bindParam(':timestamp', $timestamp);
-    $success = $stmt->execute();
 
-    return $success;
+    return $stmt->execute();
 }
 
 // TODO mi sa che questo l'avevo fatto io (davide) per sbaglio, se non lo si usa e da radiare
