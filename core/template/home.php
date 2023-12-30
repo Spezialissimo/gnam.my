@@ -310,24 +310,22 @@
                     return 0;
                 }
             });
-            debugger;
-
-
             comments.forEach(comment => {
+                // debugger;
                 if (comment['parent_comment_id'] == null) {
                     let commentHTML = `
                         <div id="comment-${comment['id']}" class="container comment">
                             <div class="row">
                                 <div class="col-2 p-0">
-                                <img class="border border-2 border-dark rounded-circle w-100" alt="${comments['user_name']}"
-                                            src="assets/profile_pictures/${comments['user_id']}.png" />
+                                <img class="border border-2 border-dark rounded-circle w-100" alt="${comment['user_name']}"
+                                            src="assets/profile_pictures/${comment['user_id']}.jpg" />
                                 </div>
                                 <div class="col">
                                     <div class="row-md-1 text-start">
-                                        <p class="text-link">${comments['user_name']}</a>
+                                        <p class="text-link">${comment['user_name']}</a>
                                     </div>
                                     <div class="row-md text-normal-black fs-7 text-start">
-                                    <p class="m-0">${comments['text']}</p>
+                                    <p class="m-0">${comment['text']}</p>
                                     </div>
                                     <div class="row-md-1 text-start">
                                         <span class="replyButton text-button fw-bold color-accent fs-7 ">Rispondi</span>
@@ -336,35 +334,35 @@
                             </div>
                         </div>`;
 
-                    commentsContainerElement.querySelector('#commentsContainer').innerHTML = commentHTML;
+                    commentsContainerElement.querySelector('#commentsContainer').innerHTML += commentHTML;
                 } else {
-                    let commentHTML = `
-                        <div id="comment-${comment['id']}" class="container subcomment">
-                            <div class="row">
-                                <div class="col-1 p-0">
-                                <img class="border border-2 border-dark rounded-circle w-100" alt="${comments['user_name']}"
-                                            src="assets/profile_pictures/${comments['user_id']}.png" />
-                                </div>
-                                <div class="col">
-                                    <div class="row-md-1 text-start">
-                                        <p class="text-link">${comments['user_name']}</a>
-                                    </div>
-                                    <div class="row-md text-normal-black fs-7 text-start">
-                                    <p class="m-0">${comments['text']}</p>
-                                    </div>
-                                    <div class="row-md-1 text-start">
-                                        <span class="replyButton text-button fw-bold color-accent fs-7 ">Rispondi</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>`;
-                }
+                    // let commentHTML = `
+                    //     <div id="comment-${comment['id']}" class="container subcomment">
+                    //         <div class="row">
+                    //             <div class="col-1 p-0">
+                    //             <img class="border border-2 border-dark rounded-circle w-100" alt="${comment['user_name']}"
+                    //                         src="assets/profile_pictures/${comment['user_id']}.jpg" />
+                    //             </div>
+                    //             <div class="col">
+                    //                 <div class="row-md-1 text-start">
+                    //                     <p class="text-link">${comment['user_name']}</a>
+                    //                 </div>
+                    //                 <div class="row-md text-normal-black fs-7 text-start">
+                    //                 <p class="m-0">${comment['text']}</p>
+                    //                 </div>
+                    //                 <div class="row-md-1 text-start">
+                    //                     <span class="replyButton text-button fw-bold color-accent fs-7 ">Rispondi</span>
+                    //                 </div>
+                    //             </div>
+                    //         </div>
+                    //     </div>`;
 
-                showSwal('Commenti', commentsContainerElement.outerHTML);
-                $("#commentButton-" + currentGnamID).on("click", publishComment);
-                $("#closeReplyTo-" + currentGnamID).on("click", hideReplyToBox);
-                $(".replyButton-" + currentGnamID).on("click", replyButtonHandler);
+                }
             });
+            showSwal('Commenti', commentsContainerElement.outerHTML);
+            $("#commentButton-" + currentGnamID).on("click", publishComment);
+            $("#closeReplyTo-" + currentGnamID).on("click", hideReplyToBox);
+            $(".replyButton-" + currentGnamID).on("click", replyButtonHandler);
         });
     }
 
