@@ -7,31 +7,28 @@ require_once("../core/functions.php");
 
 if ($_SERVER['REQUEST_METHOD'] == "GET" && isset($_GET['action']) && isset($_GET['api_key'])) {
 
-    switch($_GET['action']) {
-        case "byUsername":
-            if (isset($_GET['username'])) {
-                http_response_code(200);
+    $user = getUserFromApiKey($_GET['api_key']);
+    
+    if(!$user) {
+        http_response_code(400);
+    } else {
+        http_response_code(200);
 
-                $user = getUserFromApiKey($_GET['api_key']);
-
-                if($user) {
-                    echo json_encode(getUserGnams($_GET['username']));
+        switch($_GET['action']) {
+            case "random":
+                echo json_decode(getRandomGnams());
+                break;    
+            case 'byQuery':
+                if(isset($_GET['query'])) {
+                    echo json_encode(searchGnams($_GET['query']));
                 } else {
                     http_response_code(400);
-                    echo response("error", "Invalid API key.");
                 }
-            } else {
+                break;    
+            default:
                 http_response_code(400);
-            }
-            break;
-        case "random":
-            // TODO mettere su tutto? non ho capito perche` pier l'ha messo detro
-            if (isset($_GET['api_key'])) {
-                echo json_decode(getRandomGnams());
-            }
-        default:
-            http_response_code(400);
-            break;
+                break;
+        }
     }
 
 } else {

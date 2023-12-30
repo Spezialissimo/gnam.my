@@ -241,14 +241,30 @@ function getGnamInfoFromId($gnam_id) {
 
 function getRandomGnams() {
     global $db;
-    $stmt = $db->prepare("SELECT id
-        FROM gnams g
-        ORDER BY RAND()
-        LIMIT 5");
+    $stmt = $db->prepare("SELECT id FROM gnams g ORDER BY RAND() LIMIT 5");
     $stmt->execute();
     $gnams = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
     return $gnams;
+}
+
+function searchGnams($query) {
+    global $db;
+
+    //Check if exists an user with username = $query
+    $stmt = $db->prepare("SELECT * FROM users WHERE `name` = :query");
+    $stmt->bindParam(':query', $query);
+    $stmt->execute();
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    if (count($result) > 0) {
+        return getUserGnams($result[0]['id']);
+    } else {
+        $stmt = $db->prepare("SELECT * FROM gnams WHERE `description` LIKE :query");
+        $stmt->bindValue(':query', '%' . $query . '%');
+        $stmt->execute();
+        $gnams = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $gnams;
+    }
 }
 
 function getGnamUserName($user_id) {

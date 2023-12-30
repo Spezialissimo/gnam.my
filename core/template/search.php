@@ -120,9 +120,9 @@
         $('#loaderDiv').addClass('d-flex').removeClass('d-none');
 
         $.get("api/search.php", {
-            username: query,
+            query: query,
             api_key: "<?php echo $_SESSION['api_key']; ?>",
-            action: "byUsername"
+            action: "byQuery"
         }, (result) => {
             $('#loaderDiv').removeClass('d-flex').addClass('d-none');
             $('#pageContentDiv').removeClass('d-none');
