@@ -243,7 +243,7 @@ function getRandomGnams() {
     global $db;
     $stmt = $db->prepare("SELECT id FROM gnams g ORDER BY RAND() LIMIT 5");
     $stmt->execute();
-    $gnams = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $gnams = array_column($stmt->fetchAll(PDO::FETCH_ASSOC),'id');
     return $gnams;
 }
 

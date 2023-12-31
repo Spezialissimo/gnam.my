@@ -8,7 +8,7 @@ require_once("../core/functions.php");
 if ($_SERVER['REQUEST_METHOD'] == "GET" && isset($_GET['action']) && isset($_GET['api_key'])) {
 
     $user = getUserFromApiKey($_GET['api_key']);
-    
+
     if(!$user) {
         http_response_code(400);
     } else {
@@ -16,15 +16,15 @@ if ($_SERVER['REQUEST_METHOD'] == "GET" && isset($_GET['action']) && isset($_GET
 
         switch($_GET['action']) {
             case "random":
-                echo json_decode(getRandomGnams());
-                break;    
+                echo json_encode(getRandomGnams());
+                break;
             case 'byQuery':
                 if(isset($_GET['query'])) {
                     echo json_encode(searchGnams($_GET['query']));
                 } else {
                     http_response_code(400);
                 }
-                break;    
+                break;
             default:
                 http_response_code(400);
                 break;

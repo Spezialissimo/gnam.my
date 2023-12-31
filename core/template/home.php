@@ -80,6 +80,20 @@
     let commentIndex = 3;
     let currentGnamID = null;
     let currentUserID = null;
+    const swiper = new Swiper('.swiper', {
+        // Optional parameters
+        direction: 'vertical',
+        loop: false,
+        keyboard: {
+            enabled: true
+        },
+        on:{
+            slideChangeTransitionEnd: function () {
+                currentGnamID = $(".swiper-slide-active").attr('id').split('-')[1];
+                currentUserID = $("#userName-" + currentGnamID);
+            }
+        }
+    });
 
     $(window).on("load", function() {
         const urlParams = new URLSearchParams(window.location.search);
@@ -100,6 +114,7 @@
                     comments = JSON.parse(commentsData);
                     setComments(comments);
                 });
+                reinitSwiper(swiper);
             });
         } else {
             $.get("api/search.php", {
@@ -107,24 +122,37 @@
                 action: 'random'
             }, function(data) {
                 var gnams_id = JSON.parse(data);
-
-                gnams_id.forEach(function(id) {
+                gnams_id.forEach(id => {
                     $.get("api/gnams.php", {
                         api_key: "<?php echo $_SESSION['api_key']; ?>",
                         gnam: id
                     }, function(gnamsData) {
-
+                        gnamInfo = JSON.parse(gnamsData);
+                        setCurrent(gnamInfo['id'], gnamInfo['user_id']);
+                        addGnamSlide(gnamInfo);
+                        setInteractableItems(gnamInfo['recipe']);
+                        $.get("api/comments.php", {
+                            api_key: "<?php echo $_SESSION['api_key']; ?>",
+                            gnam_id: urlParams.get('gnam')
+                        }, function(commentsData) {
+                            comments = JSON.parse(commentsData);
+                            if (comments.length != 0) {
+                                setComments(comments);
+                            }
+                        });
                     });
                 });
+                reinitSwiper(swiper);
             });
         }
     });
 
-    const swiper = new Swiper('.swiper', {
-        // Optional parameters
-        direction: 'vertical',
-        loop: false,
-    });
+    function reinitSwiper(swiper) {
+        setTimeout(function() {
+            swiper.update();
+        }, 500);
+    }
+
 
     const showFullDescription = (e) => {
         if (isDescriptionShort) {
@@ -346,11 +374,11 @@
         `
         const slideElement = document.createElement('div');
         slideElement.classList.add("swiper-slide");
+        slideElement.id = "gnam-"+ gnamsInfo['id'];
         slideElement.innerHTML = gnamHtml.trim();
 
         let count = 0;
         let tagHTML = '';
-
         gnamsInfo['tags'].forEach(tag => {
             let tagText = tag['text'];
 
@@ -548,9 +576,11 @@
     }
 
     const setComments = (comments) => {
+        debugger;
         const gnamId = comments[0]["gnam_id"];
         $("#commentsCounter-" + gnamId).text(comments.length);
         $("#commentsButton-" + gnamId).on('click', function() {
+
             showSwal('Commenti', getCommentsHTML(comments));
             setInteractableItemsComments(comments);
         });
