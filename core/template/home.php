@@ -89,7 +89,11 @@
         },
         on: {
             slideChangeTransitionEnd: function() {
+                $("#gnamPlayer-" + currentGnamID)[0].pause();
+                $("#gnamPlayer-" + currentGnamID)[0].currentTime = 0;
+
                 setCurrent($(".swiper-slide-active").attr('id').split('-')[1]);
+                $("#gnamPlayer-" + currentGnamID)[0].play();
             },
             update: function() {
                 setCurrent($(".swiper-slide-active").attr('id').split('-')[1]);
@@ -575,29 +579,29 @@
                 } else {
                     let commentHTML = `
                     <div class="row">
-                    <div class="col-2"></div>
-                    <div class="col">
-                    <div id="comment-${comment['id']}" class="container subcomment py-1">
-                    <div class="row">
-                    <div class="col-2 p-0">
-                    <img class="border border-2 border-dark rounded-circle w-100" alt="${comment['user_name']}"
-                    src="assets/profile_pictures/${comment['user_id']}.jpg" />
-                    </div>
-                    <div class="col">
-                                    <div class="row-md-1 text-start">
-                                    <span id="user_name-${comment['id']}" class="text-link">${comment['user_name']}</span>
+                        <div class="col-2"></div>
+                        <div class="col">
+                            <div id="comment-${comment['id']}" class="container subcomment py-1">
+                                <div class="row">
+                                    <div class="col-2 p-0">
+                                        <img class="border border-2 border-dark rounded-circle w-100" alt="${comment['user_name']}"
+                                            src="assets/profile_pictures/${comment['user_id']}.jpg" />
                                     </div>
-                                    <div class="row-md text-normal-black fs-7 text-start">
-                                    <p class="m-0">${comment['text']}</p>
-                                    </div>
-                                    <div class="row-md-1 text-start">
-                                    <span id="replyButton-${comment['id']}" class="replyTo-${comment['parent_comment_id']} text-button fw-bold color-accent fs-7 ">Rispondi</span>
-                                    </div>
-                                    </div>
+                                    <div class="col">
+                                        <div class="row-md-1 text-start">
+                                            <span id="user_name-${comment['id']}" class="text-link">${comment['user_name']}</span>
+                                        </div>
+                                        <div class="row-md text-normal-black fs-7 text-start">
+                                            <p class="m-0">${comment['text']}</p>
+                                        </div>
+                                        <div class="row-md-1 text-start">
+                                            <span id="replyButton-${comment['id']}" class="replyTo-${comment['parent_comment_id']} text-button fw-bold color-accent fs-7 ">Rispondi</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>`;
+                        </div>
+                    </div>`;
                     commentsContainerElement.querySelector('#subcommentsContainer-' + comment['parent_comment_id']).classList.remove('d-none');
                     commentsContainerElement.querySelector('#subcommentsContainer-' + comment['parent_comment_id']).innerHTML += commentHTML;
                 }
