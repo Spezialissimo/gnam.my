@@ -248,6 +248,7 @@ function getRandomGnams() {
     return $gnams;
 }
 
+//TODO VANNO UNIFICATI I RISULTATI DELLE 4 QUERY (che ora sono in $queryDesc, $queryHashtag, $queryIngredients, $queryUsers)
 function searchGnams($query, $ingredients) {
     global $db;
 
@@ -297,7 +298,7 @@ function searchGnams($query, $ingredients) {
     }
     $queryUsers = call_user_func_array('array_merge', $temp);*/
 
-    return $queryDesc; //TODO VANNO UNIFICATI I RISULTATI DELLE QUERY
+    return $queryDesc;
 }
 
 function getGnamUserName($user_id) {
