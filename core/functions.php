@@ -446,3 +446,13 @@ function getUserLikedGnams($user_id) {
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
+function didUserLikeGnam($gnam_id, $user_id) {
+    global $db;
+    $stmt = $db->prepare("SELECT * FROM `likes` WHERE `gnam_id`=:gnam_id AND `user_id`=:user_id");
+    $stmt->bindParam(':gnam_id', $gnam_id);
+    $stmt->bindParam(':user_id', $user_id);
+    $stmt->execute();
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $result == false ? false : true;
+}

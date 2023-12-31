@@ -43,9 +43,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['action'])) {
             if (isset($_FILES['image']) && isset($_POST['api_key'])) {
                 http_response_code(200);
 
-                $userId = getUserFromApiKey($_POST['api_key'])['id'];
+                $user_id = getUserFromApiKey($_POST['api_key'])['id'];
                 $fileExtension = strtolower(pathinfo($_FILES["image"]["name"], PATHINFO_EXTENSION));
-                $imagePath = $assetsPath . 'profile_pictures/' . $userId . '.' . $fileExtension;
+                $imagePath = $assetsPath . 'profile_pictures/' . $user_id . '.' . $fileExtension;
 
                 if ($fileExtension === "jpg") {
                     if (move_uploaded_file($_FILES['image']['tmp_name'], $imagePath)) {

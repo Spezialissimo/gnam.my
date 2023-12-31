@@ -1,8 +1,8 @@
 <?php
 
-$userId = filter_input(INPUT_GET, 'user', FILTER_SANITIZE_NUMBER_INT);
+$user_id = filter_input(INPUT_GET, 'user', FILTER_SANITIZE_NUMBER_INT);
 
-if($userId === null || $userId <= 0 || !userExits($userId) || !isset($userId)) {
+if($user_id === null || $user_id <= 0 || !userExits($user_id) || !isset($user_id)) {
     $_GET['user'] = $_SESSION['id'];
 }
 
@@ -132,7 +132,7 @@ $userLikedGnams = getUserLikedGnams($user['id']);
             api_key: "<?php echo $_SESSION['api_key'] ?>",
             action: "toggleFollowState"
         }, (result) => {
-            let decodedResult = JSON.parse(result);            
+            let decodedResult = JSON.parse(result);
             if (decodedResult.status === "success") {
                 $("#followButton").text(decodedResult.message);
             } else showToast(decodedResult.status, "<p class='fs-6 text-center pt-3'>" + decodedResult.message + "</p>");
@@ -261,7 +261,7 @@ $userLikedGnams = getUserLikedGnams($user['id']);
                     processData: false,
                     contentType: false,
                     success: function(response) {
-                        let decodedResult = JSON.parse(response);   
+                        let decodedResult = JSON.parse(response);
                         let html = `<div class="row-md-2 py-2 text-center text-black"><i class="fa-solid fa-check fa-2xl"></i></div>`;
                         if (decodedResult.status === "success") {
                             showSwalSmallOnClose('Fatto', html, () => {

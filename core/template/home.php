@@ -87,13 +87,13 @@
         keyboard: {
             enabled: true
         },
-        on:{
-            slideChangeTransitionEnd: function () {
+        on: {
+            slideChangeTransitionEnd: function() {
                 setCurrent($(".swiper-slide-active").attr('id').split('-')[1]);
             }
         },
-        on:{
-            update: function () {
+        on: {
+            update: function() {
                 console.log("ciao!");
                 setCurrent($(".swiper-slide-active").attr('id').split('-')[1]);
             }
@@ -108,7 +108,6 @@
                 gnam: urlParams.get('gnam')
             }, function(data) {
                 gnamInfo = JSON.parse(data);
-                setCurrent(gnamInfo['id']);
                 addGnamSlide(gnamInfo);
                 setInteractableItems(currentGnamID, gnamInfo['recipe']);
 
@@ -133,7 +132,6 @@
                         gnam: id
                     }, function(gnamsData) {
                         gnamInfo = JSON.parse(gnamsData);
-                        setCurrent(gnamInfo['id']);
                         addGnamSlide(gnamInfo);
                         setInteractableItems(id, gnamInfo['recipe']);
                         $.get("api/comments.php", {
@@ -143,6 +141,7 @@
                             comments = JSON.parse(commentsData);
                             setComments(comments, id);
                         });
+
                     });
                 });
                 reinitSwiper(swiper);
@@ -207,9 +206,9 @@
                 .then(function() {
                     showToast("success", "Link copiato nella clipboard");
                     $.post('api/gnams.php', {
-                    "api_key" : '<?php echo $_SESSION["api_key"] ?>',
-                    "gnam_id" : currentGnamID,
-                    "action" : "INCREMENT_SHARE"
+                        "api_key": '<?php echo $_SESSION["api_key"] ?>',
+                        "gnam_id": currentGnamID,
+                        "action": "INCREMENT_SHARE"
                     });
                 })
                 .catch(function(err) {
@@ -265,12 +264,12 @@
                     children.addClass("color-secondary").removeClass("color-alert");
                     likesCounter.text(parseInt(likesCounter.text()) - 1);
                 }
-
-                $.post('api/gnams.php', {
-                    "api_key" : '<?php echo $_SESSION["api_key"] ?>',
-                    "gnam_id" : gnam_id,
-                    "action" : "TOGGLE_LIKE"
-                    });
+                console.log("togglato!");
+                $.post('api/likes.php', {
+                    "api_key": '<?php echo $_SESSION["api_key"] ?>',
+                    "gnam_id": gnam_id,
+                    "action": "TOGGLE_LIKE"
+                });
             });
         });
 
@@ -387,7 +386,7 @@
         `
         const slideElement = document.createElement('div');
         slideElement.classList.add("swiper-slide");
-        slideElement.id = "gnam-"+ gnamsInfo['id'];
+        slideElement.id = "gnam-" + gnamsInfo['id'];
         slideElement.innerHTML = gnamHtml.trim();
 
         let count = 0;
@@ -423,10 +422,20 @@
 
         slideElement.querySelector('#videoTags-' + gnamsInfo['id']).innerHTML = tagHTML;
 
+
         if ($("#gnamSlider #dummySlide").length > 0) {
             $("#gnamSlider #dummySlide").remove();
         }
         $("#gnamSlider").append(slideElement);
+        $.get('api/likes.php', {
+            "api_key": '<?php echo $_SESSION["api_key"] ?>',
+            "gnam_id": gnamsInfo['id']
+        }, function(data) {
+            let children = $("#likeButton-" + gnamsInfo['id']).children().children();
+            if (JSON.parse(data) && children.hasClass("color-secondary")) {
+                children.removeClass("color-secondary").addClass("color-alert");
+            }
+        });
     }
 
 
@@ -497,7 +506,7 @@
             commentsContainerElement.id = "commentsBoxContainer-" + currentGnamID;
             commentsContainerElement.innerHTML = firstCommentHTML.trim();
             return commentsContainerElement.outerHTML;
-        } else{
+        } else {
             let commentContainerHTML = `
                 <div class="row-8 modal-content-lg">
                     <div class="container">
