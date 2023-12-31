@@ -147,6 +147,16 @@
                 reinitSwiper(swiper);
             });
         }
+
+        $("#gnamSlider").on('click', function() {
+            var gnamPlayer = $("#gnamPlayer-" + currentGnamID)[0];
+
+            if (gnamPlayer.paused) {
+                gnamPlayer.play();
+            } else {
+                gnamPlayer.pause();
+            }
+        });
     });
 
     function reinitSwiper(swiper) {
@@ -185,38 +195,6 @@
             e.stopPropagation();
         }
     }
-
-    const showSwalShare = () => {
-        let swalContent = `
-            <div class='row-md-2 py-2 text-center text-black'>
-                <div class='container'>
-                    <div class='col'>
-                        <div class='row-9 py-4'><i class='fa-solid fa-share-nodes fa-2xl'></i></div>
-                        <div class='row-3 pt-3'><button type='button' class='btn btn-bounce rounded-pill bg-accent fw-bold
-                                text-white' id="copyGnamLinkButton">Copia link</button></div>
-                    </div>
-                </div>
-            </div>
-        `;
-        showSwalSmall('<p class="fs-5">Condividi Gnam</p>', swalContent);
-        $("#copyGnamLinkButton").on("click", function() {
-            $("#shareCounter-" + currentGnamID).text(parseInt($("#shareCounter-" + currentGnamID).text()) + 1);
-            let gnamLink = buildURL("home", "gnam=" + currentGnamID);
-            navigator.clipboard.writeText(gnamLink)
-                .then(function() {
-                    showToast("success", "Link copiato nella clipboard");
-                    $.post('api/gnams.php', {
-                        "api_key": '<?php echo $_SESSION["api_key"] ?>',
-                        "gnam_id": currentGnamID,
-                        "action": "INCREMENT_SHARE"
-                    });
-                })
-                .catch(function(err) {
-                    console.error("Impossibile copiare il link nella clipboard: ", err);
-                });
-        });
-    }
-
 
     const drawAllIngredients = (recipe) => {
         $("#ingredients-" + currentGnamID).empty();
@@ -269,6 +247,7 @@
                     "gnam_id": gnam_id,
                     "action": "TOGGLE_LIKE"
                 });
+                e.stopPropagation();
             });
         });
 
@@ -278,9 +257,38 @@
         $("#videoTags-" + gnam_id).on("click", showFullDescription);
         $("#videoOverlay-" + gnam_id).on("click", showShortDescription);
 
-        $("#shareButton-" + gnam_id).on("click", showSwalShare);
+        $("#shareButton-" + gnam_id).on("click", function(e) {
+            let swalContent = `
+            <div class='row-md-2 py-2 text-center text-black'>
+                <div class='container'>
+                    <div class='col'>
+                        <div class='row-9 py-4'><i class='fa-solid fa-share-nodes fa-2xl'></i></div>
+                        <div class='row-3 pt-3'><button type='button' class='btn btn-bounce rounded-pill bg-accent fw-bold
+                                text-white' id="copyGnamLinkButton">Copia link</button></div>
+                    </div>
+                </div>
+            </div>`;
+            showSwalSmall('<p class="fs-5">Condividi Gnam</p>', swalContent);
+            $("#copyGnamLinkButton").on("click", function() {
+                $("#shareCounter-" + currentGnamID).text(parseInt($("#shareCounter-" + currentGnamID).text()) + 1);
+                let gnamLink = buildURL("home", "gnam=" + currentGnamID);
+                navigator.clipboard.writeText(gnamLink)
+                    .then(function() {
+                        showToast("success", "Link copiato nella clipboard");
+                        $.post('api/gnams.php', {
+                            "api_key": '<?php echo $_SESSION["api_key"] ?>',
+                            "gnam_id": currentGnamID,
+                            "action": "INCREMENT_SHARE"
+                        });
+                    })
+                    .catch(function(err) {
+                        console.error("Impossibile copiare il link nella clipboard: ", err);
+                    });
+            });
+            e.stopPropagation();
+        });
 
-        $("#recipeButton-" + gnam_id).on("click", function() {
+        $("#recipeButton-" + gnam_id).on("click", function(e) {
             let html = `
                 <div class="d-flex align-items-center justify-content-center mb-2">
                     <p class="m-0 me-2 fs-6">Numero di porzioni:</p>
@@ -316,6 +324,7 @@
                 drawAllIngredients(recipeWithUpdatedPortion);
             });
             drawAllIngredients(recipe);
+            e.stopPropagation();
         });
 
         $("#userImage-" + gnam_id).on("click", function() {
@@ -411,8 +420,8 @@
             count++;
         });
 
-        if(gnamsInfo['tags'].length > 2) {
-           tagHTML += `
+        if (gnamsInfo['tags'].length > 2) {
+            tagHTML += `
                 <div class="col-2 pe-0" id="moreTagsButton-${gnamsInfo['id']}">
                     <span class="badge rounded-pill bg-primary fw-light text-black">
                         <i class="fa-solid fa-ellipsis"></i>
@@ -426,6 +435,7 @@
             $("#gnamSlider #dummySlide").remove();
         }
         $("#gnamSlider").append(slideElement);
+
         $.get('api/likes.php', {
             "api_key": '<?php echo $_SESSION["api_key"] ?>',
             "gnam_id": gnamsInfo['id']
@@ -620,9 +630,10 @@
 
     const setComments = (comments, gnam_id) => {
         $("#commentsCounter-" + gnam_id).text(comments.length);
-        $("#commentsButton-" + gnam_id).on('click', function() {
+        $("#commentsButton-" + gnam_id).on('click', function(e) {
             showSwal('Commenti', getCommentsHTML(comments));
             setInteractableItemsComments(comments);
+            e.stopPropagation();
         });
     }
 
