@@ -68,6 +68,36 @@ if (isset($_REQUEST["api_key"])) {
                     $stmt->execute();
                 }
             }
+        } else if (isset($_POST["action"]) && strtoupper($_POST["action"]) == "INCREMENT_SHARE") {
+            $gnamId = $_POST["gnam_id"];
+            $stmt = $db->prepare("SELECT `share_count` FROM `gnams` WHERE `id`=:gnam_id");
+            $stmt->bindParam(':gnam_id', $gnamId);
+            $stmt->execute();
+            $newShareCount = ($stmt->fetch(PDO::FETCH_ASSOC)['share_count']) + 1;
+
+            $stmt = $db->prepare("UPDATE `gnams` SET `share_count` = :newShareCount WHERE `gnams`.`id` = :gnam_id");
+            $stmt->bindParam(':gnam_id', $gnamId);
+            $stmt->bindParam(':newShareCount', $newShareCount);
+            $stmt->execute();
+        } else if (isset($_POST["action"]) && strtoupper($_POST["action"]) == "TOGGLE_LIKE") {
+            $gnamId = $_POST["gnam_id"];
+            $userId = getUserFromApiKey($_POST["api_key"])["id"];
+            $stmt = $db->prepare("SELECT * FROM `likes` WHERE `gnam_id`=:gnam_id");
+            $stmt->bindParam(':gnam_id', $gnamId);
+            $stmt->execute();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            if($result == false){
+                $stmt = $db->prepare("INSERT INTO `likes` (`user_id`, `gnam_id`) VALUES (:user_id, :gnam_id);");
+                $stmt->bindParam(':user_id', $userId);
+                $stmt->bindParam(':gnam_id', $gnamId);
+                $stmt->execute();
+            } else {
+                $stmt = $db->prepare("DELETE FROM likes WHERE `likes`.`user_id` = :user_id AND `likes`.`gnam_id` = :gnam_id");
+                $stmt->bindParam(':user_id', $userId);
+                $stmt->bindParam(':gnam_id', $gnamId);
+                $stmt->execute();
+            }
+
         } else {
             http_response_code(400);
         }

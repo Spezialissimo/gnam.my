@@ -110,7 +110,7 @@
                 gnamInfo = JSON.parse(data);
                 setCurrent(gnamInfo['id']);
                 addGnamSlide(gnamInfo);
-                setInteractableItems(gnamInfo['recipe']);
+                setInteractableItems(currentGnamID, gnamInfo['recipe']);
 
                 $.get("api/comments.php", {
                     api_key: "<?php echo $_SESSION['api_key']; ?>",
@@ -135,7 +135,7 @@
                         gnamInfo = JSON.parse(gnamsData);
                         setCurrent(gnamInfo['id']);
                         addGnamSlide(gnamInfo);
-                        setInteractableItems(gnamInfo['recipe']);
+                        setInteractableItems(id, gnamInfo['recipe']);
                         $.get("api/comments.php", {
                             api_key: "<?php echo $_SESSION['api_key']; ?>",
                             gnam_id: id
@@ -206,6 +206,11 @@
             navigator.clipboard.writeText(gnamLink)
                 .then(function() {
                     showToast("success", "Link copiato nella clipboard");
+                    $.post('api/gnams.php', {
+                    "api_key" : '<?php echo $_SESSION["api_key"] ?>',
+                    "gnam_id" : currentGnamID,
+                    "action" : "INCREMENT_SHARE"
+                    });
                 })
                 .catch(function(err) {
                     console.error("Impossibile copiare il link nella clipboard: ", err);
@@ -246,14 +251,13 @@
         currentUserID = $("#userName-" + currentGnamID);
     }
 
-    const setInteractableItems = (comments, recipe) => {
-        // TODO likes API
-        $("[id^='likeButton-']").each(function() {
+    const setInteractableItems = (gnam_id, recipe) => {
+        $("#likeButton-" + gnam_id).each(function() {
             let likeButton = $(this);
             let children = likeButton.children().children();
-            let likesCounter = $("#likesCounter-" + currentGnamID);
+            let likesCounter = $("#likesCounter-" + gnam_id);
 
-            likeButton.on("click", function() {
+            likeButton.on("click", function(e) {
                 if (children.hasClass("color-secondary")) {
                     children.removeClass("color-secondary").addClass("color-alert");
                     likesCounter.text(parseInt(likesCounter.text()) + 1);
@@ -261,18 +265,24 @@
                     children.addClass("color-secondary").removeClass("color-alert");
                     likesCounter.text(parseInt(likesCounter.text()) - 1);
                 }
+
+                $.post('api/gnams.php', {
+                    "api_key" : '<?php echo $_SESSION["api_key"] ?>',
+                    "gnam_id" : gnam_id,
+                    "action" : "TOGGLE_LIKE"
+                    });
             });
         });
 
         // TODO secondo me mettendo gli onclik a immagine e username si puo usare il click su tutta l'area
         isDescriptionShort = true;
-        $("#videoDescriptionShort-" + currentGnamID).on("click", showFullDescription);
-        $("#videoTags-" + currentGnamID).on("click", showFullDescription);
-        $("#videoOverlay-" + currentGnamID).on("click", showShortDescription);
+        $("#videoDescriptionShort-" + gnam_id).on("click", showFullDescription);
+        $("#videoTags-" + gnam_id).on("click", showFullDescription);
+        $("#videoOverlay-" + gnam_id).on("click", showShortDescription);
 
-        $("#shareButton-" + currentGnamID).on("click", showSwalShare);
+        $("#shareButton-" + gnam_id).on("click", showSwalShare);
 
-        $("#recipeButton-" + currentGnamID).on("click", function() {
+        $("#recipeButton-" + gnam_id).on("click", function() {
             let html = `
                 <div class="d-flex align-items-center justify-content-center mb-2">
                     <p class="m-0 me-2 fs-6">Numero di porzioni:</p>
@@ -293,7 +303,7 @@
                     </div>
                 </div>
                 <hr class="my-2" />
-                <div class="text-center" id="ingredients-${currentGnamID}">
+                <div class="text-center" id="ingredients-${gnam_id}">
                 </div>
                 <hr class="m-0 mt-2" />
                 </div>
@@ -310,11 +320,11 @@
             drawAllIngredients(recipe);
         });
 
-        $("#userImage-" + currentGnamID).on("click", function() {
+        $("#userImage-" + gnam_id).on("click", function() {
             redirectToCurrentGnamUserPage();
         });
 
-        $("#userName-" + currentGnamID).on("click", function() {
+        $("#userName-" + gnam_id).on("click", function() {
             redirectToCurrentGnamUserPage();
         });
     }
