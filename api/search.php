@@ -19,8 +19,8 @@ if ($_SERVER['REQUEST_METHOD'] == "GET" && isset($_GET['action']) && isset($_GET
                 echo json_encode(getRandomGnams());
                 break;
             case 'byQuery':
-                if(isset($_GET['query'])) {
-                    echo json_encode(searchGnams($_GET['query'], ["Farina"]));
+                if(isset($_GET['query']) && isset($_GET['ingredients'])) {
+                    echo json_encode(searchGnams($_GET['query'], json_decode($_GET['ingredients'])));
                 } else {
                     http_response_code(400);
                 }

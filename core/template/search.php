@@ -122,6 +122,7 @@
         $.get("api/search.php", {
             query: query,
             api_key: "<?php echo $_SESSION['api_key']; ?>",
+            ingredients: JSON.stringify(ingredients),
             action: "byQuery"
         }, (result) => {
             $('#loaderDiv').removeClass('d-flex').addClass('d-none');
