@@ -90,11 +90,9 @@
         on: {
             slideChangeTransitionEnd: function() {
                 setCurrent($(".swiper-slide-active").attr('id').split('-')[1]);
-            }
-        },
-        on: {
+                console.log(currentGnamID);
+            },
             update: function() {
-                console.log("ciao!");
                 setCurrent($(".swiper-slide-active").attr('id').split('-')[1]);
             }
         }
@@ -219,6 +217,7 @@
 
 
     const drawAllIngredients = (recipe) => {
+        debugger;
         $("#ingredients-" + currentGnamID).empty();
         let ingredientsHTML = "";
         recipe.forEach(ingredient => {
