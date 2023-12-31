@@ -247,24 +247,56 @@ function getRandomGnams() {
     return $gnams;
 }
 
-function searchGnams($query) {
+function searchGnams($query, $ingredients) {
     global $db;
 
-    //Check if exists an user with username = $query
-    $stmt = $db->prepare("SELECT * FROM users WHERE `name` = :query");
-    $stmt->bindParam(':query', $query);
+    // QUERY 1 (seleziona per desc tipo %torta%mele%)
+    $words = explode(" ", $query);
+    $words[0] = '%' . $words[0];
+    $words[count($words) - 1] .= '%';
+    $finalQuery = implode('%', $words);
+    
+    $stmt = $db->prepare("SELECT id FROM gnams WHERE `description` LIKE :query");
+    $stmt->bindValue(':query', $finalQuery);
     $stmt->execute();
-    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $queryDesc = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    if (count($result) > 0) {
-        return getUserGnams($result[0]['id']);
-    } else {
-        $stmt = $db->prepare("SELECT * FROM gnams WHERE `description` LIKE :query");
-        $stmt->bindValue(':query', '%' . $query . '%');
+    // QUERY 2 (seleziona tutti gli gnam che hanno 1 o più hashtag presenti nella query)
+    preg_match_all('/#(\w+)/', $query, $matches);
+    $hashtag = $matches[1];
+    
+    $stmt = $db->prepare("SELECT g.id FROM gnams g
+        JOIN gnam_hashtags gh ON g.id=gh.gnam_id
+        JOIN hashtags h ON gh.hashtag_id=h.id
+        WHERE h.text IN ('" . implode("','", $hashtag) . "')");
+    $stmt->execute();
+    $queryHashtag = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    // QUERY 3 (tutti gli gnam che hanno tutti gli ingredienti presenti in $ingredients)
+    $stmt = $db->prepare("SELECT g.id FROM gnams g
+        JOIN gnam_ingredients gi ON g.id=gi.gnam_id
+        JOIN ingredients i ON gi.ingredient_id=i.id
+        WHERE i.name IN ('" . implode("','", $ingredients) . "')
+        GROUP BY g.id HAVING COUNT(DISTINCT i.name) = " . count($ingredients));
+    $stmt->execute();
+    $queryIngredients = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+    // QUERY 4 (tutti gli gnam che hanno un utente, con un nome che contiene una delle parole della query)
+    $temp = [];
+    $words = explode(" ", $query);
+    foreach ($words as $word) {
+        $stmt = $db->prepare("SELECT g.id FROM gnams g
+            JOIN users u ON g.user_id = u.id
+            WHERE u.name LIKE '%" . $word . "%'");
         $stmt->execute();
-        $gnams = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return $gnams;
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if (count($result) > 0) {
+            $temp[] = $result;
+        }
     }
+    $queryUsers = call_user_func_array('array_merge', $temp);
+
+    return;
 }
 
 function getGnamUserName($user_id) {
