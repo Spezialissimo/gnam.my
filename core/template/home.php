@@ -393,14 +393,14 @@
                 tagHTML += `
                     <div class="col-4 videoTag">
                         <span class="badge rounded-pill bg-primary fw-light text-black">
-                            <i class="fa-solid fa-oil-can"></i> ${tagText}
+                            #${tagText}
                         </span>
                     </div>`;
             } else {
                 tagHTML += `
                     <div class="col-4 d-none videoTag">
                         <span class="badge rounded-pill bg-primary fw-light text-black">
-                            <i class="fa-solid fa-leaf"></i> ${tagText}
+                            #${tagText}
                         </span>
                     </div>`;
             }
