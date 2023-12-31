@@ -152,11 +152,11 @@ CREATE TABLE `hashtags` (
 -- Dump dei dati per la tabella `hashtags`
 --
 
-INSERT INTO `hashtags` (`id`, `text`, `icon`) VALUES
-(1, 'Healthy', 'prova.jpg'),
-(2, 'Pesante', 'prova.jpg'),
-(3, 'Untazzo', 'prova.jpg'),
-(4, 'Facile', 'prova.jpg');
+INSERT INTO `hashtags` (`id`, `text`) VALUES
+(1, 'Healthy'),
+(2, 'Pesante'),
+(3, 'Untazzo'),
+(4, 'Facile');
 
 -- --------------------------------------------------------
 
