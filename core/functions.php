@@ -322,7 +322,7 @@ function getGnamComments($gnam_id) {
 
 function getGnamTags($gnam_id) {
     global $db;
-    $stmt = $db->prepare("SELECT ht.text, ht.icon FROM
+    $stmt = $db->prepare("SELECT ht.text FROM
         hashtags ht JOIN gnam_hashtags ght ON ht.id=ght.hashtag_id
         WHERE ght.gnam_id=:gnam_id");
     $stmt->bindParam(':gnam_id', $gnam_id);
