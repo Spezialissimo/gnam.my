@@ -92,7 +92,7 @@ $userLikedGnams = getUserLikedGnams($user['id']);
                 }
             } else {
                 echo '
-                <div class="row row text-center mt-3">
+                <div class="row text-center mt-3">
                     <div class="fs-6">Nessuno Gnam pubblicato.</div>
                 </div>
                 ';
@@ -116,7 +116,7 @@ $userLikedGnams = getUserLikedGnams($user['id']);
                 }
             } else {
                 echo '
-                <div class="row row text-center mt-3">
+                <div class="row text-center mt-3">
                     <div class="fs-6">Nessuno Gnam fra i preferiti.</div>
                 </div>
                 ';

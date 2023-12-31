@@ -22,7 +22,7 @@
   <div class="loadingspinner"></div>
 </div>
 
-<div class="d-none container text-center font-text overflow-auto" id="pageContentDiv">
+<div class="d-none container overflow-y-scroll" id="pageContentDiv">
     <!-- search results content -->
 </div>
 
@@ -129,24 +129,28 @@
             $('#pageContentDiv').html('');
             let decodedResult = JSON.parse(result);
 
-            if(result == '[]') {
-                $('#pageContentDiv').html('<div class="fs-6 mt-4">Nessuno gnam trovato.</div>');
+            if (result === '[]') {
+                $('#pageContentDiv').html('<div class="fs-6 mt-4 text-center">Nessuno gnam trovato.</div>');
                 return;
             }
+            
+            let gnamPerRow = 3;
+            let rowDiv = $('<div class="row my-2">');
 
-            let gnamPerRow = 0;
             for (let o in decodedResult) {
-                if (gnamPerRow == 0) $('#pageContentDiv').append('<div class="row my-2">');
-                $('#pageContentDiv').append(`<img class="img-grid col-4 btn-bounce" onclick="window.location.href = 'home.php?gnam=${decodedResult[o].id}'" alt="Copertina gnam" src="assets/gnams_thumbnails/${decodedResult[o].id}.jpg" />`);
-                gnamPerRow++;                
-                if (gnamPerRow == 3) {
-                    $('#pageContentDiv').append('</div>');
-                    gnamPerRow = 0;
+                let img = $(`<img class="img-grid col-4 btn-bounce" onclick="window.location.href = 'home.php?gnam=${decodedResult[o].id}'" alt="Copertina gnam" src="assets/gnams_thumbnails/${decodedResult[o].id}.jpg" />`);
+                rowDiv.append(img);
+                gnamPerRow--;
+
+                if (gnamPerRow === 0) {
+                    $('#pageContentDiv').append(rowDiv);
+                    rowDiv = $('</div><div class="row my-2">');
+                    gnamPerRow = 3;
                 }
             }
             
-            if (gnamPerRow > 0) {
-                $('#pageContentDiv').append('</div>');
+            if (gnamPerRow !== 3) {
+                $('#pageContentDiv').append(rowDiv);
             }
         });
     }
