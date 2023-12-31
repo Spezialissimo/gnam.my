@@ -90,7 +90,6 @@
         on: {
             slideChangeTransitionEnd: function() {
                 setCurrent($(".swiper-slide-active").attr('id').split('-')[1]);
-                console.log(currentGnamID);
             },
             update: function() {
                 setCurrent($(".swiper-slide-active").attr('id').split('-')[1]);
@@ -107,7 +106,7 @@
             }, function(data) {
                 gnamInfo = JSON.parse(data);
                 addGnamSlide(gnamInfo);
-                setInteractableItems(currentGnamID, gnamInfo['recipe']);
+                setInteractableItems(gnamInfo['id'], gnamInfo['recipe']);
 
                 $.get("api/comments.php", {
                     api_key: "<?php echo $_SESSION['api_key']; ?>",
@@ -139,7 +138,6 @@
                             comments = JSON.parse(commentsData);
                             setComments(comments, id);
                         });
-
                     });
                 });
                 reinitSwiper(swiper);
@@ -160,7 +158,7 @@
             $("#videoDescriptionShort-" + currentGnamID).addClass("d-none");
             $("#videoDescriptionLong-" + currentGnamID).removeClass("d-none");
             $("#moreTagsButton-" + currentGnamID).addClass("d-none");
-            let videoTags = $(".videoTag");
+            let videoTags = $("#videoTags-" + currentGnamID + " .videoTag");
             for (let i = 0; i < videoTags.length; i++) {
                 $(videoTags[i]).removeClass("d-none");
             }
@@ -175,7 +173,7 @@
             $("#videoDescriptionLong-" + currentGnamID).addClass("d-none");
             $("#videoDescriptionShort-" + currentGnamID).removeClass("d-none");
             $("#moreTagsButton-" + currentGnamID).removeClass("d-none");
-            let videoTags = $(".videoTag");
+            let videoTags = $("#videoTags-" + currentGnamID + " .videoTag");
             for (let i = 2; i < videoTags.length; i++) {
                 $(videoTags[i]).addClass("d-none");
             }
@@ -217,7 +215,6 @@
 
 
     const drawAllIngredients = (recipe) => {
-        debugger;
         $("#ingredients-" + currentGnamID).empty();
         let ingredientsHTML = "";
         recipe.forEach(ingredient => {
@@ -263,7 +260,6 @@
                     children.addClass("color-secondary").removeClass("color-alert");
                     likesCounter.text(parseInt(likesCounter.text()) - 1);
                 }
-                console.log("togglato!");
                 $.post('api/likes.php', {
                     "api_key": '<?php echo $_SESSION["api_key"] ?>',
                     "gnam_id": gnam_id,
@@ -409,18 +405,18 @@
                     </div>`;
             }
             count++;
-
         });
 
-        tagHTML += `
-            <div class="col-2 pe-0" id="moreTagsButton-${gnamsInfo['id']}">
-                <span class="badge rounded-pill bg-primary fw-light text-black">
-                    <i class="fa-solid fa-ellipsis"></i>
-                </span>
-            </div>`;
+        if(gnamsInfo['tags'].length > 2) {
+           tagHTML += `
+                <div class="col-2 pe-0" id="moreTagsButton-${gnamsInfo['id']}">
+                    <span class="badge rounded-pill bg-primary fw-light text-black">
+                        <i class="fa-solid fa-ellipsis"></i>
+                    </span>
+                </div>`;
+        }
 
         slideElement.querySelector('#videoTags-' + gnamsInfo['id']).innerHTML = tagHTML;
-
 
         if ($("#gnamSlider #dummySlide").length > 0) {
             $("#gnamSlider #dummySlide").remove();
