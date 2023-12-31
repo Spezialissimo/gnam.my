@@ -135,7 +135,7 @@
             }
             
             let gnamPerRow = 3;
-            let rowDiv = $('<div class="row my-2">');
+            let rowDiv = $('<div class="row my-3">');
 
             for (let o in decodedResult) {
                 let img = $(`<img class="img-grid col-4 btn-bounce" onclick="window.location.href = 'home.php?gnam=${decodedResult[o].id}'" alt="Copertina gnam" src="assets/gnams_thumbnails/${decodedResult[o].id}.jpg" />`);
@@ -144,7 +144,7 @@
 
                 if (gnamPerRow === 0) {
                     $('#pageContentDiv').append(rowDiv);
-                    rowDiv = $('</div><div class="row my-2">');
+                    rowDiv = $('</div><div class="row my-3">');
                     gnamPerRow = 3;
                 }
             }
