@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET" && isset($_GET['action']) && isset($_GET
                 break;
             case 'byQuery':
                 if(isset($_GET['query'])) {
-                    echo json_encode(searchGnams($_GET['query']));
+                    echo json_encode(searchGnams($_GET['query'], ["Farina"]));
                 } else {
                     http_response_code(400);
                 }
