@@ -347,9 +347,9 @@
                     videoCanvas.height = $("#hiddenVideoDiv")[0].videoHeight;
                     videoCanvas.getContext("2d").drawImage($("#hiddenVideoDiv")[0], 0, 0, videoCanvas.width, videoCanvas.height);
                     videoCanvas.toBlob(function(blob) {
-                        formData.append("thumbnail", blob, "blob.png");
+                        formData.append("thumbnail", blob, "blob.jpg");
                         uploadVideo(formData);
-                    }, "image/png");
+                    }, "image/jpg");
                     $("#hiddenVideoDiv").addClass("d-none");
                 }, 200);
             }
