@@ -77,15 +77,17 @@ $userLikedGnams = getUserLikedGnams($user['id']);
 <div class="container overflow-y-scroll" id="pageContentDiv">
     <div id="postedGnams">
         <?php
+            $gnamPerRow = 3;
             if(count($userGnams) > 0) {
                 echo '<div class="row">';
                 for($i = 0; $i < count($userGnams); $i++) {
                     echo '<img class="img-grid col-4 btn-bounce" onclick="window.location.href = \'home.php?gnam=' . $userGnams[$i]['id'] . '\'" alt="Copertina Gnam di ' . $user['name'] . '" src="assets/gnams_thumbnails/' . $userGnams[$i]['id'] . '.jpg" />';
-                    if($i % 2 == 0 && $i != 0) {
-                        echo '</div><div class="row my-3">';
-                    }
+                    $gnamPerRow--;
                     if($i == count($userGnams) - 1) {
                         echo '</div>';
+                    } else if($gnamPerRow == 0) {
+                        echo '</div><div class="row my-3">';
+                        $gnamPerRow = 3;
                     }
                 }
             } else {
@@ -99,15 +101,17 @@ $userLikedGnams = getUserLikedGnams($user['id']);
     </div>
     <div id="likedGnams">
         <?php
+            $gnamPerRow = 3;
             if(count($userLikedGnams) > 0) {
                 echo '<div class="row">';
                 for($i = 0; $i < count($userLikedGnams); $i++) {
                     echo '<img class="img-grid col-4 btn-bounce" onclick="window.location.href = \'home.php?gnam=' . $userLikedGnams[$i]['gnam_id'] . '\'" alt="Copertina Gnam di ' . $user['name'] . '" src="assets/gnams_thumbnails/' . $userLikedGnams[$i]['gnam_id'] . '.jpg" />';
-                    if($i % 2 == 0 && $i != 0) {
-                        echo '</div><div class="row my-3">';
-                    }
+                    $gnamPerRow--;
                     if($i == count($userLikedGnams) - 1) {
                         echo '</div>';
+                    } else if($gnamPerRow == 0) {
+                        echo '</div><div class="row my-3">';
+                        $gnamPerRow = 3;
                     }
                 }
             } else {
