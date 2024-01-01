@@ -1,7 +1,5 @@
 <div class="swiper h-100">
-    <div id="gnamSlider" class="swiper-wrapper">
-
-    </div>
+    <div id="gnamSlider" class="swiper-wrapper"></div>
 </div>
 <script>
     let isDescriptionShort = true;
@@ -295,7 +293,7 @@
                 <div class="container">
                     <div class="row mb-3">
                         <div class="col-10 align-self-end">
-                            <div class="row text-link">
+                            <div class="row text-link" onclick="window.location.href = 'profile.php?user=${gnamsInfo['user_id']}'">
                                 <div class="col-3">
                                     <img id="userImage-${gnamsInfo['id']}" class="border border-2 border-dark rounded-circle w-100" alt="${gnamsInfo['user_name']}" src="assets/profile_pictures/${gnamsInfo['user_id']}.jpg" />
                                 </div>
