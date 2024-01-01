@@ -11,6 +11,8 @@
     let commentIndex = 3;
     let currentGnamID = null;
     let currentUserID = null;
+    let gnamsQueue = null;
+
     const swiper = new Swiper('.swiper', {
         direction: 'vertical',
         loop: false,
@@ -24,6 +26,28 @@
 
                 setCurrent($(".swiper-slide-active").attr('id').split('-')[1]);
                 $("#gnamPlayer-" + currentGnamID)[0].play();
+
+            },
+            slideNextTransitionEnd: function() {
+                if (gnamsQueue.length > 0) {
+                    const id = gnamsQueue.pop();
+                    $.get("api/gnams.php", {
+                        api_key: "<?php echo $_SESSION['api_key']; ?>",
+                        gnam: id
+                    }, function(gnamsData) {
+                        gnamInfo = JSON.parse(gnamsData);
+                        addGnamSlide(gnamInfo);
+                        setInteractableItems(id, gnamInfo['recipe']);
+                        $.get("api/comments.php", {
+                            api_key: "<?php echo $_SESSION['api_key']; ?>",
+                            gnam_id: id
+                        }, function(commentsData) {
+                            comments = JSON.parse(commentsData);
+                            setComments(comments, id);
+                        });
+                        reinitSwiper(swiper);
+                    });
+                }
             },
             update: function() {
                 setCurrent($(".swiper-slide-active").attr('id').split('-')[1]);
@@ -56,8 +80,9 @@
                 api_key: "<?php echo $_SESSION['api_key']; ?>",
                 action: 'random'
             }, function(data) {
-                let gnams_id = JSON.parse(data);
-                gnams_id.forEach(id => {
+                gnamsQueue = JSON.parse(data);
+                for (let index = 0; index < 5; index++) {
+                    const id = gnamsQueue.pop();
                     $.get("api/gnams.php", {
                         api_key: "<?php echo $_SESSION['api_key']; ?>",
                         gnam: id
@@ -73,7 +98,7 @@
                             setComments(comments, id);
                         });
                     });
-                });
+                }
                 reinitSwiper(swiper);
             });
         }
