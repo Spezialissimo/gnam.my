@@ -28,6 +28,7 @@
 
 <script>
     let ingredients = [];
+    let currentResult;
 
     const openIngredients = () => {
         let modalContent = '';
@@ -128,7 +129,7 @@
             $('#loaderDiv').removeClass('d-flex').addClass('d-none');
             $('#pageContentDiv').removeClass('d-none');
             $('#pageContentDiv').html('');
-            let decodedResult = JSON.parse(result);
+            currentResult = JSON.parse(result);
 
             if (result === '[]') {
                 $('#pageContentDiv').html('<div class="fs-6 mt-4 text-center">Nessuno gnam trovato.</div>');
@@ -138,8 +139,8 @@
             let gnamPerRow = 3;
             let rowDiv = $('<div class="row my-3">');
 
-            for (let o in decodedResult) {
-                let img = $(`<img class="img-grid col-4 btn-bounce" onclick="window.location.href = 'home.php?gnam=${decodedResult[o].id}'" alt="Copertina gnam" src="assets/gnams_thumbnails/${decodedResult[o].id}.jpg" />`);
+            for (let o in currentResult) {
+                let img = $(`<img class="img-grid col-4 btn-bounce" onclick="setCookiesAndGoToHome('gnamsToWatch', currentResult)" alt="Copertina gnam" src="assets/gnams_thumbnails/${currentResult[o].id}.jpg" />`);
                 rowDiv.append(img);
                 gnamPerRow--;
 

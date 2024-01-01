@@ -95,3 +95,44 @@ const resizeContentDiv = () => {
 };
 
 $(window).on("load resize change", resizeContentDiv);
+
+const setCookie = (cookieName, element) => {
+    const now = new Date();
+    const expirationTime = new Date(now.getTime() + 1 * 60 * 60 * 1000); // 1 hour
+    const listaString = JSON.stringify(element);
+    document.cookie = `${cookieName}=${listaString}; expires=${expirationTime.toUTCString()}; path=/`;
+};
+
+const getCookie = (cookieName) => {
+    const name = cookieName + "=";
+    const decodedCookie = decodeURIComponent(document.cookie);
+    const cookieArray = decodedCookie.split(';');
+
+    for(let i = 0; i < cookieArray.length; i++) {
+        let cookie = cookieArray[i];
+        while (cookie.charAt(0) === ' ') {
+            cookie = cookie.substring(1);
+        }
+        if (cookie.indexOf(name) === 0) {
+            return cookie.substring(name.length, cookie.length);
+        }
+    }
+    return null;
+};
+
+const deleteCookie = (cookieName) => {
+    document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+};
+
+const setCookiesAndGoToHome = (cookieName, element) => {
+    setCookie(cookieName, element);
+    window.location.href = "home.php";
+};
+
+const readAndDeleteCookie = (cookieName) => {
+    const cookieValue = getCookie(cookieName);
+    if (cookieValue !== null) {
+        deleteCookie(cookieName);
+    }
+    return cookieValue;
+};
