@@ -126,7 +126,7 @@
                 api_key: "<?php echo $_SESSION['api_key']; ?>",
                 action: 'random'
             }, function(data) {
-                var gnams_id = JSON.parse(data);
+                let gnams_id = JSON.parse(data);
                 gnams_id.forEach(id => {
                     $.get("api/gnams.php", {
                         api_key: "<?php echo $_SESSION['api_key']; ?>",
@@ -149,7 +149,7 @@
         }
 
         $("#gnamSlider").on('click', function() {
-            var gnamPlayer = $("#gnamPlayer-" + currentGnamID)[0];
+            let gnamPlayer = $("#gnamPlayer-" + currentGnamID)[0];
 
             if (gnamPlayer.paused) {
                 gnamPlayer.play();
@@ -164,8 +164,7 @@
             swiper.update();
         }, 500);
     }
-
-
+    
     const showFullDescription = (e) => {
         if (isDescriptionShort) {
             isDescriptionShort = false;
@@ -487,6 +486,7 @@
                 $("#commentsBoxContainer-" + currentGnamID)
                     .parent().html(getCommentsHTML(comments));
                 setInteractableItemsComments(comments);
+                setComments(comments, currentGnamID);
             });
         });
     }

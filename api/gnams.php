@@ -70,14 +70,8 @@ if (isset($_REQUEST["api_key"])) {
             }
         } else if (isset($_POST["action"]) && strtoupper($_POST["action"]) == "INCREMENT_SHARE") {
             $gnam_id = $_POST["gnam_id"];
-            $stmt = $db->prepare("SELECT `share_count` FROM `gnams` WHERE `id`=:gnam_id");
+            $stmt = $db->prepare("UPDATE `gnams` SET `share_count` = `share_count` + 1 WHERE `id` = :gnam_id");
             $stmt->bindParam(':gnam_id', $gnam_id);
-            $stmt->execute();
-            $newShareCount = ($stmt->fetch(PDO::FETCH_ASSOC)['share_count']) + 1;
-
-            $stmt = $db->prepare("UPDATE `gnams` SET `share_count` = :newShareCount WHERE `gnams`.`id` = :gnam_id");
-            $stmt->bindParam(':gnam_id', $gnam_id);
-            $stmt->bindParam(':newShareCount', $newShareCount);
             $stmt->execute();
         } else {
             http_response_code(400);
