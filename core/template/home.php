@@ -526,7 +526,7 @@
                     </div>
                 </div>
                 <div class="row-1 bg-primary rounded">
-                    <div class="rounded bg-primary p-1 d-none"  id="replyToDiv-${currentGnamID}">
+                    <div class="rounded bg-primary p-1 d-none" id="replyToDiv-${currentGnamID}">
                         <div class="rounded bg container">
                             <div class="row">
                                 <div class="col-11 align-items-center">
@@ -559,7 +559,6 @@
                 }
             });
 
-
             comments.forEach(comment => {
                 if (comment['parent_comment_id'] == null) {
                     let commentHTML = `
@@ -567,10 +566,10 @@
                         <div class="row">
                             <div class="col-2 p-0">
                                 <img class="border border-2 border-dark rounded-circle w-100" alt="${comment['user_name']}"
-                                    src="assets/profile_pictures/${comment['user_id']}.jpg" />
+                                    src="assets/profile_pictures/${comment['user_id']}.jpg" onclick="window.location.href = 'profile.php?user=${comment['user_id']}'" />
                             </div>
                             <div class="col">
-                                <div class="row-md-1 text-start">
+                                <div class="row-md-1 text-start" onclick="window.location.href = 'profile.php?user=${comment['user_id']}'">
                                     <span id="user_name-${comment['id']}" class="text-link">${comment['user_name']}</span>
                                 </div>
                                 <div class="row-md text-normal-black fs-7 text-start">
@@ -595,10 +594,10 @@
                                 <div class="row">
                                     <div class="col-2 p-0">
                                         <img class="border border-2 border-dark rounded-circle w-100" alt="${comment['user_name']}"
-                                            src="assets/profile_pictures/${comment['user_id']}.jpg" />
+                                            src="assets/profile_pictures/${comment['user_id']}.jpg" onclick="window.location.href = 'profile.php?user=${comment['user_id']}'" />
                                     </div>
                                     <div class="col">
-                                        <div class="row-md-1 text-start">
+                                        <div class="row-md-1 text-start" onclick="window.location.href = 'profile.php?user=${comment['user_id']}'">
                                             <span id="user_name-${comment['id']}" class="text-link">${comment['user_name']}</span>
                                         </div>
                                         <div class="row-md text-normal-black fs-7 text-start">
