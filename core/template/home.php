@@ -387,7 +387,7 @@
             slideElement.querySelector("#gnamPlayer-" + gnamsInfo['id']).setAttribute("autoplay", "");
             $("#gnamSlider").append(slideElement);
         } else {
-            var lastGnamChild = $("#gnamSlider").children("[id^='gnam-']").last();
+            let lastGnamChild = $("#gnamSlider").children("[id^='gnam-']").last();
             $(slideElement).insertAfter(lastGnamChild);
         }
 
