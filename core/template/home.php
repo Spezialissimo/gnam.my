@@ -4,7 +4,6 @@
     </div>
 </div>
 <script>
-    // TODO alt alle immagini
     let isDescriptionShort = true;
     let selectedPortions = 1;
     let commentToReplyID = null;
@@ -298,7 +297,7 @@
                         <div class="col-10 align-self-end">
                             <div class="row text-link">
                                 <div class="col-3">
-                                    <img id="userImage-${gnamsInfo['id']}" class="border border-2 border-dark rounded-circle w-100" alt="Filippo Champagne" src="assets/profile_pictures/${gnamsInfo['user_id']}.jpg" />
+                                    <img id="userImage-${gnamsInfo['id']}" class="border border-2 border-dark rounded-circle w-100" alt="${gnamsInfo['user_name']}" src="assets/profile_pictures/${gnamsInfo['user_id']}.jpg" />
                                 </div>
                                 <div class="col-9 d-flex align-items-center p-0">
                                     <p id="userName-${gnamsInfo['id']}" class="fs-6 fw-bold m-0">${gnamsInfo['user_name']}</p>
