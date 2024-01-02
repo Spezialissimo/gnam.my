@@ -10,14 +10,14 @@
     let currentUserID = null;
     let gnamsQueue = null;
 
-    const swiper = new Swiper('.swiper', {
+    let swiper = new Swiper('.swiper', {
         direction: 'vertical',
         loop: false,
         keyboard: {
             enabled: true
         },
         on: {
-            slideChangeTransitionEnd: function() {
+            slideChangeTransitionEnd: function () {
                 $("#gnamPlayer-" + currentGnamID)[0].pause();
                 $("#gnamPlayer-" + currentGnamID)[0].currentTime = 0;
 
@@ -25,20 +25,20 @@
                 $("#gnamPlayer-" + currentGnamID)[0].play();
 
             },
-            slideNextTransitionEnd: function() {
+            slideNextTransitionEnd: function () {
                 if (gnamsQueue.length > 0) {
-                    const id = gnamsQueue.pop();
+                    const id = gnamsQueue.shift();
                     $.get("api/gnams.php", {
                         api_key: "<?php echo $_SESSION['api_key']; ?>",
                         gnam: id
-                    }, function(gnamsData) {
+                    }, function (gnamsData) {
                         gnamInfo = JSON.parse(gnamsData);
                         addGnamSlide(gnamInfo);
                         setInteractableItems(id, gnamInfo['recipe']);
                         $.get("api/comments.php", {
                             api_key: "<?php echo $_SESSION['api_key']; ?>",
                             gnam_id: id
-                        }, function(commentsData) {
+                        }, function (commentsData) {
                             comments = JSON.parse(commentsData);
                             setComments(comments, id);
                         });
@@ -46,19 +46,19 @@
                     });
                 }
             },
-            update: function() {
+            update: function () {
                 setCurrent($(".swiper-slide-active").attr('id').split('-')[1]);
             }
         }
     });
 
-    $(window).on("load", function() {
+    $(window).on("load", function () {
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.has('gnam')) {
             $.get("api/gnams.php", {
                 api_key: "<?php echo $_SESSION['api_key']; ?>",
                 gnam: urlParams.get('gnam')
-            }, function(data) {
+            }, function (data) {
                 gnamInfo = JSON.parse(data);
                 addGnamSlide(gnamInfo);
                 setInteractableItems(gnamInfo['id'], gnamInfo['recipe']);
@@ -66,41 +66,84 @@
                 $.get("api/comments.php", {
                     api_key: "<?php echo $_SESSION['api_key']; ?>",
                     gnam_id: urlParams.get('gnam')
-                }, function(commentsData) {
+                }, function (commentsData) {
                     comments = JSON.parse(commentsData);
                     setComments(comments, urlParams.get('gnam'));
                 });
                 reinitSwiper(swiper);
             });
         } else {
-            $.get("api/search.php", {
-                api_key: "<?php echo $_SESSION['api_key']; ?>",
-                action: 'random'
-            }, function(data) {
-                gnamsQueue = JSON.parse(data);
-                for (let index = 0; index < 5; index++) {
-                    const id = gnamsQueue.pop();
-                    $.get("api/gnams.php", {
-                        api_key: "<?php echo $_SESSION['api_key']; ?>",
-                        gnam: id
-                    }, function(gnamsData) {
-                        gnamInfo = JSON.parse(gnamsData);
-                        addGnamSlide(gnamInfo);
-                        setInteractableItems(id, gnamInfo['recipe']);
-                        $.get("api/comments.php", {
+            gnamsInCookies = JSON.parse(readAndDeleteCookie('gnamsToWatch'));
+
+            if (gnamsInCookies == null) {
+                $.get("api/search.php", {
+                    api_key: "<?php echo $_SESSION['api_key']; ?>",
+                    action: 'random'
+                }, function (data) {
+                    gnamsQueue = JSON.parse(data);
+                    for (let index = 0; index < 5; index++) {
+                        const id = gnamsQueue.shift();
+                        $.get("api/gnams.php", {
                             api_key: "<?php echo $_SESSION['api_key']; ?>",
-                            gnam_id: id
-                        }, function(commentsData) {
-                            comments = JSON.parse(commentsData);
-                            setComments(comments, id);
+                            gnam: id
+                        }, function (gnamsData) {
+                            gnamInfo = JSON.parse(gnamsData);
+                            addGnamSlide(gnamInfo);
+                            setInteractableItems(id, gnamInfo['recipe']);
+                            $.get("api/comments.php", {
+                                api_key: "<?php echo $_SESSION['api_key']; ?>",
+                                gnam_id: id
+                            }, function (commentsData) {
+                                comments = JSON.parse(commentsData);
+                                setComments(comments, id);
+                            });
                         });
+                    }
+                    reinitSwiper(swiper);
+                });
+            } else {
+                gnamsQueue = gnamsInCookies['list'];
+                currentGnamIndex = gnamsQueue.indexOf(parseInt(gnamsInCookies['startFrom']));
+                const id = gnamsQueue.splice(currentGnamIndex, 1)[0];
+                setCurrent(id);
+                $.get("api/gnams.php", {
+                    api_key: "<?php echo $_SESSION['api_key']; ?>",
+                    gnam: id
+                }, function (gnamsData) {
+                    gnamInfo = JSON.parse(gnamsData);
+                    addGnamSlide(gnamInfo);
+                    setInteractableItems(id, gnamInfo['recipe']);
+                    $.get("api/comments.php", {
+                        api_key: "<?php echo $_SESSION['api_key']; ?>",
+                        gnam_id: id
+                    }, function (commentsData) {
+                        comments = JSON.parse(commentsData);
+                        setComments(comments, id);
                     });
-                }
-                reinitSwiper(swiper);
-            });
+                    reinitSwiper(swiper);
+                });
+                for (let index = 0; index < Math.min(5, gnamsQueue.length + 1); index++) {
+                        const id = gnamsQueue.shift();
+                        $.get("api/gnams.php", {
+                            api_key: "<?php echo $_SESSION['api_key']; ?>",
+                            gnam: id
+                        }, function (gnamsData) {
+                            gnamInfo = JSON.parse(gnamsData);
+                            addGnamSlide(gnamInfo);
+                            setInteractableItems(id, gnamInfo['recipe']);
+                            $.get("api/comments.php", {
+                                api_key: "<?php echo $_SESSION['api_key']; ?>",
+                                gnam_id: id
+                            }, function (commentsData) {
+                                comments = JSON.parse(commentsData);
+                                setComments(comments, id);
+                            });
+                        });
+                    }
+            }
         }
 
-        $("#gnamSlider").on('click', function() {
+        $("#gnamSlider").on('click', function () {
             let gnamPlayer = $("#gnamPlayer-" + currentGnamID)[0];
 
             if (gnamPlayer.paused) {
@@ -111,8 +154,12 @@
         });
     });
 
+    
+
+
+
     function reinitSwiper(swiper) {
-        setTimeout(function() {
+        setTimeout(function () {
             swiper.update();
         }, 500);
     }
@@ -180,12 +227,12 @@
     }
 
     const setInteractableItems = (gnam_id, recipe) => {
-        $("#likeButton-" + gnam_id).each(function() {
+        $("#likeButton-" + gnam_id).each(function () {
             let likeButton = $(this);
             let children = likeButton.children().children();
             let likesCounter = $("#likesCounter-" + gnam_id);
 
-            likeButton.on("click", function(e) {
+            likeButton.on("click", function (e) {
                 if (children.hasClass("color-secondary")) {
                     children.removeClass("color-secondary").addClass("color-alert");
                     likesCounter.text(parseInt(likesCounter.text()) + 1);
@@ -207,7 +254,7 @@
         $("#videoTags-" + gnam_id).on("click", showFullDescription);
         $("#videoOverlay-" + gnam_id).on("click", showShortDescription);
 
-        $("#shareButton-" + gnam_id).on("click", function(e) {
+        $("#shareButton-" + gnam_id).on("click", function (e) {
             let swalContent = `
             <div class='row-md-2 py-2 text-center text-black'>
                 <div class='container'>
@@ -219,11 +266,11 @@
                 </div>
             </div>`;
             showSwalSmall('<p class="fs-5">Condividi Gnam</p>', swalContent);
-            $("#copyGnamLinkButton").on("click", function() {
+            $("#copyGnamLinkButton").on("click", function () {
                 $("#shareCounter-" + currentGnamID).text(parseInt($("#shareCounter-" + currentGnamID).text()) + 1);
                 let gnamLink = buildURL("home", "gnam=" + currentGnamID);
                 navigator.clipboard.writeText(gnamLink)
-                    .then(function() {
+                    .then(function () {
                         showToast("success", "Link copiato nella clipboard");
                         $.post('api/gnams.php', {
                             "api_key": '<?php echo $_SESSION["api_key"] ?>',
@@ -231,14 +278,14 @@
                             "action": "INCREMENT_SHARE"
                         });
                     })
-                    .catch(function(err) {
+                    .catch(function (err) {
                         console.error("Impossibile copiare il link nella clipboard: ", err);
                     });
             });
             e.stopPropagation();
         });
 
-        $("#recipeButton-" + gnam_id).on("click", function(e) {
+        $("#recipeButton-" + gnam_id).on("click", function (e) {
             let html = `
                 <div class="d-flex align-items-center justify-content-center mb-2">
                     <p class="m-0 me-2 fs-6">Numero di porzioni:</p>
@@ -266,7 +313,7 @@
             `;
             showSwal('Ricetta', html);
             $('#portionsSelect option[value="' + selectedPortions + '"]').attr("selected", true);
-            $("#portionsSelect").on("change", function(e) {
+            $("#portionsSelect").on("change", function (e) {
                 recipeWithUpdatedPortion = JSON.parse(JSON.stringify(recipe));
                 recipeWithUpdatedPortion.forEach(ingredient => {
                     ingredient['quantity'] = ingredient['quantity'] * (this).value;
@@ -277,12 +324,126 @@
             e.stopPropagation();
         });
 
-        $("#userImage-" + gnam_id).on("click", function() {
+        $("#userImage-" + gnam_id).on("click", function () {
             redirectToCurrentGnamUserPage();
         });
 
-        $("#userName-" + gnam_id).on("click", function() {
+        $("#userName-" + gnam_id).on("click", function () {
             redirectToCurrentGnamUserPage();
+        });
+    }
+
+    const addGnamBeforeSlide = (gnamsInfo) => {
+        let gnamHtml = `
+            <video id="gnamPlayer-${gnamsInfo['id']}" class="w-100 h-100 object-fit-fill p-0" disablepictureinpicture loop playsinline preload="auto" poster="assets/gnams_thumbnails/${gnamsInfo['id']}.jpg" src="assets/gnams/${gnamsInfo['id']}.mp4" ></video>
+            <div  id="videoOverlay-${gnamsInfo['id']}" class="video-overlay">
+                <div class="container">
+                    <div class="row mb-3">
+                        <div class="col-10 align-self-end">
+                            <div class="row text-link" onclick="window.location.href = 'profile.php?user=${gnamsInfo['user_id']}'">
+                                <div class="col-3">
+                                    <img id="userImage-${gnamsInfo['id']}" class="border border-2 border-dark rounded-circle w-100" alt="${gnamsInfo['user_name']}" src="assets/profile_pictures/${gnamsInfo['user_id']}.jpg" />
+                                </div>
+                                <div class="col-9 d-flex align-items-center p-0">
+                                    <p id="userName-${gnamsInfo['id']}" class="fs-6 fw-bold m-0">${gnamsInfo['user_name']}</p>
+                                </div>
+                            </div>
+                            <div class="row" id="videoDescription">
+                                <span id="videoDescriptionShort-${gnamsInfo['id']}" class="fs-7 m-0">${gnamsInfo['short_description']}
+                                    <span class="fs-7 m-0 color-accent">Leggi di piú...</span>
+                                </span>
+                                <p id="videoDescriptionLong-${gnamsInfo['id']}" class="fs-7 m-0 d-none">${gnamsInfo['description']}</p>
+                            </div>
+                            <div class="row" id="videoTags-${gnamsInfo['id']}">
+
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="container p-0">
+                                <div class="col">
+                                    <div class="row pb-4" id="recipeButton-${gnamsInfo['id']}">
+                                        <span><i class="fa-solid fa-utensils fa-2xl fa-fw color-secondary"></i></span>
+                                    </div>
+                                    <div class="row" id="likeButton-${gnamsInfo['id']}">
+                                        <span><i class="fa-solid fa-heart fa-2xl fa-fw color-secondary"></i></span>
+                                    </div>
+                                    <div class="row pt-2 color-accent fw-bold text-center">
+                                        <span id="likesCounter-${gnamsInfo['id']}">${gnamsInfo['likes_count']}</span>
+                                    </div>
+                                    <div class="row pt-2" id="commentsButton-${gnamsInfo['id']}">
+                                        <span><i class="fa-solid fa-comment-dots fa-2xl fa-fw color-secondary"></i></span>
+                                    </div>
+                                    <div class="row pt-2 color-accent fw-bold text-center">
+                                        <span id="commentsCounter-${gnamsInfo['id']}">0</span>
+                                    </div>
+                                    <div class="row pt-2" id="shareButton-${gnamsInfo['id']}">
+                                        <span><i class="fa-solid fa-share-nodes fa-2xl fa-fw color-secondary"></i></span>
+                                    </div>
+                                    <div class="row pt-2 color-accent fw-bold text-center">
+                                        <span id="shareCounter-${gnamsInfo['id']}">${gnamsInfo['shares_count']}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `
+        const slideElement = document.createElement('div');
+        slideElement.classList.add("swiper-slide");
+        slideElement.id = "gnam-" + gnamsInfo['id'];
+        slideElement.innerHTML = gnamHtml.trim();
+
+        let count = 0;
+        let tagHTML = '';
+        gnamsInfo['tags'].forEach(tag => {
+            let tagText = tag['text'];
+
+            if (count < 2) {
+                tagHTML += `
+                    <div class="col-4 videoTag">
+                        <span class="badge rounded-pill bg-primary fw-light text-black">
+                            #${tagText}
+                        </span>
+                    </div>`;
+            } else {
+                tagHTML += `
+                    <div class="col-4 d-none videoTag">
+                        <span class="badge rounded-pill bg-primary fw-light text-black">
+                            #${tagText}
+                        </span>
+                    </div>`;
+            }
+            count++;
+        });
+
+        if (gnamsInfo['tags'].length > 2) {
+            tagHTML += `
+                <div class="col-2 pe-0" id="moreTagsButton-${gnamsInfo['id']}">
+                    <span class="badge rounded-pill bg-primary fw-light text-black">
+                        <i class="fa-solid fa-ellipsis"></i>
+                    </span>
+                </div>`;
+        }
+
+        slideElement.querySelector('#videoTags-' + gnamsInfo['id']).innerHTML = tagHTML;
+
+        if ($(".swiper-slide").length == 0) {
+            slideElement.querySelector("#gnamPlayer-" + gnamsInfo['id']).setAttribute("autoplay", "");
+            $("#gnamSlider").append(slideElement);
+        } else {
+            let firstGnamChild = $("#gnamSlider").children("[id^='gnam-']").first();
+            $(slideElement).insertBefore(firstGnamChild);
+        }
+
+        $.get('api/likes.php', {
+            "api_key": '<?php echo $_SESSION["api_key"] ?>',
+            "gnam_id": gnamsInfo['id']
+        }, function (data) {
+            let children = $("#likeButton-" + gnamsInfo['id']).children().children();
+            if (JSON.parse(data) && children.hasClass("color-secondary")) {
+                children.removeClass("color-secondary").addClass("color-alert");
+            }
         });
     }
 
@@ -392,7 +553,7 @@
         $.get('api/likes.php', {
             "api_key": '<?php echo $_SESSION["api_key"] ?>',
             "gnam_id": gnamsInfo['id']
-        }, function(data) {
+        }, function (data) {
             let children = $("#likeButton-" + gnamsInfo['id']).children().children();
             if (JSON.parse(data) && children.hasClass("color-secondary")) {
                 children.removeClass("color-secondary").addClass("color-alert");
@@ -435,7 +596,7 @@
             $.get("api/comments.php", {
                 api_key: "<?php echo $_SESSION['api_key']; ?>",
                 gnam_id: currentGnamID
-            }, function(commentsData) {
+            }, function (commentsData) {
                 let comments = JSON.parse(commentsData);
                 $("#commentsBoxContainer-" + currentGnamID)
                     .parent().html(getCommentsHTML(comments));
@@ -583,7 +744,7 @@
 
     const setComments = (comments, gnam_id) => {
         $("#commentsCounter-" + gnam_id).text(comments.length);
-        $("#commentsButton-" + gnam_id).on('click', function(e) {
+        $("#commentsButton-" + gnam_id).on('click', function (e) {
             showSwal('Commenti', getCommentsHTML(comments));
             setInteractableItemsComments(comments);
             e.stopPropagation();
