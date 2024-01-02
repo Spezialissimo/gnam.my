@@ -81,7 +81,7 @@ $userLikedGnams = getUserLikedGnams($user['id']);
             if(count($userGnams) > 0) {
                 echo '<div class="row">';
                 for($i = 0; $i < count($userGnams); $i++) {
-                    echo '<img class="img-grid col-4 btn-bounce" onclick="setCookiesAndGoToHome(\'gnamsToWatch\', \'[{' . $userGnams[$i]['id'] . '}]\')" alt="Copertina Gnam di ' . $user['name'] . '" src="assets/gnams_thumbnails/' . $userGnams[$i]['id'] . '.jpg" />';
+                    echo '<img class="img-grid col-4 btn-bounce" onclick="watchGnamsFrom(' . $userGnams[$i]['id'] . ', getGnamsIdsFromDiv(\'postedGnams\'))" alt="Copertina Gnam di ' . $user['name'] . '" src="assets/gnams_thumbnails/' . $userGnams[$i]['id'] . '.jpg" />';
                     $gnamPerRow--;
                     if($i == count($userGnams) - 1) {
                         echo '</div>';
@@ -105,7 +105,7 @@ $userLikedGnams = getUserLikedGnams($user['id']);
             if(count($userLikedGnams) > 0) {
                 echo '<div class="row">';
                 for($i = 0; $i < count($userLikedGnams); $i++) {
-                    echo '<img class="img-grid col-4 btn-bounce" onclick="setCookiesAndGoToHome(\'gnamsToWatch\', \'[{' . $userLikedGnams[$i]['gnam_id'] . '}]\')" alt="Copertina Gnam di ' . $user['name'] . '" src="assets/gnams_thumbnails/' . $userLikedGnams[$i]['gnam_id'] . '.jpg" />';
+                    echo '<img class="img-grid col-4 btn-bounce" onclick="watchGnamsFrom(' . $userLikedGnams[$i]['gnam_id'] . ', getGnamsIdsFromDiv(\'likedGnams\'))" alt="Copertina Gnam di ' . $user['name'] . '" src="assets/gnams_thumbnails/' . $userLikedGnams[$i]['gnam_id'] . '.jpg" />';
                     $gnamPerRow--;
                     if($i == count($userLikedGnams) - 1) {
                         echo '</div>';
@@ -126,6 +126,20 @@ $userLikedGnams = getUserLikedGnams($user['id']);
 </div>
 
 <script>
+    const getGnamsIdsFromDiv = (divId) => {
+        const gnamsList = [];
+        $('#' + divId + ' img').each(function() {
+            const imgSrc = $(this).attr('src');
+            const imgName = imgSrc.substring(imgSrc.lastIndexOf('/') + 1, imgSrc.lastIndexOf('.'));
+            const idMatches = imgName.match(/\d+/);
+            if (idMatches) {
+                const gnamsId = parseInt(idMatches[0]);
+                gnamsList.push({ id: gnamsId });
+            }
+        });
+        return gnamsList;
+    }
+
     const followUser = () => {
         $.post("api/users.php", {
             user_id: "<?php echo $user['id'] ?>",

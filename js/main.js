@@ -129,6 +129,14 @@ const setCookiesAndGoToHome = (cookieName, element) => {
     window.location.href = "home.php";
 };
 
+const watchGnamsFrom = (id, result) => {
+    const cookieData = {
+        startFrom: id,
+        list: result.map(item => item.id)
+    };
+    setCookiesAndGoToHome('gnamsToWatch', cookieData);
+};
+
 const readAndDeleteCookie = (cookieName) => {
     const cookieValue = getCookie(cookieName);
     if (cookieValue !== null) {
