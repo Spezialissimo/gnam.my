@@ -5,9 +5,7 @@
     let isDescriptionShort = true;
     let selectedPortions = 1;
     let commentToReplyID = null;
-    let commentIndex = 3;
     let currentGnamID = null;
-    let currentUserID = null;
     let gnamsQueue = null;
 
     let swiper = new Swiper('.swiper', {
@@ -20,34 +18,14 @@
             slideChangeTransitionEnd: function () {
                 $("#gnamPlayer-" + currentGnamID)[0].pause();
                 $("#gnamPlayer-" + currentGnamID)[0].currentTime = 0;
-
-                setCurrent($(".swiper-slide-active").attr('id').split('-')[1]);
+                currentGnamID = $(".swiper-slide-active").attr('id').split('-')[1];
                 $("#gnamPlayer-" + currentGnamID)[0].play();
-
             },
             slideNextTransitionEnd: function () {
                 if (gnamsQueue.length > 0) {
-                    const id = gnamsQueue.shift();
-                    $.get("api/gnams.php", {
-                        api_key: "<?php echo $_SESSION['api_key']; ?>",
-                        gnam: id
-                    }, function (gnamsData) {
-                        gnamInfo = JSON.parse(gnamsData);
-                        addGnamSlide(gnamInfo);
-                        setInteractableItems(id, gnamInfo['recipe']);
-                        $.get("api/comments.php", {
-                            api_key: "<?php echo $_SESSION['api_key']; ?>",
-                            gnam_id: id
-                        }, function (commentsData) {
-                            comments = JSON.parse(commentsData);
-                            setComments(comments, id);
-                        });
-                        reinitSwiper(swiper);
-                    });
+                    drawGnamInQueue();
+                    reinitSwiper(swiper);
                 }
-            },
-            update: function () {
-                setCurrent($(".swiper-slide-active").attr('id').split('-')[1]);
             }
         }
     });
@@ -55,91 +33,34 @@
     $(window).on("load", function () {
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.has('gnam')) {
-            $.get("api/gnams.php", {
-                api_key: "<?php echo $_SESSION['api_key']; ?>",
-                gnam: urlParams.get('gnam')
-            }, function (data) {
-                gnamInfo = JSON.parse(data);
-                addGnamSlide(gnamInfo);
-                setInteractableItems(gnamInfo['id'], gnamInfo['recipe']);
-
-                $.get("api/comments.php", {
-                    api_key: "<?php echo $_SESSION['api_key']; ?>",
-                    gnam_id: urlParams.get('gnam')
-                }, function (commentsData) {
-                    comments = JSON.parse(commentsData);
-                    setComments(comments, urlParams.get('gnam'));
-                });
-                reinitSwiper(swiper);
-            });
+            gnamsQueue = [(urlParams.get('gnam'))];
+            drawGnamInQueue();
+            reinitSwiper(swiper);
+            currentGnamID = urlParams.get('gnam');
         } else {
             gnamsInCookies = JSON.parse(readAndDeleteCookie('gnamsToWatch'));
-
             if (gnamsInCookies == null) {
                 $.get("api/search.php", {
                     api_key: "<?php echo $_SESSION['api_key']; ?>",
                     action: 'random'
                 }, function (data) {
                     gnamsQueue = JSON.parse(data);
-                    for (let index = 0; index < 5; index++) {
-                        const id = gnamsQueue.shift();
-                        $.get("api/gnams.php", {
-                            api_key: "<?php echo $_SESSION['api_key']; ?>",
-                            gnam: id
-                        }, function (gnamsData) {
-                            gnamInfo = JSON.parse(gnamsData);
-                            addGnamSlide(gnamInfo);
-                            setInteractableItems(id, gnamInfo['recipe']);
-                            $.get("api/comments.php", {
-                                api_key: "<?php echo $_SESSION['api_key']; ?>",
-                                gnam_id: id
-                            }, function (commentsData) {
-                                comments = JSON.parse(commentsData);
-                                setComments(comments, id);
-                            });
-                        });
+                    currentGnamID = gnamsQueue[0];
+                    for (let index = 0; index < Math.min(5, gnamsQueue.length + 1); index++) {
+                        drawGnamInQueue();
+                        reinitSwiper(swiper);
                     }
-                    reinitSwiper(swiper);
                 });
             } else {
                 gnamsQueue = gnamsInCookies['list'];
                 currentGnamIndex = gnamsQueue.indexOf(parseInt(gnamsInCookies['startFrom']));
                 const id = gnamsQueue.splice(currentGnamIndex, 1)[0];
-                setCurrent(id);
-                $.get("api/gnams.php", {
-                    api_key: "<?php echo $_SESSION['api_key']; ?>",
-                    gnam: id
-                }, function (gnamsData) {
-                    gnamInfo = JSON.parse(gnamsData);
-                    addGnamSlide(gnamInfo);
-                    setInteractableItems(id, gnamInfo['recipe']);
-                    $.get("api/comments.php", {
-                        api_key: "<?php echo $_SESSION['api_key']; ?>",
-                        gnam_id: id
-                    }, function (commentsData) {
-                        comments = JSON.parse(commentsData);
-                        setComments(comments, id);
-                    });
-                    reinitSwiper(swiper);
-                });
+                currentGnamID = id;
+                drawGnamInQueue();
                 for (let index = 0; index < Math.min(5, gnamsQueue.length + 1); index++) {
-                        const id = gnamsQueue.shift();
-                        $.get("api/gnams.php", {
-                            api_key: "<?php echo $_SESSION['api_key']; ?>",
-                            gnam: id
-                        }, function (gnamsData) {
-                            gnamInfo = JSON.parse(gnamsData);
-                            addGnamSlide(gnamInfo);
-                            setInteractableItems(id, gnamInfo['recipe']);
-                            $.get("api/comments.php", {
-                                api_key: "<?php echo $_SESSION['api_key']; ?>",
-                                gnam_id: id
-                            }, function (commentsData) {
-                                comments = JSON.parse(commentsData);
-                                setComments(comments, id);
-                            });
-                        });
-                    }
+                    drawGnamInQueue();
+                    reinitSwiper(swiper);
+                }
             }
         }
 
@@ -154,8 +75,24 @@
         });
     });
 
-    
-
+    const drawGnamInQueue = () => {
+        const id = gnamsQueue.shift();
+        $.get("api/gnams.php", {
+            api_key: "<?php echo $_SESSION['api_key']; ?>",
+            gnam: id
+        }, function (gnamsData) {
+            gnamInfo = JSON.parse(gnamsData);
+            addGnamSlide(gnamInfo);
+            setInteractableItems(id, gnamInfo['recipe']);
+            $.get("api/comments.php", {
+                api_key: "<?php echo $_SESSION['api_key']; ?>",
+                gnam_id: id
+            }, function (commentsData) {
+                comments = JSON.parse(commentsData);
+                setComments(comments, id);
+            });
+        });
+    }
 
 
     function reinitSwiper(swiper) {
@@ -217,13 +154,8 @@
     }
 
     const redirectToCurrentGnamUserPage = () => {
-        let redirectPath = buildURL("profile", "user=" + currentUserID);
+        let redirectPath = buildURL("profile", "user=" +  $("#userName-" + currentGnamID));
         window.location.href = redirectPath;
-    }
-
-    const setCurrent = (gnamID) => {
-        currentGnamID = gnamID;
-        currentUserID = $("#userName-" + currentGnamID);
     }
 
     const setInteractableItems = (gnam_id, recipe) => {
