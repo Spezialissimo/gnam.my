@@ -54,8 +54,8 @@
             } else {
                 gnamsQueue = gnamsInCookies['list'];
                 currentGnamIndex = gnamsQueue.indexOf(parseInt(gnamsInCookies['startFrom']));
-                const id = gnamsQueue.splice(currentGnamIndex, 1)[0];
-                currentGnamID = id;
+                debugger;
+                currentGnamID = gnamsQueue[currentGnamIndex];
                 drawGnamInQueue();
                 for (let index = 0; index < Math.min(5, gnamsQueue.length + 1); index++) {
                     drawGnamInQueue();
@@ -262,120 +262,6 @@
 
         $("#userName-" + gnam_id).on("click", function () {
             redirectToCurrentGnamUserPage();
-        });
-    }
-
-    const addGnamBeforeSlide = (gnamsInfo) => {
-        let gnamHtml = `
-            <video id="gnamPlayer-${gnamsInfo['id']}" class="w-100 h-100 object-fit-fill p-0" disablepictureinpicture loop playsinline preload="auto" poster="assets/gnams_thumbnails/${gnamsInfo['id']}.jpg" src="assets/gnams/${gnamsInfo['id']}.mp4" ></video>
-            <div  id="videoOverlay-${gnamsInfo['id']}" class="video-overlay">
-                <div class="container">
-                    <div class="row mb-3">
-                        <div class="col-10 align-self-end">
-                            <div class="row text-link" onclick="window.location.href = 'profile.php?user=${gnamsInfo['user_id']}'">
-                                <div class="col-3">
-                                    <img id="userImage-${gnamsInfo['id']}" class="border border-2 border-dark rounded-circle w-100" alt="${gnamsInfo['user_name']}" src="assets/profile_pictures/${gnamsInfo['user_id']}.jpg" />
-                                </div>
-                                <div class="col-9 d-flex align-items-center p-0">
-                                    <p id="userName-${gnamsInfo['id']}" class="fs-6 fw-bold m-0">${gnamsInfo['user_name']}</p>
-                                </div>
-                            </div>
-                            <div class="row" id="videoDescription">
-                                <span id="videoDescriptionShort-${gnamsInfo['id']}" class="fs-7 m-0">${gnamsInfo['short_description']}
-                                    <span class="fs-7 m-0 color-accent">Leggi di piú...</span>
-                                </span>
-                                <p id="videoDescriptionLong-${gnamsInfo['id']}" class="fs-7 m-0 d-none">${gnamsInfo['description']}</p>
-                            </div>
-                            <div class="row" id="videoTags-${gnamsInfo['id']}">
-
-                            </div>
-                        </div>
-                        <div class="col-2">
-                            <div class="container p-0">
-                                <div class="col">
-                                    <div class="row pb-4" id="recipeButton-${gnamsInfo['id']}">
-                                        <span><i class="fa-solid fa-utensils fa-2xl fa-fw color-secondary"></i></span>
-                                    </div>
-                                    <div class="row" id="likeButton-${gnamsInfo['id']}">
-                                        <span><i class="fa-solid fa-heart fa-2xl fa-fw color-secondary"></i></span>
-                                    </div>
-                                    <div class="row pt-2 color-accent fw-bold text-center">
-                                        <span id="likesCounter-${gnamsInfo['id']}">${gnamsInfo['likes_count']}</span>
-                                    </div>
-                                    <div class="row pt-2" id="commentsButton-${gnamsInfo['id']}">
-                                        <span><i class="fa-solid fa-comment-dots fa-2xl fa-fw color-secondary"></i></span>
-                                    </div>
-                                    <div class="row pt-2 color-accent fw-bold text-center">
-                                        <span id="commentsCounter-${gnamsInfo['id']}">0</span>
-                                    </div>
-                                    <div class="row pt-2" id="shareButton-${gnamsInfo['id']}">
-                                        <span><i class="fa-solid fa-share-nodes fa-2xl fa-fw color-secondary"></i></span>
-                                    </div>
-                                    <div class="row pt-2 color-accent fw-bold text-center">
-                                        <span id="shareCounter-${gnamsInfo['id']}">${gnamsInfo['shares_count']}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `
-        const slideElement = document.createElement('div');
-        slideElement.classList.add("swiper-slide");
-        slideElement.id = "gnam-" + gnamsInfo['id'];
-        slideElement.innerHTML = gnamHtml.trim();
-
-        let count = 0;
-        let tagHTML = '';
-        gnamsInfo['tags'].forEach(tag => {
-            let tagText = tag['text'];
-
-            if (count < 2) {
-                tagHTML += `
-                    <div class="col-4 videoTag">
-                        <span class="badge rounded-pill bg-primary fw-light text-black">
-                            #${tagText}
-                        </span>
-                    </div>`;
-            } else {
-                tagHTML += `
-                    <div class="col-4 d-none videoTag">
-                        <span class="badge rounded-pill bg-primary fw-light text-black">
-                            #${tagText}
-                        </span>
-                    </div>`;
-            }
-            count++;
-        });
-
-        if (gnamsInfo['tags'].length > 2) {
-            tagHTML += `
-                <div class="col-2 pe-0" id="moreTagsButton-${gnamsInfo['id']}">
-                    <span class="badge rounded-pill bg-primary fw-light text-black">
-                        <i class="fa-solid fa-ellipsis"></i>
-                    </span>
-                </div>`;
-        }
-
-        slideElement.querySelector('#videoTags-' + gnamsInfo['id']).innerHTML = tagHTML;
-
-        if ($(".swiper-slide").length == 0) {
-            slideElement.querySelector("#gnamPlayer-" + gnamsInfo['id']).setAttribute("autoplay", "");
-            $("#gnamSlider").append(slideElement);
-        } else {
-            let firstGnamChild = $("#gnamSlider").children("[id^='gnam-']").first();
-            $(slideElement).insertBefore(firstGnamChild);
-        }
-
-        $.get('api/likes.php', {
-            "api_key": '<?php echo $_SESSION["api_key"] ?>',
-            "gnam_id": gnamsInfo['id']
-        }, function (data) {
-            let children = $("#likeButton-" + gnamsInfo['id']).children().children();
-            if (JSON.parse(data) && children.hasClass("color-secondary")) {
-                children.removeClass("color-secondary").addClass("color-alert");
-            }
         });
     }
 
