@@ -7,6 +7,33 @@
     let commentToReplyID = null;
     let currentGnamID = null;
     let gnamsQueue = null;
+    let startFrom = null;
+
+    function handleElementInsertion(mutationsList, observer) {
+        mutationsList.forEach((mutation) => {
+            if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
+                const targetElement = document.querySelectorAll('[id^="gnam-"]');
+                if (targetElement.length >= Math.min(3, gnamsQueue.length)) {
+                    // debugger;
+                    swiper.update();
+                    swiper.slideTo(startFrom, 0, false);
+                    currentGnamID = gnamsQueue[startFrom][0];
+                    observer.disconnect();
+                }
+            }
+        });
+    }
+
+    // Crea un nuovo observer con la funzione di callback
+    const observer = new MutationObserver(handleElementInsertion);
+
+    // Definisci le opzioni per l'observer
+    const observerOptions = {
+        childList: true, // Monitora le modifiche nella lista dei figli dell'elemento osservato
+        subtree: true, // Monitora anche i nodi figli dell'elemento osservato
+    };
+
+
 
     let swiper = new Swiper('.swiper', {
         direction: 'vertical',
@@ -22,9 +49,29 @@
                 $("#gnamPlayer-" + currentGnamID)[0].play();
             },
             slideNextTransitionEnd: function () {
-                if (gnamsQueue.length > 0) {
-                    drawGnamInQueue();
-                    reinitSwiper(swiper);
+                let newIndex = 0;
+                for (let index = 0; index < gnamsQueue.length; index++) {
+                    if (gnamsQueue[index][1] == true)
+                    {
+                        newIndex = index + 1;
+                    }
+                }
+                if (newIndex < gnamsQueue.length) {
+                    drawGnam(newIndex);
+                    swiper.update();
+                }
+            },
+            slidePrevTransitionEnd: function () {
+                let newIndex = 0;
+                for (let index = gnamsQueue.length-1; index >= 0; index--) {
+                    if (gnamsQueue[index][1] == true)
+                    {
+                        newIndex = index - 1;
+                    }
+                }
+                if (newIndex >= 0) {
+                    drawGnam(newIndex);
+                    swiper.update();
                 }
             }
         }
@@ -35,7 +82,7 @@
         if (urlParams.has('gnam')) {
             gnamsQueue = [(urlParams.get('gnam'))];
             drawGnamInQueue();
-            reinitSwiper(swiper);
+            swiper.update();;
             currentGnamID = urlParams.get('gnam');
         } else {
             gnamsInCookies = JSON.parse(readAndDeleteCookie('gnamsToWatch'));
@@ -48,18 +95,23 @@
                     currentGnamID = gnamsQueue[0];
                     for (let index = 0; index < Math.min(5, gnamsQueue.length + 1); index++) {
                         drawGnamInQueue();
-                        reinitSwiper(swiper);
+                        swiper.update();;
                     }
                 });
             } else {
-                gnamsQueue = gnamsInCookies['list'];
-                currentGnamIndex = gnamsQueue.indexOf(parseInt(gnamsInCookies['startFrom']));
-                const id = gnamsQueue.splice(currentGnamIndex, 1)[0];
-                currentGnamID = id;
-                drawGnamInQueue();
-                for (let index = 0; index < Math.min(5, gnamsQueue.length + 1); index++) {
-                    drawGnamInQueue();
-                    reinitSwiper(swiper);
+                observer.observe(document.querySelector("#gnamSlider"), observerOptions);
+                gnamsQueue = [];
+                for (let i = 0; i < gnamsInCookies['list'].length; i++) {
+                    const element = gnamsInCookies['list'][i];
+                    newArray = [element, false];
+                    gnamsQueue[i] = newArray;
+                    if(element == gnamsInCookies['startFrom']) {
+                        startFrom = i;
+                    }
+                }
+                //TODO non deve partire da 0
+                for (let index = 0; index < Math.min(5, gnamsQueue.length); index++) {
+                    drawGnam(index);
                 }
             }
         }
@@ -75,8 +127,8 @@
         });
     });
 
-    const drawGnamInQueue = () => {
-        const id = gnamsQueue.shift();
+    const drawGnam = (index) => {
+        const id = gnamsQueue[index][0];
         $.get("api/gnams.php", {
             api_key: "<?php echo $_SESSION['api_key']; ?>",
             gnam: id
@@ -94,68 +146,130 @@
         });
     }
 
+    const addGnamSlide = (gnamsInfo) => {
+        let gnamHtml = `
+            <video id="gnamPlayer-${gnamsInfo['id']}" class="w-100 h-100 object-fit-fill p-0" disablepictureinpicture loop playsinline preload="auto" poster="assets/gnams_thumbnails/${gnamsInfo['id']}.jpg" src="assets/gnams/${gnamsInfo['id']}.mp4" ></video>
+            <div  id="videoOverlay-${gnamsInfo['id']}" class="video-overlay">
+                <div class="container">
+                    <div class="row mb-3">
+                        <div class="col-10 align-self-end">
+                            <div class="row text-link" onclick="window.location.href = 'profile.php?user=${gnamsInfo['user_id']}'">
+                                <div class="col-3">
+                                    <img id="userImage-${gnamsInfo['id']}" class="border border-2 border-dark rounded-circle w-100" alt="${gnamsInfo['user_name']}" src="assets/profile_pictures/${gnamsInfo['user_id']}.jpg" />
+                                </div>
+                                <div class="col-9 d-flex align-items-center p-0">
+                                    <p id="userName-${gnamsInfo['id']}" class="fs-6 fw-bold m-0">${gnamsInfo['user_name']}</p>
+                                </div>
+                            </div>
+                            <div class="row" id="videoDescription">
+                                <span id="videoDescriptionShort-${gnamsInfo['id']}" class="fs-7 m-0">${gnamsInfo['short_description']}
+                                    <span class="fs-7 m-0 color-accent">Leggi di piú...</span>
+                                </span>
+                                <p id="videoDescriptionLong-${gnamsInfo['id']}" class="fs-7 m-0 d-none">${gnamsInfo['description']}</p>
+                            </div>
+                            <div class="row" id="videoTags-${gnamsInfo['id']}">
 
-    function reinitSwiper(swiper) {
-        setTimeout(function () {
-            swiper.update();
-        }, 500);
-    }
-
-    const showFullDescription = (e) => {
-        if (isDescriptionShort) {
-            isDescriptionShort = false;
-            $("#videoDescriptionShort-" + currentGnamID).addClass("d-none");
-            $("#videoDescriptionLong-" + currentGnamID).removeClass("d-none");
-            $("#moreTagsButton-" + currentGnamID).addClass("d-none");
-            let videoTags = $("#videoTags-" + currentGnamID + " .videoTag");
-            for (let i = 0; i < videoTags.length; i++) {
-                $(videoTags[i]).removeClass("d-none");
-            }
-            $("#videoOverlay-" + currentGnamID).css("background-image", "linear-gradient(0deg, var(--background), rgba(248, 215, 165, 0) 40%)");
-            e.stopPropagation();
-        }
-    }
-
-    const showShortDescription = (e) => {
-        if (!isDescriptionShort) {
-            isDescriptionShort = true;
-            $("#videoDescriptionLong-" + currentGnamID).addClass("d-none");
-            $("#videoDescriptionShort-" + currentGnamID).removeClass("d-none");
-            $("#moreTagsButton-" + currentGnamID).removeClass("d-none");
-            let videoTags = $("#videoTags-" + currentGnamID + " .videoTag");
-            for (let i = 2; i < videoTags.length; i++) {
-                $(videoTags[i]).addClass("d-none");
-            }
-            $("#videoOverlay-" + currentGnamID).css("background-image", "linear-gradient(0deg, var(--background), rgba(248, 215, 165, 0) 30%)");
-            e.stopPropagation();
-        }
-    }
-
-    const drawAllIngredients = (recipe) => {
-        $("#ingredients-" + currentGnamID).empty();
-        let ingredientsHTML = "";
-        recipe.forEach(ingredient => {
-
-            ingredientsHTML += `
-            <div class="row m-0 p-0 align-items-center">
-                <div class="col-8 m-0 p-1 d-flex align-items-center justify-content-start">
-                    <p class="m-0 fs-6">${ingredient["name"]}</p>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="container p-0">
+                                <div class="col">
+                                    <div class="row pb-4" id="recipeButton-${gnamsInfo['id']}">
+                                        <span><i class="fa-solid fa-utensils fa-2xl fa-fw color-secondary"></i></span>
+                                    </div>
+                                    <div class="row" id="likeButton-${gnamsInfo['id']}">
+                                        <span><i class="fa-solid fa-heart fa-2xl fa-fw color-secondary"></i></span>
+                                    </div>
+                                    <div class="row pt-2 color-accent fw-bold text-center">
+                                        <span id="likesCounter-${gnamsInfo['id']}">${gnamsInfo['likes_count']}</span>
+                                    </div>
+                                    <div class="row pt-2" id="commentsButton-${gnamsInfo['id']}">
+                                        <span><i class="fa-solid fa-comment-dots fa-2xl fa-fw color-secondary"></i></span>
+                                    </div>
+                                    <div class="row pt-2 color-accent fw-bold text-center">
+                                        <span id="commentsCounter-${gnamsInfo['id']}">0</span>
+                                    </div>
+                                    <div class="row pt-2" id="shareButton-${gnamsInfo['id']}">
+                                        <span><i class="fa-solid fa-share-nodes fa-2xl fa-fw color-secondary"></i></span>
+                                    </div>
+                                    <div class="row pt-2 color-accent fw-bold text-center">
+                                        <span id="shareCounter-${gnamsInfo['id']}">${gnamsInfo['shares_count']}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-4 m-0 p-1 d-flex align-items-center justify-content-end">
-                    <p class="m-0 fs-6 fw-bold ">${ingredient["quantity"]} ${ingredient["measurement_unit"]}</p>
-                </div>
-            </div>`;
+            </div>
+        `
+        const slideElement = document.createElement('div');
+        slideElement.classList.add("swiper-slide");
+        slideElement.id = "gnam-" + gnamsInfo['id'];
+        slideElement.innerHTML = gnamHtml.trim();
+
+        let count = 0;
+        let tagHTML = '';
+        gnamsInfo['tags'].forEach(tag => {
+            let tagText = tag['text'];
+
+            if (count < 2) {
+                tagHTML += `
+                    <div class="col-4 videoTag">
+                        <span class="badge rounded-pill bg-primary fw-light text-black">
+                            #${tagText}
+                        </span>
+                    </div>`;
+            } else {
+                tagHTML += `
+                    <div class="col-4 d-none videoTag">
+                        <span class="badge rounded-pill bg-primary fw-light text-black">
+                            #${tagText}
+                        </span>
+                    </div>`;
+            }
+            count++;
         });
-        $("#ingredients-" + currentGnamID).append(ingredientsHTML);
-    }
 
-    const buildURL = (siteSection, query) => {
-        return window.location.href.split("home")[0] + siteSection + ".php?" + query;
-    }
+        if (gnamsInfo['tags'].length > 2) {
+            tagHTML += `
+                <div class="col-2 pe-0" id="moreTagsButton-${gnamsInfo['id']}">
+                    <span class="badge rounded-pill bg-primary fw-light text-black">
+                        <i class="fa-solid fa-ellipsis"></i>
+                    </span>
+                </div>`;
+        }
 
-    const redirectToCurrentGnamUserPage = () => {
-        let redirectPath = buildURL("profile", "user=" +  $("#userName-" + currentGnamID));
-        window.location.href = redirectPath;
+        slideElement.querySelector('#videoTags-' + gnamsInfo['id']).innerHTML = tagHTML;
+
+        let indexOfId = null;
+        for (let index = 0; index < gnamsQueue.length; index++) {
+            if (gnamsQueue[index][0] == gnamsInfo['id']) {
+                indexOfId = index;
+            }
+        }
+        if ($(".swiper-slide").length == 0) {
+            slideElement.querySelector("#gnamPlayer-" + gnamsInfo['id']).setAttribute("autoplay", "");
+            $("#gnamSlider").append(slideElement);
+        } else {
+            if (indexOfId + 1 == gnamsQueue.length || gnamsQueue[indexOfId + 1][1] == true) {
+                let lastGnamChild = $("#gnamSlider").children("[id^='gnam-']").last();
+                $(slideElement).insertAfter(lastGnamChild);
+            } else if(indexOfId == 0 || gnamsQueue[indexOfId - 1][1] == true){
+                let firstGnamChild = $("#gnamSlider").children("[id^='gnam-']").first();
+                $(slideElement).insertAfter(firstGnamChild);
+            }
+        }
+        gnamsQueue[indexOfId][1] = true;
+
+        $.get('api/likes.php', {
+            "api_key": '<?php echo $_SESSION["api_key"] ?>',
+            "gnam_id": gnamsInfo['id']
+        }, function (data) {
+            let children = $("#likeButton-" + gnamsInfo['id']).children().children();
+            if (JSON.parse(data) && children.hasClass("color-secondary")) {
+                children.removeClass("color-secondary").addClass("color-alert");
+            }
+        });
     }
 
     const setInteractableItems = (gnam_id, recipe) => {
@@ -265,232 +379,61 @@
         });
     }
 
-    const addGnamBeforeSlide = (gnamsInfo) => {
-        let gnamHtml = `
-            <video id="gnamPlayer-${gnamsInfo['id']}" class="w-100 h-100 object-fit-fill p-0" disablepictureinpicture loop playsinline preload="auto" poster="assets/gnams_thumbnails/${gnamsInfo['id']}.jpg" src="assets/gnams/${gnamsInfo['id']}.mp4" ></video>
-            <div  id="videoOverlay-${gnamsInfo['id']}" class="video-overlay">
-                <div class="container">
-                    <div class="row mb-3">
-                        <div class="col-10 align-self-end">
-                            <div class="row text-link" onclick="window.location.href = 'profile.php?user=${gnamsInfo['user_id']}'">
-                                <div class="col-3">
-                                    <img id="userImage-${gnamsInfo['id']}" class="border border-2 border-dark rounded-circle w-100" alt="${gnamsInfo['user_name']}" src="assets/profile_pictures/${gnamsInfo['user_id']}.jpg" />
-                                </div>
-                                <div class="col-9 d-flex align-items-center p-0">
-                                    <p id="userName-${gnamsInfo['id']}" class="fs-6 fw-bold m-0">${gnamsInfo['user_name']}</p>
-                                </div>
-                            </div>
-                            <div class="row" id="videoDescription">
-                                <span id="videoDescriptionShort-${gnamsInfo['id']}" class="fs-7 m-0">${gnamsInfo['short_description']}
-                                    <span class="fs-7 m-0 color-accent">Leggi di piú...</span>
-                                </span>
-                                <p id="videoDescriptionLong-${gnamsInfo['id']}" class="fs-7 m-0 d-none">${gnamsInfo['description']}</p>
-                            </div>
-                            <div class="row" id="videoTags-${gnamsInfo['id']}">
-
-                            </div>
-                        </div>
-                        <div class="col-2">
-                            <div class="container p-0">
-                                <div class="col">
-                                    <div class="row pb-4" id="recipeButton-${gnamsInfo['id']}">
-                                        <span><i class="fa-solid fa-utensils fa-2xl fa-fw color-secondary"></i></span>
-                                    </div>
-                                    <div class="row" id="likeButton-${gnamsInfo['id']}">
-                                        <span><i class="fa-solid fa-heart fa-2xl fa-fw color-secondary"></i></span>
-                                    </div>
-                                    <div class="row pt-2 color-accent fw-bold text-center">
-                                        <span id="likesCounter-${gnamsInfo['id']}">${gnamsInfo['likes_count']}</span>
-                                    </div>
-                                    <div class="row pt-2" id="commentsButton-${gnamsInfo['id']}">
-                                        <span><i class="fa-solid fa-comment-dots fa-2xl fa-fw color-secondary"></i></span>
-                                    </div>
-                                    <div class="row pt-2 color-accent fw-bold text-center">
-                                        <span id="commentsCounter-${gnamsInfo['id']}">0</span>
-                                    </div>
-                                    <div class="row pt-2" id="shareButton-${gnamsInfo['id']}">
-                                        <span><i class="fa-solid fa-share-nodes fa-2xl fa-fw color-secondary"></i></span>
-                                    </div>
-                                    <div class="row pt-2 color-accent fw-bold text-center">
-                                        <span id="shareCounter-${gnamsInfo['id']}">${gnamsInfo['shares_count']}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `
-        const slideElement = document.createElement('div');
-        slideElement.classList.add("swiper-slide");
-        slideElement.id = "gnam-" + gnamsInfo['id'];
-        slideElement.innerHTML = gnamHtml.trim();
-
-        let count = 0;
-        let tagHTML = '';
-        gnamsInfo['tags'].forEach(tag => {
-            let tagText = tag['text'];
-
-            if (count < 2) {
-                tagHTML += `
-                    <div class="col-4 videoTag">
-                        <span class="badge rounded-pill bg-primary fw-light text-black">
-                            #${tagText}
-                        </span>
-                    </div>`;
-            } else {
-                tagHTML += `
-                    <div class="col-4 d-none videoTag">
-                        <span class="badge rounded-pill bg-primary fw-light text-black">
-                            #${tagText}
-                        </span>
-                    </div>`;
+    const showFullDescription = (e) => {
+        if (isDescriptionShort) {
+            isDescriptionShort = false;
+            $("#videoDescriptionShort-" + currentGnamID).addClass("d-none");
+            $("#videoDescriptionLong-" + currentGnamID).removeClass("d-none");
+            $("#moreTagsButton-" + currentGnamID).addClass("d-none");
+            let videoTags = $("#videoTags-" + currentGnamID + " .videoTag");
+            for (let i = 0; i < videoTags.length; i++) {
+                $(videoTags[i]).removeClass("d-none");
             }
-            count++;
-        });
-
-        if (gnamsInfo['tags'].length > 2) {
-            tagHTML += `
-                <div class="col-2 pe-0" id="moreTagsButton-${gnamsInfo['id']}">
-                    <span class="badge rounded-pill bg-primary fw-light text-black">
-                        <i class="fa-solid fa-ellipsis"></i>
-                    </span>
-                </div>`;
+            $("#videoOverlay-" + currentGnamID).css("background-image", "linear-gradient(0deg, var(--background), rgba(248, 215, 165, 0) 40%)");
+            e.stopPropagation();
         }
-
-        slideElement.querySelector('#videoTags-' + gnamsInfo['id']).innerHTML = tagHTML;
-
-        if ($(".swiper-slide").length == 0) {
-            slideElement.querySelector("#gnamPlayer-" + gnamsInfo['id']).setAttribute("autoplay", "");
-            $("#gnamSlider").append(slideElement);
-        } else {
-            let firstGnamChild = $("#gnamSlider").children("[id^='gnam-']").first();
-            $(slideElement).insertBefore(firstGnamChild);
-        }
-
-        $.get('api/likes.php', {
-            "api_key": '<?php echo $_SESSION["api_key"] ?>',
-            "gnam_id": gnamsInfo['id']
-        }, function (data) {
-            let children = $("#likeButton-" + gnamsInfo['id']).children().children();
-            if (JSON.parse(data) && children.hasClass("color-secondary")) {
-                children.removeClass("color-secondary").addClass("color-alert");
-            }
-        });
     }
 
-    const addGnamSlide = (gnamsInfo) => {
-        let gnamHtml = `
-            <video id="gnamPlayer-${gnamsInfo['id']}" class="w-100 h-100 object-fit-fill p-0" disablepictureinpicture loop playsinline preload="auto" poster="assets/gnams_thumbnails/${gnamsInfo['id']}.jpg" src="assets/gnams/${gnamsInfo['id']}.mp4" ></video>
-            <div  id="videoOverlay-${gnamsInfo['id']}" class="video-overlay">
-                <div class="container">
-                    <div class="row mb-3">
-                        <div class="col-10 align-self-end">
-                            <div class="row text-link" onclick="window.location.href = 'profile.php?user=${gnamsInfo['user_id']}'">
-                                <div class="col-3">
-                                    <img id="userImage-${gnamsInfo['id']}" class="border border-2 border-dark rounded-circle w-100" alt="${gnamsInfo['user_name']}" src="assets/profile_pictures/${gnamsInfo['user_id']}.jpg" />
-                                </div>
-                                <div class="col-9 d-flex align-items-center p-0">
-                                    <p id="userName-${gnamsInfo['id']}" class="fs-6 fw-bold m-0">${gnamsInfo['user_name']}</p>
-                                </div>
-                            </div>
-                            <div class="row" id="videoDescription">
-                                <span id="videoDescriptionShort-${gnamsInfo['id']}" class="fs-7 m-0">${gnamsInfo['short_description']}
-                                    <span class="fs-7 m-0 color-accent">Leggi di piú...</span>
-                                </span>
-                                <p id="videoDescriptionLong-${gnamsInfo['id']}" class="fs-7 m-0 d-none">${gnamsInfo['description']}</p>
-                            </div>
-                            <div class="row" id="videoTags-${gnamsInfo['id']}">
+    const showShortDescription = (e) => {
+        if (!isDescriptionShort) {
+            isDescriptionShort = true;
+            $("#videoDescriptionLong-" + currentGnamID).addClass("d-none");
+            $("#videoDescriptionShort-" + currentGnamID).removeClass("d-none");
+            $("#moreTagsButton-" + currentGnamID).removeClass("d-none");
+            let videoTags = $("#videoTags-" + currentGnamID + " .videoTag");
+            for (let i = 2; i < videoTags.length; i++) {
+                $(videoTags[i]).addClass("d-none");
+            }
+            $("#videoOverlay-" + currentGnamID).css("background-image", "linear-gradient(0deg, var(--background), rgba(248, 215, 165, 0) 30%)");
+            e.stopPropagation();
+        }
+    }
 
-                            </div>
-                        </div>
-                        <div class="col-2">
-                            <div class="container p-0">
-                                <div class="col">
-                                    <div class="row pb-4" id="recipeButton-${gnamsInfo['id']}">
-                                        <span><i class="fa-solid fa-utensils fa-2xl fa-fw color-secondary"></i></span>
-                                    </div>
-                                    <div class="row" id="likeButton-${gnamsInfo['id']}">
-                                        <span><i class="fa-solid fa-heart fa-2xl fa-fw color-secondary"></i></span>
-                                    </div>
-                                    <div class="row pt-2 color-accent fw-bold text-center">
-                                        <span id="likesCounter-${gnamsInfo['id']}">${gnamsInfo['likes_count']}</span>
-                                    </div>
-                                    <div class="row pt-2" id="commentsButton-${gnamsInfo['id']}">
-                                        <span><i class="fa-solid fa-comment-dots fa-2xl fa-fw color-secondary"></i></span>
-                                    </div>
-                                    <div class="row pt-2 color-accent fw-bold text-center">
-                                        <span id="commentsCounter-${gnamsInfo['id']}">0</span>
-                                    </div>
-                                    <div class="row pt-2" id="shareButton-${gnamsInfo['id']}">
-                                        <span><i class="fa-solid fa-share-nodes fa-2xl fa-fw color-secondary"></i></span>
-                                    </div>
-                                    <div class="row pt-2 color-accent fw-bold text-center">
-                                        <span id="shareCounter-${gnamsInfo['id']}">${gnamsInfo['shares_count']}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+    const drawAllIngredients = (recipe) => {
+        $("#ingredients-" + currentGnamID).empty();
+        let ingredientsHTML = "";
+        recipe.forEach(ingredient => {
+
+            ingredientsHTML += `
+            <div class="row m-0 p-0 align-items-center">
+                <div class="col-8 m-0 p-1 d-flex align-items-center justify-content-start">
+                    <p class="m-0 fs-6">${ingredient["name"]}</p>
                 </div>
-            </div>
-        `
-        const slideElement = document.createElement('div');
-        slideElement.classList.add("swiper-slide");
-        slideElement.id = "gnam-" + gnamsInfo['id'];
-        slideElement.innerHTML = gnamHtml.trim();
-
-        let count = 0;
-        let tagHTML = '';
-        gnamsInfo['tags'].forEach(tag => {
-            let tagText = tag['text'];
-
-            if (count < 2) {
-                tagHTML += `
-                    <div class="col-4 videoTag">
-                        <span class="badge rounded-pill bg-primary fw-light text-black">
-                            #${tagText}
-                        </span>
-                    </div>`;
-            } else {
-                tagHTML += `
-                    <div class="col-4 d-none videoTag">
-                        <span class="badge rounded-pill bg-primary fw-light text-black">
-                            #${tagText}
-                        </span>
-                    </div>`;
-            }
-            count++;
+                <div class="col-4 m-0 p-1 d-flex align-items-center justify-content-end">
+                    <p class="m-0 fs-6 fw-bold ">${ingredient["quantity"]} ${ingredient["measurement_unit"]}</p>
+                </div>
+            </div>`;
         });
+        $("#ingredients-" + currentGnamID).append(ingredientsHTML);
+    }
 
-        if (gnamsInfo['tags'].length > 2) {
-            tagHTML += `
-                <div class="col-2 pe-0" id="moreTagsButton-${gnamsInfo['id']}">
-                    <span class="badge rounded-pill bg-primary fw-light text-black">
-                        <i class="fa-solid fa-ellipsis"></i>
-                    </span>
-                </div>`;
-        }
+    const buildURL = (siteSection, query) => {
+        return window.location.href.split("home")[0] + siteSection + ".php?" + query;
+    }
 
-        slideElement.querySelector('#videoTags-' + gnamsInfo['id']).innerHTML = tagHTML;
-
-        if ($(".swiper-slide").length == 0) {
-            slideElement.querySelector("#gnamPlayer-" + gnamsInfo['id']).setAttribute("autoplay", "");
-            $("#gnamSlider").append(slideElement);
-        } else {
-            let lastGnamChild = $("#gnamSlider").children("[id^='gnam-']").last();
-            $(slideElement).insertAfter(lastGnamChild);
-        }
-
-        $.get('api/likes.php', {
-            "api_key": '<?php echo $_SESSION["api_key"] ?>',
-            "gnam_id": gnamsInfo['id']
-        }, function (data) {
-            let children = $("#likeButton-" + gnamsInfo['id']).children().children();
-            if (JSON.parse(data) && children.hasClass("color-secondary")) {
-                children.removeClass("color-secondary").addClass("color-alert");
-            }
-        });
+    const redirectToCurrentGnamUserPage = () => {
+        let redirectPath = buildURL("profile", "user=" + $("#userName-" + currentGnamID));
+        window.location.href = redirectPath;
     }
 
 
