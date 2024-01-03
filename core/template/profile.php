@@ -81,7 +81,7 @@ $userLikedGnams = getUserLikedGnams($user['id']);
             if(count($userGnams) > 0) {
                 echo '<div class="row">';
                 for($i = 0; $i < count($userGnams); $i++) {
-                    echo '<img class="img-grid col-4 btn-bounce" onclick="watchGnamsFrom(' . $userGnams[$i]['id'] . ', getGnamsIdsFromDiv(\'postedGnams\'))" alt="Copertina Gnam di ' . $user['name'] . '" src="assets/gnams_thumbnails/' . $userGnams[$i]['id'] . '.jpg" />';
+                    echo '<img class="img-grid col-4 btn-bounce" onclick="setGnamsToWatchFrom(' . $userGnams[$i]['id'] . ', getGnamsIdsFromDiv(\'postedGnams\'))" alt="Copertina Gnam di ' . $user['name'] . '" src="assets/gnams_thumbnails/' . $userGnams[$i]['id'] . '.jpg" />';
                     $gnamPerRow--;
                     if($i == count($userGnams) - 1) {
                         echo '</div>';
@@ -105,7 +105,7 @@ $userLikedGnams = getUserLikedGnams($user['id']);
             if(count($userLikedGnams) > 0) {
                 echo '<div class="row">';
                 for($i = 0; $i < count($userLikedGnams); $i++) {
-                    echo '<img class="img-grid col-4 btn-bounce" onclick="watchGnamsFrom(' . $userLikedGnams[$i]['gnam_id'] . ', getGnamsIdsFromDiv(\'likedGnams\'))" alt="Copertina Gnam di ' . $user['name'] . '" src="assets/gnams_thumbnails/' . $userLikedGnams[$i]['gnam_id'] . '.jpg" />';
+                    echo '<img class="img-grid col-4 btn-bounce" onclick="setGnamsToWatchFrom(' . $userLikedGnams[$i]['gnam_id'] . ', getGnamsIdsFromDiv(\'likedGnams\'))" alt="Copertina Gnam di ' . $user['name'] . '" src="assets/gnams_thumbnails/' . $userLikedGnams[$i]['gnam_id'] . '.jpg" />';
                     $gnamPerRow--;
                     if($i == count($userLikedGnams) - 1) {
                         echo '</div>';

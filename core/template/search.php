@@ -140,7 +140,7 @@
             let rowDiv = $('<div class="row my-3">');
 
             for (let o in currentResult) {
-                let img = $(`<img class="img-grid col-4 btn-bounce" onclick="watchGnamsFrom(${currentResult[o].id}, currentResult)" alt="Copertina gnam" src="assets/gnams_thumbnails/${currentResult[o].id}.jpg" />`);
+                let img = $(`<img class="img-grid col-4 btn-bounce" onclick="setGnamsToWatchFrom(${currentResult[o].id}, currentResult)" alt="Copertina gnam" src="assets/gnams_thumbnails/${currentResult[o].id}.jpg" />`);
                 rowDiv.append(img);
                 gnamPerRow--;
 
