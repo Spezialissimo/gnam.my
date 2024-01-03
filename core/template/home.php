@@ -7,7 +7,6 @@
     let commentToReplyID = null;
     let currentGnamID = null;
     let gnamsQueue = null;
-    let startFrom = null;
     let firstSlideIndex = 0;
     let threshold = 3;
     let gnamsLeft = threshold;
@@ -119,15 +118,12 @@
                 api_key: "<?php echo $_SESSION['api_key']; ?>",
                 gnam: id
             }, function (gnamsData) {
-                gnamInfo = JSON.parse(gnamsData);
-                addGnamSlide(gnamInfo);
-                setInteractableItems(id, gnamInfo['recipe']);
+                addGnamSlide(JSON.parse(gnamsData));
                 $.get("api/comments.php", {
                     api_key: "<?php echo $_SESSION['api_key']; ?>",
                     gnam_id: id
                 }, function (commentsData) {
-                    comments = JSON.parse(commentsData);
-                    setComments(comments, id);
+                    setComments(JSON.parse(commentsData), id);
                     gnamsLeft--;
                     if (gnamsLeft > 0 && newIndex != gnamsQueue.length - 1) {
                         drawFirstGnams();
@@ -148,15 +144,12 @@
             api_key: "<?php echo $_SESSION['api_key']; ?>",
             gnam: id
         }, function (gnamsData) {
-            gnamInfo = JSON.parse(gnamsData);
-            addGnamSlide(gnamInfo);
-            setInteractableItems(id, gnamInfo['recipe']);
+            addGnamSlide(JSON.parse(gnamsData));
             $.get("api/comments.php", {
                 api_key: "<?php echo $_SESSION['api_key']; ?>",
                 gnam_id: id
             }, function (commentsData) {
-                comments = JSON.parse(commentsData);
-                setComments(comments, id);
+                setComments(JSON.parse(commentsData), id);
             });
             document.querySelector("#gnam-" + id).classList.remove('d-none');
             if (wentUp) {
@@ -176,8 +169,8 @@
             <div  id="videoOverlay-${gnamsInfo['id']}" class="video-overlay">
                 <div class="container">
                     <div class="row mb-3">
-                        <div class="col-10 align-self-end">
-                            <div class="row text-link" onclick="window.location.href = 'profile.php?user=${gnamsInfo['user_id']}'">
+                        <div id="descriptionBox-${gnamsInfo['id']}" class="col-10 align-self-end">
+                            <div class="row text-link">
                                 <div class="col-3">
                                     <img id="userImage-${gnamsInfo['id']}" class="border border-2 border-dark rounded-circle w-100" alt="${gnamsInfo['user_name']}" src="assets/profile_pictures/${gnamsInfo['user_id']}.jpg" />
                                 </div>
@@ -296,13 +289,11 @@
                 children.removeClass("color-secondary").addClass("color-alert");
             }
         });
-    }
 
-    const setInteractableItems = (gnam_id, recipe) => {
-        $("#likeButton-" + gnam_id).each(function () {
+        $("#likeButton-" + gnamsInfo['id']).each(function () {
             let likeButton = $(this);
             let children = likeButton.children().children();
-            let likesCounter = $("#likesCounter-" + gnam_id);
+            let likesCounter = $("#likesCounter-" + gnamsInfo['id']);
 
             likeButton.on("click", function (e) {
                 if (children.hasClass("color-secondary")) {
@@ -314,7 +305,7 @@
                 }
                 $.post('api/likes.php', {
                     "api_key": '<?php echo $_SESSION["api_key"] ?>',
-                    "gnam_id": gnam_id,
+                    "gnam_id": gnamsInfo['id'],
                     "action": "TOGGLE_LIKE"
                 });
                 e.stopPropagation();
@@ -322,11 +313,10 @@
         });
 
         isDescriptionShort = true;
-        $("#videoDescriptionShort-" + gnam_id).on("click", showFullDescription);
-        $("#videoTags-" + gnam_id).on("click", showFullDescription);
-        $("#videoOverlay-" + gnam_id).on("click", showShortDescription);
+        $("#descriptionBox-" + gnamsInfo['id']).on("click", showFullDescription);
+        $("#videoOverlay-" + gnamsInfo['id']).on("click", showShortDescription);
 
-        $("#shareButton-" + gnam_id).on("click", function (e) {
+        $("#shareButton-" + gnamsInfo['id']).on("click", function (e) {
             let swalContent = `
             <div class='row-md-2 py-2 text-center text-black'>
                 <div class='container'>
@@ -357,7 +347,7 @@
             e.stopPropagation();
         });
 
-        $("#recipeButton-" + gnam_id).on("click", function (e) {
+        $("#recipeButton-" + gnamsInfo['id']).on("click", function (e) {
             let html = `
                 <div class="d-flex align-items-center justify-content-center mb-2">
                     <p class="m-0 me-2 fs-6">Numero di porzioni:</p>
@@ -378,7 +368,7 @@
                     </div>
                 </div>
                 <hr class="my-2" />
-                <div class="text-center" id="ingredients-${gnam_id}">
+                <div class="text-center" id="ingredients-${gnamsInfo['id']}">
                 </div>
                 <hr class="m-0 mt-2" />
                 </div>
@@ -386,22 +376,24 @@
             showSwal('Ricetta', html);
             $('#portionsSelect option[value="' + selectedPortions + '"]').attr("selected", true);
             $("#portionsSelect").on("change", function (e) {
-                recipeWithUpdatedPortion = JSON.parse(JSON.stringify(recipe));
+                recipeWithUpdatedPortion = JSON.parse(JSON.stringify(gnamsInfo['recipe']));
                 recipeWithUpdatedPortion.forEach(ingredient => {
                     ingredient['quantity'] = ingredient['quantity'] * (this).value;
                 });
                 drawAllIngredients(recipeWithUpdatedPortion);
             });
-            drawAllIngredients(recipe);
+            drawAllIngredients(gnamsInfo['recipe']);
             e.stopPropagation();
         });
 
-        $("#userImage-" + gnam_id).on("click", function () {
-            redirectToCurrentGnamUserPage();
+        $("#userImage-" + gnamsInfo['id']).on("click", function (e) {
+            redirectToGnamUserPage(gnamsInfo['user_id']);
+            e.stopPropagation();
         });
 
-        $("#userName-" + gnam_id).on("click", function () {
-            redirectToCurrentGnamUserPage();
+        $("#userName-" + gnamsInfo['id']).on("click", function (e) {
+            redirectToGnamUserPage(gnamsInfo['user_id']);
+            e.stopPropagation();
         });
     }
 
@@ -457,54 +449,9 @@
         return window.location.href.split("home")[0] + siteSection + ".php?" + query;
     }
 
-    const redirectToCurrentGnamUserPage = () => {
-        let redirectPath = buildURL("profile", "user=" + $("#userName-" + currentGnamID));
+    const redirectToGnamUserPage = (userId) => {
+        let redirectPath = buildURL("profile", "user=" + userId);
         window.location.href = redirectPath;
-    }
-
-
-    //#region Commenti
-
-    const hideReplyToBox = () => {
-        $("#replyToDiv-" + currentGnamID).addClass("d-none");
-        commentToReplyID = null;
-    }
-
-    const replyButtonHandler = (e) => {
-        const id = $(e.target).attr('id').split('-')[1];
-        const parent = $("#comment-" + id);
-        let commenterName = "";
-        if (parent.hasClass('subcomment')) {
-            commentToReplyID = $(e.target).attr('class').split(' ')[0].split('-')[1];
-        } else {
-            commentToReplyID = id;
-        }
-
-        commenterName = parent.find("#user_name-" + id).text();
-        $("#replyToDiv-" + currentGnamID).removeClass("d-none");
-        $("#replyToName-" + currentGnamID).text(commenterName);
-    }
-
-    const publishComment = () => {
-        const commentText = $("#commentField-" + currentGnamID).val();
-        if (commentText.length === 0) return;
-        $.post("api/comments.php", {
-            api_key: "<?php echo $_SESSION['api_key']; ?>",
-            "gnam_id": currentGnamID,
-            "text": commentText,
-            "parent_comment_id": commentToReplyID
-        }, (result) => {
-            $.get("api/comments.php", {
-                api_key: "<?php echo $_SESSION['api_key']; ?>",
-                gnam_id: currentGnamID
-            }, function (commentsData) {
-                let comments = JSON.parse(commentsData);
-                $("#commentsBoxContainer-" + currentGnamID)
-                    .parent().html(getCommentsHTML(comments));
-                setInteractableItemsComments(comments);
-                setComments(comments, currentGnamID);
-            });
-        });
     }
 
     const getCommentsHTML = (comments) => {
@@ -581,12 +528,12 @@
                     <div id="comment-${comment['id']}" class="container comment py-1">
                         <div class="row">
                             <div class="col-2 p-0">
-                                <img class="border border-2 border-dark rounded-circle w-100" alt="${comment['user_name']}"
-                                    src="assets/profile_pictures/${comment['user_id']}.jpg" onclick="window.location.href = 'profile.php?user=${comment['user_id']}'" />
+                                <img id="commenterImg-${comment['id']}" class="border border-2 border-dark rounded-circle w-100" alt="${comment['user_name']}"
+                                    src="assets/profile_pictures/${comment['user_id']}.jpg"/>
                             </div>
                             <div class="col">
-                                <div class="row-md-1 text-start" onclick="window.location.href = 'profile.php?user=${comment['user_id']}'">
-                                    <span id="user_name-${comment['id']}" class="text-link">${comment['user_name']}</span>
+                                <div class="row-md-1 text-start">
+                                    <span id="commenterUserName-${comment['id']}" class="text-link">${comment['user_name']}</span>
                                 </div>
                                 <div class="row-md text-normal-black fs-7 text-start">
                                     <p class="m-0">${comment['text']}</p>
@@ -610,11 +557,11 @@
                                 <div class="row">
                                     <div class="col-2 p-0">
                                         <img class="border border-2 border-dark rounded-circle w-100" alt="${comment['user_name']}"
-                                            src="assets/profile_pictures/${comment['user_id']}.jpg" onclick="window.location.href = 'profile.php?user=${comment['user_id']}'" />
+                                            src="assets/profile_pictures/${comment['user_id']}.jpg"/>
                                     </div>
                                     <div class="col">
-                                        <div class="row-md-1 text-start" onclick="window.location.href = 'profile.php?user=${comment['user_id']}'">
-                                            <span id="user_name-${comment['id']}" class="text-link">${comment['user_name']}</span>
+                                        <div class="row-md-1 text-start">
+                                            <span id="commenterUserName-${comment['id']}" class="text-link">${comment['user_name']}</span>
                                         </div>
                                         <div class="row-md text-normal-black fs-7 text-start">
                                             <p class="m-0">${comment['text']}</p>
@@ -635,22 +582,60 @@
         }
     }
 
-    const setInteractableItemsComments = (comments) => {
-        comments.forEach(comment => {
-            $("#replyButton-" + comment['id']).on("click", replyButtonHandler);
-        });
-        $("#commentButton-" + currentGnamID).on("click", publishComment);
-        $("#closeReplyTo-" + currentGnamID).on("click", hideReplyToBox);
-    }
-
+    // TODO Capire perche si puo commentare una volta sola
     const setComments = (comments, gnam_id) => {
         $("#commentsCounter-" + gnam_id).text(comments.length);
         $("#commentsButton-" + gnam_id).on('click', function (e) {
             showSwal('Commenti', getCommentsHTML(comments));
-            setInteractableItemsComments(comments);
+            comments.forEach(comment => {
+                $("#replyButton-" + comment['id']).on("click", function (e) {
+                    const id = $(e.target).attr('id').split('-')[1];
+                    const parent = $("#comment-" + id);
+                    let commenterName = "";
+                    if (parent.hasClass('subcomment')) {
+                        commentToReplyID = $(e.target).attr('class').split(' ')[0].split('-')[1];
+                    } else {
+                        commentToReplyID = id;
+                    }
+
+                    commenterName = parent.find("#commenterUserName-" + id).text();
+                    $("#replyToDiv-" + currentGnamID).removeClass("d-none");
+                    $("#replyToName-" + currentGnamID).text(commenterName);
+
+                });
+                $("#commenterUserName-" + comment['id']).on("click", function () {
+                    redirectToGnamUserPage(comment['user_id']);
+                });
+                $("#commenterImg-" + comment['id']).on("click", function () {
+                    redirectToGnamUserPage(comment['user_id']);
+                });
+            });
+            $("#commentButton-" + currentGnamID).on("click", function () {
+                const commentText = $("#commentField-" + currentGnamID).val();
+                if (commentText.length === 0) return;
+                $.post("api/comments.php", {
+                    api_key: "<?php echo $_SESSION['api_key']; ?>",
+                    "gnam_id": currentGnamID,
+                    "text": commentText,
+                    "parent_comment_id": commentToReplyID
+                }, (result) => {
+                    $.get("api/comments.php", {
+                        api_key: "<?php echo $_SESSION['api_key']; ?>",
+                        gnam_id: currentGnamID
+                    }, function (commentsData) {
+                        let comments = JSON.parse(commentsData);
+                        $("#commentsBoxContainer-" + currentGnamID)
+                            .parent().html(getCommentsHTML(comments));
+                        setComments(comments, currentGnamID);
+                    });
+                });
+            });
+                $("#closeReplyTo-" + currentGnamID).on("click", function() {
+                    $("#replyToDiv-" + currentGnamID).addClass("d-none");
+                    commentToReplyID = null;
+                });
             e.stopPropagation();
         });
     }
 
-    //#endregion
 </script>
