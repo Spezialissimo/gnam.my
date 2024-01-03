@@ -8,81 +8,85 @@
     let currentGnamID = null;
     let gnamsQueue = null;
     let startFrom = null;
+    let firstSlideIndex = 0;
 
-    function handleElementInsertion(mutationsList, observer) {
-        mutationsList.forEach((mutation) => {
-            if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
-                const targetElement = document.querySelectorAll('[id^="gnam-"]');
-                if (targetElement.length >= Math.min(3, gnamsQueue.length)) {
-                    // debugger;
-                    swiper.update();
-                    swiper.slideTo(startFrom, 0, false);
-                    currentGnamID = gnamsQueue[startFrom][0];
-                    observer.disconnect();
+    // function handleElementInsertion(mutationsList, observer) {
+    //     mutationsList.forEach((mutation) => {
+    //         if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
+    //             const targetElement = document.querySelectorAll('[id^="gnam-"]');
+    //             if (targetElement.length >= Math.min(3, gnamsQueue.length)) {
+    //                 // debugger;
+    //                 swiper.update();
+    //                 swiper.slideTo(startFrom, 0, false);
+    //                 currentGnamID = gnamsQueue[startFrom][0];
+    //                 observer.disconnect();
+    //             }
+    //         }
+    //     });
+    // }
+
+    // // Crea un nuovo observer con la funzione di callback
+    // const observer = new MutationObserver(handleElementInsertion);
+
+    // // Definisci le opzioni per l'observer
+    // const observerOptions = {
+    //     childList: true, // Monitora le modifiche nella lista dei figli dell'elemento osservato
+    //     subtree: true, // Monitora anche i nodi figli dell'elemento osservato
+    // };
+
+
+    //Init false, InitialSlide sempre e init nel codice
+    let swiper;
+
+    const initializeSwiper = () => {
+        swiper = new Swiper('.swiper', {
+            initialSlide: firstSlideIndex,
+            direction: 'vertical',
+            loop: false,
+            keyboard: {
+                enabled: true
+            },
+            on: {
+                slideChangeTransitionEnd: function () {
+                    // $("#gnamPlayer-" + currentGnamID)[0].pause();
+                    // $("#gnamPlayer-" + currentGnamID)[0].currentTime = 0;
+                    // currentGnamID = $(".swiper-slide-active").attr('id').split('-')[1];
+                    // $("#gnamPlayer-" + currentGnamID)[0].play();
+                },
+                slideNextTransitionEnd: function () {
+                    let newIndex = 0;
+                    for (let index = 0; index < gnamsQueue.length; index++) {
+                        if (gnamsQueue[index][1] == true) {
+                            newIndex = index + 1;
+                        }
+                    }
+                    if (newIndex < gnamsQueue.length) {
+                        drawGnam(newIndex);
+                        swiper.update();
+                    }
+                },
+                slidePrevTransitionEnd: function () {
+                    let newIndex = 0;
+                    for (let index = gnamsQueue.length - 1; index >= 0; index--) {
+                        if (gnamsQueue[index][1] == true) {
+                            newIndex = index - 1;
+                        }
+                    }
+                    if (newIndex >= 0) {
+                        drawGnam(newIndex);
+                        swiper.update();
+                    }
                 }
             }
         });
     }
 
-    // Crea un nuovo observer con la funzione di callback
-    const observer = new MutationObserver(handleElementInsertion);
-
-    // Definisci le opzioni per l'observer
-    const observerOptions = {
-        childList: true, // Monitora le modifiche nella lista dei figli dell'elemento osservato
-        subtree: true, // Monitora anche i nodi figli dell'elemento osservato
-    };
-
-
-
-    let swiper = new Swiper('.swiper', {
-        direction: 'vertical',
-        loop: false,
-        keyboard: {
-            enabled: true
-        },
-        on: {
-            slideChangeTransitionEnd: function () {
-                $("#gnamPlayer-" + currentGnamID)[0].pause();
-                $("#gnamPlayer-" + currentGnamID)[0].currentTime = 0;
-                currentGnamID = $(".swiper-slide-active").attr('id').split('-')[1];
-                $("#gnamPlayer-" + currentGnamID)[0].play();
-            },
-            slideNextTransitionEnd: function () {
-                let newIndex = 0;
-                for (let index = 0; index < gnamsQueue.length; index++) {
-                    if (gnamsQueue[index][1] == true)
-                    {
-                        newIndex = index + 1;
-                    }
-                }
-                if (newIndex < gnamsQueue.length) {
-                    drawGnam(newIndex);
-                    swiper.update();
-                }
-            },
-            slidePrevTransitionEnd: function () {
-                let newIndex = 0;
-                for (let index = gnamsQueue.length-1; index >= 0; index--) {
-                    if (gnamsQueue[index][1] == true)
-                    {
-                        newIndex = index - 1;
-                    }
-                }
-                if (newIndex >= 0) {
-                    drawGnam(newIndex);
-                    swiper.update();
-                }
-            }
-        }
-    });
-
     $(window).on("load", function () {
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.has('gnam')) {
             gnamsQueue = [(urlParams.get('gnam'))];
-            drawGnamInQueue();
-            swiper.update();;
+            drawGnam();
+            swiper.update();
             currentGnamID = urlParams.get('gnam');
         } else {
             gnamsInCookies = JSON.parse(readAndDeleteCookie('gnamsToWatch'));
@@ -94,25 +98,23 @@
                     gnamsQueue = JSON.parse(data);
                     currentGnamID = gnamsQueue[0];
                     for (let index = 0; index < Math.min(5, gnamsQueue.length + 1); index++) {
-                        drawGnamInQueue();
-                        swiper.update();;
+                        drawGnam();
+                        swiper.update();
                     }
                 });
             } else {
-                observer.observe(document.querySelector("#gnamSlider"), observerOptions);
+                //observer.observe(document.querySelector("#gnamSlider"), observerOptions);
                 gnamsQueue = [];
                 for (let i = 0; i < gnamsInCookies['list'].length; i++) {
                     const element = gnamsInCookies['list'][i];
                     newArray = [element, false];
                     gnamsQueue[i] = newArray;
-                    if(element == gnamsInCookies['startFrom']) {
-                        startFrom = i;
+                    if (element == gnamsInCookies['startFrom']) {
+                        firstSlideIndex = i;
                     }
                 }
-                //TODO non deve partire da 0
-                for (let index = 0; index < Math.min(5, gnamsQueue.length); index++) {
-                    drawGnam(index);
-                }
+
+                drawFirstGnams();
             }
         }
 
@@ -126,6 +128,40 @@
             }
         });
     });
+
+    let threshold = 3;
+    let gnamsLeft = threshold;
+
+    const drawFirstGnams = () => {
+        const id = gnamsQueue[threshold - gnamsLeft][0];
+        $.get("api/gnams.php", {
+            api_key: "<?php echo $_SESSION['api_key']; ?>",
+            gnam: id
+        }, function (gnamsData) {
+            gnamInfo = JSON.parse(gnamsData);
+            addGnamSlide(gnamInfo);
+            setInteractableItems(id, gnamInfo['recipe']);
+            $.get("api/comments.php", {
+                api_key: "<?php echo $_SESSION['api_key']; ?>",
+                gnam_id: id
+            }, function (commentsData) {
+                comments = JSON.parse(commentsData);
+                setComments(comments, id);
+                const targetElement = document.querySelectorAll('[id^="gnam-"]');
+                const min = Math.min(threshold, gnamsQueue.length);
+                if (targetElement.length < min) {
+                    gnamsLeft--;
+                    drawFirstGnams();
+                } else {
+                    targetElement.forEach(element => {
+                        element.classList.remove('d-none');
+                    });
+                    initializeSwiper();
+                    swiper.init();
+                }
+            });
+        });
+    }
 
     const drawGnam = (index) => {
         const id = gnamsQueue[index][0];
@@ -204,6 +240,7 @@
         `
         const slideElement = document.createElement('div');
         slideElement.classList.add("swiper-slide");
+        slideElement.classList.add("d-none");
         slideElement.id = "gnam-" + gnamsInfo['id'];
         slideElement.innerHTML = gnamHtml.trim();
 
@@ -254,7 +291,7 @@
             if (indexOfId + 1 == gnamsQueue.length || gnamsQueue[indexOfId + 1][1] == true) {
                 let lastGnamChild = $("#gnamSlider").children("[id^='gnam-']").last();
                 $(slideElement).insertAfter(lastGnamChild);
-            } else if(indexOfId == 0 || gnamsQueue[indexOfId - 1][1] == true){
+            } else if (indexOfId == 0 || gnamsQueue[indexOfId - 1][1] == true) {
                 let firstGnamChild = $("#gnamSlider").children("[id^='gnam-']").first();
                 $(slideElement).insertAfter(firstGnamChild);
             }
