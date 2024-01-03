@@ -53,9 +53,7 @@
                 });
             } else {
                 gnamsQueue = gnamsInCookies['list'];
-                currentGnamIndex = gnamsQueue.indexOf(parseInt(gnamsInCookies['startFrom']));
-                debugger;
-                currentGnamID = gnamsQueue[currentGnamIndex];
+                currentGnamID = gnamsQueue[0];
                 drawGnamInQueue();
                 for (let index = 0; index < Math.min(5, gnamsQueue.length + 1); index++) {
                     drawGnamInQueue();
