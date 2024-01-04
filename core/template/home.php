@@ -32,25 +32,16 @@
                     $("#gnamPlayer-" + currentGnamID)[0].play();
                 },
                 slideNextTransitionEnd: function () {
-                    let newIndex = 0;
-                    for (let index = 0; index < gnamsQueue.length; index++) {
-                        if (gnamsQueue[index][1] == true) {
-                            newIndex = index + 1;
-                        }
-                    }
-                    if (newIndex < gnamsQueue.length) {
+                    const currentIndex = gnamsQueue.findIndex(item => item[0] === parseInt(currentGnamID));
+                    let newIndex = currentIndex + Math.floor(threshold / 2);
+                    if (newIndex < gnamsQueue.length && !gnamsQueue[newIndex][1]) {
                         drawGnam(newIndex);
                     }
                 },
                 slidePrevTransitionEnd: function () {
-                    let newIndex = -1;
-                    for (let index = gnamsQueue.length - 1; index >= 0; index--) {
-                        if (gnamsQueue[index][1] == true) {
-                            newIndex = index - 1;
-                        }
-                    }
-
-                    if (newIndex >= 0) {
+                    const currentIndex = gnamsQueue.findIndex(item => item[0] === parseInt(currentGnamID));
+                    let newIndex = currentIndex - Math.floor(threshold / 2);
+                    if (newIndex >= 0 && !gnamsQueue[newIndex][1]) {
                         wentUp = true;
                         drawGnam(newIndex);
                     }
@@ -84,14 +75,16 @@
             } else {
                 currentGnamID = gnamsInCookies['startFrom'];
                 gnamsQueue = [];
+                let firstGnamIndex = 0;
                 for (let i = 0; i < gnamsInCookies['list'].length; i++) {
                     const element = gnamsInCookies['list'][i];
                     newArray = [element, false];
                     gnamsQueue[i] = newArray;
                     if (element == gnamsInCookies['startFrom']) {
-                        firstSlideIndex = i;
+                        firstGnamIndex = i
                     }
                 }
+                firstSlideIndex = Math.min(firstGnamIndex, Math.floor(threshold / 2));
                 drawFirstGnams();
             }
         }
@@ -108,7 +101,8 @@
     });
 
     const drawFirstGnams = () => {
-        let newIndex = firstSlideIndex + Math.ceil(threshold / 2) - gnamsLeft;
+        const firstIndex = gnamsQueue.findIndex(item => item[0] == parseInt(currentGnamID));
+        let newIndex = firstIndex + Math.ceil(threshold / 2) - gnamsLeft;
         if (newIndex < 0) {
             gnamsLeft--;
             drawFirstGnams();
@@ -154,7 +148,7 @@
             document.querySelector("#gnam-" + id).classList.remove('d-none');
             if (wentUp) {
                 swiper.destroy();
-                firstSlideIndex = 2;
+                firstSlideIndex = 1;
                 initializeSwiper();
                 wentUp = false;
             } else {
@@ -258,25 +252,16 @@
         }
 
         slideElement.querySelector('#videoTags-' + gnamsInfo['id']).innerHTML = tagHTML;
-
-        let indexOfId = null;
-        for (let index = 0; index < gnamsQueue.length; index++) {
-            if (gnamsQueue[index][0] == gnamsInfo['id']) {
-                indexOfId = index;
-            }
-        }
+        let indexOfId = gnamsQueue.findIndex(item => item[0] === gnamsInfo['id']);
         if ($(".swiper-slide").length == 0) {
             slideElement.querySelector("#gnamPlayer-" + gnamsInfo['id']).setAttribute("autoplay", "");
             $("#gnamSlider").append(slideElement);
-        } else {
-
-            if (indexOfId == 0 || gnamsQueue[indexOfId - 1][1] == true) {
-                let lastGnamChild = $("#gnamSlider").children("[id^='gnam-']").last();
-                $(slideElement).insertAfter(lastGnamChild);
-            } else if (indexOfId + 1 == gnamsQueue.length || gnamsQueue[indexOfId + 1][1] == true) {
-                let firstGnamChild = $("#gnamSlider").children("[id^='gnam-']").first();
-                $(slideElement).insertBefore(firstGnamChild);
-            }
+        } else if (indexOfId - 1 >= 0 && gnamsQueue[indexOfId - 1][1] == true) {
+            let lastGnamChild = $("#gnamSlider").children("[id^='gnam-']").last();
+            $(slideElement).insertAfter(lastGnamChild);
+        } else if (indexOfId + 1 < gnamsQueue.length && gnamsQueue[indexOfId + 1][1] == true) {
+            let firstGnamChild = $("#gnamSlider").children("[id^='gnam-']").first();
+            $(slideElement).insertBefore(firstGnamChild);
         }
         gnamsQueue[indexOfId][1] = true;
 
@@ -619,7 +604,6 @@
                     api_key: "<?php echo $_SESSION['api_key']; ?>",
                     gnam_id: currentGnamID
                 }, function (commentsData) {
-                    debugger;
                     let comments = JSON.parse(commentsData);
                     $("#commentsBoxContainer-" + currentGnamID).parent().html(getCommentsHTML(comments));
                     setComments(comments, currentGnamID);
