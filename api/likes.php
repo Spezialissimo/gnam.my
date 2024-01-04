@@ -35,3 +35,5 @@ if (isset($_REQUEST["api_key"])) {
 } else {
     http_response_code(400);
 }
+
+?>
