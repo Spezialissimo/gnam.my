@@ -260,28 +260,9 @@ function searchGnams($query, $ingredients) {
     $stmt->bindValue(':query', $finalQuery);
     $stmt->execute();
     $queryDesc = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $queryDesc = array_column($queryDesc, "id");
 
-    // QUERY 2 (seleziona tutti gli gnam che hanno 1 o più hashtag presenti nella query)
-    /*preg_match_all('/#(\w+)/', $query, $matches);
-    $hashtag = $matches[1];
-
-    $stmt = $db->prepare("SELECT g.id FROM gnams g
-        JOIN gnam_hashtags gh ON g.id=gh.gnam_id
-        JOIN hashtags h ON gh.hashtag_id=h.id
-        WHERE h.text IN ('" . implode("','", $hashtag) . "')");
-    $stmt->execute();
-    $queryHashtag = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-    // QUERY 3 (tutti gli gnam che hanno tutti gli ingredienti presenti in $ingredients)
-    $stmt = $db->prepare("SELECT g.id FROM gnams g
-        JOIN gnam_ingredients gi ON g.id=gi.gnam_id
-        JOIN ingredients i ON gi.ingredient_id=i.id
-        WHERE i.name IN ('" . implode("','", $ingredients) . "')
-        GROUP BY g.id HAVING COUNT(DISTINCT i.name) = " . count($ingredients));
-    $stmt->execute();
-    $queryIngredients = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-    // QUERY 4 (tutti gli gnam che hanno un utente, con un nome che contiene una delle parole della query)
+    // QUERY 2 (tutti gli gnam che hanno un utente, con un nome che contiene una delle parole della query)
     $temp = [];
     $words = explode(" ", $query);
     foreach ($words as $word) {
@@ -294,9 +275,56 @@ function searchGnams($query, $ingredients) {
             $temp[] = $result;
         }
     }
-    $queryUsers = call_user_func_array('array_merge', $temp);*/
+    $queryUsers = call_user_func_array('array_merge', $temp);
+    $queryUsers = array_column($queryUsers, "id");
 
-    return $queryDesc;
+    // QUERY 3 (seleziona tutti gli gnam che hanno 1 o più hashtag presenti nella query)
+    preg_match_all('/#(\w+)/', $query, $matches);
+    $hashtags = $matches[1];
+
+    $stmt = $db->prepare("SELECT g.id FROM gnams g
+        JOIN gnam_hashtags gh ON g.id=gh.gnam_id
+        JOIN hashtags h ON gh.hashtag_id=h.id
+        WHERE h.text IN ('" . implode("','", $hashtags) . "')");
+    $stmt->execute();
+    $queryHashtag = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $queryHashtag = array_column($queryHashtag, "id");
+
+    // QUERY 4 (tutti gli gnam che hanno tutti gli ingredienti presenti in $ingredients)
+    $stmt = $db->prepare("SELECT g.id FROM gnams g
+        JOIN gnam_ingredients gi ON g.id=gi.gnam_id
+        JOIN ingredients i ON gi.ingredient_id=i.id
+        WHERE i.name IN ('" . implode("','", $ingredients) . "')
+        GROUP BY g.id HAVING COUNT(DISTINCT i.name) = " . count($ingredients));
+    $stmt->execute();
+    $queryIngredients = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $queryIngredients = array_column($queryIngredients, "id");
+
+    // merge ids from desc search and user search
+    $results = array_unique(array_merge($queryDesc, $queryUsers));
+    // if there were some hashtags in the query we must filter
+    if (!empty($hashtags)) {
+        // if the query did not contain anything else other than the hashtag
+        if (empty($results)) {
+            $results = $queryHashtag;
+        } else {
+            $results = array_intersect($results, $queryHashtag);
+        }
+    }
+    // if there were some ingredients in the query we must filter
+    if (!empty($ingredients)) {
+        if (empty($results)) {
+            $results = $queryIngredients;
+        } else {
+            $results = array_intersect($results, $queryIngredients);
+        }
+    }
+
+    $resultsWithId = array();
+    foreach ($results as $result) {
+        array_push($resultsWithId, array("id" => $result));
+    }
+    return $resultsWithId;
 }
 
 function getGnamUserName($user_id) {
