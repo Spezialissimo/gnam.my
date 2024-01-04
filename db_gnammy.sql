@@ -152,6 +152,7 @@ CREATE TABLE `notifications` (
 
 CREATE TABLE `notification_types` (
   `id` int(11) NOT NULL,
+  `name` varchar(20) NOT NULL,
   `template_text` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 

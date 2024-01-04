@@ -56,7 +56,11 @@
                 "id" : notification["notification_id"],
                 "action" : "delete"
             }, function(data, status) {
-                window.location = "home.php?gnam=" + encodeURIComponent(notification["gnam_id"]);
+                if (notification["notification_type_name"] == "comment") {
+                    window.location = "home.php?gnam=" + encodeURIComponent(notification["gnam_id"]);
+                } else {
+                    window.location = "profile.php?user=" + encodeURIComponent(notification["source_user_id"]);
+                }
             });
         });
     });

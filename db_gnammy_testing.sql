@@ -252,6 +252,7 @@ INSERT INTO `notifications` (`id`, `source_user_id`, `target_user_id`, `gnam_id`
 
 CREATE TABLE `notification_types` (
   `id` int(11) NOT NULL,
+  `name` varchar(20) NOT NULL,
   `template_text` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -259,10 +260,10 @@ CREATE TABLE `notification_types` (
 -- Dump dei dati per la tabella `notification_types`
 --
 
-INSERT INTO `notification_types` (`id`, `template_text`) VALUES
-(1, 'ha messo mi piace al tuo gnam'),
-(2, 'ha commentato un tuo gnam'),
-(3, 'ha iniziato a seguirti');
+INSERT INTO `notification_types` (`id`, `name`, `template_text`) VALUES
+(1, "like", 'ha messo mi piace al tuo gnam'),
+(2, "comment", 'ha commentato un tuo gnam'),
+(3, "follow", 'ha iniziato a seguirti');
 
 -- --------------------------------------------------------
 
