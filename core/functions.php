@@ -176,16 +176,15 @@ function isCurrentUserFollowing($user_id) {
     return count($stmt->fetchAll(PDO::FETCH_ASSOC)) > 0;
 }
 
-function toggleFollowUser($api_key, $user_id) {
+function toggleFollowUser($user_id, $targetUser) {
     global $db;
-    $currentUser = getUserFromApiKey($api_key);
 
-    if ($currentUser["id"] == $user_id) {
+    if ($user_id == $targetUser) {
         return response("error", "Non puoi seguire te stesso.");
     }
 
     $stmt = $db->prepare("SELECT * FROM `users` WHERE `id` = :id");
-    $stmt->bindParam(':id', $user_id);
+    $stmt->bindParam(':id', $targetUser);
     $stmt->execute();
     $userToFollow = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -194,20 +193,20 @@ function toggleFollowUser($api_key, $user_id) {
     }
 
     $stmt = $db->prepare("SELECT * FROM `following` WHERE `follower_user_id` = :follower_user_id AND `followed_user_id` = :followed_user_id");
-    $stmt->bindParam(':follower_user_id', $currentUser["id"]);
+    $stmt->bindParam(':follower_user_id', $user_id);
     $stmt->bindParam(':followed_user_id', $userToFollow[0]["id"]);
     $stmt->execute();
     $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     if (count($rows) > 0) {
         $stmt = $db->prepare("DELETE FROM `following` WHERE `follower_user_id` = :follower_user_id AND `followed_user_id` = :followed_user_id");
-        $stmt->bindParam(':follower_user_id', $currentUser["id"]);
+        $stmt->bindParam(':follower_user_id', $user_id);
         $stmt->bindParam(':followed_user_id', $userToFollow[0]["id"]);
         $stmt->execute();
         return response("success", "Segui");
     } else {
         $stmt = $db->prepare("INSERT INTO `following` (`follower_user_id`, `followed_user_id`) VALUES (:follower_user_id, :followed_user_id)");
-        $stmt->bindParam(':follower_user_id', $currentUser["id"]);
+        $stmt->bindParam(':follower_user_id', $user_id);
         $stmt->bindParam(':followed_user_id', $userToFollow[0]["id"]);
         $stmt->execute();
         return response("success", "Seguito");
@@ -368,46 +367,6 @@ function postComment($currentUser_id, $gnam_id, $comment, $parent_comment_id) {
     return $stmt->execute();
 }
 
-// TODO mi sa che questo l'avevo fatto io (davide) per sbaglio, se non lo si usa e da radiare
-function getNewGnamsForSearch($ingredients, $textfield, $api_key) {
-    global $db;
-
-    if ($ingredients === null && ($textfield === null || $textfield === '')) {
-        return null;
-    }
-
-    $sql = "SELECT *
-        FROM gnam g
-        JOIN gnam_ingredients gi ON g.gnam_id = gi.gnam_id
-        JOIN ingredients i ON gi.ingredient_id = i.ingredient_id
-        WHERE 1 = 1";
-
-    if ($textfield !== null && $textfield !== '') {
-        $sql .= " AND g.description LIKE :textfield";
-    }
-
-    if ($ingredients !== null && !empty($ingredients)) {
-        $placeholders = implode(',', array_fill(0, count($ingredients), '?'));
-        $sql .= " AND i.name IN ($placeholders)";
-    }
-
-    $stmt = $db->prepare($sql);
-
-    if ($textfield !== null && $textfield !== '') {
-        $stmt->bindParam(':textfield', $textfield);
-    }
-
-    if ($ingredients !== null && !empty($ingredients)) {
-        foreach ($ingredients as $key => $value) {
-            $stmt->bindValue($key + 1, $value);
-        }
-    }
-
-    $stmt->execute();
-    $gnams = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    return $gnams;
-}
-
 function getPrettyTimeDiff($t1, $t2) {
     $t1 = new DateTime(date('Y/m/d h:i:s', $t1));
     $t2 = new DateTime(date('Y/m/d h:i:s', $t2));
@@ -454,4 +413,36 @@ function didUserLikeGnam($gnam_id, $user_id) {
     $stmt->execute();
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
     return $result == false ? false : true;
+}
+
+function addNotification($source_user_id, $target_user_id, $gnam_id, $notification_type_id) {
+    global $db;
+    $timestamp = time();
+    $stmt = $db->prepare("INSERT INTO `notifications` (`source_user_id`, `target_user_id`, `gnam_id`, `notification_type_id`, `timestamp`) VALUES (:source_user_id, :target_user_id, :gnam_id, :notification_type_id, :timestamp)");
+    $stmt->bindParam(':source_user_id', $source_user_id);
+    $stmt->bindParam(':target_user_id', $target_user_id);
+    $stmt->bindParam(':gnam_id', $gnam_id);
+    $stmt->bindParam(':notification_type_id', $notification_type_id);
+    $stmt->bindParam(':timestamp', $timestamp);
+    $stmt->execute();
+    return response("success", "Notifica aggiunta.");
+}
+
+function deleteNotification($source_user_id, $target_user_id, $gnam_id, $notification_type_id) {
+    global $db;
+    if($gnam_id == null) {
+        $stmt = $db->prepare("DELETE FROM `notifications` WHERE `source_user_id` = :source_user_id AND `target_user_id` = :target_user_id AND `gnam_id` IS NULL AND `notification_type_id` = :notification_type_id");
+        $stmt->bindParam(':source_user_id', $source_user_id);
+        $stmt->bindParam(':target_user_id', $target_user_id);
+        $stmt->bindParam(':notification_type_id', $notification_type_id);
+        $stmt->execute();
+    } else {
+        $stmt = $db->prepare("DELETE FROM `notifications` WHERE `source_user_id` = :source_user_id AND `target_user_id` = :target_user_id AND `gnam_id` = :gnam_id AND `notification_type_id` = :notification_type_id");
+        $stmt->bindParam(':source_user_id', $source_user_id);
+        $stmt->bindParam(':target_user_id', $target_user_id);
+        $stmt->bindParam(':gnam_id', $gnam_id);
+        $stmt->bindParam(':notification_type_id', $notification_type_id);
+        $stmt->execute();
+    }
+    return response("success", "Notifica eliminata.");
 }

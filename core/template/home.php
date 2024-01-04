@@ -453,7 +453,7 @@
                 <div class="row-1 bg-primary rounded">
                     <div class="input-group rounded">
                         <input id="commentField-${currentGnamID}" type="text" class="fs-7 form-control bg-primary shadow-sm" placeholder="Insercisci commento..." />
-                        <span id="commentButton-${currentGnamID}" class="input-group-text bg-primary border-0 fs-7 fw-bold">Commenta</span>
+                        <span id="commentButton-${currentGnamID}" class="input-group-text bg-primary border-0 fs-7 fw-bold cursor-pointer">Commenta</span>
                     </div>
                 </div>`;
 
@@ -487,7 +487,7 @@
                     </div>
                     <div class="input-group rounded">
                         <input id="commentField-${currentGnamID}" type="text" class="fs-7 form-control bg-primary shadow-sm" placeholder="Insercisci commento..." />
-                        <span id="commentButton-${currentGnamID}" class="input-group-text bg-primary border-0 fs-7 fw-bold">Commenta</span>
+                        <span id="commentButton-${currentGnamID}" class="input-group-text bg-primary border-0 fs-7 fw-bold cursor-pointer">Commenta</span>
                     </div>
                 </div>`;
 

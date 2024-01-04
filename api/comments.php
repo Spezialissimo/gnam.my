@@ -13,11 +13,16 @@ if (isset($_REQUEST["api_key"])) {
         }
     } else if ($_SERVER['REQUEST_METHOD'] == "POST") {
         http_response_code(200);
-        if(isset($_POST['gnam_id']) && $_POST['text']){
+        if(isset($_POST['gnam_id']) && $_POST['text']) {
             $user_id = getUserFromApiKey($_REQUEST["api_key"])["id"];
             $parent_id = $_POST["parent_comment_id"] != "" ? $_POST["parent_comment_id"] : null;
             $success = postComment($user_id, $_POST['gnam_id'], $_POST['text'], $parent_id);
             echo json_encode($success);
+            
+            $gnamAuthor = getGnamInfoFromId($_POST['gnam_id'])['user_id'];
+            if($gnamAuthor != $user_id) {
+                addNotification($user_id, $gnamAuthor, $_POST['gnam_id'], 2);
+            }
         }
     } else {
         http_response_code(400);

@@ -18,16 +18,24 @@ if (isset($_REQUEST["api_key"])) {
     } else if (isset($_POST["action"]) && strtoupper($_POST["action"]) == "TOGGLE_LIKE" && isset($_POST['gnam_id'])) {
         $user_id = getUserFromApiKey($_POST["api_key"])["id"];
         $gnam_id = $_POST["gnam_id"];
+        $targetUser = getGnamInfoFromId($gnam_id)["user_id"];
+
         if (didUserLikeGnam($gnam_id, $user_id)) {
             $stmt = $db->prepare("DELETE FROM likes WHERE `likes`.`user_id` = :user_id AND `likes`.`gnam_id` = :gnam_id");
             $stmt->bindParam(':user_id', $user_id);
             $stmt->bindParam(':gnam_id', $gnam_id);
             $stmt->execute();
+
+            deleteNotification($user_id, $targetUser, $gnam_id, 1);
         } else {
             $stmt = $db->prepare("INSERT INTO `likes` (`user_id`, `gnam_id`) VALUES (:user_id, :gnam_id);");
             $stmt->bindParam(':user_id', $user_id);
             $stmt->bindParam(':gnam_id', $gnam_id);
             $stmt->execute();
+            
+            if($user_id != $targetUser){
+                addNotification($user_id, $targetUser, $gnam_id, 1);
+            }
         }
     } else {
         http_response_code(400);

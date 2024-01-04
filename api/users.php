@@ -31,9 +31,22 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['action'])) {
                 http_response_code(200);
 
                 $api_key = filter_input(INPUT_POST, "api_key", FILTER_SANITIZE_STRING);
-                $user_id = filter_input(INPUT_POST, "user_id", FILTER_SANITIZE_STRING);
+                $targetUser = filter_input(INPUT_POST, "user_id", FILTER_SANITIZE_STRING);
+                $currentUser = getUserFromApiKey($api_key)["id"];
 
-                echo toggleFollowUser($api_key, $user_id);
+                if(json_decode(toggleFollowUser($currentUser, $targetUser), true)["message"] == "Segui") {
+                    
+                    if($targetUser != $currentUser) {
+                        deleteNotification($currentUser, $targetUser, null, 3);
+                    }
+                    echo response("success", "Segui");
+                } else {
+                    
+                    if($targetUser != $currentUser) {
+                        addNotification($currentUser, $targetUser, null, 3);
+                    }
+                    echo response("success", "Seguito");
+                }
             } else {
                 http_response_code(400);
             }
