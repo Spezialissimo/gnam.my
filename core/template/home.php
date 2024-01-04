@@ -250,7 +250,7 @@
         }
 
         slideElement.querySelector('#videoTags-' + gnamsInfo['id']).innerHTML = tagHTML;
-        let indexOfId = gnamsQueue.findIndex(item => item[0] === gnamsInfo['id']);
+        let indexOfId = gnamsQueue.findIndex(item => item[0] == gnamsInfo['id']);
         if (currentGnamID == gnamsInfo['id']) {
             slideElement.querySelector("#gnamPlayer-" + currentGnamID).setAttribute("autoplay", "");
         }
