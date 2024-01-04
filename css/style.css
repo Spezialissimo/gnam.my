@@ -220,3 +220,7 @@ input[type=file]::file-selector-button, input[type=file]::file-selector-button:h
 		transform: rotate(360deg)
 	}
 }
+
+.cursor-pointer {
+	cursor: pointer;
+}

@@ -60,11 +60,11 @@ $userLikedGnams = getUserLikedGnams($user['id']);
     </div>
     <div class="row align-items-center text-center mt-2">
         <div class="col-1"></div>
-        <div class="col-3">
+        <div class="col-3 cursor-pointer">
             <p class="mb-0 fw-bold" id="allPostsButton">Post</p>
         </div>
         <div class="col-2"></div>
-        <div class="col-5">
+        <div class="col-5 cursor-pointer">
             <p class="mb-0" id="likedPostsButton">Gnam Piaciuti</p>
         </div>
         <div class="col-1"></div>
