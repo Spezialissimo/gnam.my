@@ -130,14 +130,9 @@ const setCookiesAndGoToHome = (cookieName, element) => {
 };
 
 const setGnamsToWatchFrom = (id, result) => {
-    const idIndex = result.findIndex(item => item.id === id);
-    const ids = result.map(item => item.id);    
-    if (idIndex !== -1) {
-        ids.splice(idIndex, 1);
-        ids.unshift(id);
-    }
     const cookieData = {
-        list: ids
+        startFrom: id,
+        list: result.map(item => item.id)
     };
     setCookiesAndGoToHome('gnamsToWatch', cookieData);
 };
