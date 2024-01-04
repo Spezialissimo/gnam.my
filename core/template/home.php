@@ -8,8 +8,9 @@
     let currentGnamID = null;
     let gnamsQueue = null;
     let firstSlideIndex = 0;
-    let threshold = 3;
+    let threshold = 5;
     let gnamsLeft = threshold;
+    let wentUp = false;
     let swiper;
 
     const initializeSwiper = () => {
@@ -40,7 +41,7 @@
                 },
                 slidePrevTransitionEnd: function () {
                     const currentIndex = gnamsQueue.findIndex(item => item[0] === parseInt(currentGnamID));
-                    let newIndex = currentIndex - Math.floor(threshold / 2);
+                    let newIndex = Math.max(0, currentIndex - Math.floor(threshold / 2));
                     if (newIndex >= 0 && !gnamsQueue[newIndex][1]) {
                         wentUp = true;
                         drawGnam(newIndex);
@@ -73,8 +74,8 @@
                     drawFirstGnams();
                 });
             } else {
-                currentGnamID = gnamsInCookies['startFrom'];
                 gnamsQueue = [];
+                currentGnamID = gnamsInCookies['startFrom'];
                 let firstGnamIndex = 0;
                 for (let i = 0; i < gnamsInCookies['list'].length; i++) {
                     const element = gnamsInCookies['list'][i];
@@ -130,8 +131,6 @@
         }
     }
 
-    let wentUp = false;
-
     const drawGnam = (index) => {
         const id = gnamsQueue[index][0];
         $.get("api/gnams.php", {
@@ -148,7 +147,7 @@
             document.querySelector("#gnam-" + id).classList.remove('d-none');
             if (wentUp) {
                 swiper.destroy();
-                firstSlideIndex = 1;
+                firstSlideIndex = Math.floor(threshold/2);
                 initializeSwiper();
                 wentUp = false;
             } else {
@@ -159,7 +158,7 @@
 
     const addGnamSlide = (gnamsInfo) => {
         let gnamHtml = `
-            <video id="gnamPlayer-${gnamsInfo['id']}" class="w-100 h-100 object-fit-fill p-0" disablepictureinpicture loop playsinline preload="auto" poster="assets/gnams_thumbnails/${gnamsInfo['id']}.jpg" src="assets/gnams/${gnamsInfo['id']}.mp4" ></video>
+            <video id="gnamPlayer-${gnamsInfo['id']}" class="w-100 h-100 object-fit-fill p-0" disablepictureinpicture loop playsinline preload="auto" poster="assets/gnams_thumbnails/${gnamsInfo['id']}.jpg" src="assets/gnams/${gnamsInfo['id']}.mp4"></video>
             <div  id="videoOverlay-${gnamsInfo['id']}" class="video-overlay">
                 <div class="container">
                     <div class="row mb-3">
@@ -252,8 +251,10 @@
 
         slideElement.querySelector('#videoTags-' + gnamsInfo['id']).innerHTML = tagHTML;
         let indexOfId = gnamsQueue.findIndex(item => item[0] === gnamsInfo['id']);
+        if (currentGnamID == gnamsInfo['id']) {
+            slideElement.querySelector("#gnamPlayer-" + currentGnamID).setAttribute("autoplay", "");
+        }
         if ($(".swiper-slide").length == 0) {
-            slideElement.querySelector("#gnamPlayer-" + gnamsInfo['id']).setAttribute("autoplay", "");
             $("#gnamSlider").append(slideElement);
         } else if (indexOfId - 1 >= 0 && gnamsQueue[indexOfId - 1][1] == true) {
             let lastGnamChild = $("#gnamSlider").children("[id^='gnam-']").last();
