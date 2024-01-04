@@ -582,59 +582,63 @@
         }
     }
 
+    const setHandlersForCommentsContainer = (comments) => {
+        comments.forEach(comment => {
+            $("#replyButton-" + comment['id']).on("click", function (e) {
+                const id = $(e.target).attr('id').split('-')[1];
+                const parent = $("#comment-" + id);
+                let commenterName = "";
+                if (parent.hasClass('subcomment')) {
+                    commentToReplyID = $(e.target).attr('class').split(' ')[0].split('-')[1];
+                } else {
+                    commentToReplyID = id;
+                }
+
+                commenterName = parent.find("#commenterUserName-" + id).text();
+                $("#replyToDiv-" + currentGnamID).removeClass("d-none");
+                $("#replyToName-" + currentGnamID).text(commenterName);
+
+            });
+            $("#commenterUserName-" + comment['id']).on("click", function () {
+                redirectToGnamUserPage(comment['user_id']);
+            });
+            $("#commenterImg-" + comment['id']).on("click", function () {
+                redirectToGnamUserPage(comment['user_id']);
+            });
+        });
+        $("#commentButton-" + currentGnamID).on("click", function () {
+            const commentText = $("#commentField-" + currentGnamID).val();
+            if (commentText.length === 0) return;
+            $.post("api/comments.php", {
+                api_key: "<?php echo $_SESSION['api_key']; ?>",
+                "gnam_id": currentGnamID,
+                "text": commentText,
+                "parent_comment_id": commentToReplyID
+            }, (result) => {
+                $.get("api/comments.php", {
+                    api_key: "<?php echo $_SESSION['api_key']; ?>",
+                    gnam_id: currentGnamID
+                }, function (commentsData) {
+                    debugger;
+                    let comments = JSON.parse(commentsData);
+                    $("#commentsBoxContainer-" + currentGnamID).parent().html(getCommentsHTML(comments));
+                    setComments(comments, currentGnamID);
+                    setHandlersForCommentsContainer(comments);
+                });
+            });
+        });
+        $("#closeReplyTo-" + currentGnamID).on("click", function () {
+            $("#replyToDiv-" + currentGnamID).addClass("d-none");
+            commentToReplyID = null;
+        });
+    }
+
     // TODO Capire perche si puo commentare una volta sola
     const setComments = (comments, gnam_id) => {
         $("#commentsCounter-" + gnam_id).text(comments.length);
         $("#commentsButton-" + gnam_id).on('click', function (e) {
             showSwal('Commenti', getCommentsHTML(comments));
-            comments.forEach(comment => {
-                $("#replyButton-" + comment['id']).on("click", function (e) {
-                    const id = $(e.target).attr('id').split('-')[1];
-                    const parent = $("#comment-" + id);
-                    let commenterName = "";
-                    if (parent.hasClass('subcomment')) {
-                        commentToReplyID = $(e.target).attr('class').split(' ')[0].split('-')[1];
-                    } else {
-                        commentToReplyID = id;
-                    }
-
-                    commenterName = parent.find("#commenterUserName-" + id).text();
-                    $("#replyToDiv-" + currentGnamID).removeClass("d-none");
-                    $("#replyToName-" + currentGnamID).text(commenterName);
-
-                });
-                $("#commenterUserName-" + comment['id']).on("click", function () {
-                    redirectToGnamUserPage(comment['user_id']);
-                });
-                $("#commenterImg-" + comment['id']).on("click", function () {
-                    redirectToGnamUserPage(comment['user_id']);
-                });
-            });
-            $("#commentButton-" + currentGnamID).on("click", function () {
-                const commentText = $("#commentField-" + currentGnamID).val();
-                if (commentText.length === 0) return;
-                $.post("api/comments.php", {
-                    api_key: "<?php echo $_SESSION['api_key']; ?>",
-                    "gnam_id": currentGnamID,
-                    "text": commentText,
-                    "parent_comment_id": commentToReplyID
-                }, (result) => {
-                    $.get("api/comments.php", {
-                        api_key: "<?php echo $_SESSION['api_key']; ?>",
-                        gnam_id: currentGnamID
-                    }, function (commentsData) {
-                        let comments = JSON.parse(commentsData);
-                        $("#commentsBoxContainer-" + currentGnamID)
-                            .parent().html(getCommentsHTML(comments));
-                        setComments(comments, currentGnamID);
-                    });
-                });
-            });
-                $("#closeReplyTo-" + currentGnamID).on("click", function() {
-                    $("#replyToDiv-" + currentGnamID).addClass("d-none");
-                    commentToReplyID = null;
-                });
-            e.stopPropagation();
+            setHandlersForCommentsContainer(comments);
         });
     }
 
