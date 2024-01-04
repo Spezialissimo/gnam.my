@@ -114,8 +114,6 @@
     const searchVideos = () => {
         let query = $('#searchBarInput').val().trim();
 
-        if (!query) { return; }
-
         $('#searchBarInput').val('');
         $('#pageContentDiv').addClass('d-none');
         $('#loaderDiv').addClass('d-flex').removeClass('d-none');
@@ -135,7 +133,7 @@
                 $('#pageContentDiv').html('<div class="fs-6 mt-4 text-center">Nessuno gnam trovato.</div>');
                 return;
             }
-            
+
             let gnamPerRow = 3;
             let rowDiv = $('<div class="row my-3">');
 
@@ -150,7 +148,7 @@
                     gnamPerRow = 3;
                 }
             }
-            
+
             if (gnamPerRow !== 3) {
                 $('#pageContentDiv').append(rowDiv);
             }
