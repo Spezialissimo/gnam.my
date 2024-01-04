@@ -179,7 +179,6 @@
                                 <p id="videoDescriptionLong-${gnamsInfo['id']}" class="fs-7 m-0 d-none">${gnamsInfo['description']}</p>
                             </div>
                             <div class="row" id="videoTags-${gnamsInfo['id']}">
-
                             </div>
                         </div>
                         <div class="col-2">
@@ -279,7 +278,6 @@
             let likeButton = $(this);
             let children = likeButton.children().children();
             let likesCounter = $("#likesCounter-" + gnamsInfo['id']);
-
             likeButton.on("click", function (e) {
                 if (children.hasClass("color-secondary")) {
                     children.removeClass("color-secondary").addClass("color-alert");
@@ -617,7 +615,6 @@
         });
     }
 
-    // TODO Capire perche si puo commentare una volta sola
     const setComments = (comments, gnam_id) => {
         $("#commentsCounter-" + gnam_id).text(comments.length);
         $("#commentsButton-" + gnam_id).on('click', function (e) {

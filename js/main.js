@@ -129,10 +129,15 @@ const setCookiesAndGoToHome = (cookieName, element) => {
     window.location.href = "home.php";
 };
 
-const watchGnamsFrom = (id, result) => {
+const setGnamsToWatchFrom = (id, result) => {
+    const idIndex = result.findIndex(item => item.id === id);
+    const ids = result.map(item => item.id);    
+    if (idIndex !== -1) {
+        ids.splice(idIndex, 1);
+        ids.unshift(id);
+    }
     const cookieData = {
-        startFrom: id,
-        list: result.map(item => item.id)
+        list: ids
     };
     setCookiesAndGoToHome('gnamsToWatch', cookieData);
 };
