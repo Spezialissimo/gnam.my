@@ -25,7 +25,7 @@ $userLikedGnams = getUserLikedGnams($user['id']);
             <div class="row">
                 <a id="followerButton" href="#" class="col p-0 text-link">
                     <p class="fw-bold p-0 mb-0">Follower</p>
-                    <p class="text-normal-black"><?php echo count($followers); ?></p>
+                    <p class="text-normal-black" id="followersCount"><?php echo count($followers); ?></p>
                 </a>
 
                 <a id="followedButton" href="#" class="col p-0 text-link">
@@ -148,6 +148,11 @@ $userLikedGnams = getUserLikedGnams($user['id']);
         }, (result) => {
             let decodedResult = JSON.parse(result);
             if (decodedResult.status === "success") {
+                if(decodedResult.message == "Segui") {
+                    $("#followersCount").text(parseInt($("#followersCount").text()) - 1);
+                } else {
+                    $("#followersCount").text(parseInt($("#followersCount").text()) + 1);
+                }
                 $("#followButton").text(decodedResult.message);
             } else showToast(decodedResult.status, "<p class='fs-6 text-center pt-3'>" + decodedResult.message + "</p>");
         });
