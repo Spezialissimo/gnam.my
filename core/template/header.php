@@ -45,7 +45,9 @@ if (isloggedIn() && (PAGE_TITLE == 'Login' || PAGE_TITLE == 'Registrati')) {
 				if (JSON.parse(data).length > 0) {
 					$("#notificationsNavbarButton").addClass("color-alert");
 					$("#notificationsNavbarButton").removeClass("color-accent");
+					$("#notificationsNavbarButton").removeClass("nav-btn");
 				} else {
+					$("#notificationsNavbarButton").addClass("nav-btn");
 					$("#notificationsNavbarButton").addClass("color-accent");
 					$("#notificationsNavbarButton").removeClass("color-alert");
 				}
