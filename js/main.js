@@ -1,4 +1,4 @@
-const showSwal = (title, html) => {
+const showSwal = (title, html, onClose) => {
     Swal.fire({
         title: title,
         html: html,
@@ -7,7 +7,11 @@ const showSwal = (title, html) => {
         showCancelButton: false,
         showConfirmButton: false,
         allowOutsideClick: false
-    });
+    }).then(() => {
+        if (onClose) {
+            onClose();
+        }
+    });;
 };
 
 const showSwalSmall = (title, html, onClose) => {

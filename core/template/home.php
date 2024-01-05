@@ -27,10 +27,10 @@
             },
             on: {
                 slideChangeTransitionEnd: function () {
-                    $("#gnamPlayer-" + currentGnamID)[0].pause();
+                    stopCurrentVideo();
                     $("#gnamPlayer-" + currentGnamID)[0].currentTime = 0;
                     currentGnamID = $(".swiper-slide-active").attr('id').split('-')[1];
-                    $("#gnamPlayer-" + currentGnamID)[0].play();
+                    playCurrentVideo();
                 },
                 slideNextTransitionEnd: function () {
                     const currentIndex = gnamsQueue.findIndex(item => item[0] === parseInt(currentGnamID));
@@ -351,7 +351,8 @@
                 <hr class="m-0 mt-2" />
                 </div>
             `;
-            showSwal('Ricetta', html);
+            stopCurrentVideo();
+            showSwal('Ricetta', html, playCurrentVideo);
             $('#portionsInput').val(selectedPortions);
             $("#portionsInput").on("change", function (e) {
                 if ((this).value > 0) {
@@ -613,11 +614,19 @@
     const setComments = (comments, gnam_id) => {
         $("#commentsCounter-" + gnam_id).text(comments.length);
         $("#commentsButton-" + gnam_id).on('click', function (e) {
-            $("#gnamPlayer-" + currentGnamID)[0].pause();
-            showSwal('Commenti', getCommentsHTML(comments));
+            stopCurrentVideo();
+            showSwal('Commenti', getCommentsHTML(comments), playCurrentVideo);
             setHandlersForCommentsContainer(comments);
             e.stopPropagation();
         });
+    }
+
+    const stopCurrentVideo = () => {
+        $("#gnamPlayer-" + currentGnamID)[0].pause();
+    }
+
+    const playCurrentVideo = () => {
+        $("#gnamPlayer-" + currentGnamID)[0].play();
     }
 
 </script>
