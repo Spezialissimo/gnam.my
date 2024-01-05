@@ -51,19 +51,44 @@ if (isset($_REQUEST["api_key"])) {
             }
 
             if (isset($_POST["ingredients"])) {
+                echo var_dump($_POST["ingredients"]);
                 foreach (json_decode($_POST["ingredients"], true) as $ingredient) {
+                    $ingredientId;
+                    $ingredientFromDB = getIngredientFromName($ingredient["name"]);
+                    if ($ingredientFromDB) {
+                        $ingredientId = $ingredientFromDB["id"];
+                    } else {
+                        $stmt = $db->prepare("INSERT INTO `ingredients` (`name`) VALUES (:name)");
+                        $stmt->bindParam(':name', $ingredient["name"]);
+                        $stmt->execute();
+                        $ingredientId = $db->lastInsertId();
+                    }
                     $stmt = $db->prepare("INSERT INTO `gnam_ingredients` (`ingredient_id`, `gnam_id`, `quantity`, `measurement_unit_id`) VALUES (:ingredient_id, :gnam_id, :quantity, :measurement_unit_id)");
                     $stmt->bindParam(':measurement_unit_id', getMeasurementUnitFromName($ingredient["measurement_unit"])["id"]);
-                    $stmt->bindParam(':ingredient_id', getIngredientFromName($ingredient["name"])["id"]);
+                    $stmt->bindParam(':ingredient_id', $ingredientId);
                     $stmt->bindParam(':gnam_id', $newVideoId);
-                    $stmt->bindParam(':quantity', $ingredient["quantity"]);
+                    if ($ingredient["measurement_unit"] == "qb") {
+                        $stmt->bindParam(':quantity', $ingredient["quantity"]);
+                    } else {
+                        $stmt->bindParam(':quantity', NULL);
+                    }
                     $stmt->execute();
                 }
             }
             if (isset($_POST["hashtags"])) {
                 foreach (json_decode($_POST["hashtags"], true) as $hashtag) {
+                    $hashtagId;
+                    $hashtagFromDB = getHashtagFromText($hashtag);
+                    if ($hashtagFromDB) {
+                        $hashtagId = $hashtagFromDB["id"];
+                    } else {
+                        $stmt = $db->prepare("INSERT INTO `hashtags` (`text`) VALUES (:text)");
+                        $stmt->bindParam(':text', $hashtag);
+                        $stmt->execute();
+                        $hashtagId = $db->lastInsertId();
+                    }
                     $stmt = $db->prepare("INSERT INTO `gnam_hashtags` (`hashtag_id`, `gnam_id`) VALUES (:hashtag_id, :gnam_id)");
-                    $stmt->bindParam(':hashtag_id', getHashtagFromText($hashtag)["id"]);
+                    $stmt->bindParam(':hashtag_id', $hashtagId);
                     $stmt->bindParam(':gnam_id', $newVideoId);
                     $stmt->execute();
                 }
