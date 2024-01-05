@@ -224,3 +224,7 @@ input[type=file]::file-selector-button, input[type=file]::file-selector-button:h
 .cursor-pointer {
 	cursor: pointer;
 }
+
+#portionsInput {
+	max-width: fit-content;
+}

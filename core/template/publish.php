@@ -81,7 +81,7 @@
         let html = `
             <div class="d-flex align-items-center justify-content-center mb-2">
                 <p class="m-0 me-2 fs-6">Numero di porzioni:</p>
-                <input type="number" value="1" min="1" max="100" class="bg-primary rounded shadow-sm fs-6 fw-bold text-center" id="portionsInput" />
+                <input type="number" value="1" min="1" max="100" class="form-control bg-primary rounded shadow-sm fs-6 fw-bold text-center" id="portionsInput" />
             </div>
             <div class="row mx-0 my-2">
                 <div class="input-group rounded">
