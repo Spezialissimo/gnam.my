@@ -335,13 +335,7 @@
             let html = `
                 <div class="d-flex align-items-center justify-content-center mb-2">
                     <p class="m-0 me-2 fs-6">Numero di porzioni:</p>
-                    <div class="mx-0 ps-0">
-                        <select class="form-select bg-primary rounded shadow-sm fs-6" id="portionsSelect">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                        </select>
-                    </div>
+                    <input type="number" value="1" min="1" max="100" class="form-control bg-primary rounded shadow-sm fs-6 fw-bold text-center" id="portionsInput" />
                 </div>
                 <div class="row mx-0 my-2">
                     <div class="col-6 d-flex align-items-center justify-content-start">
@@ -358,13 +352,14 @@
                 </div>
             `;
             showSwal('Ricetta', html);
-            $('#portionsSelect option[value="' + selectedPortions + '"]').attr("selected", true);
-            $("#portionsSelect").on("change", function (e) {
-                recipeWithUpdatedPortion = JSON.parse(JSON.stringify(gnamsInfo['recipe']));
-                recipeWithUpdatedPortion.forEach(ingredient => {
-                    ingredient['quantity'] = ingredient['quantity'] * (this).value;
-                });
-                drawAllIngredients(recipeWithUpdatedPortion);
+            $('#portionsInput').val(selectedPortions);
+            $("#portionsInput").on("change", function (e) {
+                if ((this).value > 0) {
+                    selectedPortions = (this).value;
+                    drawAllIngredients(gnamsInfo['recipe']);
+                } else {
+                    (this).value = selectedPortions;
+                }
             });
             drawAllIngredients(gnamsInfo['recipe']);
             e.stopPropagation();
@@ -415,14 +410,13 @@
         $("#ingredients-" + currentGnamID).empty();
         let ingredientsHTML = "";
         recipe.forEach(ingredient => {
-
             ingredientsHTML += `
             <div class="row m-0 p-0 align-items-center">
                 <div class="col-8 m-0 p-1 d-flex align-items-center justify-content-start">
                     <p class="m-0 fs-6">${ingredient["name"]}</p>
                 </div>
                 <div class="col-4 m-0 p-1 d-flex align-items-center justify-content-end">
-                    <p class="m-0 fs-6 fw-bold ">${ingredient["quantity"]} ${ingredient["measurement_unit"]}</p>
+                    <p class="m-0 fs-6 fw-bold ">${ingredient["quantity"] > 0 ? ingredient["quantity"] * selectedPortions : ""} ${ingredient["measurement_unit"]}</p>
                 </div>
             </div>`;
         });
