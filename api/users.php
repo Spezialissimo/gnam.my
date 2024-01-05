@@ -20,7 +20,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['action'])) {
                     die("Le password non coincidono");
                 }
 
-                echo register($username, $password);
+                $msg = register($username, $password);                
+                if(json_decode($msg, true)["message"] == "Utente registrato.") {
+                    $lastUserId = $db->lastInsertId();
+                    $sourceImage = $assetsPath . 'default_image.jpg';
+                    $destinationImage = $assetsPath . 'profile_pictures/' . $lastUserId . '.jpg';
+                    copy($sourceImage, $destinationImage);
+                }
+                echo $msg;
             } else {
                 http_response_code(400);
             }
