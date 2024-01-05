@@ -81,14 +81,7 @@
         let html = `
             <div class="d-flex align-items-center justify-content-center mb-2">
                 <p class="m-0 me-2 fs-6">Numero di porzioni:</p>
-                <div class="mx-0 ps-0">
-                    <select class="form-select bg-primary rounded shadow-sm fs-6" id="portionsSelect">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="3">4</option>
-                    </select>
-                </div>
+                <input type="number" value="1" min="1" max="100" class="bg-primary rounded shadow-sm fs-6 fw-bold text-center" id="portionsInput" />
             </div>
             <div class="row mx-0 my-2">
                 <div class="input-group rounded">
@@ -113,8 +106,8 @@
         `;
 
         const modal = showSwal('Scegli Ingredienti', html);
-        $('#portionsSelect option[value="' + selectedPortions + '"]').attr("selected", true);
-        $("#portionsSelect").on("change", function(e) {
+        $('#portionsInput').val(selectedPortions);
+        $("#portionsInput").on("change", function(e) {
             selectedPortions = this.value;
         });
         ingredients.forEach(ingredient => {
