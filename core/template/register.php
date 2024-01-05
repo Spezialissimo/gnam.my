@@ -31,9 +31,9 @@
             rpassword: rpassword,
             action: "register"
         }, (result) => {
-            let decodedResult = JSON.parse(result);            
+            let decodedResult = JSON.parse(result);
             if (decodedResult.status === "success") {
-                showToast(decodedResult.status, "<p class='fs-6 text-center pt-3'>" + decodedResult.message + "</p>");
+                showToast(decodedResult.status, "<p class='fs-6 text-center pt-3'>" + decodedResult.message + "</p>", "login.php");
             } else showToast(decodedResult.status, "<p class='fs-6 text-center pt-3'>" + decodedResult.message + "</p>");
         });
     }
