@@ -613,8 +613,10 @@
     const setComments = (comments, gnam_id) => {
         $("#commentsCounter-" + gnam_id).text(comments.length);
         $("#commentsButton-" + gnam_id).on('click', function (e) {
+            $("#gnamPlayer-" + currentGnamID)[0].pause();
             showSwal('Commenti', getCommentsHTML(comments));
             setHandlersForCommentsContainer(comments);
+            e.stopPropagation();
         });
     }
 
