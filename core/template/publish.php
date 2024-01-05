@@ -269,6 +269,7 @@
         if(!newHashtag) {
             return
         }
+        newHashtag = newHashtag.replace(/(?:^\w|[A-Z]|\b\w)/g, (w, i) => {return w.toUpperCase()}).replace(/\s+/g, '');
         if (hashtags.includes(newHashtag)) {
             return;
         }

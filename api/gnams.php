@@ -51,7 +51,6 @@ if (isset($_REQUEST["api_key"])) {
             }
 
             if (isset($_POST["ingredients"])) {
-                echo var_dump($_POST["ingredients"]);
                 foreach (json_decode($_POST["ingredients"], true) as $ingredient) {
                     $ingredientId;
                     $ingredientFromDB = getIngredientFromName($ingredient["name"]);
