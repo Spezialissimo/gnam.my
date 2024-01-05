@@ -10,7 +10,7 @@ const showSwal = (title, html) => {
     });
 };
 
-const showSwalSmall = (title, html) => {
+const showSwalSmall = (title, html, onClose) => {
     Swal.fire({
         title: title,
         html: html,
@@ -20,20 +20,11 @@ const showSwalSmall = (title, html) => {
         showCancelButton: false,
         showConfirmButton: false,
         allowOutsideClick: false
+    }).then(() => {
+        if (onClose) {
+            onClose();
+        }
     });
-};
-
-const showSwalSmallOnClose = (title, html, onClose) => {
-    Swal.fire({
-        title: title,
-        html: html,
-        background: "#F8D7A5",
-        width: '70vw',
-        showCloseButton: true,
-        showCancelButton: false,
-        showConfirmButton: false,
-        allowOutsideClick: false,
-    }).then(onClose);
 };
 
 const showToast = (type, message, redirectURL) => {
@@ -51,12 +42,11 @@ const showToast = (type, message, redirectURL) => {
     Toast.fire({
         icon: type,
         title: message
-    });
-    if (redirectURL) {
-        setTimeout(() => {
+    }).then(() => {
+        if (redirectURL) {
             window.location.href = redirectURL;
-        }, 3000);
-    }
+        }
+    });
 }
 
 const closeSwal = () => {
