@@ -375,6 +375,10 @@
             redirectToGnamUserPage(gnamsInfo['user_id']);
             e.stopPropagation();
         });
+
+        $("#videoTags-" + gnamsInfo['id'] + " .videoTag span").on("click", function (e) {
+            window.location = "search.php?q=" + encodeURIComponent($(this).html().trim());
+        });
     }
 
     const showFullDescription = (e) => {
