@@ -90,6 +90,7 @@ const resizeContentDiv = () => {
                 $(a).addClass("my-0");
                 $(a).removeClass("mx-0");
             });
+            $("#mainDiv").addClass("align-content-center");
         }
 
         let page = $("#pageDiv");
@@ -129,6 +130,7 @@ const resizeContentDiv = () => {
                 $(a).removeClass("my-0");
                 $(a).addClass("mx-0");
             });
+            $("#mainDiv").removeClass("align-content-center");
         }
 
         let page = $("#pageDiv");
