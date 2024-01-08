@@ -14,7 +14,7 @@
                         <div class="container">
                             <div class="row">
                                 <div class="p-1 col-2 d-flex flex-wrap align-items-center">
-                                    <img class="border border-1 border-dark rounded-circle w-100 align-middle" alt="<?php echo $notification['source_user_name'] ?>" src="<?php echo 'assets/profile_pictures/' . $notification['source_user_id'] . '.jpg' ?>" />
+                                    <img class="border border-1 border-dark rounded-circle w-75 align-middle" alt="<?php echo $notification['source_user_name'] ?>" src="<?php echo 'assets/profile_pictures/' . $notification['source_user_id'] . '.jpg' ?>" />
                                 </div>
                                 <div class="col align-self-center fs-7">
                                     <div class="m-0 text-link d-inline"><?php echo $notification["source_user_name"];?></div><span class="m-0 text-normal-black"> <?php echo $notification["template_text"];?></span>

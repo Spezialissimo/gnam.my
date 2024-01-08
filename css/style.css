@@ -157,17 +157,13 @@ input[type=file]::file-selector-button, input[type=file]::file-selector-button:h
 }
 
 .swiper {
+	max-height: inherit!important;
 	height: 100%!important;
 	width: fit-content!important;
 }
 
-.v-navbar {
-	display: flex;
-	flex-direction: column;
-	height: 100%;
-	border-right: solid var(--accent) 2px;
-	padding: 0!important;
-	padding-top: 1rem!important;
+#pageBodyDiv{
+	max-height: inherit!important;
 }
 
 .nav-btn {
@@ -241,4 +237,54 @@ input[type=file]::file-selector-button, input[type=file]::file-selector-button:h
 
 #portionsInput {
 	max-width: fit-content;
+}
+
+@media (orientation:portrait) {
+	#pageContainer {
+		flex-direction: column;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	#mainDiv {
+		display: flex;
+		flex-flow: column;
+		align-items: center;
+		justify-content: center;
+	}
+
+	#navbarContentDiv > a {
+		padding: 0.25rem .5rem!important;
+		margin: 0 .5rem!important;
+	}
+}
+
+@media (orientation:landscape) {
+	#pageContainer {
+		flex-direction: row-reverse;
+		justify-content: flex-end;
+		align-items: center;
+	}
+
+	#pageDiv{
+		max-height: 90vh;
+	}
+
+	#navbarDiv {
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+		border-right: solid var(--accent) 2px;
+		padding: 0!important;
+		padding-top: 1rem!important;
+	}
+
+	#navbarContentDiv {
+		flex-direction: column;
+	}
+
+	#navbarContentDiv > a {
+		padding: .5rem 0.25rem!important;
+		margin: .5rem 0!important;
+	}
 }
