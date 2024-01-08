@@ -156,6 +156,11 @@ input[type=file]::file-selector-button, input[type=file]::file-selector-button:h
 	border-bottom: 0.12rem solid var(--secondary) !important;
 }
 
+.swiper {
+	height: 100%!important;
+	width: fit-content!important;
+}
+
 .v-navbar {
 	display: flex;
 	flex-direction: column;

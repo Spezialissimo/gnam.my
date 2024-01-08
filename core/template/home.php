@@ -1,4 +1,4 @@
-<div class="swiper h-100">
+<div class="swiper">
     <div id="gnamSlider" class="swiper-wrapper"></div>
 </div>
 <script>
