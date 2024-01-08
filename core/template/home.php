@@ -183,22 +183,22 @@
                         <div class="col-2">
                             <div class="container p-0">
                                 <div class="col">
-                                    <div class="row pb-4" id="recipeButton-${gnamsInfo['id']}">
+                                    <div class="row pb-4 text-center" id="recipeButton-${gnamsInfo['id']}">
                                         <span><i class="fa-solid fa-utensils fa-2xl fa-fw color-secondary"></i></span>
                                     </div>
-                                    <div class="row" id="likeButton-${gnamsInfo['id']}">
+                                    <div class="row text-center" id="likeButton-${gnamsInfo['id']}">
                                         <span><i class="fa-solid fa-heart fa-2xl fa-fw color-secondary"></i></span>
                                     </div>
                                     <div class="row pt-2 color-accent fw-bold text-center">
                                         <span id="likesCounter-${gnamsInfo['id']}">${gnamsInfo['likes_count']}</span>
                                     </div>
-                                    <div class="row pt-2" id="commentsButton-${gnamsInfo['id']}">
+                                    <div class="row pt-2 text-center" id="commentsButton-${gnamsInfo['id']}">
                                         <span><i class="fa-solid fa-comment-dots fa-2xl fa-fw color-secondary"></i></span>
                                     </div>
                                     <div class="row pt-2 color-accent fw-bold text-center">
                                         <span id="commentsCounter-${gnamsInfo['id']}">0</span>
                                     </div>
-                                    <div class="row pt-2" id="shareButton-${gnamsInfo['id']}">
+                                    <div class="row pt-2 text-center" id="shareButton-${gnamsInfo['id']}">
                                         <span><i class="fa-solid fa-share-nodes fa-2xl fa-fw color-secondary"></i></span>
                                     </div>
                                     <div class="row pt-2 color-accent fw-bold text-center">
