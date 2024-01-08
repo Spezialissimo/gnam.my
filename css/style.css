@@ -253,6 +253,12 @@ input[type=file]::file-selector-button, input[type=file]::file-selector-button:h
 		justify-content: center;
 	}
 
+	#navbarDiv {
+		border-top: solid var(--accent) .2rem;
+		width: 100%;
+		padding: 1rem 3rem!important;
+	}
+
 	#navbarContentDiv > a {
 		padding: 0.25rem .5rem!important;
 		margin: 0 .5rem!important;
@@ -274,7 +280,8 @@ input[type=file]::file-selector-button, input[type=file]::file-selector-button:h
 		display: flex;
 		flex-direction: column;
 		height: 100%;
-		border-right: solid var(--accent) 2px;
+		border-right: solid var(--accent) .2rem;
+		padding: 1rem!important;
 	}
 
 	#navbarContentDiv {
