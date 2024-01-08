@@ -156,6 +156,15 @@ input[type=file]::file-selector-button, input[type=file]::file-selector-button:h
 	border-bottom: 0.12rem solid var(--secondary) !important;
 }
 
+.v-navbar {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	border-right: solid var(--accent) 2px;
+	padding: 0!important;
+	padding-top: 1rem!important;
+}
+
 .nav-btn {
 	border: none;
 }

@@ -37,7 +37,7 @@ if (isloggedIn() && (PAGE_TITLE == 'Login' || PAGE_TITLE == 'Registrati')) {
 
 	<title>Gnam.my - <?php echo PAGE_TITLE ?></title>
 </head>
-<body class="bg h-100">
+<body class="bg w-100 h-100">
 	<?php if (isloggedIn()) { ?>
 	<script>
 		const checkNotifications = () => {
@@ -60,9 +60,9 @@ if (isloggedIn() && (PAGE_TITLE == 'Login' || PAGE_TITLE == 'Registrati')) {
 		});
 	</script>
 	<?php } ?>
-	<main class="h-100">
+	<main class="w-100 h-100 d-flex justify-content-center">
 	<?php if(PAGE_TITLE != 'Login' && PAGE_TITLE != 'Registrati') { ?>
-		<div class="container p-0">
-			<div class="row p-0 m-0 overflow-hidden" id="pageDiv">
-				<div class="position-relative w-100 h-100 p-0">
+		<div class="container d-flex flex-column w-100 h-100 p-0 m-0" id="pageContainer">
+			<div class="row p-0 m-0 w-100 overflow-hidden" id="pageDiv">
+				<div class="position-relative w-100 h-100 p-0" id="pageBodyDiv">
 	<?php } ?>

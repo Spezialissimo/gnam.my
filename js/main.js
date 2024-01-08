@@ -69,21 +69,71 @@ const copyCurrentPageLink = () => {
 }
 
 const resizeContentDiv = () => {
-    let page = $("#pageDiv");
-    if (page.length > 0) {
+    if (window.innerHeight > innerWidth) {
         let navbar = $("#navbarDiv");
-        page.css("height", window.innerHeight - navbar.outerHeight() + "px");
-    }
+        let navbarContent = $("#navbarContentDiv");
+        let pageContainer = $("#pageContainer");
+        if (pageContainer[0].classList.contains("flex-row-reverse")) {
+            pageContainer.removeClass("flex-row-reverse");
+            pageContainer.removeClass("align-items-center");
+            pageContainer.removeClass("justify-content-end");
+            pageContainer.addClass("flex-column");
+            pageContainer.addClass("justify-content-center");
+            $(".page-overlay").removeClass("d-none");
+            $("#pageBodyDiv").removeClass("w-75");
+            $("#pageBodyDiv").addClass("w-100");
+            navbar.removeClass("v-navbar");
+            navbarContent.removeClass("flex-column");
+            $("#navbarContentDiv a").toArray().forEach(a => {
+                $(a).addClass("py-2");
+                $(a).removeClass("px-1");
+                $(a).addClass("my-0");
+                $(a).removeClass("mx-0");
+            });
+        }
 
-    let pageContent = $("#pageContentDiv");
-    if (pageContent.length > 0) {
+        let page = $("#pageDiv");
+        if (page.length > 0) {
+            page.css("height", window.innerHeight - navbar.outerHeight() + "px");
+        }
+
+        let pageContent = $("#pageContentDiv");
+        if (pageContent.length > 0) {
+            let navbar = $("#navbarDiv");
+            let header = $("#headerDiv");
+            let footer = $("#footerDiv");
+            if (footer.length > 0) {
+                pageContent.css("height", window.innerHeight - navbar.outerHeight() - header.outerHeight() - footer.outerHeight() + "px");
+            } else {
+                pageContent.css("height", window.innerHeight - navbar.outerHeight() - header.outerHeight() + "px");
+            }
+        }
+    } else {
         let navbar = $("#navbarDiv");
-        let header = $("#headerDiv");
-        let footer = $("#footerDiv");
-        if (footer.length > 0) {
-            pageContent.css("height", window.innerHeight - navbar.outerHeight() - header.outerHeight() - footer.outerHeight() + "px");
-        } else {
-            pageContent.css("height", window.innerHeight - navbar.outerHeight() - header.outerHeight() + "px");
+        let navbarContent = $("#navbarContentDiv");
+        let pageContainer = $("#pageContainer");
+        if (pageContainer[0].classList.contains("flex-column")) {
+            pageContainer.addClass("flex-row-reverse");
+            pageContainer.addClass("align-items-center");
+            pageContainer.addClass("justify-content-end");
+            pageContainer.removeClass("flex-column");
+            pageContainer.removeClass("justify-content-center");
+            $(".page-overlay").addClass("d-none");
+            $("#pageBodyDiv").removeClass("w-100");
+            $("#pageBodyDiv").addClass("w-75");
+            navbar.addClass("v-navbar");
+            navbarContent.addClass("flex-column");
+            $("#navbarContentDiv a").toArray().forEach(a => {
+                $(a).removeClass("py-2");
+                $(a).addClass("px-1");
+                $(a).removeClass("my-0");
+                $(a).addClass("mx-0");
+            });
+        }
+
+        let page = $("#pageDiv");
+        if (page.length > 0) {
+            page.css("height", "90%");
         }
     }
 };
