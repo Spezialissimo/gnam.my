@@ -1,7 +1,7 @@
 <?php if(PAGE_TITLE != 'Login' && PAGE_TITLE != 'Registrati') { ?>
 				</div>
 			</div>
-			<div class="row m-0 p-2 border-top-2" id="navbarDiv">
+			<div class="m-0 p-3 border-top-2" id="navbarDiv">
 				<div class="w-100 d-flex" id="navbarContentDiv">
 					<a role="button" href="home.php" class="col btn nav-btn btn-lg btn-bounce bg-primary color-accent"><i class="fa-solid fa-house fa-lg fa-fw"></i></a>
 					<a role="button" href="search.php" class="col btn nav-btn btn-lg btn-bounce bg-primary color-accent"><i class="fa-solid fa-search fa-lg fa-fw"></i></a>
