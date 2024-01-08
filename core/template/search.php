@@ -22,7 +22,7 @@
   <div class="loadingspinner"></div>
 </div>
 
-<div class="d-none container overflow-y-scroll" id="pageContentDiv">
+<div class="d-none container" id="pageContentDiv">
     <!-- search results content -->
 </div>
 

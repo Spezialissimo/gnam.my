@@ -74,7 +74,7 @@ $userLikedGnams = getUserLikedGnams($user['id']);
     </div>
 </div>
 
-<div class="container overflow-y-scroll" id="pageContentDiv">
+<div class="container" id="pageContentDiv">
     <div id="postedGnams">
         <?php
             $gnamPerRow = 3;
