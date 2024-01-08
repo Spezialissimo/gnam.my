@@ -158,7 +158,7 @@
 
     const addGnamSlide = (gnamsInfo) => {
         let gnamHtml = `
-            <video id="gnamPlayer-${gnamsInfo['id']}" class="w-100 h-100 object-fit-fill p-0" disablepictureinpicture loop playsinline preload="auto" poster="assets/gnams_thumbnails/${gnamsInfo['id']}.jpg" src="assets/gnams/${gnamsInfo['id']}.mp4"></video>
+            <video id="gnamPlayer-${gnamsInfo['id']}" class="w-100 h-100 object-fit-fill p-0" loop playsinline preload="auto" poster="assets/gnams_thumbnails/${gnamsInfo['id']}.jpg" src="assets/gnams/${gnamsInfo['id']}.mp4"></video>
             <div  id="videoOverlay-${gnamsInfo['id']}" class="video-overlay">
                 <div class="container">
                     <div class="row mb-3">
