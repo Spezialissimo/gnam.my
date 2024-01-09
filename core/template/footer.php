@@ -1,5 +1,4 @@
 <?php if(PAGE_TITLE != 'Login' && PAGE_TITLE != 'Registrati') { ?>
-				</div>
 			</div>
 			<div class="m-0" id="navbarDiv">
 				<div class="w-100 d-flex" id="navbarContentDiv">

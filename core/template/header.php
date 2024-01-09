@@ -63,8 +63,7 @@ if (isloggedIn() && (PAGE_TITLE == 'Login' || PAGE_TITLE == 'Registrati')) {
 	<?php if(PAGE_TITLE != 'Login' && PAGE_TITLE != 'Registrati') { ?>
 		<main class="w-100 h-100 d-flex" id="mainDiv">
 		<div class="d-flex w-100 h-100 p-0 m-0" id="pageContainer">
-			<div class="p-0 m-0 w-100 overflow-hidden" id="pageDiv">
-				<div class="position-relative w-100 h-100 p-0 overflow-auto" id="pageBodyDiv">
+			<div class="p-0 m-0 w-100 overflow-auto" id="pageDiv">
 	<?php } else { ?>
 		<main class="w-100 h-100 align-content-center">
 	<?php }?>
