@@ -111,7 +111,11 @@ input[type=file]::file-selector-button, input[type=file]::file-selector-button:h
 }
 
 .swal2-toast {
-	height: 18vh !important;
+	max-height: 15vh!important;
+}
+
+.swal2-toast > .swal2-title {
+	margin: 0!important;
 }
 
 .text-button {
