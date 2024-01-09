@@ -22,7 +22,7 @@
   <div class="loadingspinner"></div>
 </div>
 
-<div class="d-none container" id="pageContentDiv">
+<div class="d-none container" id="searchResultsDiv">
     <!-- search results content -->
 </div>
 
@@ -115,7 +115,7 @@
         let query = $('#searchBarInput').val().trim();
 
         $('#searchBarInput').val('');
-        $('#pageContentDiv').addClass('d-none');
+        $('#searchResultsDiv').addClass('d-none');
         $('#loaderDiv').addClass('d-flex').removeClass('d-none');
 
         $.get("api/search.php", {
@@ -125,12 +125,12 @@
             action: "byQuery"
         }, (result) => {
             $('#loaderDiv').removeClass('d-flex').addClass('d-none');
-            $('#pageContentDiv').removeClass('d-none');
-            $('#pageContentDiv').html('');
+            $('#searchResultsDiv').removeClass('d-none');
+            $('#searchResultsDiv').html('');
             currentResult = JSON.parse(result);
 
             if (result === '[]') {
-                $('#pageContentDiv').html('<div class="fs-6 mt-4 text-center">Nessuno gnam trovato.</div>');
+                $('#searchResultsDiv').html('<div class="fs-6 mt-4 text-center">Nessuno gnam trovato.</div>');
                 return;
             }
 
@@ -143,14 +143,14 @@
                 gnamPerRow--;
 
                 if (gnamPerRow === 0) {
-                    $('#pageContentDiv').append(rowDiv);
+                    $('#searchResultsDiv').append(rowDiv);
                     rowDiv = $('</div><div class="row my-3">');
                     gnamPerRow = 3;
                 }
             }
 
             if (gnamPerRow !== 3) {
-                $('#pageContentDiv').append(rowDiv);
+                $('#searchResultsDiv').append(rowDiv);
             }
         });
     }

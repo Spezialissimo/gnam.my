@@ -3,7 +3,7 @@
         <h1 class="fw-bold">Pubblica Gnam</h1>
     </div>
 
-    <div class="row container p-0 m-0 align-content-center" id="pageContentDiv">
+    <div class="row container p-0 m-0 align-content-center">
         <!-- video chooser field -->
         <div class="row-md px-4 h4">
             <h2 class="fw-bold">Scegli video</h2>

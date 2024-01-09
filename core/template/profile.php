@@ -74,7 +74,7 @@ $userLikedGnams = getUserLikedGnams($user['id']);
     </div>
 </div>
 
-<div class="container" id="pageContentDiv">
+<div class="container">
     <div id="postedGnams">
         <?php
             $gnamPerRow = 3;
