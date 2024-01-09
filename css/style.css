@@ -259,9 +259,19 @@ input[type=file]::file-selector-button, input[type=file]::file-selector-button:h
 		padding: 1rem 3rem!important;
 	}
 
-	#navbarContentDiv > a {
+	#navbarContentDiv {
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+	}
+
+	#navbarContentDiv > div > a:first-child {
 		padding: 0.25rem .5rem!important;
 		margin: 0 .5rem!important;
+	}
+
+	#navbarContentDiv > div > a:last-child {
+		display: none;
 	}
 }
 
@@ -288,7 +298,7 @@ input[type=file]::file-selector-button, input[type=file]::file-selector-button:h
 		flex-direction: column;
 	}
 
-	#navbarContentDiv > a {
+	#navbarContentDiv > div > a:first-child {
 		padding: .5rem 0.25rem!important;
 		margin: .5rem 0!important;
 	}
