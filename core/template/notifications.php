@@ -1,5 +1,5 @@
 <div class="container text-center font-text">
-    <div id="headerDiv" class="row-2 py-2">
+    <div class="row-2 py-2">
         <h1 class="fw-bold">Notifiche</h1>
     </div>
     <div id="pageContentDiv" class="row-md-8 align-content-center">

@@ -1,5 +1,5 @@
 <div class="container text-center font-text">
-    <div class="row-2 py-2 h4" id="headerDiv">
+    <div class="row-2 py-2 h4">
         <h1 class="fw-bold">Pubblica Gnam</h1>
     </div>
 

@@ -13,7 +13,7 @@ $userGnams = getUserGnams($user['id']);
 $userLikedGnams = getUserLikedGnams($user['id']);
 
 ?>
-<div class="container text-center mt-3" id="headerDiv">
+<div class="container text-center mt-3">
     <div class="row">
         <div class="col-4">
             <img class="border border-2 border-dark rounded-circle w-75" alt="Foto profilo di <?php echo $user['name'] ?>" src="assets/profile_pictures/<?php echo $user['id'] ?>.jpg" />

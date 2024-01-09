@@ -1,4 +1,4 @@
-<div class="container text-center font-text" id="headerDiv">
+<div class="container text-center font-text">
     <div class="row-2 py-2">
         <h1 class="fw-bold">Cerca</h1>
     </div>
