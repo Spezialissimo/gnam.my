@@ -150,6 +150,7 @@ input[type=file]::file-selector-button, input[type=file]::file-selector-button:h
 	height: 100%!important;
 	width: fit-content!important;
 	z-index: 1!important;
+	box-shadow: 0 0 2vh .8vh var(--accent);
 }
 
 .nav-btn {
@@ -246,6 +247,10 @@ input[type=file]::file-selector-button, input[type=file]::file-selector-button:h
 		flex-flow: column;
 		align-items: center;
 		justify-content: center;
+	}
+
+	#pageDiv{
+		overflow: auto;
 	}
 
 	#navbarDiv {
