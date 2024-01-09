@@ -239,6 +239,11 @@ input[type=file]::file-selector-button, input[type=file]::file-selector-button:h
 	max-width: fit-content;
 }
 
+#navbarContentDiv > div > a:first-child {
+	min-width: 3rem!important;
+	min-height: 3rem!important;
+}
+
 @media (orientation:portrait) {
 	#pageContainer {
 		flex-direction: column;
@@ -266,8 +271,9 @@ input[type=file]::file-selector-button, input[type=file]::file-selector-button:h
 	}
 
 	#navbarContentDiv > div > a:first-child {
-		padding: 0.25rem .5rem!important;
 		margin: 0 .5rem!important;
+		width: 10vw!important;
+		height: 10vw!important;
 	}
 
 	#navbarContentDiv > div > a:last-child {
@@ -296,10 +302,12 @@ input[type=file]::file-selector-button, input[type=file]::file-selector-button:h
 
 	#navbarContentDiv {
 		flex-direction: column;
+		align-items: flex-start;
 	}
 
 	#navbarContentDiv > div > a:first-child {
-		padding: .5rem 0.25rem!important;
 		margin: .5rem 0!important;
+		width: 6vh!important;
+		height: 6vh!important;
 	}
 }
