@@ -304,7 +304,7 @@
             contentType: false,
             success : function(data) {
                 let html = `<div class="row-md-2 py-2 text-center text-black"><i class="fa-solid fa-check fa-2xl"></i></div>`;
-                showSwalSmall('Gnam pubblicato', html, () => {
+                showSwal('Gnam pubblicato', html, () => {
                     window.location.reload();
                 });
             }
@@ -314,7 +314,7 @@
     const publish = () => {
         if ($("#videoInput").prop("files").length != 1) {
             let html = `<div class="row-md-2 py-2 text-center text-black"><p>Nessun video selezionato!</p><i class="fa-solid fa-triangle-exclamation fa-2xl color-alert"></i></div>`;
-            showSwalSmall('Errore!', html);
+            showSwal('Errore!', html);
         } else {
             let scaledIngredients = [];
             ingredients.forEach(i => {

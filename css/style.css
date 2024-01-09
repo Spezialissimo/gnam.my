@@ -235,6 +235,10 @@ input[type=file]::file-selector-button, input[type=file]::file-selector-button:h
 	z-index: 2!important;
 }
 
+body.swal2-height-auto {
+	height: 100% !important;
+}
+
 @media (orientation:portrait) {
 	#pageContainer {
 		flex-direction: column;

@@ -184,7 +184,7 @@ $userLikedGnams = getUserLikedGnams($user['id']);
                 </div>
             </div>
         `;
-        showSwalSmall('Condividi Profilo', swalContent);
+        showSwal('Condividi Profilo', swalContent);
         $("#copyLinkButton").on("click", copyCurrentPageLink);
     }
 
@@ -283,7 +283,7 @@ $userLikedGnams = getUserLikedGnams($user['id']);
                         let decodedResult = JSON.parse(response);
                         let html = `<div class="row-md-2 py-2 text-center text-black"><i class="fa-solid fa-check fa-2xl"></i></div>`;
                         if (decodedResult.status === "success") {
-                            showSwalSmall('Fatto', html, () => {
+                            showSwal('Fatto', html, () => {
                                 window.location.reload();
                             });
                         } else showToast(decodedResult.status, "<p class='fs-6 text-center pt-3'>" + decodedResult.message + "</p>");

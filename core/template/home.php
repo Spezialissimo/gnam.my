@@ -311,7 +311,7 @@
                     </div>
                 </div>
             </div>`;
-            showSwalSmall('<p class="fs-5">Condividi Gnam</p>', swalContent);
+            showSwal('<p class="fs-5">Condividi Gnam</p>', swalContent);
             $("#copyGnamLinkButton").on("click", function () {
                 $("#shareCounter-" + currentGnamID).text(parseInt($("#shareCounter-" + currentGnamID).text()) + 1);
                 let gnamLink = buildURL("home", "gnam=" + currentGnamID);
