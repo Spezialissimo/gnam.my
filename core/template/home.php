@@ -512,7 +512,7 @@
                         <div class="row">
                             <div class="col-2 p-0">
                                 <img id="commenterImg-${comment['id']}" class="border border-2 border-dark rounded-circle w-100" alt="${comment['user_name']}"
-                                    src="assets/profile_pictures/${comment['user_id']}.jpg"/>
+                                    src="assets/profile_pictures/${comment['user_id']}.jpg" />
                             </div>
                             <div class="col">
                                 <div class="row-md-1 text-start">
@@ -540,7 +540,7 @@
                                 <div class="row">
                                     <div class="col-2 p-0">
                                         <img class="border border-2 border-dark rounded-circle w-100" alt="${comment['user_name']}"
-                                            src="assets/profile_pictures/${comment['user_id']}.jpg"/>
+                                            src="assets/profile_pictures/${comment['user_id']}.jpg" />
                                     </div>
                                     <div class="col">
                                         <div class="row-md-1 text-start">

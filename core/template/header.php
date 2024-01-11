@@ -26,7 +26,7 @@ if (isloggedIn() && (PAGE_TITLE == 'Login' || PAGE_TITLE == 'Registrati')) {
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
-	<link rel="stylesheet" href="css/style.css?<?php echo time(); ?>" />
+	<link rel="stylesheet" href="css/style.css" />
 	<script src="js/main.js?<?php echo time(); ?>"></script>
 
 	<script src="https://kit.fontawesome.com/1df86e7f33.js" crossorigin="anonymous"></script>
