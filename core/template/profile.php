@@ -53,7 +53,7 @@ $userLikedGnams = getUserLikedGnams($user['id']);
         <?php if($user['id'] == $_SESSION['id']) { ?>
             <div class="col-2">
                 <button type="button" class="btn btn-bounce rounded-pill bg-primary fw-bold text-black" id="settingsButton">
-                    <i class="fa-solid fa-gear fa-l"></i>
+                    <em class="fa-solid fa-gear fa-l"></em>
                 </button>
             </div>
         <?php } ?>
@@ -177,7 +177,7 @@ $userLikedGnams = getUserLikedGnams($user['id']);
             <div class='row-md-2 py-2 text-center text-black'>
                 <div class='container'>
                     <div class='col'>
-                        <div class='row-9 py-4'><i class='fa-solid fa-share-nodes fa-2xl'></i></div>
+                        <div class='row-9 py-4'><em class='fa-solid fa-share-nodes fa-2xl'></em></div>
                         <div class='row-3 pt-3'><button type='button' class='btn btn-bounce rounded-pill bg-accent fw-bold
                                 text-white' id="copyLinkButton">Copia link</button></div>
                     </div>
@@ -281,7 +281,7 @@ $userLikedGnams = getUserLikedGnams($user['id']);
                     contentType: false,
                     success: function(response) {
                         let decodedResult = JSON.parse(response);
-                        let html = `<div class="row-md-2 py-2 text-center text-black"><i class="fa-solid fa-check fa-2xl"></i></div>`;
+                        let html = `<div class="row-md-2 py-2 text-center text-black"><em class="fa-solid fa-check fa-2xl"></em></div>`;
                         if (decodedResult.status === "success") {
                             showSwal('Fatto', html, () => {
                                 window.location.reload();

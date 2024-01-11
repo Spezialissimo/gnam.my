@@ -73,7 +73,7 @@
                     <div class="col-4 m-0 p-1"><select id="${ingredient["name"]}MeasurementUnit" class="form-select bg-primary rounded shadow-sm fs-7 text-black" title="${ingredient["name"]}UnitàDiMisura" aria-label="${ingredient["name"]}UnitàDiMisura">` +
                         measurementUnitsOptions + `</select></div>
                     <div class="col-2 m-0 p-1"><button type="button" class="btn btn-bounce bg-primary text-black fs-7"
-                            onclick="removeIngredient(this)"><i class="fa-solid fa-trash-can" aria-hidden="true"></i></button></div>
+                            onclick="removeIngredient(this)"><em class="fa-solid fa-trash-can" aria-hidden="true"></em></button></div>
                 </div>
             `).join('');
         }
@@ -86,7 +86,7 @@
             <div class="row mx-0 my-2">
                 <div class="input-group rounded">
                     <span class="input-group-text bg-primary border-0" id="searchIngredientIcon">
-                        <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                        <em class="fa-solid fa-magnifying-glass" aria-hidden="true"></em>
                     </span>
                     <input type="text" class="form-control bg-primary shadow-sm" placeholder="Cerca Ingredienti" id="searchIngredients" title="cercaIngrediente" aria-label="cercaIngrediente" />
                 </div>
@@ -162,7 +162,7 @@
                 <div class="col-4 m-0 p-1"><select id="${newIngredient}MeasurementUnit" class="form-select bg-primary rounded shadow-sm fs-7 text-black" title="${newIngredient}UnitàDiMisura" aria-label="${newIngredient}UnitàDiMisura">` +
                     measurementUnitsOptions + `</select></div>
                 <div class="col-2 m-0 p-1"><button type="button" class="btn btn-bounce bg-primary text-black fs-7"
-                        onclick="removeIngredient(this)"><i class="fa-solid fa-trash-can" aria-hidden="true"></i></button></div>
+                        onclick="removeIngredient(this)"><em class="fa-solid fa-trash-can" aria-hidden="true"></em></button></div>
             </div>
         `);
         if (ingredients.length == 0) {
@@ -213,14 +213,14 @@
         if (hashtags.length > 0) {
             modalContent = hashtags.map(hashtag => `
                 <p class="text-black"><button type="button" class="btn btn-bounce bg-primary text-black" onclick="removeHashtag(this)">
-                    <i class="fa-solid fa-trash-can"></i></button>&nbsp#${hashtag}</p>
+                    <em class="fa-solid fa-trash-can"></em></button>&nbsp#${hashtag}</p>
             `).join('');
         }
 
         let html = `<div class="row-md-2 py-2">
                         <div class="input-group rounded">
-                            <span class="input-group-text bg-primary border-0" id="searchHashtagIcon"><i class="fa-solid fa-magnifying-glass"></i></span>
-                            <input type="text" id="hashtagInput" class="form-control bg-primary shadow-sm" placeholder="Cerca Hashtag" />
+                            <span class="input-group-text bg-primary border-0" id="searchHashtagIcon"><em class="fa-solid fa-magnifying-glass"></em></span>
+                            <input type="text" id="hashtagInput" class="form-control bg-primary shadow-sm" placeholder="Cerca Hashtag" title="cercaHashtag" aria-label="cercaHashtag" />
                         </div>
                     </div>
                     <hr />
@@ -272,7 +272,7 @@
         hashtags.push(newHashtag);
         $("#searchedHashtags").append(`
             <p class="text-black"><button type="button" class="btn btn-bounce bg-primary text-black" onclick="removeHashtag(this)">
-                <i class="fa-solid fa-trash-can"></i></button>&nbsp#${newHashtag}</p>
+                <em class="fa-solid fa-trash-can"></em></button>&nbsp#${newHashtag}</p>
         `);
         $('#hashtagInput').val('');
         $('#hashtagsCount').html(hashtags.length);
@@ -303,7 +303,7 @@
             processData: false,
             contentType: false,
             success : function(data) {
-                let html = `<div class="row-md-2 py-2 text-center text-black"><i class="fa-solid fa-check fa-2xl"></i></div>`;
+                let html = `<div class="row-md-2 py-2 text-center text-black"><em class="fa-solid fa-check fa-2xl"></em></div>`;
                 showSwal('Gnam pubblicato', html, () => {
                     window.location.reload();
                 });
@@ -313,7 +313,7 @@
 
     const publish = () => {
         if ($("#videoInput").prop("files").length != 1) {
-            let html = `<div class="row-md-2 py-2 text-center text-black"><p>Nessun video selezionato!</p><i class="fa-solid fa-triangle-exclamation fa-2xl color-alert"></i></div>`;
+            let html = `<div class="row-md-2 py-2 text-center text-black"><p>Nessun video selezionato!</p><em class="fa-solid fa-triangle-exclamation fa-2xl color-alert"></em></div>`;
             showSwal('Errore!', html);
         } else {
             let scaledIngredients = [];
