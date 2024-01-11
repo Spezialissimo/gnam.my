@@ -12,7 +12,7 @@ if (isloggedIn() && (PAGE_TITLE == 'Login' || PAGE_TITLE == 'Registrati')) {
 
 ?>
 <!DOCTYPE html>
-<html class="h-100">
+<html lang="it" class="h-100">
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
