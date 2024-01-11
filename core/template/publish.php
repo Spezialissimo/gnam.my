@@ -88,7 +88,7 @@
                     <span class="input-group-text bg-primary border-0" id="searchIngredientIcon">
                         <em class="fa-solid fa-magnifying-glass" aria-hidden="true"></em>
                     </span>
-                    <input type="text" class="form-control bg-primary shadow-sm" placeholder="Cerca Ingredienti" id="searchIngredients" title="cercaIngrediente" aria-label="cercaIngrediente" />
+                    <input type="text" class="form-control bg-primary shadow-sm" placeholder="Cerca Ingredienti" id="searchIngredients" title="cercaIngredienti" aria-label="cercaIngredienti" />
                 </div>
             </div>
             <hr />

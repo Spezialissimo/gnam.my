@@ -3,7 +3,7 @@
 Gnam.my is a simple social about cooking written in PHP
 Dim Mobile: 360 x 640
 
-Controllare il contrasto dei colori dei vari p
+Controllare il contrasto dei colori dei vari p e span
 
 ## Experience prototyping
 

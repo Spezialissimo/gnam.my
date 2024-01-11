@@ -244,7 +244,7 @@ $userLikedGnams = getUserLikedGnams($user['id']);
                     <div class='row mb-3'>
                         <div class='col'>
                             <p class="fs-5">Cambia immagine profilo:</p>
-                            <input type="file" class="form-control bg-primary rounded shadow-sm" id="newProfileImage" />
+                            <input type="file" class="form-control bg-primary rounded shadow-sm" id="newProfileImage" title="nuovaImmagineDiProfilo" aria-label="nuovaImmagineDiProfilo" />
                         </div>
                     </div>
                     <div class='row justify-content-center'>
