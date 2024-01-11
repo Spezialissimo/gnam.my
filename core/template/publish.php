@@ -7,19 +7,19 @@
         <!-- video chooser field -->
         <div class="row-md px-4 h4">
             <h2 class="fw-bold">Scegli video</h2>
-            <input type="file" class="form-control bg-primary rounded shadow-sm" id="videoInput" accept="video/mp4" />
+            <input type="file" class="form-control bg-primary rounded shadow-sm" id="videoInput" accept="video/mp4" title="video" aria-label="video" />
             <video id="hiddenVideoDiv" class="d-none position-absolute" style="height: 1px!important; width: 1px!important"></video>
             <canvas id="videoCanvas" class="d-none"></canvas>
         </div>
         <!-- thumbnail chooser field -->
         <div class="row-md px-4 h4">
             <h2 class="fw-bold">Scegli copertina</h2>
-            <input type="file" class="form-control bg-primary rounded shadow-sm" id="thumbnailInput" accept="image/jpg, image/jpeg, image/png" />
+            <input type="file" class="form-control bg-primary rounded shadow-sm" id="thumbnailInput" accept="image/jpg, image/jpeg, image/png" title="copertina" aria-label="copertina" />
         </div>
         <!-- description field -->
         <div class="row-md-6 px-4 h4">
             <h2 class="fw-bold">Descrizione</h2>
-            <textarea class="form-control bg-primary rounded shadow-sm" rows="3" id="descriptionInput"></textarea>
+            <textarea class="form-control bg-primary rounded shadow-sm" rows="3" id="descriptionInput" title="descrizione" aria-label="descrizione"></textarea>
         </div>
         <!-- ingredients -->
         <div class="row-sm pt-2 pb-0 ">
@@ -68,9 +68,9 @@
                         <p class="m-0 fs-7">${ingredient["name"]}</p>
                     </div>
                     <div class="col-3 m-0 p-1">
-                        <input type="number" id="${ingredient["name"]}Quantity" class="form-control bg-primary rounded shadow-sm fs-7 text-black" placeholder="1" />
+                        <input type="number" id="${ingredient["name"]}Quantity" class="form-control bg-primary rounded shadow-sm fs-7 text-black" placeholder="1" title="${ingredient["name"]}Quantità" aria-label="${ingredient["name"]}Quantità" />
                     </div>
-                    <div class="col-4 m-0 p-1"><select id="${ingredient["name"]}MeasurementUnit" class="form-select bg-primary rounded shadow-sm fs-7 text-black">` +
+                    <div class="col-4 m-0 p-1"><select id="${ingredient["name"]}MeasurementUnit" class="form-select bg-primary rounded shadow-sm fs-7 text-black" title="${ingredient["name"]}UnitàDiMisura" aria-label="${ingredient["name"]}UnitàDiMisura">` +
                         measurementUnitsOptions + `</select></div>
                     <div class="col-2 m-0 p-1"><button type="button" class="btn btn-bounce bg-primary text-black fs-7"
                             onclick="removeIngredient(this)"><i class="fa-solid fa-trash-can" aria-hidden="true"></i></button></div>
@@ -81,14 +81,14 @@
         let html = `
             <div class="d-flex align-items-center justify-content-center mb-2">
                 <p class="m-0 me-2 fs-6">Numero di porzioni:</p>
-                <input type="number" value="1" min="1" max="100" class="form-control bg-primary rounded shadow-sm fs-6 fw-bold text-center" id="portionsInput" />
+                <input type="number" value="1" min="1" max="100" class="form-control bg-primary rounded shadow-sm fs-6 fw-bold text-center" id="portionsInput" title="porzioni" aria-label="porzioni" />
             </div>
             <div class="row mx-0 my-2">
                 <div class="input-group rounded">
                     <span class="input-group-text bg-primary border-0" id="searchIngredientIcon">
                         <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
                     </span>
-                    <input type="text" class="form-control bg-primary shadow-sm" placeholder="Cerca Ingredienti" id="searchIngredients" />
+                    <input type="text" class="form-control bg-primary shadow-sm" placeholder="Cerca Ingredienti" id="searchIngredients" title="cercaIngrediente" aria-label="cercaIngrediente" />
                 </div>
             </div>
             <hr />
@@ -157,9 +157,9 @@
                     <p class="m-0 fs-7">${newIngredient}</p>
                 </div>
                 <div class="col-3 m-0 p-1">
-                    <input type="number" id="${newIngredient}Quantity" class="form-control bg-primary rounded shadow-sm fs-7 text-black" placeholder="1" />
+                    <input type="number" id="${newIngredient}Quantity" class="form-control bg-primary rounded shadow-sm fs-7 text-black" placeholder="1" title="${newIngredient}Quantità" aria-label="${newIngredient}Quantità" />
                 </div>
-                <div class="col-4 m-0 p-1"><select id="${newIngredient}MeasurementUnit" class="form-select bg-primary rounded shadow-sm fs-7 text-black">` +
+                <div class="col-4 m-0 p-1"><select id="${newIngredient}MeasurementUnit" class="form-select bg-primary rounded shadow-sm fs-7 text-black" title="${newIngredient}UnitàDiMisura" aria-label="${newIngredient}UnitàDiMisura">` +
                     measurementUnitsOptions + `</select></div>
                 <div class="col-2 m-0 p-1"><button type="button" class="btn btn-bounce bg-primary text-black fs-7"
                         onclick="removeIngredient(this)"><i class="fa-solid fa-trash-can" aria-hidden="true"></i></button></div>
