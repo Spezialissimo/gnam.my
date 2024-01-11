@@ -10,7 +10,7 @@
             <div class="container h-auto" id="notificationsContainer">
                 <?php foreach ($notifications as $notification) { ?>
                 <div class="row m-1 p-0">
-                    <button id="notification<?php echo $notification['notification_id'] ?>" class="btn btn-bounce rounded-pill bg-primary p-0 notification-pill-text notification-btn">
+                    <a id="notification<?php echo $notification['notification_id'] ?>" class="btn btn-bounce rounded-pill bg-primary p-0 notification-pill-text notification-btn">
                         <div class="container">
                             <div class="row">
                                 <div class="p-1 col-2 d-flex flex-wrap align-items-center">
