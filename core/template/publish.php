@@ -213,13 +213,13 @@
         if (hashtags.length > 0) {
             modalContent = hashtags.map(hashtag => `
                 <p class="text-black"><button type="button" class="btn btn-bounce bg-primary text-black" onclick="removeHashtag(this)">
-                    <em class="fa-solid fa-trash-can"></em></button>&nbsp#${hashtag}</p>
+                    <em class="fa-solid fa-trash-can" aria-hidden="true"></em></button>&nbsp#${hashtag}</p>
             `).join('');
         }
 
         let html = `<div class="row-md-2 py-2">
                         <div class="input-group rounded">
-                            <span class="input-group-text bg-primary border-0" id="searchHashtagIcon"><em class="fa-solid fa-magnifying-glass"></em></span>
+                            <span class="input-group-text bg-primary border-0" id="searchHashtagIcon"><em class="fa-solid fa-magnifying-glass" aria-hidden="true"></em></span>
                             <input type="text" id="hashtagInput" class="form-control bg-primary shadow-sm" placeholder="Cerca Hashtag" title="cercaHashtag" aria-label="cercaHashtag" />
                         </div>
                     </div>
@@ -272,7 +272,7 @@
         hashtags.push(newHashtag);
         $("#searchedHashtags").append(`
             <p class="text-black"><button type="button" class="btn btn-bounce bg-primary text-black" onclick="removeHashtag(this)">
-                <em class="fa-solid fa-trash-can"></em></button>&nbsp#${newHashtag}</p>
+                <em class="fa-solid fa-trash-can" aria-hidden="true"></em></button>&nbsp#${newHashtag}</p>
         `);
         $('#hashtagInput').val('');
         $('#hashtagsCount').html(hashtags.length);
@@ -303,7 +303,7 @@
             processData: false,
             contentType: false,
             success : function(data) {
-                let html = `<div class="row-md-2 py-2 text-center text-black"><em class="fa-solid fa-check fa-2xl"></em></div>`;
+                let html = `<div class="row-md-2 py-2 text-center text-black"><em class="fa-solid fa-check fa-2xl" aria-hidden="true"></em></div>`;
                 showSwal('Gnam pubblicato', html, () => {
                     window.location.reload();
                 });
@@ -313,7 +313,7 @@
 
     const publish = () => {
         if ($("#videoInput").prop("files").length != 1) {
-            let html = `<div class="row-md-2 py-2 text-center text-black"><p>Nessun video selezionato!</p><em class="fa-solid fa-triangle-exclamation fa-2xl color-alert"></em></div>`;
+            let html = `<div class="row-md-2 py-2 text-center text-black"><p>Nessun video selezionato!</p><em class="fa-solid fa-triangle-exclamation fa-2xl color-alert" aria-hidden="true"></em></div>`;
             showSwal('Errore!', html);
         } else {
             let scaledIngredients = [];

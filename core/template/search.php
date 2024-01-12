@@ -5,7 +5,7 @@
     <!-- search field -->
     <div class="row-md-2 py-2">
         <div class="input-group rounded" id="searchBar">
-            <span class="input-group-text bg-primary border-0" id="searchIcon"><em class="fa-solid fa-magnifying-glass"></em></span>
+            <span class="input-group-text bg-primary border-0" id="searchIcon"><em class="fa-solid fa-magnifying-glass" aria-hidden="true"></em></span>
             <input type="text" class="form-control bg-primary shadow-sm" placeholder="Cerca" id="searchBarInput" title="cercaGnam" aria-label="cercaGnam" <?php if (isset($_GET["q"])) { echo 'value="' . $_GET["q"] . '" '; } ?>/>
     	</div>
     </div>
@@ -36,7 +36,7 @@
         if (ingredients.length > 0) {
             modalContent = ingredients.map(ingredient => `
                 <p class="text-black"><button type="button" class="btn btn-bounce bg-primary text-black" onclick="removeIngredient(this)">
-                    <em class="fa-solid fa-trash-can"></em></button>&nbsp${ingredient}</p>
+                    <em class="fa-solid fa-trash-can" aria-hidden="true"></em></button>&nbsp${ingredient}</p>
             `).join('');
         }
 
@@ -88,7 +88,7 @@
         ingredients.push(newIngredient);
         $("#searchedIngredients").append(`
             <p class="text-black"><button type="button" class="btn btn-bounce bg-primary text-black" onclick="removeIngredient(this)">
-                <em class="fa-solid fa-trash-can"></em></button>&nbsp${newIngredient}</p>
+                <em class="fa-solid fa-trash-can" aria-hidden="true"></em></button>&nbsp${newIngredient}</p>
         `);
         $('#ingredientInput').val('');
         $('#ingredientsCount').html(ingredients.length);

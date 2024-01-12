@@ -184,22 +184,22 @@
                             <div class="container p-0">
                                 <div class="col">
                                     <div class="row pb-4 text-center" id="recipeButton-${gnamsInfo['id']}">
-                                        <span><em class="fa-solid fa-utensils fa-2xl fa-fw color-secondary"></em></span>
+                                        <span><em class="fa-solid fa-utensils fa-2xl fa-fw color-secondary" aria-hidden="true"></em></span>
                                     </div>
                                     <div class="row text-center" id="likeButton-${gnamsInfo['id']}">
-                                        <span><em class="fa-solid fa-heart fa-2xl fa-fw color-secondary"></em></span>
+                                        <span><em class="fa-solid fa-heart fa-2xl fa-fw color-secondary" aria-hidden="true"></em></span>
                                     </div>
                                     <div class="row pt-2 color-accent fw-bold text-center">
                                         <span id="likesCounter-${gnamsInfo['id']}">${gnamsInfo['likes_count']}</span>
                                     </div>
                                     <div class="row pt-2 text-center" id="commentsButton-${gnamsInfo['id']}">
-                                        <span><em class="fa-solid fa-comment-dots fa-2xl fa-fw color-secondary"></em></span>
+                                        <span><em class="fa-solid fa-comment-dots fa-2xl fa-fw color-secondary" aria-hidden="true"></em></span>
                                     </div>
                                     <div class="row pt-2 color-accent fw-bold text-center">
                                         <span id="commentsCounter-${gnamsInfo['id']}">0</span>
                                     </div>
                                     <div class="row pt-2 text-center" id="shareButton-${gnamsInfo['id']}">
-                                        <span><em class="fa-solid fa-share-nodes fa-2xl fa-fw color-secondary"></em></span>
+                                        <span><em class="fa-solid fa-share-nodes fa-2xl fa-fw color-secondary" aria-hidden="true"></em></span>
                                     </div>
                                     <div class="row pt-2 color-accent fw-bold text-center">
                                         <span id="shareCounter-${gnamsInfo['id']}">${gnamsInfo['shares_count']}</span>
@@ -244,7 +244,7 @@
             tagHTML += `
                 <div class="col-2 pe-0" id="moreTagsButton-${gnamsInfo['id']}">
                     <span class="badge rounded-pill bg-primary fw-light text-black">
-                        <em class="fa-solid fa-ellipsis"></em>
+                        <em class="fa-solid fa-ellipsis" aria-hidden="true"></em>
                     </span>
                 </div>`;
         }
@@ -305,7 +305,7 @@
             <div class='row-md-2 py-2 text-center text-black'>
                 <div class='container'>
                     <div class='col'>
-                        <div class='row-9 py-4'><em class='fa-solid fa-share-nodes fa-2xl'></em></div>
+                        <div class='row-9 py-4'><em class='fa-solid fa-share-nodes fa-2xl' aria-hidden="true"></em></div>
                         <div class='row-3 pt-3'><button type='button' class='btn btn-bounce rounded-pill bg-accent fw-bold
                                 text-white' id="copyGnamLinkButton">Copia link</button></div>
                     </div>
@@ -511,7 +511,7 @@
                                     <span class="border-0 fs-7">Stai rispondendo a: <span id="replyToName-${currentGnamID}" class="text-link"></span></span>
                                 </div>
                                 <div class="col-1 d-flex align-items-center p-0">
-                                    <em id="closeReplyTo-${currentGnamID}" class="fa-solid fa-xmark color-accent"></em>
+                                    <em id="closeReplyTo-${currentGnamID}" class="fa-solid fa-xmark color-accent" aria-hidden="true"></em>
                                 </div>
                             </div>
                         </div>
