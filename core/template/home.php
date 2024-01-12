@@ -173,7 +173,7 @@
                             </div>
                             <div class="row">
                                 <span id="videoDescriptionShort-${gnamsInfo['id']}" class="fs-7 m-0">${gnamsInfo['short_description']}
-                                    <span class="fs-7 m-0 color-accent">Leggi di piú...</span>
+                                    <span class="fs-7 m-0 color-accent fw-semibold">Leggi di piú...</span>
                                 </span>
                                 <p id="videoDescriptionLong-${gnamsInfo['id']}" class="fs-7 m-0 d-none">${gnamsInfo['description']}</p>
                             </div>
