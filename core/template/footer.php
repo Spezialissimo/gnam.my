@@ -1,6 +1,6 @@
 <?php if(PAGE_TITLE != 'Login' && PAGE_TITLE != 'Registrati') { ?>
 			</div>
-			<div class="m-0" id="navbarDiv">
+			<nav class="m-0">
 				<div class="w-100 d-flex" id="navbarContentDiv">
 					<div class="btn-bounce d-flex flex-row align-items-center justify-content-center">
 						<a role="button" href="home.php" class="btn nav-btn bg-primary d-flex p-sm-3 p-2">
@@ -33,7 +33,7 @@
 						<a href="profile.php" class="ps-2 text-button fw-semibold color-accent">Profilo</a>
 					</div>
 				</div>
-			</div>
+			</nav>
 		</div>
 <?php } ?>
 	</main>

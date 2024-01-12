@@ -235,7 +235,7 @@ input[type=file]::file-selector-button, input[type=file]::file-selector-button:h
 	min-height: 3rem!important;
 }
 
-#navbarDiv {
+nav {
 	z-index: 2!important;
 }
 
@@ -261,7 +261,7 @@ body.swal2-height-auto {
 		overflow: auto;
 	}
 
-	#navbarDiv {
+	nav {
 		width: 100%;
 		padding: 1rem 3rem!important;
 		box-shadow: 0 0 2vh .8vh var(--secondary);
@@ -296,7 +296,7 @@ body.swal2-height-auto {
 		padding: 0 10%!important;
 	}
 
-	#navbarDiv {
+	nav {
 		display: flex;
 		flex-direction: column;
 		height: 100%;
