@@ -35,7 +35,7 @@
 
         if (ingredients.length > 0) {
             modalContent = ingredients.map(ingredient => `
-                <p class="text-black"><button type="button" class="btn btn-bounce bg-primary text-black" onclick="removeIngredient(this)">
+                <p><button type="button" class="btn btn-bounce bg-primary text-black" onclick="removeIngredient(this)">
                     <em class="fa-solid fa-trash-can"></em></button>&nbsp${ingredient}</p>
             `).join('');
         }
@@ -87,7 +87,7 @@
         }
         ingredients.push(newIngredient);
         $("#searchedIngredients").append(`
-            <p class="text-black"><button type="button" class="btn btn-bounce bg-primary text-black" onclick="removeIngredient(this)">
+            <p><button type="button" class="btn btn-bounce bg-primary text-black" onclick="removeIngredient(this)">
                 <em class="fa-solid fa-trash-can"></em></button>&nbsp${newIngredient}</p>
         `);
         $('#ingredientInput').val('');

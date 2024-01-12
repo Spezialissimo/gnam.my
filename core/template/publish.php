@@ -63,14 +63,14 @@
 
         if (ingredients.length > 0) {
             modalContent = ingredients.map(ingredient => `
-                <div class="row m-0 p-0 align-items-center text-black">
+                <div class="row m-0 p-0 align-items-center">
                     <div class="col-3 m-0 p-1">
-                        <p class="m-0 fs-7">${ingredient["name"]}</p>
+                        <p class="m-0 fs-7 text-black">${ingredient["name"]}</p>
                     </div>
                     <div class="col-3 m-0 p-1">
-                        <input type="number" id="${ingredient["name"]}Quantity" class="form-control bg-primary rounded shadow-sm fs-7 text-black" placeholder="1" title="${ingredient["name"]}Quantità" aria-label="${ingredient["name"]}Quantità" />
+                        <input type="number" id="${ingredient["name"]}Quantity" class="form-control bg-primary rounded shadow-sm fs-7" placeholder="1" title="${ingredient["name"]}Quantità" aria-label="${ingredient["name"]}Quantità" />
                     </div>
-                    <div class="col-4 m-0 p-1"><select id="${ingredient["name"]}MeasurementUnit" class="form-select bg-primary rounded shadow-sm fs-7 text-black" title="${ingredient["name"]}UnitàDiMisura" aria-label="${ingredient["name"]}UnitàDiMisura">` +
+                    <div class="col-4 m-0 p-1"><select id="${ingredient["name"]}MeasurementUnit" class="form-select bg-primary rounded shadow-sm fs-7" title="${ingredient["name"]}UnitàDiMisura" aria-label="${ingredient["name"]}UnitàDiMisura">` +
                         measurementUnitsOptions + `</select></div>
                     <div class="col-2 m-0 p-1"><button type="button" class="btn btn-bounce bg-primary text-black fs-7"
                             onclick="removeIngredient(this)"><em class="fa-solid fa-trash-can" aria-hidden="true"></em></button></div>
@@ -152,14 +152,14 @@
             return;
         }
         $("#searchedIngredients").append(`
-            <div class="row text-black m-0 p-0 align-items-center text-black">
+            <div class="row m-0 p-0 align-items-center">
                 <div class="col-3 m-0 p-1">
-                    <p class="m-0 fs-7">${newIngredient}</p>
+                    <p class="m-0 fs-7 text-black">${newIngredient}</p>
                 </div>
                 <div class="col-3 m-0 p-1">
-                    <input type="number" id="${newIngredient}Quantity" class="form-control bg-primary rounded shadow-sm fs-7 text-black" placeholder="1" title="${newIngredient}Quantità" aria-label="${newIngredient}Quantità" />
+                    <input type="number" id="${newIngredient}Quantity" class="form-control bg-primary rounded shadow-sm fs-7" placeholder="1" title="${newIngredient}Quantità" aria-label="${newIngredient}Quantità" />
                 </div>
-                <div class="col-4 m-0 p-1"><select id="${newIngredient}MeasurementUnit" class="form-select bg-primary rounded shadow-sm fs-7 text-black" title="${newIngredient}UnitàDiMisura" aria-label="${newIngredient}UnitàDiMisura">` +
+                <div class="col-4 m-0 p-1"><select id="${newIngredient}MeasurementUnit" class="form-select bg-primary rounded shadow-sm fs-7" title="${newIngredient}UnitàDiMisura" aria-label="${newIngredient}UnitàDiMisura">` +
                     measurementUnitsOptions + `</select></div>
                 <div class="col-2 m-0 p-1"><button type="button" class="btn btn-bounce bg-primary text-black fs-7"
                         onclick="removeIngredient(this)"><em class="fa-solid fa-trash-can" aria-hidden="true"></em></button></div>
@@ -212,7 +212,7 @@
 
         if (hashtags.length > 0) {
             modalContent = hashtags.map(hashtag => `
-                <p class="text-black"><button type="button" class="btn btn-bounce bg-primary text-black" onclick="removeHashtag(this)">
+                <p><button type="button" class="btn btn-bounce bg-primary text-black" onclick="removeHashtag(this)">
                     <em class="fa-solid fa-trash-can"></em></button>&nbsp#${hashtag}</p>
             `).join('');
         }
@@ -271,7 +271,7 @@
         }
         hashtags.push(newHashtag);
         $("#searchedHashtags").append(`
-            <p class="text-black"><button type="button" class="btn btn-bounce bg-primary text-black" onclick="removeHashtag(this)">
+            <p><button type="button" class="btn btn-bounce bg-primary text-black" onclick="removeHashtag(this)">
                 <em class="fa-solid fa-trash-can"></em></button>&nbsp#${newHashtag}</p>
         `);
         $('#hashtagInput').val('');

@@ -129,7 +129,7 @@ input[type=file]::file-selector-button, input[type=file]::file-selector-button:h
 	color: var(--secondary) !important;
 }
 
-.text-notification-pill{
+.text-notification-pill {
 	font-size: small;
 }
 

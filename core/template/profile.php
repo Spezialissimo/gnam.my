@@ -239,11 +239,11 @@ $userLikedGnams = getUserLikedGnams($user['id']);
 
     const showSwalSettings = () => {
         let swalContent = `
-            <div class='row-md-2 py-2 text-center text-black overflow-hidden'>
+            <div class='row-md-2 py-2 text-center overflow-hidden'>
                 <div class='container px-0'>
                     <div class='row mb-3'>
                         <div class='col'>
-                            <p class="fs-5">Cambia immagine profilo:</p>
+                            <p class="fs-5 text-black">Cambia immagine profilo:</p>
                             <input type="file" class="form-control bg-primary rounded shadow-sm" id="newProfileImage" title="nuovaImmagineDiProfilo" aria-label="nuovaImmagineDiProfilo" />
                         </div>
                     </div>
