@@ -1,4 +1,4 @@
-<div class="container text-center font-text">
+<div class="container text-center font-text text-black">
     <div class="row-2 py-2 h4">
         <h1 class="fw-bold">Pubblica Gnam</h1>
     </div>
@@ -80,7 +80,7 @@
 
         let html = `
             <div class="d-flex align-items-center justify-content-center mb-2">
-                <p class="m-0 me-2 fs-6">Numero di porzioni:</p>
+                <p class="m-0 me-2 fs-6 text-black">Numero di porzioni:</p>
                 <input type="number" value="1" min="1" max="100" class="form-control bg-primary rounded shadow-sm fs-6 fw-bold text-center" id="portionsInput" title="porzioni" aria-label="porzioni" />
             </div>
             <div class="row mx-0 my-2">
@@ -92,7 +92,7 @@
                 </div>
             </div>
             <hr />
-            <p id="noIngredientsText" class="d-none">Non hai selezionato ingredienti.</p>
+            <p id="noIngredientsText" class="d-none text-black">Non hai selezionato ingredienti.</p>
             <div class="text-center" id="searchedIngredients">${modalContent}</div>
             <hr />
             <div class="row m-0 p-0">
@@ -212,7 +212,7 @@
 
         if (hashtags.length > 0) {
             modalContent = hashtags.map(hashtag => `
-                <p><button type="button" class="btn btn-bounce bg-primary text-black" onclick="removeHashtag(this)">
+                <p class="text-black"><button type="button" class="btn btn-bounce bg-primary text-black" onclick="removeHashtag(this)">
                     <em class="fa-solid fa-trash-can"></em></button>&nbsp#${hashtag}</p>
             `).join('');
         }
@@ -224,7 +224,7 @@
                         </div>
                     </div>
                     <hr />
-                    <p id="noHashtagsText" class="d-none">Non hai selezionato hashtag.</p>
+                    <p id="noHashtagsText" class="d-none text-black">Non hai selezionato hashtag.</p>
                     <div class="text-center" id="searchedHashtags">${modalContent}</div>
                     <hr />
                     <div class="row m-0 p-0">
@@ -271,7 +271,7 @@
         }
         hashtags.push(newHashtag);
         $("#searchedHashtags").append(`
-            <p><button type="button" class="btn btn-bounce bg-primary text-black" onclick="removeHashtag(this)">
+            <p class="text-black"><button type="button" class="btn btn-bounce bg-primary text-black" onclick="removeHashtag(this)">
                 <em class="fa-solid fa-trash-can"></em></button>&nbsp#${newHashtag}</p>
         `);
         $('#hashtagInput').val('');

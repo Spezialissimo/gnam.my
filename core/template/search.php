@@ -1,4 +1,4 @@
-<div class="container text-center font-text">
+<div class="container text-center font-text text-black">
     <div class="row-2 py-2">
         <h1 class="fw-bold">Cerca</h1>
     </div>
@@ -35,7 +35,7 @@
 
         if (ingredients.length > 0) {
             modalContent = ingredients.map(ingredient => `
-                <p><button type="button" class="btn btn-bounce bg-primary text-black" onclick="removeIngredient(this)">
+                <p class="text-black"><button type="button" class="btn btn-bounce bg-primary text-black" onclick="removeIngredient(this)">
                     <em class="fa-solid fa-trash-can"></em></button>&nbsp${ingredient}</p>
             `).join('');
         }
@@ -47,7 +47,7 @@
                         </div>
                     </div>
                     <hr />
-                    <p id="noIngredientsText" class="d-none">Non hai selezionato ingredienti.</p>
+                    <p id="noIngredientsText" class="d-none text-black">Non hai selezionato ingredienti.</p>
                     <div class="text-center" id="searchedIngredients">${modalContent}</div>
                     <hr />
                     <div class="row m-0 p-0">
@@ -87,7 +87,7 @@
         }
         ingredients.push(newIngredient);
         $("#searchedIngredients").append(`
-            <p><button type="button" class="btn btn-bounce bg-primary text-black" onclick="removeIngredient(this)">
+            <p class="text-black"><button type="button" class="btn btn-bounce bg-primary text-black" onclick="removeIngredient(this)">
                 <em class="fa-solid fa-trash-can"></em></button>&nbsp${newIngredient}</p>
         `);
         $('#ingredientInput').val('');
@@ -130,7 +130,7 @@
             currentResult = JSON.parse(result);
 
             if (result === '[]') {
-                $('#searchResultsDiv').html('<div class="fs-6 mt-4 text-center">Nessuno gnam trovato.</div>');
+                $('#searchResultsDiv').html('<div class="fs-6 mt-4 text-center text-black">Nessuno gnam trovato.</div>');
                 return;
             }
 

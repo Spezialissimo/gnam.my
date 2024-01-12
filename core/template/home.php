@@ -550,7 +550,7 @@
                                 <div class="row-md-1 text-start">
                                     <span id="commenterUserName-${comment['id']}" class="text-link">${comment['user_name']}</span>
                                 </div>
-                                <div class="row-md text-normal-black fs-7 text-start">
+                                <div class="row-md text-black fw-normal fs-7 text-start">
                                     <p class="m-0">${comment['text']}</p>
                                 </div>
                                 <div class="row-md-1 text-start">
@@ -578,7 +578,7 @@
                                         <div class="row-md-1 text-start">
                                             <span id="commenterUserName-${comment['id']}" class="text-link">${comment['user_name']}</span>
                                         </div>
-                                        <div class="row-md text-normal-black fs-7 text-start">
+                                        <div class="row-md text-black fw-normal fs-7 text-start">
                                             <p class="m-0">${comment['text']}</p>
                                         </div>
                                         <div class="row-md-1 text-start">

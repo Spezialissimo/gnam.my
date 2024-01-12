@@ -171,11 +171,6 @@ input[type=file]::file-selector-button, input[type=file]::file-selector-button:h
 	text-decoration: none;
 }
 
-.text-normal-black {
-	color: black;
-	font-weight:normal !important;
-}
-
 .modal-content-sm {
 	max-height: 20vh;
 	overflow: auto;

@@ -13,7 +13,7 @@ $userGnams = getUserGnams($user['id']);
 $userLikedGnams = getUserLikedGnams($user['id']);
 
 ?>
-<div class="container text-center mt-3">
+<div class="container text-center mt-3 text-black">
     <div class="row">
         <div class="col-4">
             <img class="border border-2 border-dark rounded-circle w-75" alt="Foto profilo di <?php echo $user['name'] ?>" src="assets/profile_pictures/<?php echo $user['id'] ?>.jpg" />
@@ -25,18 +25,18 @@ $userLikedGnams = getUserLikedGnams($user['id']);
             <div class="row">
                 <a id="followerButton" href="#" class="col p-0 text-link">
                     <p class="fw-bold p-0 mb-0">Follower</p>
-                    <p class="text-normal-black" id="followersCount"><?php echo count($followers); ?></p>
+                    <p class="fw-normal " id="followersCount"><?php echo count($followers); ?></p>
                 </a>
 
                 <a id="followedButton" href="#" class="col p-0 text-link">
                     <div class="col p-0">
                         <p class="fw-bold mb-0">Seguiti</p>
-                        <p class="text-normal-black"><?php echo count($followed); ?></p>
+                        <p class="fw-normal "><?php echo count($followed); ?></p>
                     </div>
                 </a>
                 <div class="col p-0 text-link">
                     <p class="fw-bold mb-0">Gnam</p>
-                    <p class="text-normal-black"><?php echo count($userGnams); ?></p>
+                    <p class="fw-normal "><?php echo count($userGnams); ?></p>
                 </div>
             </div>
         </div>
