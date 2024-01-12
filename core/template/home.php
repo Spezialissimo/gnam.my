@@ -162,7 +162,7 @@
             <div  id="videoOverlay-${gnamsInfo['id']}" class="video-overlay">
                 <div class="container">
                     <div class="row mb-3">
-                        <div id="descriptionBox-${gnamsInfo['id']}" class="col-10 align-self-end">
+                        <div id="descriptionBox-${gnamsInfo['id']}" class="col-10 align-self-end text-black">
                             <div class="row text-link">
                                 <div class="col-3">
                                     <img id="userImage-${gnamsInfo['id']}" class="border border-2 border-dark rounded-circle w-100" alt="${gnamsInfo['user_name']}" src="assets/profile_pictures/${gnamsInfo['user_id']}.jpg" />
@@ -334,10 +334,10 @@
         $("#recipeButton-" + gnamsInfo['id']).on("click", function (e) {
             let html = `
                 <div class="d-flex align-items-center justify-content-center mb-2">
-                    <p class="m-0 me-2 fs-6">Numero di porzioni:</p>
+                    <p class="m-0 me-2 fs-6 text-black">Numero di porzioni:</p>
                     <input type="number" value="1" min="1" max="100" class="form-control bg-primary rounded shadow-sm fs-6 fw-bold text-center" id="portionsInput" title="porzioni" aria-label="porzioni" />
                 </div>
-                <div class="row mx-0 my-2">
+                <div class="row mx-0 my-2 text-black">
                     <div class="col-6 d-flex align-items-center justify-content-start">
                         <p class="m-0 p-0 fs-6 fw-bold">Nome:</p>
                     </div>
@@ -346,7 +346,7 @@
                     </div>
                 </div>
                 <hr class="my-2" />
-                <div class="text-center" id="ingredients-${gnamsInfo['id']}">
+                <div class="text-center text-black" id="ingredients-${gnamsInfo['id']}">
                 </div>
                 <hr class="m-0 mt-2" />
                 </div>
@@ -472,7 +472,7 @@
     const getCommentsHTML = (comments) => {
         if (comments.length == 0) {
             let firstCommentHTML = `
-                <div class="row-8 modal-content-lg">
+                <div class="row-8 modal-content-lg text-black">
                     <div class="container">
                         <div class="col">
                             <div class="row p-1 pb-3">
@@ -484,7 +484,7 @@
                 <div class="row-1 bg-primary rounded">
                     <div class="input-group rounded">
                         <input id="commentField-${currentGnamID}" type="text" class="fs-7 form-control bg-primary shadow-sm" placeholder="Insercisci commento..." title="inserisciCommento" aria-label="inserisciCommento" />
-                        <span id="commentButton-${currentGnamID}" class="input-group-text bg-primary border-0 fs-7 fw-bold cursor-pointer">Commenta</span>
+                        <span id="commentButton-${currentGnamID}" class="input-group-text bg-primary border-0 fs-7 fw-bold cursor-pointer text-black">Commenta</span>
                     </div>
                 </div>`;
 

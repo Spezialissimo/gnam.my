@@ -190,7 +190,7 @@ $userLikedGnams = getUserLikedGnams($user['id']);
 
     const showSwalFollower = () => {
         let swalContent = `
-            <ul class="list-group modal-content-lg">
+            <ul class="list-group modal-content-lg text-black">
                 <?php
                     if(count($followers) > 0) {
                         foreach ($followers as $f) {
@@ -214,7 +214,7 @@ $userLikedGnams = getUserLikedGnams($user['id']);
 
     const showSwalFollowed = () => {
         let swalContent = `
-            <ul class="list-group modal-content-lg">
+            <ul class="list-group modal-content-lg text-black">
                 <?php
                     if(count($followed) > 0) {
                         foreach($followed as $f) {

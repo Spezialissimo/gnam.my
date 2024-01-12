@@ -2,7 +2,7 @@ const showSwal = (title, html, onClose) => {
     Swal.fire({
         title: title,
         html: html,
-        background: "#F8D7A5",
+        background: "#F7D197",
         showCloseButton: true,
         showCancelButton: false,
         showConfirmButton: false,
