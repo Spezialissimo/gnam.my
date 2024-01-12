@@ -68,9 +68,9 @@
                         <p class="m-0 fs-7 text-black">${ingredient["name"]}</p>
                     </div>
                     <div class="col-3 m-0 p-1">
-                        <input type="number" id="${ingredient["name"]}Quantity" class="form-control bg-primary rounded shadow-sm fs-7" placeholder="1" title="${ingredient["name"]}Quantità" aria-label="${ingredient["name"]}Quantità" />
+                        <input type="number" id="${ingredient["name"]}Quantity" class="form-control bg-primary rounded shadow-sm fs-7" placeholder="1" title="quantità di ${ingredient["name"]}" aria-label="quantità di ${ingredient["name"]}" />
                     </div>
-                    <div class="col-4 m-0 p-1"><select id="${ingredient["name"]}MeasurementUnit" class="form-select bg-primary rounded shadow-sm fs-7" title="${ingredient["name"]}UnitàDiMisura" aria-label="${ingredient["name"]}UnitàDiMisura">` +
+                    <div class="col-4 m-0 p-1"><select id="${ingredient["name"]}MeasurementUnit" class="form-select bg-primary rounded shadow-sm fs-7" title="unità di misura ${ingredient["name"]}" aria-label="unità di misura ${ingredient["name"]}">` +
                         measurementUnitsOptions + `</select></div>
                     <div class="col-2 m-0 p-1"><button type="button" class="btn btn-bounce bg-primary text-black fs-7"
                             onclick="removeIngredient(this)"><em class="fa-solid fa-trash-can" aria-hidden="true"></em></button></div>
@@ -81,14 +81,14 @@
         let html = `
             <div class="d-flex align-items-center justify-content-center mb-2">
                 <p class="m-0 me-2 fs-6 text-black">Numero di porzioni:</p>
-                <input type="number" value="1" min="1" max="100" class="form-control bg-primary rounded shadow-sm fs-6 fw-bold text-center" id="portionsInput" title="porzioni" aria-label="porzioni" />
+                <input type="number" value="1" min="1" max="100" class="form-control bg-primary rounded shadow-sm fs-6 fw-bold text-center" id="portionsInput" title="numero di porzioni" aria-label="numero di porzioni" />
             </div>
             <div class="row mx-0 my-2">
                 <div class="input-group rounded">
                     <span class="input-group-text bg-primary border-0" id="searchIngredientIcon">
                         <em class="fa-solid fa-magnifying-glass" aria-hidden="true"></em>
                     </span>
-                    <input type="text" class="form-control bg-primary shadow-sm" placeholder="Cerca Ingredienti" id="searchIngredients" title="cercaIngredienti" aria-label="cercaIngredienti" />
+                    <input type="text" class="form-control bg-primary shadow-sm" placeholder="Cerca Ingredienti" id="searchIngredients" title="testo per la ricerca di ingredienti" aria-label="testo per la ricerca di ingredienti" />
                 </div>
             </div>
             <hr />
@@ -157,9 +157,9 @@
                     <p class="m-0 fs-7 text-black">${newIngredient}</p>
                 </div>
                 <div class="col-3 m-0 p-1">
-                    <input type="number" id="${newIngredient}Quantity" class="form-control bg-primary rounded shadow-sm fs-7" placeholder="1" title="${newIngredient}Quantità" aria-label="${newIngredient}Quantità" />
+                    <input type="number" id="${newIngredient}Quantity" class="form-control bg-primary rounded shadow-sm fs-7" placeholder="1" title="quantità di ${newIngredient}" aria-label="quantità di ${newIngredient}" />
                 </div>
-                <div class="col-4 m-0 p-1"><select id="${newIngredient}MeasurementUnit" class="form-select bg-primary rounded shadow-sm fs-7" title="${newIngredient}UnitàDiMisura" aria-label="${newIngredient}UnitàDiMisura">` +
+                <div class="col-4 m-0 p-1"><select id="${newIngredient}MeasurementUnit" class="form-select bg-primary rounded shadow-sm fs-7" title="unità di misura ${newIngredient}" aria-label="unità di misura ${newIngredient}">` +
                     measurementUnitsOptions + `</select></div>
                 <div class="col-2 m-0 p-1"><button type="button" class="btn btn-bounce bg-primary text-black fs-7"
                         onclick="removeIngredient(this)"><em class="fa-solid fa-trash-can" aria-hidden="true"></em></button></div>
@@ -220,7 +220,7 @@
         let html = `<div class="row-md-2 py-2">
                         <div class="input-group rounded">
                             <span class="input-group-text bg-primary border-0" id="searchHashtagIcon"><em class="fa-solid fa-magnifying-glass" aria-hidden="true"></em></span>
-                            <input type="text" id="hashtagInput" class="form-control bg-primary shadow-sm" placeholder="Cerca Hashtag" title="cercaHashtag" aria-label="cercaHashtag" />
+                            <input type="text" id="hashtagInput" class="form-control bg-primary shadow-sm" placeholder="Cerca Hashtag" title="testo per la ricerca di hashtag" aria-label="testo per la ricerca di hashtag" />
                         </div>
                     </div>
                     <hr />

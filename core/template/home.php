@@ -335,7 +335,7 @@
             let html = `
                 <div class="d-flex align-items-center justify-content-center mb-2">
                     <p class="m-0 me-2 fs-6 text-black">Numero di porzioni:</p>
-                    <input type="number" value="1" min="1" max="100" class="form-control bg-primary rounded shadow-sm fs-6 fw-bold text-center" id="portionsInput" title="porzioni" aria-label="porzioni" />
+                    <input type="number" value="1" min="1" max="100" class="form-control bg-primary rounded shadow-sm fs-6 fw-bold text-center" id="portionsInput" title="numero di porzioni" aria-label="numero di porzioni" />
                 </div>
                 <div class="row mx-0 my-2 text-black">
                     <div class="col-6 d-flex align-items-center justify-content-start">
@@ -483,7 +483,7 @@
                 </div>
                 <div class="row-1 bg-primary rounded">
                     <div class="input-group rounded">
-                        <input id="commentField-${currentGnamID}" type="text" class="fs-7 form-control bg-primary shadow-sm" placeholder="Insercisci commento..." title="inserisciCommento" aria-label="inserisciCommento" />
+                        <input id="commentField-${currentGnamID}" type="text" class="fs-7 form-control bg-primary shadow-sm" placeholder="Insercisci commento..." title="inserisci commento" aria-label="inserisci commento" />
                         <span id="commentButton-${currentGnamID}" class="input-group-text bg-primary border-0 fs-7 fw-bold cursor-pointer text-black">Commenta</span>
                     </div>
                 </div>`;
