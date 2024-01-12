@@ -335,7 +335,6 @@ function getGnamUserName($user_id) {
     return ($stmt->fetch(PDO::FETCH_ASSOC))['name'];
 }
 
-
 function getGnamComments($gnam_id) {
     global $db;
     $stmt = $db->prepare("SELECT c.*, u.name as user_name
@@ -400,21 +399,23 @@ function getPrettyTimeDiff($t1, $t2) {
     $t2 = new DateTime(date('Y/m/d h:i:s', $t2));
     $interval = $t2->diff($t1);
     $days = $interval->format("%d");
+    $result = "";
     if ($days > 0) {
-        return $days . "d";
+        $result = $days . "d";
     } else {
         $hours = $interval->format("%H");
         if ($hours > 0) {
-            return $hours . "h";
+            $result = $hours . "h";
         } else {
             $minutes = $interval->format("%m");
             if ($minutes > 0) {
-                return $minutes . "m";
+                $result = $minutes . "m";
             } else {
-                return $interval->format("%s") . "s";
+                $result = $interval->format("%s") . "s";
             }
         }
     }
+    return ltrim($result, "0");
 }
 
 function getUserGnams($user_id) {
