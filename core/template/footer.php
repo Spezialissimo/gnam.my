@@ -21,8 +21,8 @@
 						<a href="publish.php" class="ps-2 text-button fw-semibold color-accent">Pubblica</a>
 					</div>
 					<div class="btn-bounce d-flex flex-row align-items-center justify-content-center">
-						<a role="button" id="notificationsNavbarButton" href="notifications.php" class="btn nav-btn bg-primary d-flex p-sm-3 p-2">
-							<img alt="Pagina Notifiche" src="assets/notifications.png" />
+						<a role="button" href="notifications.php" class="btn nav-btn bg-primary d-flex p-sm-3 p-2">
+							<img alt="Pagina Notifiche" src="assets/notifications.png" id="notificationsNavbarImg" />
 						</a>
 						<a href="notifications.php" class="ps-2 text-button fw-semibold color-accent">Notifiche</a>
 					</div>

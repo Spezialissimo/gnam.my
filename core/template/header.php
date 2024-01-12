@@ -43,13 +43,9 @@ if (isloggedIn() && (PAGE_TITLE == 'Login' || PAGE_TITLE == 'Registrati')) {
 		const checkNotifications = () => {
 			$.get("api/notifications.php", { api_key: "<?php echo $_SESSION['api_key']; ?>" }, function(data) {
 				if (JSON.parse(data).length > 0) {
-					$("#notificationsNavbarButton").addClass("color-alert");
-					$("#notificationsNavbarButton").removeClass("color-accent");
-					$("#notificationsNavbarButton").removeClass("nav-btn");
+					$("#notificationsNavbarImg").attr("src", "assets/notifications-alert.png");
 				} else {
-					$("#notificationsNavbarButton").addClass("nav-btn");
-					$("#notificationsNavbarButton").addClass("color-accent");
-					$("#notificationsNavbarButton").removeClass("color-alert");
+					$("#notificationsNavbarImg").attr("src", "assets/notifications.png");
 				}
 			});
 		};
