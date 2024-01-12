@@ -147,7 +147,7 @@
             document.querySelector("#gnam-" + id).classList.remove('d-none');
             if (wentUp) {
                 swiper.destroy();
-                firstSlideIndex = Math.floor(threshold/2);
+                firstSlideIndex = Math.floor(threshold / 2);
                 initializeSwiper();
                 wentUp = false;
             } else {
@@ -437,6 +437,38 @@
         window.location.href = redirectPath;
     }
 
+
+    document.onkeypress = function (e) {
+        if (e.keyCode == 13) {
+            if ($("#commentsBoxContainer-" + currentGnamID).length > 0) {
+                publishComment();
+            }
+        }
+    }
+
+    const publishComment = () => {
+        const commentText = $("#commentField-" + currentGnamID).val();
+        if (commentText.length === 0) return;
+        $.post("api/comments.php", {
+            api_key: "<?php echo $_SESSION['api_key']; ?>",
+            "gnam_id": currentGnamID,
+            "text": commentText,
+            "parent_comment_id": commentToReplyID
+        }, (result) => {
+            $.get("api/comments.php", {
+                api_key: "<?php echo $_SESSION['api_key']; ?>",
+                gnam_id: currentGnamID
+            }, function (commentsData) {
+                let comments = JSON.parse(commentsData);
+                $("#commentsBoxContainer-" + currentGnamID).parent().html(getCommentsHTML(comments));
+                setComments(comments, currentGnamID);
+                setHandlersForCommentsContainer(comments);
+                commentToReplyID = null;
+            });
+        });
+
+    }
+
     const getCommentsHTML = (comments) => {
         if (comments.length == 0) {
             let firstCommentHTML = `
@@ -589,27 +621,7 @@
                 redirectToGnamUserPage(comment['user_id']);
             });
         });
-        $("#commentButton-" + currentGnamID).on("click", function () {
-            const commentText = $("#commentField-" + currentGnamID).val();
-            if (commentText.length === 0) return;
-            $.post("api/comments.php", {
-                api_key: "<?php echo $_SESSION['api_key']; ?>",
-                "gnam_id": currentGnamID,
-                "text": commentText,
-                "parent_comment_id": commentToReplyID
-            }, (result) => {
-                $.get("api/comments.php", {
-                    api_key: "<?php echo $_SESSION['api_key']; ?>",
-                    gnam_id: currentGnamID
-                }, function (commentsData) {
-                    let comments = JSON.parse(commentsData);
-                    $("#commentsBoxContainer-" + currentGnamID).parent().html(getCommentsHTML(comments));
-                    setComments(comments, currentGnamID);
-                    setHandlersForCommentsContainer(comments);
-                    commentToReplyID = null;
-                });
-            });
-        });
+        $("#commentButton-" + currentGnamID).on("click", publishComment);
         $("#closeReplyTo-" + currentGnamID).on("click", function () {
             $("#replyToDiv-" + currentGnamID).addClass("d-none");
             commentToReplyID = null;
