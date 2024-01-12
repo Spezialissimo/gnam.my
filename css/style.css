@@ -157,16 +157,8 @@ input[type=file]::file-selector-button, input[type=file]::file-selector-button:h
 	box-shadow: 0 0 2vh .8vh var(--secondary);
 }
 
-.nav-btn {
-	border: none;
-}
-
-.nav-btn:active, .nav-btn:visited {
+.nav-text:active, .nav-text:visited, .nav-text:hover {
 	color: var(--accent) !important;
-}
-
-.nav-btn:hover {
-	color: var(--accent);
 }
 
 .notification-btn:active {
