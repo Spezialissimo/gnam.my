@@ -146,7 +146,7 @@ input[type=file]::file-selector-button, input[type=file]::file-selector-button:h
 	justify-content: center;
 	align-items: end;
 	position: absolute;
-	background-image: linear-gradient(0deg, var(--background), rgba(248, 215, 165, 0) 20%);
+	background-image: linear-gradient(0deg, var(--background), rgba(247, 209, 151, 0) 30%);
 }
 
 .swiper {
@@ -154,7 +154,7 @@ input[type=file]::file-selector-button, input[type=file]::file-selector-button:h
 	height: 100%!important;
 	width: fit-content!important;
 	z-index: 1!important;
-	box-shadow: 0 0 2vh .8vh var(--accent);
+	box-shadow: 0 0 2vh .8vh var(--secondary);
 }
 
 .nav-btn {
@@ -264,7 +264,7 @@ body.swal2-height-auto {
 	#navbarDiv {
 		width: 100%;
 		padding: 1rem 3rem!important;
-		box-shadow: 0 0 2vh .8vh var(--accent);
+		box-shadow: 0 0 2vh .8vh var(--secondary);
 	}
 
 	#navbarContentDiv {
@@ -301,7 +301,7 @@ body.swal2-height-auto {
 		flex-direction: column;
 		height: 100%;
 		padding: 1rem!important;
-		box-shadow: 0 0 2vw .8vw var(--accent);
+		box-shadow: 0 0 2vw .8vw var(--secondary);
 	}
 
 	#navbarContentDiv {

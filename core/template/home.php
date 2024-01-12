@@ -391,7 +391,7 @@
             for (let i = 0; i < videoTags.length; i++) {
                 $(videoTags[i]).removeClass("d-none");
             }
-            $("#videoOverlay-" + currentGnamID).css("background-image", "linear-gradient(0deg, var(--background), rgba(248, 215, 165, 0) 40%)");
+            $("#videoOverlay-" + currentGnamID).css("background-image", "linear-gradient(0deg, var(--background), rgba(247, 209, 151, 0) 40%)");
             e.stopPropagation();
         }
     }
@@ -406,7 +406,7 @@
             for (let i = 2; i < videoTags.length; i++) {
                 $(videoTags[i]).addClass("d-none");
             }
-            $("#videoOverlay-" + currentGnamID).css("background-image", "linear-gradient(0deg, var(--background), rgba(248, 215, 165, 0) 30%)");
+            $("#videoOverlay-" + currentGnamID).css("background-image", "linear-gradient(0deg, var(--background), rgba(247, 209, 151, 0) 30%)");
             e.stopPropagation();
         }
     }
