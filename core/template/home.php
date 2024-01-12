@@ -606,6 +606,7 @@
                     $("#commentsBoxContainer-" + currentGnamID).parent().html(getCommentsHTML(comments));
                     setComments(comments, currentGnamID);
                     setHandlersForCommentsContainer(comments);
+                    commentToReplyID = null;
                 });
             });
         });
