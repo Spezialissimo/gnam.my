@@ -181,30 +181,26 @@
                             </div>
                         </div>
                         <div class="col-2">
-                            <div class="container p-0">
-                                <div class="col">
-                                    <div class="row pb-4 text-center" id="recipeButton-${gnamsInfo['id']}">
-                                        <img alt="Ingredienti della ricetta" src="assets/recipe.png">
-                                    </div>
-                                    <div class="row text-center" id="likeButton-${gnamsInfo['id']}">
-                                        <img alt="Metti mi piace allo Gnam" src="assets/like.png">
-                                    </div>
-                                    <div class="row pt-2 color-accent fw-bold text-center">
-                                        <span id="likesCounter-${gnamsInfo['id']}">${gnamsInfo['likes_count']}</span>
-                                    </div>
-                                    <div class="row pt-2 text-center" id="commentsButton-${gnamsInfo['id']}">
-                                        <img alt="Commenta Gnam" src="assets/comments.png">
-                                    </div>
-                                    <div class="row pt-2 color-accent fw-bold text-center">
-                                        <span id="commentsCounter-${gnamsInfo['id']}">0</span>
-                                    </div>
-                                    <div class="row pt-2 text-center" id="shareButton-${gnamsInfo['id']}">
-                                        <img alt="Condividi Gnam" src="assets/share.png">
-                                    </div>
-                                    <div class="row pt-2 color-accent fw-bold text-center">
-                                        <span id="shareCounter-${gnamsInfo['id']}">${gnamsInfo['shares_count']}</span>
-                                    </div>
-                                </div>
+                            <div class="row pb-4 text-center" id="recipeButton-${gnamsInfo['id']}">
+                                <img alt="Ingredienti della ricetta" src="assets/recipe.png">
+                            </div>
+                            <div class="row text-center" id="likeButton-${gnamsInfo['id']}">
+                                <img alt="Metti mi piace allo Gnam" src="assets/like.png">
+                            </div>
+                            <div class="row pt-2 color-accent fw-bold text-center">
+                                <span id="likesCounter-${gnamsInfo['id']}">${gnamsInfo['likes_count']}</span>
+                            </div>
+                            <div class="row pt-2 text-center" id="commentsButton-${gnamsInfo['id']}">
+                                <img alt="Commenta Gnam" src="assets/comments.png">
+                            </div>
+                            <div class="row pt-2 color-accent fw-bold text-center">
+                                <span id="commentsCounter-${gnamsInfo['id']}">0</span>
+                            </div>
+                            <div class="row pt-2 text-center" id="shareButton-${gnamsInfo['id']}">
+                                <img alt="Condividi Gnam" src="assets/share.png">
+                            </div>
+                            <div class="row pt-2 color-accent fw-bold text-center">
+                                <span id="shareCounter-${gnamsInfo['id']}">${gnamsInfo['shares_count']}</span>
                             </div>
                         </div>
                     </div>
