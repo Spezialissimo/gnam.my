@@ -14,6 +14,23 @@ const showSwal = (title, html, onClose) => {
     });
 };
 
+const showSmallSwal = (title, html, onClose) => {
+    Swal.fire({
+        title: title,
+        html: html,
+        customClass: "swal-small",
+        background: "#F7D197",
+        showCloseButton: true,
+        showCancelButton: false,
+        showConfirmButton: false,
+        allowOutsideClick: false
+    }).then(() => {
+        if (onClose) {
+            onClose();
+        }
+    });
+};
+
 const showToast = (type, message, redirectURL) => {
     const Toast = Swal.mixin({
         toast: true,

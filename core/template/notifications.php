@@ -30,7 +30,7 @@
                     </a>
                 </div>
                 <?php } ?>
-                <button id="clearNotificationsButton" class="btn btn-bounce rounded-pill bg-secondary fw-bold text-white mt-2">Segna come lette</button>
+                <button id="clearNotificationsButton" class="btn btn-bounce rounded-pill bg-accent fw-bold text-white mt-2">Segna come lette</button>
             </div>
         <?php } else { ?>
         <p class="fs-6">Non hai nuove notifiche.</p>

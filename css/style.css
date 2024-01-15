@@ -16,6 +16,10 @@ body {
 	background-color: var(--background) !important;
 }
 
+.swal-small {
+	max-width: 50vw !important;
+}
+
 .bg-primary {
 	background-color: var(--primary) !important;
 }

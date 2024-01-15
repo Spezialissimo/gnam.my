@@ -184,7 +184,7 @@ $userLikedGnams = getUserLikedGnams($user['id']);
                 </div>
             </div>
         `;
-        showSwal('Condividi Profilo', swalContent);
+        showSmallSwal('Condividi Profilo', swalContent);
         $("#copyLinkButton").on("click", copyCurrentPageLink);
     }
 
