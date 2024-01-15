@@ -234,6 +234,14 @@ body.swal2-height-auto {
 	height: 100% !important;
 }
 
+.swiper-slide {
+	width: 100vw !important;
+}
+
+video {
+	object-fit: fill;
+}
+
 @media (orientation:portrait) {
 	#pageContainer {
 		flex-direction: column;
@@ -304,5 +312,13 @@ body.swal2-height-auto {
 		margin: .5rem 0!important;
 		width: 6vh!important;
 		height: 6vh!important;
+	}
+
+	.swiper-slide {
+		width: 100%!important;
+	}
+
+	video {
+		object-fit:contain!important;
 	}
 }

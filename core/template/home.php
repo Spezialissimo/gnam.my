@@ -14,13 +14,10 @@
     let swiper;
 
     const initializeSwiper = () => {
-        document.querySelectorAll('[id^="gnam-"]').forEach(element => {
-            element.classList.remove('d-none');
-        });
-
         swiper = new Swiper('.swiper', {
             initialSlide: firstSlideIndex,
             direction: 'vertical',
+            width: "90vh",
             loop: false,
             keyboard: {
                 enabled: true
@@ -46,6 +43,16 @@
                         wentUp = true;
                         drawGnam(newIndex);
                     }
+                },
+                afterInit: function () {
+                    document.querySelectorAll('[id^="gnam-"]').forEach(element => {
+                        element.classList.remove('d-none');
+                    });
+                },
+                update: function () {
+                    document.querySelectorAll('[id^="gnam-"]').forEach(element => {
+                        element.classList.remove('d-none');
+                    });
                 }
             }
         });
@@ -138,27 +145,30 @@
             gnam: id
         }, function (gnamsData) {
             addGnamSlide(JSON.parse(gnamsData));
-            $.get("api/comments.php", {
-                api_key: "<?php echo $_SESSION['api_key']; ?>",
-                gnam_id: id
-            }, function (commentsData) {
-                setComments(JSON.parse(commentsData), id);
+            $("#gnamPlayer-" + id).on('loadedmetadata', function () {
+                $("#gnam-" + id).removeClass("d-none");
+                $.get("api/comments.php", {
+                    api_key: "<?php echo $_SESSION['api_key']; ?>",
+                    gnam_id: id
+                }, function (commentsData) {
+                    setComments(JSON.parse(commentsData), id);
+                });
+                if (wentUp) {
+                    swiper.destroy();
+                    firstSlideIndex = Math.floor(threshold / 2);
+                    initializeSwiper();
+                    swiper.update();
+                    wentUp = false;
+                } else {
+                    swiper.update();
+                }
             });
-            document.querySelector("#gnam-" + id).classList.remove('d-none');
-            if (wentUp) {
-                swiper.destroy();
-                firstSlideIndex = Math.floor(threshold / 2);
-                initializeSwiper();
-                wentUp = false;
-            } else {
-                swiper.update();
-            }
         });
     }
 
     const addGnamSlide = (gnamsInfo) => {
         let gnamHtml = `
-            <video id="gnamPlayer-${gnamsInfo['id']}" class="w-100 h-100 object-fit-fill p-0" loop playsinline preload="auto" poster="assets/gnams_thumbnails/${gnamsInfo['id']}.jpg" src="assets/gnams/${gnamsInfo['id']}.mp4"></video>
+            <video id="gnamPlayer-${gnamsInfo['id']}" class="w-100 h-100 p-0" loop playsinline preload="auto" poster="assets/gnams_thumbnails/${gnamsInfo['id']}.jpg" src="assets/gnams/${gnamsInfo['id']}.mp4"></video>
             <div  id="videoOverlay-${gnamsInfo['id']}" class="video-overlay">
                 <div class="container">
                     <div class="row mb-3">
