@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Gen 15, 2024 alle 17:26
+-- Creato il: Gen 15, 2024 alle 18:19
 -- Versione del server: 10.4.32-MariaDB
 -- Versione PHP: 8.2.12
 
@@ -127,6 +127,16 @@ CREATE TABLE `measurement_units` (
   `id` int(11) NOT NULL,
   `name` varchar(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dump dei dati per la tabella `measurement_units`
+--
+
+INSERT INTO `measurement_units` (`id`, `name`) VALUES
+(1, 'gr.'),
+(2, 'ml'),
+(3, 'qb'),
+(4, 'c.ino');
 
 -- --------------------------------------------------------
 
@@ -299,7 +309,7 @@ ALTER TABLE `ingredients`
 -- AUTO_INCREMENT per la tabella `measurement_units`
 --
 ALTER TABLE `measurement_units`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT per la tabella `notifications`
