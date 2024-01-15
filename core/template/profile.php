@@ -44,17 +44,15 @@ $userLikedGnams = getUserLikedGnams($user['id']);
     <div class="row justify-content-center">
         <?php if($user['id'] != $_SESSION['id']) { ?>
             <div class="col-4">
-                <button type="button" class="btn btn-bounce rounded-pill bg-primary fw-bold text-black w-100" id="followButton"><?php echo isCurrentUserFollowing($user['id']) ? "Seguito" : "Segui" ?></button>
+                <button type="button" class="btn btn-bounce rounded-pill bg-secondary fw-bold text-white w-100" id="followButton"><?php echo isCurrentUserFollowing($user['id']) ? "Seguito" : "Segui" ?></button>
             </div>
         <?php } ?>
-        <div class="col-4 px-0">
-            <button id="shareButton" type="button" class="btn btn-bounce rounded-pill bg-primary fw-bold text-black w-100">Condividi</button>
+        <div class="col-4">
+            <button id="shareButton" type="button" class="btn btn-bounce rounded-pill bg-secondary fw-bold text-white w-100">Condividi</button>
         </div>
         <?php if($user['id'] == $_SESSION['id']) { ?>
-            <div class="col-2">
-                <button type="button" class="btn btn-bounce rounded-pill bg-primary fw-bold text-black" id="settingsButton">
-                    <em class="fa-solid fa-gear fa-l" aria-hidden="true"></em>
-                </button>
+            <div class="col-4">
+                <button id="settingsButton" type="button" class="btn btn-bounce rounded-pill bg-secondary fw-bold text-white w-100">Impostazioni</button>
             </div>
         <?php } ?>
     </div>

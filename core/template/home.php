@@ -220,14 +220,14 @@
 
             if (count < 2) {
                 tagHTML += `
-                    <div class="col-4 videoTag">
+                    <div class="col-4 videoTag cursor-pointer">
                         <span class="badge rounded-pill bg-primary fw-light text-black">
                             #${tagText}
                         </span>
                     </div>`;
             } else {
                 tagHTML += `
-                    <div class="col-4 d-none videoTag">
+                    <div class="col-4 d-none videoTag cursor-pointer">
                         <span class="badge rounded-pill bg-primary fw-light text-black">
                             #${tagText}
                         </span>

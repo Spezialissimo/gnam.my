@@ -81,7 +81,7 @@
             </div>
             <div class="row mx-0 my-2">
                 <div class="input-group rounded">
-                    <span class="input-group-text bg-primary border-0" id="searchIngredientIcon">
+                    <span class="input-group-text bg-primary border-0 cursor-pointer" id="searchIngredientIcon">
                         <em class="fa-solid fa-magnifying-glass" aria-hidden="true"></em>
                     </span>
                     <input type="text" class="form-control bg-primary shadow-sm" placeholder="Cerca Ingredienti" id="searchIngredients" title="testo per la ricerca di ingredienti" aria-label="testo per la ricerca di ingredienti" />
@@ -198,7 +198,7 @@
     const openHashtags = () => {
         let html = `<div class="row-md-2 py-2">
                         <div class="input-group rounded">
-                            <span class="input-group-text bg-primary border-0" id="searchHashtagIcon"><em class="fa-solid fa-magnifying-glass" aria-hidden="true"></em></span>
+                            <span class="input-group-text bg-primary border-0 cursor-pointer" id="searchHashtagIcon"><em class="fa-solid fa-magnifying-glass" aria-hidden="true"></em></span>
                             <input type="text" id="hashtagInput" class="form-control bg-primary shadow-sm" placeholder="Cerca Hashtag" title="testo per la ricerca di hashtag" aria-label="testo per la ricerca di hashtag" />
                         </div>
                     </div>
