@@ -165,15 +165,15 @@
                         <div id="descriptionBox-${gnamsInfo['id']}" class="col-10 align-self-end text-black">
                             <div class="row text-link">
                                 <div class="col-3">
-                                    <img id="userImage-${gnamsInfo['id']}" class="border border-2 border-dark rounded-circle w-100" alt="${gnamsInfo['user_name']}" src="assets/profile_pictures/${gnamsInfo['user_id']}.jpg" />
+                                    <img id="userImage-${gnamsInfo['id']}" class="cursor-pointer border border-2 border-dark rounded-circle w-100" alt="${gnamsInfo['user_name']}" src="assets/profile_pictures/${gnamsInfo['user_id']}.jpg" />
                                 </div>
                                 <div class="col-9 d-flex align-items-center p-0">
-                                    <p id="userName-${gnamsInfo['id']}" class="fs-6 fw-bold m-0">${gnamsInfo['user_name']}</p>
+                                    <p id="userName-${gnamsInfo['id']}" class="cursor-pointer fs-6 fw-bold m-0">${gnamsInfo['user_name']}</p>
                                 </div>
                             </div>
                             <div class="row">
                                 <span id="videoDescriptionShort-${gnamsInfo['id']}" class="fs-7 m-0">${gnamsInfo['short_description']}
-                                    <span class="fs-7 m-0 color-accent fw-semibold">Leggi di piú...</span>
+                                    <span class="fs-7 m-0 color-accent fw-semibold cursor-pointer">Leggi di piú...</span>
                                 </span>
                                 <p id="videoDescriptionLong-${gnamsInfo['id']}" class="fs-7 m-0 d-none">${gnamsInfo['description']}</p>
                             </div>
@@ -181,22 +181,22 @@
                             </div>
                         </div>
                         <div class="col-2">
-                            <div class="row pb-4 text-center" id="recipeButton-${gnamsInfo['id']}">
+                            <div class="row pb-4 text-center btn-bounce" role="button" id="recipeButton-${gnamsInfo['id']}">
                                 <img alt="Ingredienti della ricetta" src="assets/recipe.png">
                             </div>
-                            <div class="row text-center" id="likeButton-${gnamsInfo['id']}">
+                            <div class="row text-center btn-bounce" role="button" id="likeButton-${gnamsInfo['id']}">
                                 <img alt="Metti mi piace allo Gnam" src="assets/like.png">
                             </div>
                             <div class="row pt-2 color-accent fw-bold text-center">
                                 <span id="likesCounter-${gnamsInfo['id']}">${gnamsInfo['likes_count']}</span>
                             </div>
-                            <div class="row pt-2 text-center" id="commentsButton-${gnamsInfo['id']}">
+                            <div class="row pt-2 text-center btn-bounce" role="button" id="commentsButton-${gnamsInfo['id']}">
                                 <img alt="Commenta Gnam" src="assets/comments.png">
                             </div>
                             <div class="row pt-2 color-accent fw-bold text-center">
                                 <span id="commentsCounter-${gnamsInfo['id']}">0</span>
                             </div>
-                            <div class="row pt-2 text-center" id="shareButton-${gnamsInfo['id']}">
+                            <div class="row pt-2 text-center btn-bounce" role="button" id="shareButton-${gnamsInfo['id']}">
                                 <img alt="Condividi Gnam" src="assets/share.png">
                             </div>
                             <div class="row pt-2 color-accent fw-bold text-center">
@@ -518,7 +518,7 @@
                                 <div class="col-11 align-items-center">
                                     <span class="border-0 fs-7">Stai rispondendo a: <span id="replyToName-${currentGnamID}" class="text-link"></span></span>
                                 </div>
-                                <div class="col-1 d-flex align-items-center p-0">
+                                <div class="col-1 d-flex align-items-center p-0 cursor-pointer">
                                     <em id="closeReplyTo-${currentGnamID}" class="fa-solid fa-xmark color-accent" aria-hidden="true"></em>
                                 </div>
                             </div>
