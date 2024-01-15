@@ -75,7 +75,7 @@ if (isset($_REQUEST["api_key"])) {
                 }
             }
             if (isset($_POST["hashtags"])) {
-                foreach (json_decode($_POST["hashtags"], false) as $hashtag) {
+                foreach (json_decode($_POST["hashtags"], true) as $hashtag) {
                     $hashtagId;
                     $hashtagFromDB = getHashtagFromText($hashtag);
                     if ($hashtagFromDB) {
