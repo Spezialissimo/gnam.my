@@ -24,10 +24,12 @@
             },
             on: {
                 slideChangeTransitionEnd: function () {
-                    stopCurrentVideo();
-                    $("#gnamPlayer-" + currentGnamID)[0].currentTime = 0;
-                    currentGnamID = $(".swiper-slide-active").attr('id').split('-')[1];
-                    playCurrentVideo();
+                    if( $(".swiper-slide-active").length != 0) {
+                        stopCurrentVideo();
+                        $("#gnamPlayer-" + currentGnamID)[0].currentTime = 0;
+                        currentGnamID = $(".swiper-slide-active").attr('id').split('-')[1];
+                        playCurrentVideo();
+                    }
                 },
                 slideNextTransitionEnd: function () {
                     const currentIndex = gnamsQueue.findIndex(item => item[0] === parseInt(currentGnamID));

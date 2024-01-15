@@ -239,7 +239,7 @@ body.swal2-height-auto {
 }
 
 video {
-	object-fit: fill;
+	object-fit: cover;
 }
 
 @media (orientation:portrait) {
