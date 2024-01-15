@@ -283,7 +283,7 @@ $userLikedGnams = getUserLikedGnams($user['id']);
                         let decodedResult = JSON.parse(response);
                         let html = `<div class="row-md-2 py-2 text-center text-black"><em class="fa-solid fa-check fa-2xl" aria-hidden="true"></em></div>`;
                         if (decodedResult.status === "success") {
-                            showSwal('Fatto', html, () => {
+                            showSmallSwal('Fatto', html, () => {
                                 window.location.reload();
                             });
                         } else showToast(decodedResult.status, "<p class='fs-6 text-center pt-3'>" + decodedResult.message + "</p>");

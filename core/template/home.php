@@ -307,7 +307,7 @@
                     </div>
                 </div>
             </div>`;
-            showSwal('Condividi Gnam', swalContent);
+            showSmallSwal('Condividi Gnam', swalContent);
             $("#copyGnamLinkButton").on("click", function () {
                 $("#shareCounter-" + currentGnamID).text(parseInt($("#shareCounter-" + currentGnamID).text()) + 1);
                 let gnamLink = buildURL("home", "gnam=" + currentGnamID);

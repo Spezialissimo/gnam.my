@@ -279,7 +279,7 @@
             contentType: false,
             success : function(data) {
                 let html = `<div class="row-md-2 py-2 text-center text-black"><em class="fa-solid fa-check fa-2xl" aria-hidden="true"></em></div>`;
-                showSwal('Gnam pubblicato', html, () => {
+                showSmallSwal('Gnam pubblicato', html, () => {
                     window.location.reload();
                 });
             }
@@ -289,7 +289,7 @@
     const publish = () => {
         if ($("#videoInput").prop("files").length != 1) {
             let html = `<div class="row-md-2 py-2 text-center text-black"><p>Nessun video selezionato!</p><em class="fa-solid fa-triangle-exclamation fa-2xl color-alert" aria-hidden="true"></em></div>`;
-            showSwal('Errore!', html);
+            showSmallSwal('Errore!', html);
         } else {
             let scaledIngredients = [];
             ingredients.forEach(i => {
