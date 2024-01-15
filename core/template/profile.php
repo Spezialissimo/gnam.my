@@ -146,12 +146,7 @@ $userLikedGnams = getUserLikedGnams($user['id']);
         }, (result) => {
             let decodedResult = JSON.parse(result);
             if (decodedResult.status === "success") {
-                if(decodedResult.message == "Segui") {
-                    $("#followersCount").text(parseInt($("#followersCount").text()) - 1);
-                } else {
-                    $("#followersCount").text(parseInt($("#followersCount").text()) + 1);
-                }
-                $("#followButton").text(decodedResult.message);
+                window.location.reload();
             } else showToast(decodedResult.status, "<p class='fs-6 text-center pt-3'>" + decodedResult.message + "</p>");
         });
     }

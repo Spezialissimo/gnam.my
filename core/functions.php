@@ -394,28 +394,17 @@ function postComment($currentUser_id, $gnam_id, $comment, $parent_comment_id) {
     return $stmt->execute();
 }
 
-function getPrettyTimeDiff($t1, $t2) {
-    $t1 = new DateTime(date('Y/m/d h:i:s', $t1));
-    $t2 = new DateTime(date('Y/m/d h:i:s', $t2));
-    $interval = $t2->diff($t1);
-    $days = $interval->format("%d");
-    $result = "";
-    if ($days > 0) {
-        $result = $days . "d";
+function formatTimestampDiff($t1, $t2) {
+    $diff = $t2 - $t1;
+    if ($diff > 60 * 60 * 24) {
+        return floor($diff / 60 * 60 * 24) . " d";
+    } else if ($diff > 60 * 60) {
+        return floor($diff / 60 * 60) . " h";
+    } else if ($diff > 60) {
+        return floor($diff / 60) . " m";
     } else {
-        $hours = $interval->format("%H");
-        if ($hours > 0) {
-            $result = $hours . "h";
-        } else {
-            $minutes = $interval->format("%m");
-            if ($minutes > 0) {
-                $result = $minutes . "m";
-            } else {
-                $result = $interval->format("%s") . "s";
-            }
-        }
+        return $diff . " s";
     }
-    return ltrim($result, "0");
 }
 
 function getUserGnams($user_id) {

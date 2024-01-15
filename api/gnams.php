@@ -67,7 +67,7 @@ if (isset($_REQUEST["api_key"])) {
                     $stmt->bindParam(':ingredient_id', $ingredientId);
                     $stmt->bindParam(':gnam_id', $newVideoId);
                     if ($ingredient["measurement_unit"] == "qb") {
-                        $stmt->bindParam(':quantity', 0);
+                        $stmt->bindValue(':quantity', 0);
                     } else {
                         $stmt->bindParam(':quantity', $ingredient["quantity"]);
                     }

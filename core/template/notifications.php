@@ -23,7 +23,7 @@
                                     <div class="vr"></div>
                                 </div>
                                 <div class="col-2 align-self-center">
-                                    <span class="m-0 text-black fw-normal"><?php echo getPrettyTimeDiff($notification["timestamp"], time()); ?></span>
+                                    <span class="m-0 text-black fw-normal"><?php echo formatTimestampDiff($notification["timestamp"], time()); ?></span>
                                 </div>
                             </div>
                         </div>
