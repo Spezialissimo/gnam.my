@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Dic 26, 2023 alle 12:02
+-- Creato il: Gen 15, 2024 alle 17:26
 -- Versione del server: 10.4.32-MariaDB
 -- Versione PHP: 8.2.12
 
@@ -36,15 +36,6 @@ CREATE TABLE `comments` (
   `timestamp` varchar(20) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dump dei dati per la tabella `comments`
---
-
-INSERT INTO `comments` (`id`, `user_id`, `gnam_id`, `parent_comment_id`, `text`, `timestamp`) VALUES
-(1, 2, 1, NULL, 'Fra bomba! Spacca sta ricetta', '1703587698'),
-(2, 3, 1, NULL, 'Assurda bona dura :D', '1703587768'),
-(3, 3, 1, 1, 'Concordo!', '1703587858');
-
 -- --------------------------------------------------------
 
 --
@@ -55,15 +46,6 @@ CREATE TABLE `following` (
   `follower_user_id` int(11) NOT NULL,
   `followed_user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dump dei dati per la tabella `following`
---
-
-INSERT INTO `following` (`follower_user_id`, `followed_user_id`) VALUES
-(1, 2),
-(1, 3),
-(2, 1);
 
 -- --------------------------------------------------------
 
@@ -78,17 +60,6 @@ CREATE TABLE `gnams` (
   `share_count` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dump dei dati per la tabella `gnams`
---
-
-INSERT INTO `gnams` (`id`, `user_id`, `description`, `share_count`) VALUES
-(1, 1, 'Questo è uno gnam di prova, nun ciò voja', 21),
-(2, 1, 'Questo è un secondo gnam di prova, nun ciò voja', 21),
-(3, 1, 'Questo è un terzo gnam di prova, nun ciò voja', 21),
-(4, 2, 'Mi piacciono le ricette gustose', 23),
-(5, 3, 'Gnam veloce su impepata di cozze', 34);
-
 -- --------------------------------------------------------
 
 --
@@ -99,21 +70,6 @@ CREATE TABLE `gnam_hashtags` (
   `hashtag_id` int(11) NOT NULL,
   `gnam_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dump dei dati per la tabella `gnam_hashtags`
---
-
-INSERT INTO `gnam_hashtags` (`hashtag_id`, `gnam_id`) VALUES
-(1, 1),
-(1, 2),
-(1, 3),
-(1, 4),
-(1, 5),
-(2, 1),
-(3, 1),
-(4, 1),
-(4, 2);
 
 -- --------------------------------------------------------
 
@@ -128,15 +84,6 @@ CREATE TABLE `gnam_ingredients` (
   `measurement_unit_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dump dei dati per la tabella `gnam_ingredients`
---
-
-INSERT INTO `gnam_ingredients` (`ingredient_id`, `gnam_id`, `quantity`, `measurement_unit_id`) VALUES
-(1, 1, 3, 1),
-(2, 1, 12, 1),
-(3, 1, 4, 1);
-
 -- --------------------------------------------------------
 
 --
@@ -147,16 +94,6 @@ CREATE TABLE `hashtags` (
   `id` int(11) NOT NULL,
   `text` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dump dei dati per la tabella `hashtags`
---
-
-INSERT INTO `hashtags` (`id`, `text`) VALUES
-(1, 'Healthy'),
-(2, 'Pesante'),
-(3, 'Untazzo'),
-(4, 'Facile');
 
 -- --------------------------------------------------------
 
@@ -169,17 +106,6 @@ CREATE TABLE `ingredients` (
   `name` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dump dei dati per la tabella `ingredients`
---
-
-INSERT INTO `ingredients` (`id`, `name`) VALUES
-(1, 'Farina'),
-(2, 'Formaggio'),
-(3, 'Acqua'),
-(4, 'Zucchero'),
-(5, 'Uova');
-
 -- --------------------------------------------------------
 
 --
@@ -191,14 +117,6 @@ CREATE TABLE `likes` (
   `gnam_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dump dei dati per la tabella `likes`
---
-
-INSERT INTO `likes` (`user_id`, `gnam_id`) VALUES
-(2, 1),
-(3, 1);
-
 -- --------------------------------------------------------
 
 --
@@ -209,16 +127,6 @@ CREATE TABLE `measurement_units` (
   `id` int(11) NOT NULL,
   `name` varchar(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dump dei dati per la tabella `measurement_units`
---
-
-INSERT INTO `measurement_units` (`id`, `name`) VALUES
-(1, 'gr'),
-(2, 'ml'),
-(3, 'qb'),
-(4, 'cucc.');
 
 -- --------------------------------------------------------
 
@@ -236,14 +144,6 @@ CREATE TABLE `notifications` (
   `seen` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dump dei dati per la tabella `notifications`
---
-
-INSERT INTO `notifications` (`id`, `source_user_id`, `target_user_id`, `gnam_id`, `notification_type_id`, `timestamp`, `seen`) VALUES
-(0, 2, 1, 1, 1, '1703587658', 0),
-(1, 3, 1, 1, 1, '1703587463', 0);
-
 -- --------------------------------------------------------
 
 --
@@ -255,15 +155,6 @@ CREATE TABLE `notification_types` (
   `name` varchar(20) NOT NULL,
   `template_text` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dump dei dati per la tabella `notification_types`
---
-
-INSERT INTO `notification_types` (`id`, `name`, `template_text`) VALUES
-(1, "like", 'ha messo mi piace al tuo gnam'),
-(2, "comment", 'ha commentato un tuo gnam'),
-(3, "follow", 'ha iniziato a seguirti');
 
 -- --------------------------------------------------------
 
@@ -283,9 +174,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `api_key`, `name`, `password`) VALUES
-(1, 'b181e2fa-5ddd-4a4b-aeb3-e73991b80de3', 'Pier', '$2y$10$kXif2Jxf6nOKvy4phXU5/.vSwsN/MSLPh/bbiv0uCWmRzi5RWvcB2'),
-(2, 'f71082fc-a900-402c-9939-7f6e443de809', 'Davide', '$2y$10$xYyrLMqKJs1S/uqeI0WBJ.Xr2FiE6ggVW0Y9f1IjNKSTGi3BN1mUe'),
-(3, '123e11ec-24c4-45b6-8416-3eafeda8d1c3', 'Pello', '$2y$10$zE2MhZEPbr1VYFCCvbVNq.GGj3zmBPXeDOTNJFrF0q6GccK5A9/tO');
+(1, '0002f8cf-b93d-43a0-90ed-dafb98f02bd2', 'Pier', '$2y$10$K9JuFZ2kFIBi3cTfhHiV3eQJgUbJBFK/EH8V7p3SPMUYXQJPLQK5C'),
+(2, 'd9f20a1c-a73e-478a-b343-8f0132eb5195', 'Pello', '$2y$10$rMf6QpdVvYf56B7.Gdvjb./PMIcs9.TDwpSz8uJVTRwIHsGgwBk9y'),
+(3, '784913f9-3abd-44be-95ee-18b5bba97d30', 'Davide', '$2y$10$5lGgD7aHbW7UH9nCJ0t0huEBz2y/DS9LFnBySSfZuLp3c/oTYocK.');
 
 --
 -- Indici per le tabelle scaricate
@@ -361,7 +252,8 @@ ALTER TABLE `notifications`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fk_nome_chiave_tui` (`target_user_id`),
   ADD KEY `fk_nome_chiave_gnam_id_notifications` (`gnam_id`),
-  ADD KEY `fk_nome_chiave_notification` (`notification_type_id`);
+  ADD KEY `fk_nome_chiave_notification` (`notification_type_id`),
+  ADD KEY `fk_nome_chiave_sui` (`source_user_id`);
 
 --
 -- Indici per le tabelle `notification_types`
@@ -383,49 +275,49 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT per la tabella `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT per la tabella `gnams`
 --
 ALTER TABLE `gnams`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT per la tabella `hashtags`
 --
 ALTER TABLE `hashtags`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT per la tabella `ingredients`
 --
 ALTER TABLE `ingredients`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT per la tabella `measurement_units`
 --
 ALTER TABLE `measurement_units`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT per la tabella `notification_types`
---
-ALTER TABLE `notification_types`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT per la tabella `users`
---
-ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT per la tabella `notifications`
 --
 ALTER TABLE `notifications`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT per la tabella `notification_types`
+--
+ALTER TABLE `notification_types`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT per la tabella `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Limiti per le tabelle scaricate
