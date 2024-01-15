@@ -329,36 +329,48 @@
 
         $("#recipeButton-" + gnamsInfo['id']).on("click", function (e) {
             let html = `
-                <div class="d-flex align-items-center justify-content-center mb-2">
-                    <p class="m-0 me-2 fs-6 text-black">Numero di porzioni:</p>
-                    <input type="number" value="1" min="1" max="100" class="form-control bg-primary rounded shadow-sm fs-6 fw-bold text-center" id="portionsInput" title="numero di porzioni" aria-label="numero di porzioni" />
-                </div>
-                <div class="row mx-0 my-2 text-black">
-                    <div class="col-6 d-flex align-items-center justify-content-start">
-                        <p class="m-0 p-0 fs-6 fw-bold">Nome:</p>
+                <div class="container">
+                    <div class="col">
+                        <div class="row p-1 pb-3">
+                            <span class="text-black">Ingredienti non disponibili, prova a chiederli all'autore dello Gnam!</span>
+                        </div>
                     </div>
-                    <div class="col-6 d-flex align-items-center justify-content-end">
-                        <p class="m-0 p-0 fs-6 fw-bold">Quantità</p>
+                </div>`;
+            if (gnamsInfo['recipe'].length != 0) {
+                html = `
+                    <div class="d-flex align-items-center justify-content-center mb-2">
+                        <p class="m-0 me-2 fs-6 text-black">Numero di porzioni:</p>
+                        <input type="number" value="1" min="1" max="100" class="form-control bg-primary rounded shadow-sm fs-6 fw-bold text-center" id="portionsInput" title="numero di porzioni" aria-label="numero di porzioni" />
                     </div>
-                </div>
-                <hr class="my-2" />
-                <div class="text-center text-black" id="ingredients-${gnamsInfo['id']}">
-                </div>
-                <hr class="m-0 mt-2" />
-                </div>
-            `;
+                    <div class="row mx-0 my-2 text-black">
+                        <div class="col-6 d-flex align-items-center justify-content-start">
+                            <p class="m-0 p-0 fs-6 fw-bold">Nome:</p>
+                        </div>
+                        <div class="col-6 d-flex align-items-center justify-content-end">
+                            <p class="m-0 p-0 fs-6 fw-bold">Quantità</p>
+                        </div>
+                    </div>
+                    <hr class="my-2" />
+                    <div class="text-center text-black" id="ingredients-${gnamsInfo['id']}">
+                    </div>
+                    <hr class="m-0 mt-2" />
+                    </div>
+                `;
+            }
             stopCurrentVideo();
             showSwal('Ricetta', html, playCurrentVideo);
-            $('#portionsInput').val(selectedPortions);
-            $("#portionsInput").on("change", function (e) {
-                if ((this).value > 0) {
-                    selectedPortions = (this).value;
-                    drawAllIngredients(gnamsInfo['recipe']);
-                } else {
-                    (this).value = selectedPortions;
-                }
-            });
-            drawAllIngredients(gnamsInfo['recipe']);
+            if (gnamsInfo['recipe'].length != 0) {
+                $('#portionsInput').val(selectedPortions);
+                $("#portionsInput").on("change", function (e) {
+                    if ((this).value > 0) {
+                        selectedPortions = (this).value;
+                        drawAllIngredients(gnamsInfo['recipe']);
+                    } else {
+                        (this).value = selectedPortions;
+                    }
+                });
+                drawAllIngredients(gnamsInfo['recipe']);
+            }
             e.stopPropagation();
         });
 
