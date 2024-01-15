@@ -184,22 +184,22 @@
                             <div class="container p-0">
                                 <div class="col">
                                     <div class="row pb-4 text-center" id="recipeButton-${gnamsInfo['id']}">
-                                        <span><em class="fa-solid fa-utensils fa-2xl fa-fw color-secondary" aria-hidden="true"></em></span>
+                                        <img alt="Ingredienti della ricetta" src="assets/recipe.png">
                                     </div>
                                     <div class="row text-center" id="likeButton-${gnamsInfo['id']}">
-                                        <span><em class="fa-solid fa-heart fa-2xl fa-fw color-secondary" aria-hidden="true"></em></span>
+                                        <img alt="Metti mi piace allo Gnam" src="assets/like.png">
                                     </div>
                                     <div class="row pt-2 color-accent fw-bold text-center">
                                         <span id="likesCounter-${gnamsInfo['id']}">${gnamsInfo['likes_count']}</span>
                                     </div>
                                     <div class="row pt-2 text-center" id="commentsButton-${gnamsInfo['id']}">
-                                        <span><em class="fa-solid fa-comment-dots fa-2xl fa-fw color-secondary" aria-hidden="true"></em></span>
+                                        <img alt="Commenta Gnam" src="assets/comments.png">
                                     </div>
                                     <div class="row pt-2 color-accent fw-bold text-center">
                                         <span id="commentsCounter-${gnamsInfo['id']}">0</span>
                                     </div>
                                     <div class="row pt-2 text-center" id="shareButton-${gnamsInfo['id']}">
-                                        <span><em class="fa-solid fa-share-nodes fa-2xl fa-fw color-secondary" aria-hidden="true"></em></span>
+                                        <img alt="Condividi Gnam" src="assets/share.png">
                                     </div>
                                     <div class="row pt-2 color-accent fw-bold text-center">
                                         <span id="shareCounter-${gnamsInfo['id']}">${gnamsInfo['shares_count']}</span>
@@ -269,22 +269,22 @@
             "api_key": '<?php echo $_SESSION["api_key"] ?>',
             "gnam_id": gnamsInfo['id']
         }, function (data) {
-            let children = $("#likeButton-" + gnamsInfo['id']).children().children();
-            if (JSON.parse(data) && children.hasClass("color-secondary")) {
-                children.removeClass("color-secondary").addClass("color-alert");
+            let children = $("#likeButton-" + gnamsInfo['id']).children();
+            if (JSON.parse(data) && children.attr("src") == "assets/like.png") {
+                children.attr("src", "assets/like-alert.png");
             }
         });
 
         $("#likeButton-" + gnamsInfo['id']).each(function () {
             let likeButton = $(this);
-            let children = likeButton.children().children();
+            let children = likeButton.children();
             let likesCounter = $("#likesCounter-" + gnamsInfo['id']);
             likeButton.on("click", function (e) {
-                if (children.hasClass("color-secondary")) {
-                    children.removeClass("color-secondary").addClass("color-alert");
+                if (children.attr("src") == "assets/like.png") {
+                    children.attr("src", "assets/like-alert.png");
                     likesCounter.text(parseInt(likesCounter.text()) + 1);
                 } else {
-                    children.addClass("color-secondary").removeClass("color-alert");
+                    children.attr("src", "assets/like.png");
                     likesCounter.text(parseInt(likesCounter.text()) - 1);
                 }
                 $.post('api/likes.php', {
