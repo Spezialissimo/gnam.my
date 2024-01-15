@@ -30,16 +30,12 @@
     let ingredients = [];
     let currentResult;
 
+    const getIngredientHTML = (ingredient) => {
+        return `<p class="text-black"><button type="button" class="btn btn-bounce bg-primary text-black" onclick="removeIngredient(this)">
+                    <em class="fa-solid fa-trash-can" aria-hidden="true"></em></button>&nbsp${ingredient}</p>`;
+    };
+
     const openIngredients = () => {
-        let modalContent = '';
-
-        if (ingredients.length > 0) {
-            modalContent = ingredients.map(ingredient => `
-                <p class="text-black"><button type="button" class="btn btn-bounce bg-primary text-black" onclick="removeIngredient(this)">
-                    <em class="fa-solid fa-trash-can" aria-hidden="true"></em></button>&nbsp${ingredient}</p>
-            `).join('');
-        }
-
         let html = `<div class="row-md-2 py-2">
                         <div class="input-group rounded">
                             <span class="input-group-text bg-primary border-0" id="searchIngredientsIcon"><em class="fa-solid fa-magnifying-glass"></em></span>
@@ -48,7 +44,7 @@
                     </div>
                     <hr />
                     <p id="noIngredientsText" class="d-none text-black">Non hai selezionato ingredienti.</p>
-                    <div class="text-center" id="searchedIngredients">${modalContent}</div>
+                    <div class="text-center" id="searchedIngredients">${ingredients.map(getIngredientHTML).join('')}</div>
                     <hr />
                     <div class="row m-0 p-0">
                         <div class="col-6">
@@ -59,8 +55,7 @@
                         </div>
                     </div>`;
 
-        const modal = showSwal('Scegli ingredienti', html);
-
+        showSwal('Scegli ingredienti', html);
         if (ingredients.length == 0) {
             $("#noIngredientsText").removeClass("d-none");
         }
@@ -86,10 +81,7 @@
             $("#noIngredientsText").addClass("d-none");
         }
         ingredients.push(newIngredient);
-        $("#searchedIngredients").append(`
-            <p class="text-black"><button type="button" class="btn btn-bounce bg-primary text-black" onclick="removeIngredient(this)">
-                <em class="fa-solid fa-trash-can" aria-hidden="true"></em></button>&nbsp${newIngredient}</p>
-        `);
+        $("#searchedIngredients").append(getIngredientHTML(newIngredient));
         $('#ingredientInput').val('');
         $('#ingredientsCount').html(ingredients.length);
     }

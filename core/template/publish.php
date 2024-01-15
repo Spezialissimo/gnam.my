@@ -58,26 +58,22 @@
     let ingredients = [];
     let selectedPortions = 1;
 
-    const openIngredients = () => {
-        let modalContent = '';
-
-        if (ingredients.length > 0) {
-            modalContent = ingredients.map(ingredient => `
-                <div class="row m-0 p-0 align-items-center">
+    const getIngredientHTML = (ingredient) => {
+        return `<div class="row m-0 p-0 align-items-center">
                     <div class="col-3 m-0 p-1">
-                        <p class="m-0 fs-7 text-black">${ingredient["name"]}</p>
+                        <p class="m-0 fs-7 text-black">${ingredient}</p>
                     </div>
                     <div class="col-3 m-0 p-1">
-                        <input type="number" id="${ingredient["name"]}Quantity" class="form-control bg-primary rounded shadow-sm fs-7" placeholder="1" title="quantità di ${ingredient["name"]}" aria-label="quantità di ${ingredient["name"]}" />
+                        <input type="number" id="${ingredient}Quantity" class="form-control bg-primary rounded shadow-sm fs-7" placeholder="1" title="quantità di ${ingredient}" aria-label="quantità di ${ingredient}" />
                     </div>
-                    <div class="col-4 m-0 p-1"><select id="${ingredient["name"]}MeasurementUnit" class="form-select bg-primary rounded shadow-sm fs-7" title="unità di misura ${ingredient["name"]}" aria-label="unità di misura ${ingredient["name"]}">` +
+                    <div class="col-4 m-0 p-1"><select id="${ingredient}MeasurementUnit" class="form-select bg-primary rounded shadow-sm fs-7" title="unità di misura ${ingredient}" aria-label="unità di misura ${ingredient}">` +
                         measurementUnitsOptions + `</select></div>
                     <div class="col-2 m-0 p-1"><button type="button" class="btn btn-bounce bg-primary text-black fs-7"
                             onclick="removeIngredient(this)"><em class="fa-solid fa-trash-can" aria-hidden="true"></em></button></div>
-                </div>
-            `).join('');
-        }
+                </div>`;
+    };
 
+    const openIngredients = () => {
         let html = `
             <div class="d-flex align-items-center justify-content-center mb-2">
                 <p class="m-0 me-2 fs-6 text-black">Numero di porzioni:</p>
@@ -93,7 +89,7 @@
             </div>
             <hr />
             <p id="noIngredientsText" class="d-none text-black">Non hai selezionato ingredienti.</p>
-            <div class="text-center" id="searchedIngredients">${modalContent}</div>
+            <div class="text-center" id="searchedIngredients">${ingredients.map(ingredient => getIngredientHTML(ingredient["name"])).join('')}</div>
             <hr />
             <div class="row m-0 p-0">
                 <div class="col-6">
@@ -105,7 +101,7 @@
             </div>
         `;
 
-        const modal = showSwal('Scegli Ingredienti', html);
+        showSwal('Scegli Ingredienti', html);
         $('#portionsInput').val(selectedPortions);
         $("#portionsInput").on("change", function(e) {
             selectedPortions = this.value;
@@ -151,20 +147,7 @@
         if (!newIngredient || ingredients.some(i => i["name"] === newIngredient)) {
             return;
         }
-        $("#searchedIngredients").append(`
-            <div class="row m-0 p-0 align-items-center">
-                <div class="col-3 m-0 p-1">
-                    <p class="m-0 fs-7 text-black">${newIngredient}</p>
-                </div>
-                <div class="col-3 m-0 p-1">
-                    <input type="number" id="${newIngredient}Quantity" class="form-control bg-primary rounded shadow-sm fs-7" placeholder="1" title="quantità di ${newIngredient}" aria-label="quantità di ${newIngredient}" />
-                </div>
-                <div class="col-4 m-0 p-1"><select id="${newIngredient}MeasurementUnit" class="form-select bg-primary rounded shadow-sm fs-7" title="unità di misura ${newIngredient}" aria-label="unità di misura ${newIngredient}">` +
-                    measurementUnitsOptions + `</select></div>
-                <div class="col-2 m-0 p-1"><button type="button" class="btn btn-bounce bg-primary text-black fs-7"
-                        onclick="removeIngredient(this)"><em class="fa-solid fa-trash-can" aria-hidden="true"></em></button></div>
-            </div>
-        `);
+        $("#searchedIngredients").append(getIngredientHTML(newIngredient));
         if (ingredients.length == 0) {
             $("#noIngredientsText").addClass("d-none");
         }
@@ -207,16 +190,12 @@
         $("#noIngredientsText").removeClass("d-none");
     }
 
+    const getHashtagHTML = (hashtag) => {
+        return `<p class="text-black"><button type="button" class="btn btn-bounce bg-primary text-black" onclick="removeHashtag(this)">
+                    <em class="fa-solid fa-trash-can" aria-hidden="true"></em></button>&nbsp#${hashtag}</p>`;
+    };
+
     const openHashtags = () => {
-        let modalContent = '';
-
-        if (hashtags.length > 0) {
-            modalContent = hashtags.map(hashtag => `
-                <p class="text-black"><button type="button" class="btn btn-bounce bg-primary text-black" onclick="removeHashtag(this)">
-                    <em class="fa-solid fa-trash-can" aria-hidden="true"></em></button>&nbsp#${hashtag}</p>
-            `).join('');
-        }
-
         let html = `<div class="row-md-2 py-2">
                         <div class="input-group rounded">
                             <span class="input-group-text bg-primary border-0" id="searchHashtagIcon"><em class="fa-solid fa-magnifying-glass" aria-hidden="true"></em></span>
@@ -225,7 +204,7 @@
                     </div>
                     <hr />
                     <p id="noHashtagsText" class="d-none text-black">Non hai selezionato hashtag.</p>
-                    <div class="text-center" id="searchedHashtags">${modalContent}</div>
+                    <div class="text-center" id="searchedHashtags">${hashtags.map(getHashtagHTML).join('')}</div>
                     <hr />
                     <div class="row m-0 p-0">
                         <div class="col-6">
@@ -236,8 +215,7 @@
                         </div>
                     </div>`;
 
-        const modal = showSwal('Scegli hashtag', html);
-
+        showSwal('Scegli hashtag', html);
         if (hashtags.length == 0) {
             $("#noHashtagsText").removeClass("d-none");
         }
@@ -270,10 +248,7 @@
             $("#noHashtagsText").addClass("d-none");
         }
         hashtags.push(newHashtag);
-        $("#searchedHashtags").append(`
-            <p class="text-black"><button type="button" class="btn btn-bounce bg-primary text-black" onclick="removeHashtag(this)">
-                <em class="fa-solid fa-trash-can" aria-hidden="true"></em></button>&nbsp#${newHashtag}</p>
-        `);
+        $("#searchedHashtags").append(getHashtagHTML(newHashtag));
         $('#hashtagInput').val('');
         $('#hashtagsCount').html(hashtags.length);
     }
