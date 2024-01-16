@@ -149,9 +149,10 @@
                 $('#searchResultsDiv').append(rowDiv);
             }
 
-            $('[id^="searchResultGnam-"]').on('click', function() {
-                let currentId = this.id.replace(`searchResultGnam-`, '');
-                setGnamsToWatchFrom(currentId, currentResult);
+            currentResult.forEach(gnam => {
+                $(`[id="searchResultGnam-${gnam["id"]}"]`).on('click', function() {
+                    setGnamsToWatchFrom(gnam["id"], currentResult);
+                });
             });
         });
     }
