@@ -183,7 +183,7 @@
     };
 
     const getHashtagHTML = (hashtag) => {
-        return `<p class="text-black"><button type="button" class="btn btn-bounce bg-primary text-black" onclick="removeHashtag(this)">
+        return `<p class="text-black"><button type="button" class="btn btn-bounce bg-primary text-black" id="removeHashtag-${hashtag}">
                     <em class="fa-solid fa-trash-can" aria-hidden="true"></em></button>&nbsp#${hashtag}</p>`;
     };
 
@@ -211,6 +211,7 @@
         if (hashtags.length == 0) {
             $("#noHashtagsText").removeClass("d-none");
         }
+        hashtags.forEach(addHandlersToHashtag);
         $('#searchHashtagIcon').on("click", addHashtag);
         $('#resetHashtags').on("click", resetHashtags);
         $('#hashtagInput').keypress(function(event) {
@@ -240,19 +241,22 @@
             $("#noHashtagsText").addClass("d-none");
         }
         hashtags.push(newHashtag);
+        addHandlersToHashtag(newHashtag);
         $("#searchedHashtags").append(getHashtagHTML(newHashtag));
         $('#hashtagInput').val('');
         $('#hashtagsCount').html(hashtags.length);
     }
 
-    const removeHashtag = (element) => {
-        let indexToRemove = $(element).parent().index();
-        hashtags.splice(indexToRemove, 1);
-        $(element).parent().remove();
-        $('#hashtagsCount').html(hashtags.length);
-        if (hashtags.length == 0) {
-            $("#noHashtagsText").removeClass("d-none");
-        }
+    const addHandlersToHashtag = (hashtag) => {
+        $("#removeHashtag-" + hashtag).on("click", function () {
+            let indexToRemove = $(this).parent().index();
+            hashtags.splice(indexToRemove, 1);
+            $(this).parent().remove();
+            $('#hashtagsCount').html(hashtags.length);
+            if (hashtags.length == 0) {
+                $("#noHashtagsText").removeClass("d-none");
+            }
+        });
     }
 
     const resetHashtags = () => {
