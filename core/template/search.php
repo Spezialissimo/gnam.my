@@ -134,7 +134,7 @@
             let rowDiv = $('<div class="row my-3">');
 
             for (let o in currentResult) {
-                let img = $(`<img class="img-grid col-4 btn-bounce cursor-pointer" onclick="setGnamsToWatchFrom(${currentResult[o].id}, currentResult)" alt="Copertina gnam" src="assets/gnams_thumbnails/${currentResult[o].id}.jpg" />`);
+                let img = $(`<img class="img-grid col-4 btn-bounce cursor-pointer" id="searchResultGnam-${currentResult[o].id}" alt="Copertina gnam" src="assets/gnams_thumbnails/${currentResult[o].id}.jpg" />`);
                 rowDiv.append(img);
                 gnamPerRow--;
 
@@ -148,6 +148,11 @@
             if (gnamPerRow !== 3) {
                 $('#searchResultsDiv').append(rowDiv);
             }
+
+            $('[id^="searchResultGnam-"]').on('click', function() {
+                let currentId = this.id.replace(`searchResultGnam-`, '');
+                setGnamsToWatchFrom(currentId, currentResult);
+            });
         });
     }
 

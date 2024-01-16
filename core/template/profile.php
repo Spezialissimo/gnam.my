@@ -291,7 +291,7 @@ $userLikedGnams = getUserLikedGnams($user['id']);
     }
 
     const getIdsFromElementId = (prefix, clickedElement) => {
-        let currentId = clickedElement.id.replace(`${prefix}-`, '');        
+        let currentId = clickedElement.id.replace(`${prefix}-`, '');
         let ids = $(`#${prefix}s img`).map(function(index, element) {
             let idWithoutPrefix = element.id.replace(`${prefix}-`, '');
             return { id: idWithoutPrefix };
