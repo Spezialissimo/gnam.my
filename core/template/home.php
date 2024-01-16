@@ -24,7 +24,7 @@
             },
             on: {
                 slideChangeTransitionEnd: function () {
-                    if( $(".swiper-slide-active").length != 0) {
+                    if ($(".swiper-slide-active").length != 0) {
                         stopCurrentVideo();
                         $("#gnamPlayer-" + currentGnamID)[0].currentTime = 0;
                         currentGnamID = $(".swiper-slide-active").attr('id').split('-')[1];
@@ -46,12 +46,7 @@
                         drawGnam(newIndex);
                     }
                 },
-                afterInit: function () {
-                    document.querySelectorAll('[id^="gnam-"]').forEach(element => {
-                        element.classList.remove('d-none');
-                    });
-                },
-                update: function () {
+                beforeInit: function () {
                     document.querySelectorAll('[id^="gnam-"]').forEach(element => {
                         element.classList.remove('d-none');
                     });
