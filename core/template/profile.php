@@ -124,20 +124,6 @@ $userLikedGnams = getUserLikedGnams($user['id']);
 </div>
 
 <script>
-    const getGnamsIdsFromDiv = (divId) => {
-        const gnamsList = [];
-        $('#' + divId + ' img').each(function() {
-            const imgSrc = $(this).attr('src');
-            const imgName = imgSrc.substring(imgSrc.lastIndexOf('/') + 1, imgSrc.lastIndexOf('.'));
-            const idMatches = imgName.match(/\d+/);
-            if (idMatches) {
-                const gnamsId = parseInt(idMatches[0]);
-                gnamsList.push({ id: gnamsId });
-            }
-        });
-        return gnamsList;
-    }
-
     const followUser = () => {
         $.post("api/users.php", {
             user_id: "<?php echo $user['id'] ?>",
