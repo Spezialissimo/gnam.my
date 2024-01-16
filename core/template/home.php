@@ -614,6 +614,7 @@
 
     const setHandlersForCommentsContainer = (comments) => {
         comments.forEach(comment => {
+            $("#replyButton-" + comment['id']).off("click");
             $("#replyButton-" + comment['id']).on("click", function (e) {
                 const id = $(e.target).attr('id').split('-')[1];
                 const parent = $("#comment-" + id);
@@ -629,14 +630,18 @@
                 $("#replyToName-" + currentGnamID).text(commenterName);
 
             });
+            $("#commenterUserName-" + comment['id']).off("click");
             $("#commenterUserName-" + comment['id']).on("click", function () {
                 redirectToGnamUserPage(comment['user_id']);
             });
+            $("#commenterImg-" + comment['id']).off("click");
             $("#commenterImg-" + comment['id']).on("click", function () {
                 redirectToGnamUserPage(comment['user_id']);
             });
         });
+        $("#commentButton-" + currentGnamID).off("click");
         $("#commentButton-" + currentGnamID).on("click", publishComment);
+        $("#closeReplyTo-" + currentGnamID).off("click");
         $("#closeReplyTo-" + currentGnamID).on("click", function () {
             $("#replyToDiv-" + currentGnamID).addClass("d-none");
             commentToReplyID = null;
@@ -645,13 +650,18 @@
 
     const setComments = (comments, gnam_id) => {
         $("#commentsCounter-" + gnam_id).text(comments.length);
+        $("#commentsButton-" + gnam_id).off('click');
         $("#commentsButton-" + gnam_id).on('click', function (e) {
             stopCurrentVideo();
-            showSwal('Commenti', getCommentsHTML(comments), playCurrentVideo);
+            showSwal('Commenti', getCommentsHTML(comments), function () {
+                playCurrentVideo();
+                commentToReplyID = null;
+            });
             setHandlersForCommentsContainer(comments);
             e.stopPropagation();
         });
     }
+
 
     const stopCurrentVideo = () => {
         $("#gnamPlayer-" + currentGnamID)[0].pause();
