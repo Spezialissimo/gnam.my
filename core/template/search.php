@@ -31,7 +31,7 @@
     let currentResult;
 
     const getIngredientHTML = (ingredient) => {
-        return `<p class="text-black"><button type="button" class="btn btn-bounce bg-primary text-black" onclick="removeIngredient(this)">
+        return `<p class="text-black"><button type="button" class="btn btn-bounce bg-primary text-black" id="removeIngredient-${ingredient}">
                     <em class="fa-solid fa-trash-can" aria-hidden="true"></em></button>&nbsp${ingredient}</p>`;
     };
 
@@ -59,7 +59,9 @@
         if (ingredients.length == 0) {
             $("#noIngredientsText").removeClass("d-none");
         }
+        ingredients.forEach(addHandlersToIngredient);
         $('#searchIngredientsIcon').on("click", addIngredient);
+        $("#resetIngredients").on("click", resetIngredients);
         $('#ingredientInput').keypress(function(event) {
             if (event.which === 13) {
                 addIngredient();
@@ -69,7 +71,6 @@
         $('#okButton').click(function() {
             closeSwal();
         });
-        $("#resetIngredients").on("click", resetIngredients);
     }
 
     const addIngredient = () => {
@@ -81,19 +82,22 @@
             $("#noIngredientsText").addClass("d-none");
         }
         ingredients.push(newIngredient);
+        addHandlersToIngredient(newIngredient);
         $("#searchedIngredients").append(getIngredientHTML(newIngredient));
         $('#ingredientInput').val('');
         $('#ingredientsCount').html(ingredients.length);
     }
 
-    const removeIngredient = (element) => {
-        let indexToRemove = $(element).parent().index();
-        ingredients.splice(indexToRemove, 1);
-        $(element).parent().remove();
-        $('#ingredientsCount').html(ingredients.length);
-        if (ingredients.length == 0) {
-            $("#noIngredientsText").removeClass("d-none");
-        }
+    const addHandlersToIngredient = (ingredient) => {
+        $("#removeIngredient-" + ingredient).on("click", function () {
+            let indexToRemove = $(this).parent().index();
+            ingredients.splice(indexToRemove, 1);
+            $(this).parent().remove();
+            $('#ingredientsCount').html(ingredients.length);
+            if (ingredients.length == 0) {
+                $("#noIngredientsText").removeClass("d-none");
+            }
+        });
     }
 
     const resetIngredients = () => {
