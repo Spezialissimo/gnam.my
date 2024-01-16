@@ -212,8 +212,15 @@
             $("#noHashtagsText").removeClass("d-none");
         }
         hashtags.forEach(addHandlersToHashtag);
+
+        $('#resetHashtags').on("click", function () {
+            hashtags = [];
+            $("#searchedHashtags").empty();
+            $('#hashtagsCount').html(hashtags.length);
+            $("#noHashtagsText").removeClass("d-none");
+        });
+
         $('#searchHashtagIcon').on("click", addHashtag);
-        $('#resetHashtags').on("click", resetHashtags);
         $('#hashtagInput').keypress(function(event) {
             if (event.which === 13) {
                 addHashtag();
@@ -257,13 +264,6 @@
                 $("#noHashtagsText").removeClass("d-none");
             }
         });
-    }
-
-    const resetHashtags = () => {
-        hashtags = [];
-        $("#searchedHashtags").empty();
-        $('#hashtagsCount').html(hashtags.length);
-        $("#noHashtagsText").removeClass("d-none");
     }
 
     const uploadVideo = (formData) => {

@@ -60,8 +60,15 @@
             $("#noIngredientsText").removeClass("d-none");
         }
         ingredients.forEach(addHandlersToIngredient);
+
+        $("#resetIngredients").on("click", function () {
+            ingredients = [];
+            $("#searchedIngredients").empty();
+            $('#ingredientsCount').html(ingredients.length);
+            $("#noIngredientsText").removeClass("d-none");
+        });
+
         $('#searchIngredientsIcon').on("click", addIngredient);
-        $("#resetIngredients").on("click", resetIngredients);
         $('#ingredientInput').keypress(function(event) {
             if (event.which === 13) {
                 addIngredient();
@@ -98,13 +105,6 @@
                 $("#noIngredientsText").removeClass("d-none");
             }
         });
-    }
-
-    const resetIngredients = () => {
-        ingredients = [];
-        $("#searchedIngredients").empty();
-        $('#ingredientsCount').html(ingredients.length);
-        $("#noIngredientsText").removeClass("d-none");
     }
 
     const searchVideos = () => {
@@ -151,14 +151,14 @@
         });
     }
 
-    $("#ingredientsButton").on("click", openIngredients);
-
     $(document).ready(function(){
         $('#searchBar').keypress(function(e) {
             if (e.which === 13){
                 searchVideos();
             }
         });
+
+        $("#ingredientsButton").on("click", openIngredients);
         $('#searchIcon').on("click", searchVideos);
     });
 </script>
