@@ -2,7 +2,7 @@
 
 $user_id = filter_input(INPUT_GET, 'user', FILTER_SANITIZE_NUMBER_INT);
 
-if($user_id === null || $user_id <= 0 || !userExits($user_id) || !isset($user_id)) {
+if($user_id === null || $user_id <= 0 || !userExists($user_id) || !isset($user_id)) {
     $_GET['user'] = $_SESSION['id'];
 }
 
