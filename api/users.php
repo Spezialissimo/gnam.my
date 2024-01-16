@@ -6,7 +6,6 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 require_once("../core/functions.php");
 
 if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['action'])) {
-
     switch($_POST['action']) {
         case "register":
             if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['rpassword'])) {
@@ -20,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['action'])) {
                     die("Le password non coincidono");
                 }
 
-                $msg = register($username, $password);                
+                $msg = register($username, $password);
                 if(json_decode($msg, true)["message"] == "Utente registrato.") {
                     $lastUserId = $db->lastInsertId();
                     $sourceImage = $assetsPath . 'default_image.jpg';
@@ -42,13 +41,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['action'])) {
                 $currentUser = getUserFromApiKey($api_key)["id"];
 
                 if(json_decode(toggleFollowUser($currentUser, $targetUser), true)["message"] == "Segui") {
-                    
                     if($targetUser != $currentUser) {
                         deleteNotification($currentUser, $targetUser, null, 3);
                     }
                     echo response("success", "Segui");
                 } else {
-                    
                     if($targetUser != $currentUser) {
                         addNotification($currentUser, $targetUser, null, 3);
                     }
@@ -86,7 +83,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['action'])) {
             http_response_code(400);
             break;
     }
-
 } else {
     http_response_code(400);
 }

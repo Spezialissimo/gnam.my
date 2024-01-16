@@ -6,7 +6,6 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 require_once("../core/functions.php");
 
 if ($_SERVER['REQUEST_METHOD'] == "GET" && isset($_GET['action']) && isset($_GET['api_key'])) {
-
     $user = getUserFromApiKey($_GET['api_key']);
 
     if(!$user) {
@@ -30,7 +29,6 @@ if ($_SERVER['REQUEST_METHOD'] == "GET" && isset($_GET['action']) && isset($_GET
                 break;
         }
     }
-
 } else {
     http_response_code(400);
 }
