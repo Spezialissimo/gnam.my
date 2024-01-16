@@ -68,8 +68,7 @@
                     </div>
                     <div class="col-4 m-0 p-1"><select id="${ingredient}MeasurementUnit" class="form-select bg-primary rounded shadow-sm fs-7" title="unità di misura ${ingredient}" aria-label="unità di misura ${ingredient}">` +
                         measurementUnitsOptions + `</select></div>
-                    <div class="col-2 m-0 p-1"><button type="button" class="btn btn-bounce bg-primary text-black fs-7"
-                            onclick="removeIngredient(this)"><em class="fa-solid fa-trash-can" aria-hidden="true"></em></button></div>
+                    <div class="col-2 m-0 p-1"><button type="button" class="btn btn-bounce bg-primary text-black fs-7" id="removeIngredient-${ingredient}"><em class="fa-solid fa-trash-can" aria-hidden="true"></em></button></div>
                 </div>`;
     };
 
@@ -106,31 +105,29 @@
         $("#portionsInput").on("change", function(e) {
             selectedPortions = this.value;
         });
-        ingredients.forEach(ingredient => {
-            $('[id="' + ingredient["name"] + 'Quantity"]').val(ingredient["quantity"]);
-            $('[id="' + ingredient["name"] + 'MeasurementUnit"]').val(ingredient["measurement_unit"]);
-            $('[id="' + ingredient["name"] + 'Quantity"]').on("change", function() {
-                ingredient["quantity"] = $('[id="' + ingredient["name"] + 'Quantity"]').val();
-            });
-            $('[id="' + ingredient["name"] + 'MeasurementUnit"]').on("change", function() {
-                if (ingredient["measurement_unit"] == "qb") {
-                    $('[id="' + ingredient["name"] + 'Quantity"]').removeClass("d-none");
-                }
-                ingredient["measurement_unit"] = $('[id="' + ingredient["name"] + 'MeasurementUnit"]').val();
-                if (ingredient["measurement_unit"] == "qb") {
-                    $('[id="' + ingredient["name"] + 'Quantity"]').addClass("d-none");
-                }
-            });
-            if (ingredient["measurement_unit"] == "qb") {
-                $('[id="' + ingredient["name"] + 'Quantity"]').addClass("d-none");
+
+        for (let i = 0; i < ingredients.length; i++) {
+            $(`[id="${ingredients[i]["name"]}Quantity"]`).val(ingredients[i]["quantity"]);
+            $(`[id="${ingredients[i]["name"]}MeasurementUnit"]`).val(ingredients[i]["measurement_unit"]);
+            if (ingredients[i]["measurement_unit"] == "qb") {
+                $(`[id="${ingredients[i]["name"]}Quantity"]`).addClass("d-none");
             }
-        });
+
+            addHandlersToIngredient(ingredients[i]["name"], i);
+        }
 
         if (ingredients.length == 0) {
             $("#noIngredientsText").removeClass("d-none");
         }
+
+        $('#resetIngredients').on("click", function () {
+            ingredients = [];
+            $("#searchedIngredients").empty();
+            $('#ingredientsCount').html(ingredients.length);
+            $("#noIngredientsText").removeClass("d-none");
+        });
+
         $('#searchIngredientIcon').on("click", addIngredient);
-        $('#resetIngredients').on("click", resetIngredients);
         $('#searchIngredients').keypress(function(event) {
             if (event.which === 13) {
                 addIngredient();
@@ -151,44 +148,39 @@
         if (ingredients.length == 0) {
             $("#noIngredientsText").addClass("d-none");
         }
-        ingredients.push({"name": newIngredient, "quantity": $('[id="' + newIngredient + 'Quantity"]').val(), "measurement_unit": $('[id="' + newIngredient + 'MeasurementUnit"]').val()});
-        let newIngredientIndex = ingredients.length - 1;
-        $('[id="' + newIngredient + 'Quantity"]').on("change", function() {
-            ingredients[newIngredientIndex]["quantity"] = $('[id="' + newIngredient + 'Quantity"]').val();
-        });
-        $('[id="' + newIngredient + 'MeasurementUnit"]').on("change", function() {
-            if (ingredients[newIngredientIndex]["measurement_unit"] == "qb") {
-                $('[id="' + newIngredient + 'Quantity"]').removeClass("d-none");
-            }
-            ingredients[newIngredientIndex]["measurement_unit"] = $('[id="' + newIngredient + 'MeasurementUnit"]').val();
-            if (ingredients[newIngredientIndex]["measurement_unit"] == "qb") {
-                $('[id="' + newIngredient + 'Quantity"]').addClass("d-none");
-            }
-        });
-        if (ingredients[newIngredientIndex]["measurement_unit"] == "qb") {
-            $('[id="' + newIngredient + 'Quantity"]').addClass("d-none");
-        }
+        ingredients.push({"name": newIngredient, "quantity": $(`[id="${newIngredient}Quantity"]`).val(), "measurement_unit": $(`[id="${newIngredient}MeasurementUnit"]`).val()});
+        addHandlersToIngredient(newIngredient, ingredients.length - 1);
         $('#searchIngredients').val('');
         $('#ingredientsCount').html(ingredients.length);
     }
 
-    const removeIngredient = (element) => {
-        let ingredientRow = $(element).closest('.row');
-        let ingredientName = ingredientRow.find('p').text().trim();
-        ingredients = ingredients.filter(ingredient => ingredient["name"] !== ingredientName);
-        ingredientRow.remove();
-        $('#ingredientsCount').html(ingredients.length);
-        if (ingredients.length === 0) {
-            $("#noIngredientsText").removeClass("d-none");
-        }
-    }
+    const addHandlersToIngredient = (ingredientName, ingredientIndex) => {
+        let quantityInput = $(`[id="${ingredientName}Quantity"]`);
+        let measurementUnitInput = $(`[id="${ingredientName}MeasurementUnit"]`);
 
-    const resetIngredients = () => {
-        ingredients = [];
-        $("#searchedIngredients").empty();
-        $('#ingredientsCount').html(ingredients.length);
-        $("#noIngredientsText").removeClass("d-none");
-    }
+        quantityInput.on("change", function() {
+            ingredients[ingredientIndex]["quantity"] = quantityInput.val();
+        });
+
+        measurementUnitInput.on("change", function() {
+            ingredients[ingredientIndex]["measurement_unit"] = measurementUnitInput.val();
+            if (ingredients[ingredientIndex]["measurement_unit"] == "qb") {
+                quantityInput.addClass("d-none");
+            } else {
+                quantityInput.removeClass("d-none");
+            }
+        });
+
+        $("#removeIngredient-" + ingredientName).on("click", function () {
+            let ingredientRow = $(this).closest('.row');
+            ingredients = ingredients.filter(ingredient => ingredient["name"] !== ingredientName);
+            ingredientRow.remove();
+            $('#ingredientsCount').html(ingredients.length);
+            if (ingredients.length === 0) {
+                $("#noIngredientsText").removeClass("d-none");
+            }
+        });
+    };
 
     const getHashtagHTML = (hashtag) => {
         return `<p class="text-black"><button type="button" class="btn btn-bounce bg-primary text-black" onclick="removeHashtag(this)">
