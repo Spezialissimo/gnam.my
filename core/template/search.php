@@ -31,7 +31,7 @@
     let currentResult;
 
     const getIngredientHTML = (ingredient) => {
-        return `<p class="text-black"><button type="button" class="btn btn-bounce bg-primary text-black" id="removeIngredient-${ingredient}">
+        return `<p class="text-black"><button type="button" title="rimuovi ingrediente" aria-label="rimuovi ingrediente" class="btn btn-bounce bg-primary text-black" id="removeIngredient-${ingredient}">
                     <em class="fa-solid fa-trash-can" aria-hidden="true"></em></button>&nbsp${ingredient}</p>`;
     };
 

@@ -68,7 +68,7 @@
                     </div>
                     <div class="col-4 m-0 p-1"><select id="${ingredient}MeasurementUnit" class="form-select bg-primary rounded shadow-sm fs-7" title="unità di misura ${ingredient}" aria-label="unità di misura ${ingredient}">` +
                         measurementUnitsOptions + `</select></div>
-                    <div class="col-2 m-0 p-1"><button type="button" class="btn btn-bounce bg-primary text-black fs-7" id="removeIngredient-${ingredient}"><em class="fa-solid fa-trash-can" aria-hidden="true"></em></button></div>
+                    <div class="col-2 m-0 p-1"><button type="button" title="rimuovi ingrediente" aria-label="rimuovi ingrediente" class="btn btn-bounce bg-primary text-black fs-7" id="removeIngredient-${ingredient}"><em class="fa-solid fa-trash-can" aria-hidden="true"></em></button></div>
                 </div>`;
     };
 
@@ -183,7 +183,7 @@
     };
 
     const getHashtagHTML = (hashtag) => {
-        return `<p class="text-black"><button type="button" class="btn btn-bounce bg-primary text-black" id="removeHashtag-${hashtag}">
+        return `<p class="text-black"><button type="button" title="rimuovi hashtag" aria-label="rimuovi hashtag" class="btn btn-bounce bg-primary text-black" id="removeHashtag-${hashtag}">
                     <em class="fa-solid fa-trash-can" aria-hidden="true"></em></button>&nbsp#${hashtag}</p>`;
     };
 
