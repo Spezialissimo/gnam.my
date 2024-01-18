@@ -5,7 +5,7 @@
     <!-- search field -->
     <div class="row-md-2 py-2">
         <div class="input-group rounded" id="searchBar">
-            <span class="input-group-text bg-primary border-0 cursor-pointer" id="searchIcon"><em class="fa-solid fa-magnifying-glass" aria-hidden="true"></em></span>
+            <span class="input-group-text bg-primary border-0 shadow-sm cursor-pointer" id="searchIcon"><em class="fa-solid fa-magnifying-glass" aria-hidden="true"></em></span>
             <input type="text" class="form-control bg-primary shadow-sm" placeholder="Cerca" id="searchBarInput" title="testo per la ricerca di gnam" aria-label="testo per la ricerca di gnam" <?php if (isset($_GET["q"])) { echo 'value="' . $_GET["q"] . '" '; } ?>/>
     	</div>
     </div>
@@ -38,7 +38,7 @@
     const openIngredients = () => {
         let html = `<div class="row-md-2 py-2">
                         <div class="input-group rounded">
-                            <span class="input-group-text bg-primary border-0 cursor-pointer" id="searchIngredientsIcon"><em class="fa-solid fa-magnifying-glass"></em></span>
+                            <span class="input-group-text bg-primary border-0 shadow-sm cursor-pointer" id="searchIngredientsIcon"><em class="fa-solid fa-magnifying-glass"></em></span>
                             <input type="text" id="ingredientInput" class="form-control bg-primary shadow-sm" placeholder="Cerca Ingredienti" title="testo per la ricerca di ingredienti" aria-label="testo per la ricerca di ingredienti" />
                         </div>
                     </div>
