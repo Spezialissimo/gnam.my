@@ -137,7 +137,7 @@ hr {
 	color: var(--secondary) !important;
 }
 
-.text-notification-pill {
+.notification-pill-text {
 	font-size: small;
 }
 
