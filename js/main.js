@@ -57,15 +57,14 @@ const closeSwal = () => {
     Swal.close();
 };
 
-const copyCurrentPageLink = () => {
-    let currentPageLink = window.location.href;
-    navigator.clipboard.writeText(currentPageLink)
-        .then(function() {
-            showToast("success", "Link copiato nella clipboard");
-        })
-        .catch(function(err) {
-            console.error("Impossibile copiare il link nella clipboard: ", err);
-        });
+const copyToClipboard = (textToCopy) => {
+    const tempInput = document.createElement("input");
+    tempInput.value = textToCopy;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    document.execCommand("copy");
+    document.body.removeChild(tempInput);
+    showToast("success", "Link copiato nella clipboard");
 }
 
 const setCookie = (cookieName, element) => {

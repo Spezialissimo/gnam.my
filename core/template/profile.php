@@ -163,8 +163,10 @@ $userLikedGnams = getUserLikedGnams($user['id']);
                 </div>
             </div>
         `;
-        showSmallSwal('Condividi Profilo', swalContent);
-        $("#copyLinkButton").on("click", copyCurrentPageLink);
+        showSmallSwal('Condividi Profilo', swalContent);        
+        $("#copyLinkButton").on("click", function() {
+            copyToClipboard(window.location.href + "?user=<?php echo $user['id'] ?>");
+        });
     }
 
     const showSwalFollower = () => {
