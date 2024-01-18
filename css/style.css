@@ -122,6 +122,10 @@ input[type=file]::file-selector-button, input[type=file]::file-selector-button:h
 	margin: 0!important;
 }
 
+hr {
+	color: black!important;
+}
+
 .text-button {
 	border: none;
 	background-color: transparent;
