@@ -4,6 +4,11 @@
   <p align="center">
     A simple cooking-related social written in PHP
   </p>
+  <p align="center">
+    <a href="https://en.wikipedia.org/wiki/MIT_License">
+      <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT">
+    </a>
+  </p>
 </p>
 
 ## Experience prototyping
