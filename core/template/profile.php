@@ -43,15 +43,15 @@ $userLikedGnams = getUserLikedGnams($user['id']);
     </div>
     <div class="row justify-content-center">
         <?php if($user['id'] != $_SESSION['id']) { ?>
-            <div class="col-4">
+            <div class="col-md-4 col-6">
                 <button type="button" class="btn btn-bounce rounded-pill bg-secondary fw-bold text-white w-100" id="followButton"><?php echo isCurrentUserFollowing($user['id']) ? "Seguito" : "Segui" ?></button>
             </div>
         <?php } ?>
-        <div class="col-4">
+        <div class="col-md-4 col-6">
             <button id="shareButton" type="button" class="btn btn-bounce rounded-pill bg-secondary fw-bold text-white w-100">Condividi</button>
         </div>
         <?php if($user['id'] == $_SESSION['id']) { ?>
-            <div class="col-4">
+            <div class="col-md-4 col-6">
                 <button id="settingsButton" type="button" class="btn btn-bounce rounded-pill bg-secondary fw-bold text-white w-100">Impostazioni</button>
             </div>
         <?php } ?>
