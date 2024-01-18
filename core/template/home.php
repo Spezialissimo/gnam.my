@@ -179,12 +179,12 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <span id="videoDescriptionShort-${gnamsInfo['id']}" class="fs-7 m-0">
+                                <span id="videoDescriptionShort-${gnamsInfo['id']}" class="m-0">
                                     <span>${gnamsInfo['short_description']}</span>
-                                    <span class="fs-7 m-0 color-accent fw-semibold cursor-pointer">Leggi di piú</span>
+                                    <span class="m-0 color-accent fw-semibold cursor-pointer">Leggi di piú</span>
                                 </span>
-                                <span id="videoDescriptionLong-${gnamsInfo['id']}" class="fs-7 m-0 d-none"><span>${gnamsInfo['description']}<span><br>
-                                    <span class="fs-7 m-0 color-accent fw-semibold cursor-pointer">Mostra di meno</span>
+                                <span id="videoDescriptionLong-${gnamsInfo['id']}" class="m-0 d-none"><span>${gnamsInfo['description']}<span><br>
+                                    <span class="m-0 color-accent fw-semibold cursor-pointer">Mostra di meno</span>
                                 </span>
                             </div>
                             <div class="row" id="videoTags-${gnamsInfo['id']}">
@@ -501,8 +501,8 @@
                 </div>
                 <div class="row-1 bg-primary rounded">
                     <div class="input-group rounded">
-                        <input id="commentField-${currentGnamID}" type="text" class="fs-7 form-control bg-primary shadow-sm" placeholder="Insercisci commento..." title="inserisci commento" aria-label="inserisci commento" />
-                        <span id="commentButton-${currentGnamID}" class="input-group-text bg-primary border-0 fs-7 fw-bold cursor-pointer text-black">Commenta</span>
+                        <input id="commentField-${currentGnamID}" type="text" class="fs-6 form-control bg-primary shadow-sm" placeholder="Scrivi..." title="scrivi commento" aria-label="scrivi commento" />
+                        <span id="commentButton-${currentGnamID}" class="input-group-text bg-primary border-0 fs-6 fw-bold cursor-pointer text-black">Commenta</span>
                     </div>
                 </div>`;
 
@@ -526,7 +526,7 @@
                         <div class="rounded bg container">
                             <div class="row">
                                 <div class="col-11 align-items-center">
-                                    <span class="border-0 fs-7">Stai rispondendo a: <span id="replyToName-${currentGnamID}" class="text-link"></span></span>
+                                    <span class="border-0 fs-6">Stai rispondendo a: <span id="replyToName-${currentGnamID}" class="text-link"></span></span>
                                 </div>
                                 <div class="col-1 d-flex align-items-center p-0 cursor-pointer">
                                     <em id="closeReplyTo-${currentGnamID}" class="fa-solid fa-xmark color-accent" aria-hidden="true"></em>
@@ -535,8 +535,8 @@
                         </div>
                     </div>
                     <div class="input-group rounded">
-                        <input id="commentField-${currentGnamID}" type="text" class="fs-7 form-control bg-primary shadow-sm" placeholder="Insercisci commento..." title="inserisciCommento" aria-label="inserisciCommento" />
-                        <span id="commentButton-${currentGnamID}" class="input-group-text bg-primary border-0 fs-7 fw-bold cursor-pointer">Commenta</span>
+                        <input id="commentField-${currentGnamID}" type="text" class="fs-6 form-control bg-primary shadow-sm" placeholder="Scrivi..." title="scrivi commento" aria-label="scrivi commento" />
+                        <span id="commentButton-${currentGnamID}" class="input-group-text bg-primary border-0 fs-6 fw-bold cursor-pointer">Commenta</span>
                     </div>
                 </div>`;
 
@@ -568,11 +568,11 @@
                                 <div class="row-md-1 text-start">
                                     <span id="commenterUserName-${comment['id']}" class="text-link">${comment['user_name']}</span>
                                 </div>
-                                <div class="row-md text-black fw-normal fs-7 text-start">
+                                <div class="row-md text-black fw-normal fs-6 text-start">
                                     <p class="m-0">${comment['text']}</p>
                                 </div>
                                 <div class="row-md-1 text-start">
-                                    <span id="replyButton-${comment['id']}" class="text-button fw-bold color-accent fs-7 ">Rispondi</span>
+                                    <span id="replyButton-${comment['id']}" class="text-button fw-bold color-accent fs-6">Rispondi</span>
                                 </div>
                             </div>
                         </div>
@@ -596,11 +596,11 @@
                                         <div class="row-md-1 text-start">
                                             <span id="commenterUserName-${comment['id']}" class="text-link">${comment['user_name']}</span>
                                         </div>
-                                        <div class="row-md text-black fw-normal fs-7 text-start">
+                                        <div class="row-md text-black fw-normal fs-6 text-start">
                                             <p class="m-0">${comment['text']}</p>
                                         </div>
                                         <div class="row-md-1 text-start">
-                                            <span id="replyButton-${comment['id']}" class="replyTo-${comment['parent_comment_id']} text-button fw-bold color-accent fs-7 ">Rispondi</span>
+                                            <span id="replyButton-${comment['id']}" class="replyTo-${comment['parent_comment_id']} text-button fw-bold color-accent fs-6">Rispondi</span>
                                         </div>
                                     </div>
                                 </div>

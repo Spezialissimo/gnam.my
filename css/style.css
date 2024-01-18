@@ -141,8 +141,8 @@ hr {
 	font-size: small;
 }
 
-.fs-7 {
-	font-size: 0.75rem !important;
+span[id^="videoDescription"] {
+	font-size: 0.8rem !important;
 }
 
 .video-overlay {

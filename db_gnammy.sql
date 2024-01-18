@@ -355,7 +355,7 @@ CREATE TABLE `notification_types` (
 --
 
 INSERT INTO `notification_types` (`id`, `name`, `template_text`) VALUES
-(1, 'like', 'ha messo mi piace al tuo gnam'),
+(1, 'like', 'ha messo mi piace ad un tuo gnam'),
 (2, 'comment', 'ha commentato un tuo gnam'),
 (3, 'follow', 'ha iniziato a seguirti');
 
