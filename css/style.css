@@ -330,3 +330,15 @@ video {
 		object-fit:contain!important;
 	}
 }
+
+@media screen and (min-width: 1000px) {
+	#profileImage {
+		width: 60%!important;
+	}
+}
+
+@media screen and (min-width: 1200px) {
+	#profileImage {
+		width: 50%!important;
+	}
+}
