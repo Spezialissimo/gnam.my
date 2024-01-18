@@ -179,10 +179,11 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <span id="videoDescriptionShort-${gnamsInfo['id']}" class="fs-7 m-0">${gnamsInfo['short_description']}
+                                <span id="videoDescriptionShort-${gnamsInfo['id']}" class="fs-7 m-0">
+                                    <span>${gnamsInfo['short_description']}</span>
                                     <span class="fs-7 m-0 color-accent fw-semibold cursor-pointer">Leggi di piú</span>
                                 </span>
-                                <span id="videoDescriptionLong-${gnamsInfo['id']}" class="fs-7 m-0 d-none">${gnamsInfo['description']}
+                                <span id="videoDescriptionLong-${gnamsInfo['id']}" class="fs-7 m-0 d-none"><span>${gnamsInfo['description']}<span><br>
                                     <span class="fs-7 m-0 color-accent fw-semibold cursor-pointer">Mostra di meno</span>
                                 </span>
                             </div>
@@ -229,15 +230,15 @@
 
             if (count < 2) {
                 tagHTML += `
-                    <div class="col-4 videoTag cursor-pointer">
-                        <span class="badge rounded-pill bg-primary fw-light text-black">
+                    <div class="col-4 videoTag">
+                        <span class="badge rounded-pill bg-primary fw-light text-black cursor-pointer">
                             #${tagText}
                         </span>
                     </div>`;
             } else {
                 tagHTML += `
-                    <div class="col-4 d-none videoTag cursor-pointer">
-                        <span class="badge rounded-pill bg-primary fw-light text-black">
+                    <div class="col-4 d-none videoTag">
+                        <span class="badge rounded-pill bg-primary fw-light text-black cursor-pointer">
                             #${tagText}
                         </span>
                     </div>`;
@@ -248,7 +249,7 @@
         if (gnamsInfo['tags'].length > 2) {
             tagHTML += `
                 <div class="col-2 pe-0" id="moreTagsButton-${gnamsInfo['id']}">
-                    <span class="badge rounded-pill bg-primary fw-light text-black">
+                    <span class="badge rounded-pill bg-primary fw-light text-black cursor-pointer">
                         <em class="fa-solid fa-ellipsis" aria-hidden="true"></em>
                     </span>
                 </div>`;
