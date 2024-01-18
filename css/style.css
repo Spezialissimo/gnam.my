@@ -211,6 +211,10 @@ span[id^="videoDescription"] {
 	height: inherit !important;
 }
 
+.notification-propic-container {
+	height: 10vh!important;
+}
+
 @keyframes loadingspin {
 	100% {
 		transform: rotate(360deg)
