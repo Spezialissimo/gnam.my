@@ -379,7 +379,7 @@ function postComment($currentUser_id, $gnam_id, $comment, $parent_comment_id) {
 function formatTimestampDiff($t1, $t2) {
     $diff = $t2 - $t1;
     if ($diff > 60 * 60 * 24) {
-        return floor($diff / (60 * 60 * 24)) . " d";
+        return floor($diff / (60 * 60 * 24)) . " g";
     } else if ($diff > 60 * 60) {
         return floor($diff / (60 * 60)) . " h";
     } else if ($diff > 60) {
