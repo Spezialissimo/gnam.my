@@ -1,9 +1,13 @@
-# Gnam.my - A simple cooking-related social
-
-Gnam.my is a simple social about cooking written in PHP
+<p align="center">
+  <img src="https://raw.githubusercontent.com/piertv21/gnam.my/main/assets/favicon.png" alt="Logo" width="80" height="80">
+  <h3 align="center">Gnam.my</h3>
+  <p align="center">
+    A simple cooking-related social written in PHP
+  </p>
+</p>
 
 ## Experience prototyping
-
+These are the people interviewed:
 - Anna Maria, madre casalinga, 55 anni, ex aiuto-cuoca:
   - Coltello e forchetta per gli ingredienti non è troppo adeguato
   - Aggiungere immagini profilo utente nelle notifiche
