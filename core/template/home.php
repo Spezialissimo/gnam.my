@@ -321,19 +321,18 @@
             $("#copyGnamLinkButton").on("click", function () {
                 $("#shareCounter-" + currentGnamID).text(parseInt($("#shareCounter-" + currentGnamID).text()) + 1);
                 let gnamLink = buildURL("home", "gnam=" + currentGnamID);
-                navigator.clipboard.writeText(gnamLink)
-                    .then(function () {
-                        showToast("success", "Link copiato nella clipboard");
-                        $.post('api/gnams.php', {
-                            "api_key": '<?php echo $_SESSION["api_key"] ?>',
-                            "gnam_id": currentGnamID,
-                            "action": "INCREMENT_SHARE"
-                        });
-                    })
-                    .catch(function (err) {
-                        console.error("Impossibile copiare il link nella clipboard: ", err);
-                    });
+
+                const tempInput = document.createElement("input");
+                tempInput.value = gnamLink;
+                document.body.appendChild(tempInput);
+
+                tempInput.select();
+                document.execCommand("copy");
+                document.body.removeChild(tempInput);
+
+                showToast("success", "Link copiato nella clipboard");
             });
+
             e.stopPropagation();
         });
 
