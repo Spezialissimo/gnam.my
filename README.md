@@ -2,12 +2,12 @@
   <img src="https://raw.githubusercontent.com/piertv21/gnam.my/main/assets/favicon.png" alt="Logo" width="80" height="80">
   <h3 align="center">Gnam.my</h3>
   <p align="center">
-    A simple cooking-related social written in PHP
+    A simple cooking-related social written in PHP.
   </p>
   <p align="center">
-    <a href="https://en.wikipedia.org/wiki/MIT_License">
-      <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT">
-    </a>
+    <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT">
+    <img src="https://img.shields.io/badge/Frontend-Bootstrap%205.3-purple" alt="Frontend: Bootstrap">
+    <img src="https://img.shields.io/badge/Backend-PHP-blue" alt="Backend: PHP">
   </p>
 </p>
 
