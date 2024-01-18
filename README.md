@@ -14,19 +14,19 @@
 
 ## Installation And Setup
 
+**1. Clone the repository**<br />
 To setup the site locally you need a correctly installed web server solution like XAMMP.
-Clone the repo inside the "htdocs" directory in the install direcotry of XAMPP.
+Copy the repo inside the "htdocs" directory in the install directory of XAMPP.
 
-Start all servers and wait for them to be up and running.
-On any web browser navigate to:
+**2. Start the server**
+Start Apache and MySQL servers and wait for them to be up and running.
 
-http://localhost/phpmyadmin/
+**3. Import the database**
+- Open any browser and navigate to: http://localhost/phpmyadmin/
+- Clink "Import", select "db_gnammy.sql" and then execute.
 
-Clink on the SQL tab and copy the content of the db_gnammy.sql and click execute.
-
-Now you can close phpMyAdmin and navigate to:
-
-http://localhost/gnam.my/
+**4. Use the site**
+Now you can close phpMyAdmin and navigate to: http://localhost/gnam.my/
 
 ## Experience prototyping
 These are the people interviewed:
