@@ -15,10 +15,10 @@ $userLikedGnams = getUserLikedGnams($user['id']);
 ?>
 <div class="container text-center mt-3 text-black">
     <div class="row">
-        <div class="col-4">
+        <div class="col-4 align-self-center">
             <img class="border border-2 border-dark rounded-circle w-75" alt="Foto profilo di <?php echo $user['name'] ?>" src="assets/profile_pictures/<?php echo $user['id'] ?>.jpg" />
         </div>
-        <div class="col-8">
+        <div class="col-8 align-self-center">
             <div class="row">
                 <div class="h4 mt-2 ps-0"><?php echo $user['name'] ?></div>
             </div>
@@ -27,7 +27,6 @@ $userLikedGnams = getUserLikedGnams($user['id']);
                     <p class="fw-bold p-0 mb-0">Follower</p>
                     <p class="fw-normal " id="followersCount"><?php echo count($followers); ?></p>
                 </a>
-
                 <a id="followedButton" href="#" class="col p-0 text-link">
                     <div class="col p-0">
                         <p class="fw-bold mb-0">Seguiti</p>
@@ -41,6 +40,9 @@ $userLikedGnams = getUserLikedGnams($user['id']);
             </div>
         </div>
     </div>
+</div>
+
+<div class="container text-center mt-3 text-black">    
     <div class="row justify-content-center">
         <?php if($user['id'] != $_SESSION['id']) { ?>
             <div class="col-md-4 col-6">
@@ -56,6 +58,9 @@ $userLikedGnams = getUserLikedGnams($user['id']);
             </div>
         <?php } ?>
     </div>
+</div>
+
+<div class="container text-center mt-3 text-black">
     <div class="row align-items-center text-center mt-2">
         <div class="col-1"></div>
         <div class="col-3 cursor-pointer">
