@@ -11,12 +11,9 @@
                 <?php foreach ($notifications as $notification) { ?>
                 <div class="row m-1 p-0">
                     <a id="notification<?php echo $notification['notification_id'] ?>" class="btn btn-bounce rounded-pill bg-primary p-2 notification-pill-text notification-btn d-flex flex-row align-items-center justify-content-between">
-                        <img class="border border-1 border-dark rounded-circle" style="width: 10%" alt="<?php echo $notification['source_user_name'] ?>" src="<?php echo 'assets/profile_pictures/' . $notification['source_user_id'] . '.jpg' ?>" />
+                        <img class="border border-1 border-dark rounded-circle me-3 me-md-4" style="width: 10%" alt="<?php echo $notification['source_user_name'] ?>" src="<?php echo 'assets/profile_pictures/' . $notification['source_user_id'] . '.jpg' ?>" />
                         <div class="m-0 text-link d-inline"><?php echo $notification["source_user_name"];?><span class="m-0 text-black fw-normal"> <?php echo $notification["template_text"];?></span></div>
-                        <div class="h-100 d-flex align-items-center flex-row">
-                            <div class="vr h-100"></div>
-                            <span class="m-0 text-black fw-normal px-3 px-md-4"><?php echo formatTimestampDiff($notification["timestamp"], time()); ?></span>
-                        </div>
+                        <span class="m-0 text-black fw-normal ms-3 ms-md-4"><?php echo formatTimestampDiff($notification["timestamp"], time()); ?></span>
                     </a>
                 </div>
                 <?php } ?>
