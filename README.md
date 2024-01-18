@@ -11,6 +11,11 @@
   </p>
 </p>
 
+<hr />
+
+<p align="center">
+<img width="820" alt="image" src="https://github.com/piertv21/gnam.my/assets/116550787/09c4adf5-184e-47d5-86b7-509d09ce4c37">
+</p>
 
 ## Installation And Setup
 
@@ -18,14 +23,14 @@
 To setup the site locally you need a correctly installed web server solution like XAMMP.
 Copy the repo inside the "htdocs" directory in the install directory of XAMPP.
 
-**2. Start the server**
+**2. Start the server**<br />
 Start Apache and MySQL servers and wait for them to be up and running.
 
-**3. Import the database**
+**3. Import the database**<br />
 - Open any browser and navigate to: http://localhost/phpmyadmin/
 - Clink "Import", select "db_gnammy.sql" and then execute.
 
-**4. Use the site**
+**4. Use the site**<br />
 Now you can close phpMyAdmin and navigate to: http://localhost/gnam.my/
 
 ## Experience prototyping
