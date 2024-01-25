@@ -11,27 +11,37 @@
   </p>
 </p>
 
-<hr />
+##
+<br />
 
 <p align="center">
 <img width="820" alt="image" src="https://github.com/piertv21/gnam.my/assets/116550787/09c4adf5-184e-47d5-86b7-509d09ce4c37">
 </p>
 
-## Installation And Setup
+## Installation & Setup
 
 **1. Clone the repository**<br />
-To setup the site locally you need a correctly installed web server solution like XAMMP.
-Copy the repo inside the "htdocs" directory in the install directory of XAMPP.
+To use the site locally, you need a Web Server solution such as XAMPP.<br />
+Download XAMPP, navigate to XAMPP's 'htdocs' folder and then clone the repo:
+```
+git clone https://github.com/piertv21/gnam.my
+```
 
 **2. Start the server**<br />
-Start Apache and MySQL servers and wait for them to be up and running.
+Open XAMPP, start Apache and MySQL servers and wait for them to be up and running.
 
 **3. Import the database**<br />
-- Open any browser and navigate to: http://localhost/phpmyadmin/
-- Clink "Import", select "db_gnammy.sql" and then execute.
+Open any browser and navigate to:
+```
+http://localhost/phpmyadmin/
+```
+Click on "Import", select "db_gnammy.sql" from the repo folder and select "Execute".
 
 **4. Use the site**<br />
-Now you can close phpMyAdmin and navigate to: http://localhost/gnam.my/
+Now you can close phpMyAdmin and navigate to:
+```
+http://localhost/gnam.my/
+```
 
 ## Experience prototyping
 These are the people interviewed:
@@ -44,9 +54,9 @@ These are the people interviewed:
 
 - Nic, studente fuorisede di informatica, 21 anni:
   - Permettere di rispondere ai commenti sotto i video
-  - tasti menù sotto troppo grandi
-  - colori ovviamente bottoni
-  - più grande nome utente in profilo ed anche tasti segui condividi e video
+  - Tasti menù sotto troppo grandi
+  - Colori ovviamente bottoni
+  - Più grande nome utente in profilo ed anche tasti segui condividi e video
 
 - Annabel, studente fuorisede di fisica, 20 anni:
   - Aggiungere numeric up down per selezionare il numero di porzioni negli ingredienti
@@ -61,7 +71,7 @@ These are the people interviewed:
 - Irene, studente fuori sede, 22 anni:
   - Sezione ingredienti molto bella
   - Bel font
-  - "follower" e "seguiti" è brutto, meglio fare tutto in una lingua
+  - "Follower" e "Seguiti" è brutto, meglio fare tutto in una lingua
   - Colori mi piacciono molto, appena perplessa sui bottoni neri sul video, ma non saprei come altro farli quindi va bene in realtà
   - Dimensioni difficili da capire andando un po' su e giù ma mi sembrano equilibrate
   - Carine le transizioni tra le pagine
