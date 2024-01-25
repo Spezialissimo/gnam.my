@@ -660,7 +660,6 @@
         });
     }
 
-
     const stopCurrentVideo = () => {
         $("#gnamPlayer-" + currentGnamID)[0].pause();
     }
@@ -668,5 +667,4 @@
     const playCurrentVideo = () => {
         $("#gnamPlayer-" + currentGnamID)[0].play();
     }
-
 </script>

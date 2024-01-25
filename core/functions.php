@@ -236,11 +236,10 @@ function getRandomGnams() {
     return $gnams;
 }
 
-//TODO VANNO UNIFICATI I RISULTATI DELLE 4 QUERY (che ora sono in $queryDesc, $queryHashtag, $queryIngredients, $queryUsers)
 function searchGnams($query, $ingredients) {
     global $db;
 
-    // QUERY 1 (seleziona per desc tipo %torta%mele%)
+    // QUERY 1 (Select for desc like %torta%mele%)
     $words = explode(" ", $query);
     $words[0] = '%' . $words[0];
     $words[count($words) - 1] .= '%';
@@ -252,7 +251,7 @@ function searchGnams($query, $ingredients) {
     $queryDesc = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $queryDesc = array_column($queryDesc, "id");
 
-    // QUERY 2 (tutti gli gnam che hanno un utente, con un nome che contiene una delle parole della query)
+    // QUERY 2 (Select all gnams that have a user with a name containing one of the words in the query)
     $temp = [];
     $words = explode(" ", $query);
     foreach ($words as $word) {
@@ -268,7 +267,7 @@ function searchGnams($query, $ingredients) {
     $queryUsers = call_user_func_array('array_merge', $temp);
     $queryUsers = array_column($queryUsers, "id");
 
-    // QUERY 3 (seleziona tutti gli gnam che hanno 1 o più hashtag presenti nella query)
+    // QUERY 3 (Selects all gnams that have 1 or more hashtags in the query)
     preg_match_all('/#(\w+)/', $query, $matches);
     $hashtags = $matches[1];
 
@@ -280,7 +279,7 @@ function searchGnams($query, $ingredients) {
     $queryHashtag = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $queryHashtag = array_column($queryHashtag, "id");
 
-    // QUERY 4 (tutti gli gnam che hanno tutti gli ingredienti presenti in $ingredients)
+    // QUERY 4 (Select all gnams that have all the ingredients present in $ingredients)
     $stmt = $db->prepare("SELECT g.id FROM gnams g
         JOIN gnam_ingredients gi ON g.id=gi.gnam_id
         JOIN ingredients i ON gi.ingredient_id=i.id
@@ -290,18 +289,18 @@ function searchGnams($query, $ingredients) {
     $queryIngredients = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $queryIngredients = array_column($queryIngredients, "id");
 
-    // merge ids from desc search and user search
+    // Merge ids from Query 1 and Query 2
     $results = array_unique(array_merge($queryDesc, $queryUsers));
-    // if there were some hashtags in the query we must filter
+    // If there were some hashtags in the query we must filter
     if (!empty($hashtags)) {
-        // if the query did not contain anything else other than the hashtag
+        // If the query did not contain anything else other than the hashtag
         if (empty($results)) {
             $results = $queryHashtag;
         } else {
             $results = array_intersect($results, $queryHashtag);
         }
     }
-    // if there were some ingredients in the query we must filter
+    // If there were some ingredients in the query we must filter
     if (!empty($ingredients)) {
         if (empty($results)) {
             $results = $queryIngredients;

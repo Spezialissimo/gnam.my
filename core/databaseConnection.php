@@ -19,9 +19,4 @@ try {
     die("Errore di connessione al database: " . $e->getMessage());
 }
 
-foreach($_POST as $value) {
-    $value = htmlspecialchars($value);
-    $value = $db->quote($value);
-}
-
 ?>
