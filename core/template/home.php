@@ -18,6 +18,7 @@
             initialSlide: firstSlideIndex,
             direction: 'vertical',
             width: "90vh",
+            a11y: false,
             loop: false,
             keyboard: {
                 enabled: true
@@ -27,8 +28,11 @@
                     if ($(".swiper-slide-active").length != 0) {
                         stopCurrentVideo();
                         $("#gnamPlayer-" + currentGnamID)[0].currentTime = 0;
-                        currentGnamID = $(".swiper-slide-active").attr('id').split('-')[1];
-                        playCurrentVideo();
+                        document.querySelector('#gnam-' + currentGnamID).removeAttribute('tab-index');
+                        currentGnamID = $(".swiper-slide-active").attr('id').split('-')[1];                        
+                        var newSlide = $('#gnam-'+currentGnamID);
+                        newSlide.attr('tabindex', '1').focus();
+                        playCurrentVideo();                        
                     }
                 },
                 slideNextTransitionEnd: function () {
@@ -50,6 +54,8 @@
                     document.querySelectorAll('[id^="gnam-"]').forEach(element => {
                         element.classList.remove('d-none');
                     });
+                    var newSlide = $('#gnam-'+currentGnamID);
+                    newSlide.attr('tabindex', '1').focus();
                 }
             }
         });
@@ -166,8 +172,8 @@
     const addGnamSlide = (gnamsInfo) => {
         let gnamHtml = `
             <video id="gnamPlayer-${gnamsInfo['id']}" class="w-100 h-100 p-0" loop playsinline preload="auto" poster="assets/gnams_thumbnails/${gnamsInfo['id']}.jpg" src="assets/gnams/${gnamsInfo['id']}.mp4"></video>
-            <div  id="videoOverlay-${gnamsInfo['id']}" class="video-overlay">
-                <div class="container">
+            <div id="videoOverlay-${gnamsInfo['id']}" class="video-overlay">
+                <div class="container" aria-hidden="true">
                     <div class="row mb-3">
                         <div id="descriptionBox-${gnamsInfo['id']}" class="col-10 align-self-end text-black">
                             <div class="row text-link">
@@ -220,6 +226,8 @@
         const slideElement = document.createElement('div');
         slideElement.classList.add("swiper-slide");
         slideElement.classList.add("d-none");
+        slideElement.setAttribute("aria-label", "Video di " + gnamsInfo['user_name']);
+        slideElement.setAttribute("role", "video");
         slideElement.id = "gnam-" + gnamsInfo['id'];
         slideElement.innerHTML = gnamHtml.trim();
 
