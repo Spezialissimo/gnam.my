@@ -250,6 +250,10 @@ video {
 	object-fit: cover;
 }
 
+*:focus {
+	outline: 2px solid #d71ef7 !important;
+}
+
 @media (orientation:portrait) {
 	#pageContainer {
 		flex-direction: column;
@@ -279,14 +283,22 @@ video {
 		justify-content: center;
 		align-items: center;
 	}
-
-	#navbarContentDiv > div > a:first-child {
-		margin: 0 .5rem!important;
-		width: 10vw!important;
-		height: 10vw!important;
+	
+	#navbarContentDiv > div > a {
+		margin: 0 1vw!important;
+		width: 18vw!important;
+		height: 18vw!important;
 	}
+	
+	#navbarContentDiv > div > a > img {				
+		padding: 2vw;
+		width: 100%!important;
+		height: 100%!important;
+		border-radius: var(--bs-btn-border-radius);
 
-	#navbarContentDiv > div > a:last-child {
+	}
+	
+	#navbarContentDiv > div > a > span {
 		display: none;
 	}
 }
@@ -316,10 +328,21 @@ video {
 		align-items: flex-start;
 	}
 
-	#navbarContentDiv > div > a:first-child {
+	#navbarContentDiv > div > a {
 		margin: .5rem 0!important;
+		text-decoration: none;
+	}
+
+	#navbarContentDiv > div > a > img {				
+		padding: 1vh;
 		width: 6vh!important;
 		height: 6vh!important;
+		border-radius: 0.375rem;
+	}
+
+	#navbarContentDiv > div > a > span {				
+		display: flex;
+    	align-items: center;			
 	}
 
 	.swiper-slide {
