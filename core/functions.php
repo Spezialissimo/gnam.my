@@ -218,7 +218,7 @@ function getGnamInfoFromId($gnam_id) {
     return [
         'id' => $gnam['id'],
         'shares_count' => $gnam['share_count'],
-        'short_description' => substr($gnam['description'], 0, 97) . '...',
+        'short_description' => substr($gnam['description'], 0, 97),
         'description' => $gnam['description'],
         'user_name' => $gnamUserName,
         'user_id' => $gnam['user_id'],
