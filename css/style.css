@@ -294,8 +294,7 @@ video {
 		padding: 2vw;
 		width: 100%!important;
 		height: 100%!important;
-		border-radius: var(--bs-btn-border-radius);
-
+		border-radius: 0.375rem;
 	}
 	
 	#navbarContentDiv > div > a > span {

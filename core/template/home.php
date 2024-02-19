@@ -28,11 +28,11 @@
                     if ($(".swiper-slide-active").length != 0) {
                         stopCurrentVideo();
                         $("#gnamPlayer-" + currentGnamID)[0].currentTime = 0;
-                        document.querySelector('#gnam-' + currentGnamID).removeAttribute('tab-index');
-                        currentGnamID = $(".swiper-slide-active").attr('id').split('-')[1];                        
-                        var newSlide = $('#gnam-'+currentGnamID);
-                        newSlide.attr('tabindex', '1').focus();
-                        playCurrentVideo();                        
+                        setTabIndexOnCurrentGnam(-1);
+                        currentGnamID = $(".swiper-slide-active").attr('id').split('-')[1];
+                        setTabIndexOnCurrentGnam(3);
+                        $("#gnamPlayer-" + currentGnamID).focus();
+                        playCurrentVideo();
                     }
                 },
                 slideNextTransitionEnd: function () {
@@ -54,11 +54,22 @@
                     document.querySelectorAll('[id^="gnam-"]').forEach(element => {
                         element.classList.remove('d-none');
                     });
-                    var newSlide = $('#gnam-'+currentGnamID);
-                    newSlide.attr('tabindex', '1').focus();
+                    setTabIndexOnCurrentGnam(3);
                 }
             }
         });
+    }
+    
+    const setTabIndexOnCurrentGnam = (value) => {
+        $("#gnam-" + currentGnamID).attr('tabindex', value - 1);
+        $("#userImage-" + currentGnamID).attr('tabindex', value);
+        $("#userName-" + currentGnamID).attr('tabindex', value);
+        $("#videoDescriptionShort-" + currentGnamID).attr('tabindex', value);
+        $(".videoTag-" + currentGnamID).attr('tabindex', value);
+        $("#recipeButton-" + currentGnamID).attr('tabindex', value);
+        $("#likeButton-" + currentGnamID).attr('tabindex', value);
+        $("#commentsButton-" + currentGnamID).attr('tabindex', value);
+        $("#shareButton-" + currentGnamID).attr('tabindex', value);
     }
 
     $(window).on("load", function () {
@@ -176,7 +187,7 @@
                 <div class="container" aria-hidden="true">
                     <div class="row mb-3">
                         <div id="descriptionBox-${gnamsInfo['id']}" class="col-10 align-self-end text-black">
-                            <div class="row text-link">
+                            <div class="row text-link" >
                                 <div class="col-3">
                                     <img id="userImage-${gnamsInfo['id']}" class="cursor-pointer border border-2 border-dark rounded-circle w-100" alt="${gnamsInfo['user_name']}" src="assets/profile_pictures/${gnamsInfo['user_id']}.jpg" />
                                 </div>
@@ -228,6 +239,7 @@
         slideElement.classList.add("d-none");
         slideElement.setAttribute("aria-label", "Video di " + gnamsInfo['user_name']);
         slideElement.setAttribute("role", "video");
+        slideElement.setAttribute('tabindex', '-1');
         slideElement.id = "gnam-" + gnamsInfo['id'];
         slideElement.innerHTML = gnamHtml.trim();
 
@@ -238,14 +250,14 @@
 
             if (count < 2) {
                 tagHTML += `
-                    <div class="col-4 videoTag">
+                    <div class="col-4 videoTag-${gnamsInfo['id']}">
                         <span class="w-100 px-1 badge rounded-pill bg-primary fw-light text-black cursor-pointer">
                             #${tagText}
                         </span>
                     </div>`;
             } else {
                 tagHTML += `
-                    <div class="col-4 d-none videoTag">
+                    <div class="col-4 d-none videoTag-${gnamsInfo['id']}">
                         <span class="w-100 px-1 badge rounded-pill bg-primary fw-light text-black cursor-pointer">
                             #${tagText}
                         </span>
@@ -311,7 +323,18 @@
         });
 
         isDescriptionShort = true;
-        $("#descriptionBox-" + gnamsInfo['id']).on("click", showFullDescription);
+        $("#descriptionBox-" + gnamsInfo['id']).on("click", function (e) {            
+            showFullDescription();
+            e.stopPropagation();
+        });
+        $("#videoDescriptionShort-" + gnamsInfo['id']).on("focus", function (e) {            
+            showFullDescription();
+            let value = $("#videoDescriptionShort-" + currentGnamID).attr("tabindex");
+            $("#videoDescriptionLong-" + currentGnamID).attr('tabindex', value).focus();
+            e.stopPropagation();
+        });
+        $("#recipeButton-" + gnamsInfo['id']).on("focus", showShortDescription);
+        $("#userName-" + gnamsInfo['id']).on("focus", showShortDescription);
         $("#videoOverlay-" + gnamsInfo['id']).on("click", showShortDescription);
 
         $("#shareButton-" + gnamsInfo['id']).on("click", function (e) {
@@ -402,7 +425,7 @@
         });
     }
 
-    const showFullDescription = (e) => {
+    const showFullDescription = () => {
         if (isDescriptionShort) {
             isDescriptionShort = false;
             $("#videoDescriptionShort-" + currentGnamID).addClass("d-none");
@@ -412,8 +435,7 @@
             for (let i = 0; i < videoTags.length; i++) {
                 $(videoTags[i]).removeClass("d-none");
             }
-            $("#videoOverlay-" + currentGnamID).css("background-image", "linear-gradient(0deg, var(--background), rgba(247, 209, 151, 0) 40%)");
-            e.stopPropagation();
+            $("#videoOverlay-" + currentGnamID).css("background-image", "linear-gradient(0deg, var(--background), rgba(247, 209, 151, 0) 40%)");            
         }
     }
 
