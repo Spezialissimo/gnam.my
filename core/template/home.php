@@ -420,7 +420,7 @@
             e.stopPropagation();
         });
 
-        $("#videoTags-" + gnamsInfo['id'] + " .videoTag span").on("click", function (e) {
+        $("#videoTag-" +  + " span").on("click", function (e) {
             window.location = "search.php?q=" + encodeURIComponent($(this).html().trim());
         });
     }
@@ -483,6 +483,7 @@
 
     document.onkeypress = function (e) {
         if (e.keyCode == 13) {
+            document.activeElement.click();            
             if ($("#commentsBoxContainer-" + currentGnamID).length > 0) {
                 publishComment();
             }
