@@ -16,24 +16,24 @@ $userLikedGnams = getUserLikedGnams($user['id']);
 <div class="container text-center mt-3 text-black">
     <div class="row">
         <div class="col-4 align-self-center">
-            <img class="border border-2 border-dark rounded-circle w-75" alt="Foto profilo di <?php echo $user['name'] ?>" id="profileImage" src="assets/profile_pictures/<?php echo $user['id'] ?>.jpg" />
+            <img class="border border-2 border-dark rounded-circle w-75" alt="Foto profilo di <?php echo $user['name'] ?>" id="profileImage" src="assets/profile_pictures/<?php echo $user['id'] ?>.jpg" aria-label="Foto profilo di <?php echo $user['name'] ?>" tabindex="3" />
         </div>
         <div class="col-8 align-self-center">
             <div class="row">
-                <div class="h4 mt-2 ps-0"><?php echo $user['name'] ?></div>
+                <div class="h4 mt-2 ps-0" aria-label="Nome utente di <?php echo $user['name'] ?>" tabindex="3"><?php echo $user['name'] ?></div>
             </div>
             <div class="row">
-                <a id="followerButton" href="#" class="col p-0 text-link">
+                <a id="followerButton" href="#" class="col p-0 text-link" aria-label="Follower di <?php echo $user['name'] ?>, <?php echo count($followers); ?>" tabindex="3">
                     <p class="fw-bold p-0 mb-0">Follower</p>
                     <p class="fw-normal " id="followersCount"><?php echo count($followers); ?></p>
                 </a>
-                <a id="followedButton" href="#" class="col p-0 text-link">
+                <a id="followedButton" href="#" class="col p-0 text-link" aria-label="Seguiti di <?php echo $user['name'] ?>, <?php echo count($followed); ?>" tabindex="3">
                     <div class="col p-0">
                         <p class="fw-bold mb-0">Seguiti</p>
                         <p class="fw-normal "><?php echo count($followed); ?></p>
                     </div>
                 </a>
-                <div class="col p-0 text-link">
+                <div class="col p-0 text-link" aria-label="Gnam pubblicati da <?php echo $user['name'] ?>, <?php echo count($userGnams); ?>" tabindex="3">
                     <p class="fw-bold mb-0">Gnam</p>
                     <p class="fw-normal "><?php echo count($userGnams); ?></p>
                 </div>
@@ -46,15 +46,15 @@ $userLikedGnams = getUserLikedGnams($user['id']);
     <div class="row justify-content-center">
         <?php if($user['id'] != $_SESSION['id']) { ?>
             <div class="col-md-4 col-6">
-                <button type="button" class="btn btn-bounce rounded-pill bg-secondary fw-bold text-white w-100" id="followButton"><?php echo isCurrentUserFollowing($user['id']) ? "Seguito" : "Segui" ?></button>
+                <button type="button" class="btn btn-bounce rounded-pill bg-secondary fw-bold text-white w-100" id="followButton" aria-label="Pulsante per <?php echo isCurrentUserFollowing($user['id']) ? "smettere di seguire l'utente" : "seguire l'utente" ?>" tabindex="3"><?php echo isCurrentUserFollowing($user['id']) ? "Seguito" : "Segui" ?></button>
             </div>
         <?php } ?>
         <div class="col-md-4 col-6">
-            <button id="shareButton" type="button" class="btn btn-bounce rounded-pill bg-secondary fw-bold text-white w-100">Condividi</button>
+            <button id="shareButton" type="button" class="btn btn-bounce rounded-pill bg-secondary fw-bold text-white w-100" aria-label="Pulsante per condividere il profilo" tabindex="3">Condividi</button>
         </div>
         <?php if($user['id'] == $_SESSION['id']) { ?>
             <div class="col-md-4 col-6">
-                <button id="settingsButton" type="button" class="btn btn-bounce rounded-pill bg-secondary fw-bold text-white w-100">Impostazioni</button>
+                <button id="settingsButton" type="button" class="btn btn-bounce rounded-pill bg-secondary fw-bold text-white w-100" aria-label="Pulsante per modificare le impostazioni del profilo" tabindex="3">Impostazioni</button>
             </div>
         <?php } ?>
     </div>
@@ -64,11 +64,11 @@ $userLikedGnams = getUserLikedGnams($user['id']);
     <div class="row align-items-center text-center mt-2">
         <div class="col-1"></div>
         <div class="col-3 cursor-pointer">
-            <p class="mb-0 fw-bold" id="allPostsButton">Post</p>
+            <p class="mb-0 fw-bold" id="allPostsButton" aria-label="Sezione degli gnam postati da <?php echo $user['name'] ?>" tabindex="3">Post</p>
         </div>
         <div class="col-2"></div>
         <div class="col-5 cursor-pointer">
-            <p class="mb-0" id="likedPostsButton">Gnam Piaciuti</p>
+            <p class="mb-0" id="likedPostsButton" aria-label="Sezione degli gnam piaciuti a <?php echo $user['name'] ?>" tabindex="3">Gnam Piaciuti</p>
         </div>
         <div class="col-1"></div>
     </div>
@@ -84,7 +84,7 @@ $userLikedGnams = getUserLikedGnams($user['id']);
             if(count($userGnams) > 0) {
                 echo '<div class="row">';
                 for($i = 0; $i < count($userGnams); $i++) {
-                    echo '<img class="img-grid px-2 col-4 btn-bounce cursor-pointer" id="postedGnam-' . $userGnams[$i]['id'] . '" alt="Copertina Gnam di ' . $user['name'] . '" src="assets/gnams_thumbnails/' . $userGnams[$i]['id'] . '.jpg" />';
+                    echo '<img class="img-grid px-2 col-4 btn-bounce cursor-pointer" id="postedGnam-' . $userGnams[$i]['id'] . '" alt="Copertina Gnam di ' . $user['name'] . '" src="assets/gnams_thumbnails/' . $userGnams[$i]['id'] . '.jpg" aria-label="Copertina dello gnam ' . $i + 1 . ' di ' . $user['name'] . '" tabindex="3" />';
                     $gnamPerRow--;
                     if($i == count($userGnams) - 1) {
                         echo '</div>';
@@ -108,7 +108,7 @@ $userLikedGnams = getUserLikedGnams($user['id']);
             if(count($userLikedGnams) > 0) {
                 echo '<div class="row">';
                 for($i = 0; $i < count($userLikedGnams); $i++) {
-                    echo '<img class="img-grid px-2 col-4 btn-bounce cursor-pointer" id="likedGnam-' . $userLikedGnams[$i]['gnam_id'] . '" alt="Copertina Gnam di ' . $user['name'] . '" src="assets/gnams_thumbnails/' . $userLikedGnams[$i]['gnam_id'] . '.jpg" />';
+                    echo '<img class="img-grid px-2 col-4 btn-bounce cursor-pointer" id="likedGnam-' . $userLikedGnams[$i]['gnam_id'] . '" alt="Copertina Gnam di ' . $user['name'] . '" src="assets/gnams_thumbnails/' . $userLikedGnams[$i]['gnam_id'] . '.jpg" aria-label="Copertina dello gnam ' . $i + 1 . ' piaciuto a ' . $user['name'] . '" tabindex="3" />';
                     $gnamPerRow--;
                     if($i == count($userLikedGnams) - 1) {
                         echo '</div>';
