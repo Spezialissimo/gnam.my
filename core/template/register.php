@@ -1,12 +1,12 @@
 <div class="align-content-center p-4 h-100 text-center">
     <h1 class="fw-bold">Registrati</h1>
-    <input type="text" class="form-control bg-primary rounded shadow-sm mb-3 mt-3" placeholder="Username" id="username" title="username" aria-label="username" />
-    <input type="password" class="form-control bg-primary rounded shadow-sm mb-3 mt-3" placeholder="Password" id="password" title="password" aria-label="password" />
-    <input type="password" class="form-control bg-primary rounded shadow-sm mb-3 mt-3" placeholder="Conferma Password" id="rpassword" title="confermaPassword" aria-label="confermaPassword" />
-    <button type="button" class="btn btn-bounce rounded-pill bg-accent fw-bold text-white w-50 mt-3" id="registerButton">Registrati</button>
+    <input type="text" class="form-control bg-primary rounded shadow-sm mb-3 mt-3" placeholder="Username" id="username" title="username" aria-label="Inserisci username" />
+    <input type="password" class="form-control bg-primary rounded shadow-sm mb-3 mt-3" placeholder="Password" id="password" title="password" aria-label="Inserisci password" />
+    <input type="password" class="form-control bg-primary rounded shadow-sm mb-3 mt-3" placeholder="Conferma Password" id="rpassword" title="confermaPassword" aria-label="Inserisci la conferma della password" />
+    <button type="button" class="btn btn-bounce rounded-pill bg-accent fw-bold text-white w-50 mt-3" id="registerButton" aria-label="Pulsante per registrarsi">Registrati</button>
     <hr class="mt-3 w-75" />
     <p class="h6 fw-bold">Hai già un account?</p>
-    <a href="login.php" role="button" class="btn btn-bounce rounded-pill bg-accent fw-bold text-white">Accedi</a>
+    <a href="login.php" role="button" class="btn btn-bounce rounded-pill bg-accent fw-bold text-white" aria-label="Pulsante per accedere">Accedi</a>
 </div>
 
 <script>
