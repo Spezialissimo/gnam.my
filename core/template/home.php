@@ -243,6 +243,10 @@
         slideElement.id = "gnam-" + gnamsInfo['id'];
         slideElement.innerHTML = gnamHtml.trim();
 
+        if (gnamsInfo['short_description'] != gnamsInfo['description']) {
+            slideElement.querySelector('#videoDescriptionShort-' + gnamsInfo['id'] + ' span').innerText += "...";
+        }
+
         let count = 0;
         let tagHTML = '';
         gnamsInfo['tags'].forEach(tag => {
@@ -327,14 +331,16 @@
             showFullDescription();
             e.stopPropagation();
         });
+        $("#videoDescriptionLong-" + gnamsInfo['id'] + ">span>span ").on("click", function (e) {            
+            showShortDescription(e);
+        });        
         $("#videoDescriptionShort-" + gnamsInfo['id']).on("focus", function (e) {            
             showFullDescription();
             let value = $("#videoDescriptionShort-" + currentGnamID).attr("tabindex");
             $("#videoDescriptionLong-" + currentGnamID).attr('tabindex', value).focus();
             e.stopPropagation();
         });
-        $("#recipeButton-" + gnamsInfo['id']).on("focus", showShortDescription);
-        $("#userName-" + gnamsInfo['id']).on("focus", showShortDescription);
+        $("#gnam-" + gnamsInfo['id']).on("focus", showShortDescription);
         $("#videoOverlay-" + gnamsInfo['id']).on("click", showShortDescription);
 
         $("#shareButton-" + gnamsInfo['id']).on("click", function (e) {
@@ -420,8 +426,8 @@
             e.stopPropagation();
         });
 
-        $("#videoTag-" +  + " span").on("click", function (e) {
-            window.location = "search.php?q=" + encodeURIComponent($(this).html().trim());
+        $(".videoTag-" + gnamsInfo['id']).on("click", function (e) {
+            window.location = "search.php?q=" + encodeURIComponent($(this).text().trim());
         });
     }
 
@@ -431,7 +437,7 @@
             $("#videoDescriptionShort-" + currentGnamID).addClass("d-none");
             $("#videoDescriptionLong-" + currentGnamID).removeClass("d-none");
             $("#moreTagsButton-" + currentGnamID).addClass("d-none");
-            let videoTags = $("#videoTags-" + currentGnamID + " .videoTag");
+            let videoTags = $(".videoTag-" + currentGnamID);
             for (let i = 0; i < videoTags.length; i++) {
                 $(videoTags[i]).removeClass("d-none");
             }
@@ -445,7 +451,7 @@
             $("#videoDescriptionLong-" + currentGnamID).addClass("d-none");
             $("#videoDescriptionShort-" + currentGnamID).removeClass("d-none");
             $("#moreTagsButton-" + currentGnamID).removeClass("d-none");
-            let videoTags = $("#videoTags-" + currentGnamID + " .videoTag");
+            let videoTags = $(".videoTag-" + currentGnamID);
             for (let i = 2; i < videoTags.length; i++) {
                 $(videoTags[i]).addClass("d-none");
             }
