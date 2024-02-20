@@ -385,11 +385,11 @@
                         <input type="number" value="1" min="1" max="100" class="form-control bg-primary rounded shadow-sm fs-6 fw-bold text-center" id="portionsInput" title="numero di porzioni" aria-label="numero di porzioni" />
                     </div>                    
                     <div class="text-center text-black" id="ingredients-${gnamsInfo['id']}">
-                        <table class='w-100' aria-label='Tabella ingredienti' tabindex=3>
+                        <table class='w-100' aria-label='Tabella ingredienti' tabindex="3">
                             <thead class='border-bottom border-dark'>
                                 <tr>
-                                    <th id='it-header-name' class='text-start' scope='col' tabindex=3>Nome</th>
-                                    <th id='it-header-quantity' class='text-end' scope='col' tabindex=3>Quantità</th>
+                                    <th id='it-header-name' class='text-start' scope='col' tabindex="3">Nome</th>
+                                    <th id='it-header-quantity' class='text-end' scope='col' tabindex="3">Quantità</th>
                                 </tr>
                             </thead>
                         <tbody id='it-body' class='border-bottom border-dark'>
@@ -472,8 +472,8 @@
         recipe.forEach(ingredient => {
             ingredientsHTML += `
             <tr class="align-items-center">
-                <td class="text-start" headers="it-header-name" tabindex=4>${ingredient["name"]}</td>
-                <td class="text-end fw-bold" headers="it-header-quantity" tabindex=4>${ingredient["quantity"] > 0 ? ingredient["quantity"] * selectedPortions : ""} ${ingredient["measurement_unit"]}</td>
+                <td class="text-start" headers="it-header-name" tabindex="4">${ingredient["name"]}</td>
+                <td class="text-end fw-bold" headers="it-header-quantity" tabindex="4">${ingredient["quantity"] > 0 ? ingredient["quantity"] * selectedPortions : ""} ${ingredient["measurement_unit"]}</td>
             </tr>`;
         });        
         $("#ingredients-" + currentGnamID + " tbody").append(ingredientsHTML);
@@ -491,8 +491,8 @@
 
     document.onkeypress = function (e) {
         if (e.keyCode == 13) {
-            document.activeElement.click();            
-            if ($("#commentsBoxContainer-" + currentGnamID).length > 0) {
+            document.activeElement.click();                      
+            if ($("#commentsBoxContainer-" + currentGnamID).length > 0 && document.activeElement != document.querySelector("#commentButton-" + currentGnamID)) {
                 publishComment();
             }
         }
@@ -518,7 +518,19 @@
                 commentToReplyID = null;
             });
         });
-
+        $("#commentField-" + currentGnamID).attr("aria-label", "Scrivi commento");
+        
+        var announceLiveRegion = $('<div>', {
+            role: 'status',
+            'aria-live': 'polite',
+            'aria-atomic': 'true'
+        }).appendTo('body');
+        announceLiveRegion.text("Commento pubblicato");
+        announceLiveRegion.focus();
+        setTimeout(function() {
+            announceLiveRegion.remove();
+            $("#commentField-" + currentGnamID).focus();
+        }, 1000);
     }
 
     const getCommentsHTML = (comments) => {
@@ -535,8 +547,8 @@
                 </div>
                 <div class="row-1 bg-primary rounded">
                     <div class="input-group rounded">
-                        <input id="commentField-${currentGnamID}" type="text" class="fs-6 form-control bg-primary shadow-sm" placeholder="Scrivi..." title="scrivi commento" aria-label="scrivi commento" />
-                        <span id="commentButton-${currentGnamID}" class="input-group-text bg-primary border-0 fs-6 fw-bold cursor-pointer text-black">Commenta</span>
+                        <input id="commentField-${currentGnamID}" type="text" class="fs-6 form-control bg-primary shadow-sm" placeholder="Scrivi..." aria-label="Scrivi commento" />
+                        <span role="button" tabindex="0" id="commentButton-${currentGnamID}" class="input-group-text bg-primary border-0 fs-6 fw-bold cursor-pointer text-black">Commenta</span>
                     </div>
                 </div>`;
 
@@ -556,7 +568,7 @@
                     </div>
                 </div>
                 <div class="row-1 bg-primary rounded">
-                    <div class="rounded bg-primary p-1 d-none" id="replyToDiv-${currentGnamID}">
+                    <div class="rounded bg-primary p-1 d-none" id="replyToDiv-${currentGnamID}" aria-hidden="true">
                         <div class="rounded bg container">
                             <div class="row">
                                 <div class="col-11 align-items-center">
@@ -569,13 +581,14 @@
                         </div>
                     </div>
                     <div class="input-group rounded">
-                        <input id="commentField-${currentGnamID}" type="text" class="fs-6 form-control bg-primary shadow-sm" placeholder="Scrivi..." title="scrivi commento" aria-label="scrivi commento" />
-                        <span id="commentButton-${currentGnamID}" class="input-group-text bg-primary border-0 fs-6 fw-bold cursor-pointer">Commenta</span>
+                        <input id="commentField-${currentGnamID}" type="text" class="fs-6 form-control bg-primary shadow-sm" placeholder="Scrivi..." aria-label="scrivi commento" tabindex="1" />
+                        <span role="button" tabindex="1" id="commentButton-${currentGnamID}" class="input-group-text bg-primary border-0 fs-6 fw-bold cursor-pointer">Commenta</span>
                     </div>
                 </div>`;
 
             let commentsContainerElement = document.createElement('div');
             commentsContainerElement.classList.add("container");
+            commentsContainerElement.setAttribute("aira-hidden", "true");
             commentsContainerElement.id = "commentsBoxContainer-" + currentGnamID;
             commentsContainerElement.innerHTML = commentContainerHTML.trim();
 
@@ -589,11 +602,12 @@
                 }
             });
 
+            let commentIndex = 1;
             comments.forEach(comment => {
-                if (comment['parent_comment_id'] == null) {
+                if (comment['parent_comment_id'] == null) {                    
                     let commentHTML = `
                     <div id="comment-${comment['id']}" class="container comment py-1">
-                        <div class="row">
+                        <div class="row" tabindex="2" aria-label="Commento ${commentIndex} su ${comments.length}, ${comment['user_name']} dice: ${comment['text']}">
                             <div class="col-2 p-0">
                                 <img id="commenterImg-${comment['id']}" class="border border-2 border-dark rounded-circle w-100" alt="${comment['user_name']}"
                                     src="assets/profile_pictures/${comment['user_id']}.jpg" />
@@ -606,7 +620,7 @@
                                     <p class="m-0">${comment['text']}</p>
                                 </div>
                                 <div class="row-md-1 text-start">
-                                    <span id="replyButton-${comment['id']}" class="text-button fw-bold color-accent fs-6">Rispondi</span>
+                                    <span id="replyButton-${comment['id']}" class="text-button fw-bold color-accent fs-6" tabindex="2">Rispondi</span>
                                 </div>
                             </div>
                         </div>
@@ -620,7 +634,7 @@
                     <div class="row">
                         <div class="col-2"></div>
                         <div class="col">
-                            <div id="comment-${comment['id']}" class="container subcomment py-1">
+                            <div id="comment-${comment['id']}" class="container subcomment py-1" aria-label="Commento in risposta, ${comment['user_name']} risponde dicendo: ${comment['text']}" tabindex="2">
                                 <div class="row">
                                     <div class="col-2 p-0">
                                         <img class="border border-2 border-dark rounded-circle w-100" alt="${comment['user_name']}"
@@ -634,7 +648,7 @@
                                             <p class="m-0">${comment['text']}</p>
                                         </div>
                                         <div class="row-md-1 text-start">
-                                            <span id="replyButton-${comment['id']}" class="replyTo-${comment['parent_comment_id']} text-button fw-bold color-accent fs-6">Rispondi</span>
+                                            <span id="replyButton-${comment['id']}" class="replyTo-${comment['parent_comment_id']} text-button fw-bold color-accent fs-6" tabindex="2">Rispondi</span>
                                         </div>
                                     </div>
                                 </div>
@@ -644,7 +658,8 @@
                     commentsContainerElement.querySelector('#subcommentsContainer-' + comment['parent_comment_id']).classList.remove('d-none');
                     commentsContainerElement.querySelector('#subcommentsContainer-' + comment['parent_comment_id']).innerHTML += commentHTML;
                 }
-            });
+                commentIndex++;
+            });            
             return commentsContainerElement.outerHTML;
         }
     }
@@ -653,19 +668,20 @@
         comments.forEach(comment => {
             $("#replyButton-" + comment['id']).off("click");
             $("#replyButton-" + comment['id']).on("click", function (e) {
+
                 const id = $(e.target).attr('id').split('-')[1];
                 const parent = $("#comment-" + id);
-                let commenterName = "";
                 if (parent.hasClass('subcomment')) {
                     commentToReplyID = $(e.target).attr('class').split(' ')[0].split('-')[1];
                 } else {
                     commentToReplyID = id;
                 }
-
-                commenterName = parent.find("#commenterUserName-" + id).text();
+                
+                let commenterName = parent.find("#commenterUserName-" + id).text();
                 $("#replyToDiv-" + currentGnamID).removeClass("d-none");
                 $("#replyToName-" + currentGnamID).text(commenterName);
-
+                $("#commentField-" + currentGnamID).attr("aria-label", "Rispondendo a " + commenterName + ", premere esc per smettere di rispondere");
+                $("#commentField-" + currentGnamID).focus();                
             });
             $("#commenterUserName-" + comment['id']).off("click");
             $("#commenterUserName-" + comment['id']).on("click", function () {
@@ -686,14 +702,14 @@
     }
 
     const setComments = (comments, gnam_id) => {
-        $("#commentsCounter-" + gnam_id).text(comments.length);
+        $("#commentsCounter-" + gnam_id).text(comments.length);        
         $("#commentsButton-" + gnam_id).off('click');
-        $("#commentsButton-" + gnam_id).on('click', function (e) {
+        $("#commentsButton-" + gnam_id).on('click', function (e) {            
             stopCurrentVideo();
             showSwal('Commenti', getCommentsHTML(comments), function () {
                 playCurrentVideo();
-                commentToReplyID = null;
-            });
+                commentToReplyID = null;                
+            }, true);
             setHandlersForCommentsContainer(comments);
             e.stopPropagation();
         });

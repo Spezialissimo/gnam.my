@@ -1,4 +1,4 @@
-const showSwal = (title, html, onClose) => {
+const showSwal = (title, html, onClose, ariaOff) => {
     Swal.fire({
         title: title,
         html: html,
@@ -6,7 +6,14 @@ const showSwal = (title, html, onClose) => {
         showCloseButton: true,
         showCancelButton: false,
         showConfirmButton: false,
-        allowOutsideClick: false
+        allowOutsideClick: true,
+        closeButtonAriaLabel: "Chiudi il popup",
+        didOpen: () => {            
+            if (ariaOff) {
+                const modal = Swal.getPopup();
+                modal.setAttribute('aria-live', 'off');
+            }
+        }
     }).then(() => {
         if (onClose) {
             onClose();
@@ -23,7 +30,8 @@ const showSmallSwal = (title, html, onClose) => {
         showCloseButton: true,
         showCancelButton: false,
         showConfirmButton: false,
-        allowOutsideClick: false
+        allowOutsideClick: false,
+        closeButtonAriaLabel: "Chiudi il popup"
     }).then(() => {
         if (onClose) {
             onClose();
