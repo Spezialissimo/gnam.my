@@ -13,12 +13,13 @@ const showSwal = (title, html, onClose, ariaOff) => {
                 const modal = Swal.getPopup();
                 modal.setAttribute('aria-live', 'off');
             }
+        },
+        didClose: () => {
+            if (onClose) {
+                onClose();
+            }
         }
-    }).then(() => {
-        if (onClose) {
-            onClose();
-        }
-    });
+    })
 };
 
 const showSmallSwal = (title, html, onClose) => {
@@ -31,12 +32,13 @@ const showSmallSwal = (title, html, onClose) => {
         showCancelButton: false,
         showConfirmButton: false,
         allowOutsideClick: false,
-        closeButtonAriaLabel: "Chiudi il popup"
-    }).then(() => {
-        if (onClose) {
-            onClose();
+        closeButtonAriaLabel: "Chiudi il popup",
+        didClose: () => {
+            if (onClose) {
+                onClose();
+            }
         }
-    });
+    })
 };
 
 const showToast = (type, message, redirectURL) => {

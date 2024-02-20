@@ -62,8 +62,7 @@
     
     const setTabIndexOnCurrentGnam = (value) => {
         $("#gnam-" + currentGnamID).attr('tabindex', value - 1);
-        $("#userImage-" + currentGnamID).attr('tabindex', value);
-        $("#userName-" + currentGnamID).attr('tabindex', value);
+        $("#descriptionBox-" + currentGnamID + " > div:first-child").attr('tabindex', value);
         $("#videoDescriptionShort-" + currentGnamID).attr('tabindex', value);
         $(".videoTag-" + currentGnamID).attr('tabindex', value);
         $("#recipeButton-" + currentGnamID).attr('tabindex', value);
@@ -182,14 +181,14 @@
 
     const addGnamSlide = (gnamsInfo) => {
         let gnamHtml = `
-            <video id="gnamPlayer-${gnamsInfo['id']}" class="w-100 h-100 p-0" loop playsinline preload="auto" poster="assets/gnams_thumbnails/${gnamsInfo['id']}.jpg" src="assets/gnams/${gnamsInfo['id']}.mp4"></video>
-            <div id="videoOverlay-${gnamsInfo['id']}" class="video-overlay">
-                <div class="container" aria-hidden="true">
-                    <div class="row mb-3">
+            <video id="gnamPlayer-${gnamsInfo['id']}" class="w-100 h-100 p-0" loop playsinline preload="auto" poster="assets/gnams_thumbnails/${gnamsInfo['id']}.jpg" src="assets/gnams/${gnamsInfo['id']}.mp4" aria-live="off" aria-label="Video di ${gnamsInfo['user_name']}"></video>
+            <div id="videoOverlay-${gnamsInfo['id']}" class="video-overlay" aria-live="off" aria-label="Video di ${gnamsInfo['user_name']}">
+                <div class="container" aria-live="off">
+                    <div class="row mb-3" aria-live="off">
                         <div id="descriptionBox-${gnamsInfo['id']}" class="col-10 align-self-end text-black">
-                            <div class="row text-link" >
+                            <div class="row text-link"  aria-label="Autore dello gnam: ${gnamsInfo['user_name']}, premere invio per andare al profilo">
                                 <div class="col-3">
-                                    <img id="userImage-${gnamsInfo['id']}" class="cursor-pointer border border-2 border-dark rounded-circle w-100" alt="${gnamsInfo['user_name']}" src="assets/profile_pictures/${gnamsInfo['user_id']}.jpg" />
+                                    <img id="userImage-${gnamsInfo['id']}" class="cursor-pointer border border-2 border-dark rounded-circle w-100" alt="Immagine profilo di ${gnamsInfo['user_name']}" src="assets/profile_pictures/${gnamsInfo['user_id']}.jpg" />
                                 </div>
                                 <div class="col-9 d-flex align-items-center p-0">
                                     <p id="userName-${gnamsInfo['id']}" class="cursor-pointer fs-6 fw-bold m-0">${gnamsInfo['user_name']}</p>
@@ -200,7 +199,7 @@
                                     <span>${gnamsInfo['short_description']}</span>
                                     <span class="text-nowrap m-0 color-accent fw-semibold cursor-pointer">Leggi di piú</span>
                                 </span>
-                                <span id="videoDescriptionLong-${gnamsInfo['id']}" class="m-0 d-none"><span>${gnamsInfo['description']}<span><br>
+                                <span id="videoDescriptionLong-${gnamsInfo['id']}" class="m-0 d-none" aria-label="Descrizione gnam: ${gnamsInfo['description']}"><span>${gnamsInfo['description']}<span><br>
                                     <span class="text-nowrap m-0 color-accent fw-semibold cursor-pointer">Mostra di meno</span>
                                 </span>
                             </div>
@@ -237,8 +236,7 @@
         const slideElement = document.createElement('div');
         slideElement.classList.add("swiper-slide");
         slideElement.classList.add("d-none");
-        slideElement.setAttribute("aria-label", "Video di " + gnamsInfo['user_name']);
-        slideElement.setAttribute("role", "video");
+        slideElement.setAttribute("aria-label", "Video di " + gnamsInfo['user_name']);        
         slideElement.setAttribute('tabindex', '-1');
         slideElement.id = "gnam-" + gnamsInfo['id'];
         slideElement.innerHTML = gnamHtml.trim();
@@ -398,7 +396,10 @@
                 `;
             }
             stopCurrentVideo();            
-            showSwal('Ricetta', html, playCurrentVideo);
+            showSwal('Ricetta', html, function ()  {                
+                $("#gnam-" + currentGnamID).attr('tabindex', '1').focus();
+                playCurrentVideo();
+            },true);
             if (gnamsInfo['recipe'].length != 0) {
                 $('#portionsInput').val(selectedPortions);
                 $('#portionsInput').on("focus", function () {
@@ -417,7 +418,8 @@
                         (this).value = selectedPortions;
                     }
                 });
-                drawAllIngredients(gnamsInfo['recipe']);
+                drawAllIngredients(gnamsInfo['recipe']);                
+                $("#portionsInput").focus();
             }
             e.stopPropagation();
         });
