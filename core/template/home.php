@@ -31,7 +31,7 @@
                         setTabIndexOnCurrentGnam(-1);
                         currentGnamID = $(".swiper-slide-active").attr('id').split('-')[1];
                         setTabIndexOnCurrentGnam(3);
-                        $("#gnamPlayer-" + currentGnamID).focus();
+                        $("#gnam-" + currentGnamID).focus();
                         playCurrentVideo();
                     }
                 },
