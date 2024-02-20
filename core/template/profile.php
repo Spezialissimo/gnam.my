@@ -163,7 +163,7 @@ $userLikedGnams = getUserLikedGnams($user['id']);
                     <div class='col'>
                         <div class='row-9 py-4'><em class='fa-solid fa-share-nodes fa-2xl' aria-hidden="true"></em></div>
                         <div class='row-3 pt-3'><button type='button' class='btn btn-bounce rounded-pill bg-accent fw-bold
-                                text-white' id="copyLinkButton">Copia link</button></div>
+                                text-white' id="copyLinkButton" aria-label="Pulsante per copiare il link" tabindex="3">Copia link</button></div>
                     </div>
                 </div>
             </div>
@@ -225,20 +225,20 @@ $userLikedGnams = getUserLikedGnams($user['id']);
 
     const showSwalSettings = () => {
         let swalContent = `
-            <div class='row-md-2 py-2 text-center overflow-hidden'>
+            <div class='row-md-2 py-2 text-center overflow-hidden' aria-label="Finestra delle impostazioni del profilo" tabindex="3">
                 <div class='container px-0'>
                     <div class='row mb-3'>
                         <div class='col'>
                             <p class="fs-5 text-black">Cambia immagine profilo:</p>
-                            <input type="file" class="form-control bg-primary rounded shadow-sm" id="newProfileImage" title="nuova immagine di profilo" aria-label="nuova immagine di profilo" />
+                            <input type="file" class="form-control bg-primary rounded shadow-sm" id="newProfileImage" aria-label="Seleziona il file della nuova immagine di profilo" tabindex="3" />
                         </div>
                     </div>
                     <div class='row justify-content-center'>
                         <div class='col-4' id="saveButton">
-                            <a role='button' class='btn btn-bounce rounded-pill bg-accent fw-bold text-white'>Salva</a>
+                            <a role='button' class='btn btn-bounce rounded-pill bg-accent fw-bold text-white' aria-label="Pulsante per salvare la nuova immagine caricata" tabindex="3">Salva</a>
                         </div>
                         <div class='col-5' id="logoutButton">
-                            <a role='button' class='btn btn-bounce rounded-pill bg-alert fw-bold text-white'>Log out</a>
+                            <a role='button' class='btn btn-bounce rounded-pill bg-alert fw-bold text-white' aria-label="Pulsante per eseguire il logout" tabindex="3">Log out</a>
                         </div>
                     </div>
                 </div>

@@ -1,43 +1,43 @@
 <div class="container text-center font-text text-black">
     <div class="row-2 py-2 h4">
-        <h1 class="fw-bold">Pubblica Gnam</h1>
+        <h1 class="fw-bold" aria-label="Titolo della pagina: Pubblica Gnam" tabindex="3">Pubblica Gnam</h1>
     </div>
 
     <div class="row container p-0 m-0 align-content-center">
         <!-- video chooser field -->
         <div class="row-md px-4 h4">
             <h2 class="fw-bold">Scegli video</h2>
-            <input type="file" class="form-control bg-primary rounded shadow-sm" id="videoInput" accept="video/mp4" title="video" aria-label="video" />
+            <input type="file" class="form-control bg-primary rounded shadow-sm" id="videoInput" accept="video/mp4" aria-label="Seleziona il file con il video dello gnam che vuoi pubblicare" tabindex="3" />
             <video id="hiddenVideoDiv" class="d-none position-absolute" style="height: 1px!important; width: 1px!important"></video>
             <canvas id="videoCanvas" class="d-none"></canvas>
         </div>
         <!-- thumbnail chooser field -->
         <div class="row-md px-4 h4">
             <h2 class="fw-bold">Scegli copertina</h2>
-            <input type="file" class="form-control bg-primary rounded shadow-sm" id="thumbnailInput" accept="image/jpg, image/jpeg, image/png" title="copertina" aria-label="copertina" />
+            <input type="file" class="form-control bg-primary rounded shadow-sm" id="thumbnailInput" accept="image/jpg, image/jpeg, image/png" aria-label="Seleziona il file con la copertina dello gnam che vuoi pubblicare" tabindex="3" />
         </div>
         <!-- description field -->
         <div class="row-md-6 px-4 h4">
             <h2 class="fw-bold">Descrizione</h2>
-            <textarea class="form-control bg-primary rounded shadow-sm" rows="3" id="descriptionInput" title="descrizione" aria-label="descrizione"></textarea>
+            <textarea class="form-control bg-primary rounded shadow-sm" rows="3" id="descriptionInput" aria-label="Inserisci la descrizione dello gnam che vuoi pubblicare" tabindex="3"></textarea>
         </div>
         <!-- ingredients -->
         <div class="row-sm pt-2 pb-0 ">
             <!-- Button con counter -->
-            <button type="button" class="btn btn-bounce rounded-pill bg-secondary fw-bold text-white" id="ingredientsButton">
+            <button type="button" class="btn btn-bounce rounded-pill bg-secondary fw-bold text-white" id="ingredientsButton" aria-label="Pulsante per selezionare gli ingredienti dello gnam" tabindex="3">
                 Ingredienti <span class="badge rounded-pill bg-accent" id="ingredientsCount">0</span>
             </button>
         </div>
         <!-- tag -->
         <div class="row-sm pt-1 h-0">
             <!-- Button con counter -->
-            <button type="button" class="btn btn-bounce rounded-pill bg-secondary fw-bold text-white" id="hashtagsButton" >
+            <button type="button" class="btn btn-bounce rounded-pill bg-secondary fw-bold text-white" id="hashtagsButton" aria-label="Pulsante per selezionare gli hashtag dello gnam" tabindex="3">
                 Hashtag <span class="badge rounded-pill bg-accent" id="hashtagsCount">0</span>
             </button>
         </div>
         <!-- read all notification button -->
         <div class="row-md-4 pt-4">
-            <a href="#" role="button" class="btn btn-bounce rounded-pill bg-accent fw-bold text-white" id="publishBtn">Pubblica Gnam</a>
+            <a href="#" role="button" class="btn btn-bounce rounded-pill bg-accent fw-bold text-white" id="publishBtn" aria-label="Pulsante per pubblicare il tuo gnam" tabindex="3">Pubblica Gnam</a>
         </div>
     </div>
 </div>
@@ -61,14 +61,14 @@
     const getIngredientHTML = (ingredient) => {
         return `<div class="row m-0 p-0 align-items-center">
                     <div class="col-4 m-0 p-1">
-                        <p class="m-0 fs-6 text-black">${ingredient}</p>
+                        <p class="m-0 fs-6 text-black" aria-label="Ingrediente: ${ingredient}" tabindex="3">${ingredient}</p>
                     </div>
                     <div class="col-2 m-0 p-1">
-                        <input type="number" value="1" min="1" max="100" id="${ingredient}Quantity" class="form-control bg-primary rounded shadow-sm fs-6 px-0 text-center" placeholder="1" title="quantità di ${ingredient}" aria-label="quantità di ${ingredient}" />
+                        <input type="number" value="1" min="1" max="100" id="${ingredient}Quantity" class="form-control bg-primary rounded shadow-sm fs-6 px-0 text-center" placeholder="1" aria-label="quantità di ${ingredient}" tabindex="3" />
                     </div>
-                    <div class="col-4 m-0 p-1"><select id="${ingredient}MeasurementUnit" class="form-select bg-primary rounded shadow-sm fs-6" title="unità di misura ${ingredient}" aria-label="unità di misura ${ingredient}">` +
+                    <div class="col-4 m-0 p-1"><select id="${ingredient}MeasurementUnit" class="form-select bg-primary rounded shadow-sm fs-6" aria-label="unità di misura ${ingredient}" tabindex="3">` +
                         measurementUnitsOptions + `</select></div>
-                    <div class="col-2 m-0 p-1"><button type="button" title="rimuovi ingrediente" aria-label="rimuovi ingrediente" class="btn btn-bounce bg-primary text-black" id="removeIngredient-${ingredient}"><em class="fa-solid fa-trash-can" aria-hidden="true"></em></button></div>
+                    <div class="col-2 m-0 p-1"><button type="button" aria-label="Pulsante per rimuovere l'ingrediente: ${ingredient}" tabindex="3" class="btn btn-bounce bg-primary text-black" id="removeIngredient-${ingredient}"><em class="fa-solid fa-trash-can" aria-hidden="true"></em></button></div>
                 </div>`;
     };
 
@@ -76,26 +76,26 @@
         let html = `
             <div class="d-flex align-items-center justify-content-center mb-2">
                 <p class="m-0 me-2 fs-6 text-black">Numero di porzioni:</p>
-                <input type="number" value="1" min="1" max="100" class="form-control bg-primary rounded shadow-sm fs-6 fw-bold text-center" id="portionsInput" title="numero di porzioni" aria-label="numero di porzioni" />
+                <input type="number" value="1" min="1" max="100" class="form-control bg-primary rounded shadow-sm fs-6 fw-bold text-center" id="portionsInput" aria-label="Input per inserire il numero di porzioni a cui si riferiscono gli ingredienti" tabindex="3" />
             </div>
             <div class="row mx-0 my-2">
                 <div class="input-group rounded">
                     <span class="input-group-text bg-primary border-0 cursor-pointer shadow-sm" id="searchIngredientIcon">
                         <em class="fa-solid fa-magnifying-glass" aria-hidden="true"></em>
                     </span>
-                    <input type="text" class="form-control bg-primary shadow-sm" placeholder="Cerca Ingredienti" id="searchIngredients" title="testo per la ricerca di ingredienti" aria-label="testo per la ricerca di ingredienti" />
+                    <input type="text" class="form-control bg-primary shadow-sm" placeholder="Cerca Ingredienti" id="searchIngredients" aria-label="Input per inserire degli ingredienti" tabindex="3" />
                 </div>
             </div>
             <hr />
-            <p id="noIngredientsText" class="d-none text-black">Non hai selezionato ingredienti.</p>
+            <p id="noIngredientsText" class="d-none text-black" tabindex="3">Non hai selezionato ingredienti.</p>
             <div class="text-center" id="searchedIngredients">${ingredients.map(ingredient => getIngredientHTML(ingredient["name"])).join('')}</div>
             <hr />
             <div class="row m-0 p-0">
                 <div class="col-6">
-                    <button type="button" class="btn btn-bounce rounded-pill bg-alert fw-bold text-white w-100" id="resetIngredients">Reset</button>
+                    <button type="button" class="btn btn-bounce rounded-pill bg-alert fw-bold text-white w-100" id="resetIngredients" aria-label="Pulsante per resettare gli ingredienti selezionati" tabindex="3">Reset</button>
                 </div>
                 <div class="col-6">
-                    <button type="button" class="btn btn-bounce rounded-pill bg-accent fw-bold text-white w-100" id="okButtonIngredients">Ok</button>
+                    <button type="button" class="btn btn-bounce rounded-pill bg-accent fw-bold text-white w-100" id="okButtonIngredients" aria-label="Pulsante per salvare gli ingredienti selezionati" tabindex="3">Ok</button>
                 </div>
             </div>
         `;
@@ -183,7 +183,7 @@
     };
 
     const getHashtagHTML = (hashtag) => {
-        return `<p class="text-black"><button type="button" title="rimuovi hashtag" aria-label="rimuovi hashtag" class="btn btn-bounce bg-primary text-black" id="removeHashtag-${hashtag}">
+        return `<p class="text-black"><button type="button" aria-label="Pulsante per rimuovere l'hashtag: ${hashtag}" tabindex="3" class="btn btn-bounce bg-primary text-black" id="removeHashtag-${hashtag}">
                     <em class="fa-solid fa-trash-can" aria-hidden="true"></em></button>&nbsp#${hashtag}</p>`;
     };
 
@@ -191,19 +191,19 @@
         let html = `<div class="row-md-2 py-2">
                         <div class="input-group rounded">
                             <span class="input-group-text bg-primary border-0 cursor-pointer shadow-sm" id="searchHashtagIcon"><em class="fa-solid fa-magnifying-glass" aria-hidden="true"></em></span>
-                            <input type="text" id="hashtagInput" class="form-control bg-primary shadow-sm" placeholder="Cerca Hashtag" title="testo per la ricerca di hashtag" aria-label="testo per la ricerca di hashtag" />
+                            <input type="text" id="hashtagInput" class="form-control bg-primary shadow-sm" placeholder="Cerca Hashtag" aria-label="Input di testo per inserire un hashtag" tabindex="3" />
                         </div>
                     </div>
                     <hr />
-                    <p id="noHashtagsText" class="d-none text-black">Non hai selezionato hashtag.</p>
+                    <p id="noHashtagsText" class="d-none text-black" tabindex="3">Non hai selezionato hashtag.</p>
                     <div class="text-center" id="searchedHashtags">${hashtags.map(getHashtagHTML).join('')}</div>
                     <hr />
                     <div class="row m-0 p-0">
                         <div class="col-6">
-                            <button type="button" class="btn btn-bounce rounded-pill bg-alert fw-bold text-white w-100" id="resetHashtags">Reset</button>
+                            <button type="button" class="btn btn-bounce rounded-pill bg-alert fw-bold text-white w-100" id="resetHashtags" aria-label="Pulsante per resettare gli hashtag selezionati" tabindex="3" tabindex="3">Reset</button>
                         </div>
                         <div class="col-6">
-                            <button type="button" id="okButton" class="btn btn-bounce rounded-pill bg-accent fw-bold text-white w-100">Ok</button>
+                            <button type="button" id="okButton" class="btn btn-bounce rounded-pill bg-accent fw-bold text-white w-100" aria-label="Pulsante per salvare gli hashtag selezionati" tabindex="3" tabindex="3">Ok</button>
                         </div>
                     </div>`;
 
