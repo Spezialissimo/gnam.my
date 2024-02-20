@@ -1,18 +1,18 @@
 <div class="container text-center font-text text-black">
     <div class="row-2 py-2">
-        <h1 class="fw-bold">Cerca</h1>
+        <h1 class="fw-bold" aria-label="Titolo della pagina: Cerca" tabindex="3">Cerca</h1>
     </div>
     <!-- search field -->
     <div class="row-md-2 py-2">
         <div class="input-group rounded" id="searchBar">
             <span class="input-group-text bg-primary border-0 shadow-sm cursor-pointer" id="searchIcon"><em class="fa-solid fa-magnifying-glass" aria-hidden="true"></em></span>
-            <input type="text" class="form-control bg-primary shadow-sm" placeholder="Cerca" id="searchBarInput" title="testo per la ricerca di gnam" aria-label="testo per la ricerca di gnam" <?php if (isset($_GET["q"])) { echo 'value="' . $_GET["q"] . '" '; } ?>/>
+            <input type="text" class="form-control bg-primary shadow-sm" placeholder="Cerca" id="searchBarInput" aria-label="Input di testo per la ricerca di gnam" tabindex="3" <?php if (isset($_GET["q"])) { echo 'value="' . $_GET["q"] . '" '; } ?>/>
     	</div>
     </div>
     <!-- ingredients -->
     <div class="row-md-2 py-2">
         <!-- Button con counter -->
-        <button type="button" class="btn btn-bounce rounded-pill bg-secondary fw-bold text-white" id="ingredientsButton">
+        <button type="button" class="btn btn-bounce rounded-pill bg-secondary fw-bold text-white" id="ingredientsButton" aria-label="Pulsante per inserire ingredienti che devono comparire negli gnam cercati" tabindex="3">
             Ingredienti <span class="badge rounded-pill bg-accent" id="ingredientsCount">0</span>
         </button>
     </div>
@@ -31,7 +31,7 @@
     let currentResult;
 
     const getIngredientHTML = (ingredient) => {
-        return `<p class="text-black"><button type="button" title="rimuovi ingrediente" aria-label="rimuovi ingrediente" class="btn btn-bounce bg-primary text-black" id="removeIngredient-${ingredient}">
+        return `<p class="text-black"><button type="button" aria-label="Pulsante per rimuovere l'ingrediente: ${ingredient}" tabindex="3" class="btn btn-bounce bg-primary text-black" id="removeIngredient-${ingredient}">
                     <em class="fa-solid fa-trash-can" aria-hidden="true"></em></button>&nbsp${ingredient}</p>`;
     };
 
@@ -39,19 +39,19 @@
         let html = `<div class="row-md-2 py-2">
                         <div class="input-group rounded">
                             <span class="input-group-text bg-primary border-0 shadow-sm cursor-pointer" id="searchIngredientsIcon"><em class="fa-solid fa-magnifying-glass"></em></span>
-                            <input type="text" id="ingredientInput" class="form-control bg-primary shadow-sm" placeholder="Cerca Ingredienti" title="testo per la ricerca di ingredienti" aria-label="testo per la ricerca di ingredienti" />
+                            <input type="text" id="ingredientInput" class="form-control bg-primary shadow-sm" placeholder="Cerca Ingredienti" aria-label="Input di testo per inserire i ingredienti" tabindex="3" />
                         </div>
                     </div>
                     <hr />
-                    <p id="noIngredientsText" class="d-none text-black">Non hai selezionato ingredienti.</p>
+                    <p id="noIngredientsText" class="d-none text-black" tabindex="3">Non hai selezionato ingredienti.</p>
                     <div class="text-center" id="searchedIngredients">${ingredients.map(getIngredientHTML).join('')}</div>
                     <hr />
                     <div class="row m-0 p-0">
                         <div class="col-6">
-                            <button type="button" class="btn btn-bounce rounded-pill bg-alert fw-bold text-white w-100" id="resetIngredients">Reset</button>
+                            <button type="button" class="btn btn-bounce rounded-pill bg-alert fw-bold text-white w-100" id="resetIngredients" aria-label="Pulsante per resettare gli ingredienti inseriti" tabindex="3">Reset</button>
                         </div>
                         <div class="col-6">
-                            <button type="button" id="okButton" class="btn btn-bounce rounded-pill bg-accent fw-bold text-white w-100">Ok</button>
+                            <button type="button" id="okButton" class="btn btn-bounce rounded-pill bg-accent fw-bold text-white w-100" aria-label="Pulsante per confermare gli ingredienti inseriti" tabindex="3">Ok</button>
                         </div>
                     </div>`;
 

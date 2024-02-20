@@ -66,7 +66,7 @@
                     <div class="col-2 m-0 p-1">
                         <input type="number" value="1" min="1" max="100" id="${ingredient}Quantity" class="form-control bg-primary rounded shadow-sm fs-6 px-0 text-center" placeholder="1" aria-label="quantità di ${ingredient}" tabindex="3" />
                     </div>
-                    <div class="col-4 m-0 p-1"><select id="${ingredient}MeasurementUnit" class="form-select bg-primary rounded shadow-sm fs-6" title="unità di misura ${ingredient}" aria-label="unità di misura ${ingredient}" tabindex="3">` +
+                    <div class="col-4 m-0 p-1"><select id="${ingredient}MeasurementUnit" class="form-select bg-primary rounded shadow-sm fs-6" aria-label="unità di misura ${ingredient}" tabindex="3">` +
                         measurementUnitsOptions + `</select></div>
                     <div class="col-2 m-0 p-1"><button type="button" aria-label="Pulsante per rimuovere l'ingrediente: ${ingredient}" tabindex="3" class="btn btn-bounce bg-primary text-black" id="removeIngredient-${ingredient}"><em class="fa-solid fa-trash-can" aria-hidden="true"></em></button></div>
                 </div>`;
