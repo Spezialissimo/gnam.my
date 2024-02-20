@@ -24,7 +24,7 @@
                 enabled: true
             },
             on: {
-                slideChangeTransitionEnd: function () {
+                slideChangeTransitionEnd: function() {
                     if ($(".swiper-slide-active").length != 0) {
                         stopCurrentVideo();
                         $("#gnamPlayer-" + currentGnamID)[0].currentTime = 0;
@@ -35,14 +35,14 @@
                         playCurrentVideo();
                     }
                 },
-                slideNextTransitionEnd: function () {
+                slideNextTransitionEnd: function() {
                     const currentIndex = gnamsQueue.findIndex(item => item[0] === parseInt(currentGnamID));
                     let newIndex = currentIndex + Math.floor(threshold / 2);
                     if (newIndex < gnamsQueue.length && !gnamsQueue[newIndex][1]) {
                         drawGnam(newIndex);
                     }
                 },
-                slidePrevTransitionEnd: function () {
+                slidePrevTransitionEnd: function() {
                     const currentIndex = gnamsQueue.findIndex(item => item[0] === parseInt(currentGnamID));
                     let newIndex = Math.max(0, currentIndex - Math.floor(threshold / 2));
                     if (newIndex >= 0 && !gnamsQueue[newIndex][1]) {
@@ -50,7 +50,7 @@
                         drawGnam(newIndex);
                     }
                 },
-                beforeInit: function () {
+                beforeInit: function() {
                     document.querySelectorAll('[id^="gnam-"]').forEach(element => {
                         element.classList.remove('d-none');
                     });
@@ -59,7 +59,7 @@
             }
         });
     }
-    
+
     const setTabIndexOnCurrentGnam = (value) => {
         $("#gnam-" + currentGnamID).attr('tabindex', value - 1);
         $("#descriptionBox-" + currentGnamID + " > div:first-child").attr('tabindex', value);
@@ -71,10 +71,12 @@
         $("#shareButton-" + currentGnamID).attr('tabindex', value);
     }
 
-    $(window).on("load", function () {
+    $(window).on("load", function() {
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.has('gnam')) {
-            gnamsQueue = [[(urlParams.get('gnam')), false]];
+            gnamsQueue = [
+                [(urlParams.get('gnam')), false]
+            ];
             currentGnamID = urlParams.get('gnam');
             drawFirstGnams();
         } else {
@@ -83,7 +85,7 @@
                 $.get("api/search.php", {
                     api_key: "<?php echo $_SESSION['api_key']; ?>",
                     action: 'random'
-                }, function (data) {
+                }, function(data) {
                     gnamsQueue = JSON.parse(data);
                     currentGnamID = gnamsQueue[0];
                     for (let i = 0; i < gnamsQueue.length; i++) {
@@ -110,7 +112,7 @@
             }
         }
 
-        $("#gnamSlider").on('click', function () {
+        $("#gnamSlider").on('click', function() {
             let gnamPlayer = $("#gnamPlayer-" + currentGnamID)[0];
 
             if (gnamPlayer.paused) {
@@ -132,12 +134,12 @@
             $.get("api/gnams.php", {
                 api_key: "<?php echo $_SESSION['api_key']; ?>",
                 gnam: id
-            }, function (gnamsData) {
+            }, function(gnamsData) {
                 addGnamSlide(JSON.parse(gnamsData));
                 $.get("api/comments.php", {
                     api_key: "<?php echo $_SESSION['api_key']; ?>",
                     gnam_id: id
-                }, function (commentsData) {
+                }, function(commentsData) {
                     setComments(JSON.parse(commentsData), id);
                     gnamsLeft--;
                     if (gnamsLeft > 0 && newIndex != gnamsQueue.length - 1) {
@@ -156,14 +158,14 @@
         $.get("api/gnams.php", {
             api_key: "<?php echo $_SESSION['api_key']; ?>",
             gnam: id
-        }, function (gnamsData) {
+        }, function(gnamsData) {
             addGnamSlide(JSON.parse(gnamsData));
-            $("#gnamPlayer-" + id).on('loadedmetadata', function () {
+            $("#gnamPlayer-" + id).on('loadedmetadata', function() {
                 $("#gnam-" + id).removeClass("d-none");
                 $.get("api/comments.php", {
                     api_key: "<?php echo $_SESSION['api_key']; ?>",
                     gnam_id: id
-                }, function (commentsData) {
+                }, function(commentsData) {
                     setComments(JSON.parse(commentsData), id);
                 });
                 if (wentUp) {
@@ -182,7 +184,7 @@
     const addGnamSlide = (gnamsInfo) => {
         let gnamHtml = `
             <video id="gnamPlayer-${gnamsInfo['id']}" class="w-100 h-100 p-0" loop playsinline preload="auto" poster="assets/gnams_thumbnails/${gnamsInfo['id']}.jpg" src="assets/gnams/${gnamsInfo['id']}.mp4" aria-live="off" aria-label="Video di ${gnamsInfo['user_name']}"></video>
-            <div id="videoOverlay-${gnamsInfo['id']}" class="video-overlay" aria-live="off" aria-label="Video di ${gnamsInfo['user_name']}">
+            <div id="videoOverlay-${gnamsInfo['id']}" class="video-overlay" aria-live="off" aria-label="Gnam di ${gnamsInfo['user_name']}, usa freccie su e giù per cambiare Gnam, usa spazio per controllare il video.">
                 <div class="container" aria-live="off">
                     <div class="row mb-3" aria-live="off">
                         <div id="descriptionBox-${gnamsInfo['id']}" class="col-10 align-self-end text-black">
@@ -236,7 +238,7 @@
         const slideElement = document.createElement('div');
         slideElement.classList.add("swiper-slide");
         slideElement.classList.add("d-none");
-        slideElement.setAttribute("aria-label", "Video di " + gnamsInfo['user_name']);        
+        slideElement.setAttribute("aria-label", "Video di " + gnamsInfo['user_name']);
         slideElement.setAttribute('tabindex', '-1');
         slideElement.id = "gnam-" + gnamsInfo['id'];
         slideElement.innerHTML = gnamHtml.trim();
@@ -296,7 +298,7 @@
         $.get('api/likes.php', {
             "api_key": '<?php echo $_SESSION["api_key"] ?>',
             "gnam_id": gnamsInfo['id']
-        }, function (data) {
+        }, function(data) {
             let children = $("#likeButton-" + gnamsInfo['id']).children();
             if (JSON.parse(data) && children.attr("src") == "assets/like.png") {
                 children.attr("aria-label", "Togli mi piace");
@@ -304,11 +306,11 @@
             }
         });
 
-        $("#likeButton-" + gnamsInfo['id']).each(function () {
+        $("#likeButton-" + gnamsInfo['id']).each(function() {
             let likeButton = $(this);
             let children = likeButton.children();
             let likesCounter = $("#likesCounter-" + gnamsInfo['id']);
-            likeButton.on("click", function (e) {
+            likeButton.on("click", function(e) {
                 if (children.attr("src") == "assets/like.png") {
                     children.attr("aria-label", "Togli mi piace");
                     children.attr("src", "assets/like-alert.png");
@@ -328,14 +330,14 @@
         });
 
         isDescriptionShort = true;
-        $("#descriptionBox-" + gnamsInfo['id']).on("click", function (e) {            
+        $("#descriptionBox-" + gnamsInfo['id']).on("click", function(e) {
             showFullDescription();
             e.stopPropagation();
         });
-        $("#videoDescriptionLong-" + gnamsInfo['id'] + ">span>span ").on("click", function (e) {            
+        $("#videoDescriptionLong-" + gnamsInfo['id'] + ">span>span ").on("click", function(e) {
             showShortDescription(e);
-        });        
-        $("#videoDescriptionShort-" + gnamsInfo['id']).on("focus", function (e) {            
+        });
+        $("#videoDescriptionShort-" + gnamsInfo['id']).on("focus", function(e) {
             showFullDescription();
             let value = $("#videoDescriptionShort-" + currentGnamID).attr("tabindex");
             $("#videoDescriptionLong-" + currentGnamID).attr('tabindex', value).focus();
@@ -344,7 +346,7 @@
         $("#gnam-" + gnamsInfo['id']).on("focus", showShortDescription);
         $("#videoOverlay-" + gnamsInfo['id']).on("click", showShortDescription);
 
-        $("#shareButton-" + gnamsInfo['id']).on("click", function (e) {
+        $("#shareButton-" + gnamsInfo['id']).on("click", function(e) {
             let swalContent = `
             <div class='row-md-2 py-2 text-center text-black'>
                 <div class='container'>
@@ -355,8 +357,11 @@
                     </div>
                 </div>
             </div>`;
-            showSmallSwal('Condividi Gnam', swalContent);
-            $("#copyGnamLinkButton").on("click", function () {
+            showSmallSwal('Condividi Gnam', swalContent, function() {
+                $("#gnam-" + currentGnamID).attr('tabindex', '1').focus();
+                playCurrentVideo();
+            }, true);
+            $("#copyGnamLinkButton").on("click", function() {
                 $("#shareCounter-" + currentGnamID).text(parseInt($("#shareCounter-" + currentGnamID).text()) + 1);
                 let gnamLink = buildURL("home", "gnam=" + currentGnamID);
                 copyToClipboard(gnamLink);
@@ -370,7 +375,7 @@
             e.stopPropagation();
         });
 
-        $("#recipeButton-" + gnamsInfo['id']).on("click", function (e) {
+        $("#recipeButton-" + gnamsInfo['id']).on("click", function(e) {
             let html = `
                 <div class="container">
                     <div class="col">
@@ -398,22 +403,22 @@
                     </div>
                 `;
             }
-            stopCurrentVideo();            
-            showSwal('Ricetta', html, function ()  {                
+            stopCurrentVideo();
+            showSwal('Ricetta', html, function() {
                 $("#gnam-" + currentGnamID).attr('tabindex', '1').focus();
                 playCurrentVideo();
-            },true);
+            }, true);
             if (gnamsInfo['recipe'].length != 0) {
                 $('#portionsInput').val(selectedPortions);
-                $('#portionsInput').on("focus", function () {
+                $('#portionsInput').on("focus", function() {
                     $("#swal2-html-container table").attr("tabindex", "-1");
                     $("#swal2-html-container table td").attr("tabindex", "-1");
                 })
-                $('#portionsInput').on("focusout", function () {
+                $('#portionsInput').on("focusout", function() {
                     $("#swal2-html-container table").attr("tabindex", "3");
                     $("#swal2-html-container table td").attr("tabindex", "3");
                 })
-                $("#portionsInput").on("change", function (e) {
+                $("#portionsInput").on("change", function(e) {
                     if ((this).value > 0) {
                         selectedPortions = (this).value;
                         drawAllIngredients(gnamsInfo['recipe']);
@@ -421,23 +426,23 @@
                         (this).value = selectedPortions;
                     }
                 });
-                drawAllIngredients(gnamsInfo['recipe']);                
+                drawAllIngredients(gnamsInfo['recipe']);
                 $("#portionsInput").focus();
             }
             e.stopPropagation();
         });
 
-        $("#userImage-" + gnamsInfo['id']).on("click", function (e) {
+        $("#userImage-" + gnamsInfo['id']).on("click", function(e) {
             redirectToGnamUserPage(gnamsInfo['user_id']);
             e.stopPropagation();
         });
 
-        $("#userName-" + gnamsInfo['id']).on("click", function (e) {
+        $("#userName-" + gnamsInfo['id']).on("click", function(e) {
             redirectToGnamUserPage(gnamsInfo['user_id']);
             e.stopPropagation();
         });
 
-        $(".videoTag-" + gnamsInfo['id']).on("click", function (e) {
+        $(".videoTag-" + gnamsInfo['id']).on("click", function(e) {
             window.location = "search.php?q=" + encodeURIComponent($(this).text().trim());
         });
     }
@@ -452,7 +457,7 @@
             for (let i = 0; i < videoTags.length; i++) {
                 $(videoTags[i]).removeClass("d-none");
             }
-            $("#videoOverlay-" + currentGnamID).css("background-image", "linear-gradient(0deg, var(--background), rgba(247, 209, 151, 0) 40%)");            
+            $("#videoOverlay-" + currentGnamID).css("background-image", "linear-gradient(0deg, var(--background), rgba(247, 209, 151, 0) 40%)");
         }
     }
 
@@ -480,7 +485,7 @@
                 <td class="text-start" headers="it-header-name" tabindex="4">${ingredient["name"]}</td>
                 <td class="text-end fw-bold" headers="it-header-quantity" tabindex="4">${ingredient["quantity"] > 0 ? ingredient["quantity"] * selectedPortions : ""} ${ingredient["measurement_unit"]}</td>
             </tr>`;
-        });        
+        });
         $("#ingredients-" + currentGnamID + " tbody").append(ingredientsHTML);
     }
 
@@ -494,12 +499,17 @@
     }
 
 
-    document.onkeypress = function (e) {
+    document.onkeypress = function(e) {        
         if (e.keyCode == 13) {
-            document.activeElement.click();                      
+            document.activeElement.click();
+            debugger;
             if ($("#commentsBoxContainer-" + currentGnamID).length > 0 && document.activeElement != document.querySelector("#commentButton-" + currentGnamID)) {
                 publishComment();
+            } else if(document.querySelector("#descriptionBox-" + currentGnamID + " > div:first-child") == document.activeElement) {
+                document.activeElement.querySelector("img").click();      
             }
+        } else if (e.keyCode == 32 && document.activeElement != document.querySelector("#commentField-" + currentGnamID)) {
+            toggleCurrentVideo();
         }
     }
 
@@ -515,7 +525,7 @@
             $.get("api/comments.php", {
                 api_key: "<?php echo $_SESSION['api_key']; ?>",
                 gnam_id: currentGnamID
-            }, function (commentsData) {
+            }, function(commentsData) {
                 let comments = JSON.parse(commentsData);
                 $("#commentsBoxContainer-" + currentGnamID).parent().html(getCommentsHTML(comments));
                 setComments(comments, currentGnamID);
@@ -524,7 +534,7 @@
             });
         });
         $("#commentField-" + currentGnamID).attr("aria-label", "Scrivi commento");
-        
+
         var announceLiveRegion = $('<div>', {
             role: 'status',
             'aria-live': 'polite',
@@ -609,7 +619,7 @@
 
             let commentIndex = 1;
             comments.forEach(comment => {
-                if (comment['parent_comment_id'] == null) {                    
+                if (comment['parent_comment_id'] == null) {
                     let commentHTML = `
                     <div id="comment-${comment['id']}" class="container comment py-1">
                         <div class="row" tabindex="2" aria-label="Commento ${commentIndex} su ${comments.length}, ${comment['user_name']} dice: ${comment['text']}">
@@ -664,7 +674,7 @@
                     commentsContainerElement.querySelector('#subcommentsContainer-' + comment['parent_comment_id']).innerHTML += commentHTML;
                 }
                 commentIndex++;
-            });            
+            });
             return commentsContainerElement.outerHTML;
         }
     }
@@ -672,7 +682,7 @@
     const setHandlersForCommentsContainer = (comments) => {
         comments.forEach(comment => {
             $("#replyButton-" + comment['id']).off("click");
-            $("#replyButton-" + comment['id']).on("click", function (e) {
+            $("#replyButton-" + comment['id']).on("click", function(e) {
 
                 const id = $(e.target).attr('id').split('-')[1];
                 const parent = $("#comment-" + id);
@@ -681,43 +691,56 @@
                 } else {
                     commentToReplyID = id;
                 }
-                
+
                 let commenterName = parent.find("#commenterUserName-" + id).text();
                 $("#replyToDiv-" + currentGnamID).removeClass("d-none");
                 $("#replyToName-" + currentGnamID).text(commenterName);
                 $("#commentField-" + currentGnamID).attr("aria-label", "Rispondendo a " + commenterName + ", premere esc per smettere di rispondere");
-                $("#commentField-" + currentGnamID).focus();                
+                $("#commentField-" + currentGnamID).focus();
             });
             $("#commenterUserName-" + comment['id']).off("click");
-            $("#commenterUserName-" + comment['id']).on("click", function () {
+            $("#commenterUserName-" + comment['id']).on("click", function() {
                 redirectToGnamUserPage(comment['user_id']);
             });
             $("#commenterImg-" + comment['id']).off("click");
-            $("#commenterImg-" + comment['id']).on("click", function () {
+            $("#commenterImg-" + comment['id']).on("click", function() {
                 redirectToGnamUserPage(comment['user_id']);
             });
         });
         $("#commentButton-" + currentGnamID).off("click");
         $("#commentButton-" + currentGnamID).on("click", publishComment);
         $("#closeReplyTo-" + currentGnamID).off("click");
-        $("#closeReplyTo-" + currentGnamID).on("click", function () {
+        $("#closeReplyTo-" + currentGnamID).on("click", function() {
             $("#replyToDiv-" + currentGnamID).addClass("d-none");
             commentToReplyID = null;
         });
     }
 
     const setComments = (comments, gnam_id) => {
-        $("#commentsCounter-" + gnam_id).text(comments.length);        
+        $("#commentsCounter-" + gnam_id).text(comments.length);
         $("#commentsButton-" + gnam_id).off('click');
-        $("#commentsButton-" + gnam_id).on('click', function (e) {            
+        $("#commentsButton-" + gnam_id).on('click', function(e) {
             stopCurrentVideo();
-            showSwal('Commenti', getCommentsHTML(comments), function () {
+            showSwal('Commenti', getCommentsHTML(comments), function() {
                 playCurrentVideo();
-                commentToReplyID = null;                
+                commentToReplyID = null;
+                $("#gnam-" + currentGnamID).attr('tabindex', '1').focus();
             }, true);
             setHandlersForCommentsContainer(comments);
             e.stopPropagation();
         });
+    }
+
+    const toggleCurrentVideo = () => {
+        var video = $("#gnamPlayer-" + currentGnamID);
+
+        var videoElement = video.get(0);
+
+        if (videoElement.paused) {
+            playCurrentVideo();
+        } else {
+            stopCurrentVideo();
+        }
     }
 
     const stopCurrentVideo = () => {
