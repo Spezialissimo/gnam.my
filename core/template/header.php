@@ -57,9 +57,9 @@ if (isloggedIn() && (PAGE_TITLE == 'Login' || PAGE_TITLE == 'Registrati')) {
 	</script>
 	<?php } ?>
 	<?php if(PAGE_TITLE != 'Login' && PAGE_TITLE != 'Registrati') { ?>
-		<main class="w-100 h-100 d-flex" id="mainDiv">
+		<main class="d-flex" id="mainDiv">
 		<div class="d-flex w-100 h-100 p-0 m-0" id="pageContainer">
 			<div class="p-0 m-0 w-100<?php echo PAGE_TITLE != 'Home' ? " overflow-auto" : ""; ?>" id="pageDiv">
 	<?php } else { ?>
-		<main class="w-100 h-100 align-content-center">
+		<main class="align-content-center">
 	<?php }?>
