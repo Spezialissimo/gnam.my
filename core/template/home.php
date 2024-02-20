@@ -501,8 +501,7 @@
 
     document.onkeypress = function(e) {        
         if (e.keyCode == 13) {
-            document.activeElement.click();
-            debugger;
+            document.activeElement.click();            
             if ($("#commentsBoxContainer-" + currentGnamID).length > 0 && document.activeElement != document.querySelector("#commentButton-" + currentGnamID)) {
                 publishComment();
             } else if(document.querySelector("#descriptionBox-" + currentGnamID + " > div:first-child") == document.activeElement) {
