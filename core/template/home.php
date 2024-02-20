@@ -383,26 +383,32 @@
                     <div class="d-flex align-items-center justify-content-center mb-2">
                         <p class="m-0 me-2 fs-6 text-black">Numero di porzioni:</p>
                         <input type="number" value="1" min="1" max="100" class="form-control bg-primary rounded shadow-sm fs-6 fw-bold text-center" id="portionsInput" title="numero di porzioni" aria-label="numero di porzioni" />
-                    </div>
-                    <div class="row mx-0 my-2 text-black">
-                        <div class="col-6 d-flex align-items-center justify-content-start">
-                            <p class="m-0 p-0 fs-6 fw-bold">Nome:</p>
-                        </div>
-                        <div class="col-6 d-flex align-items-center justify-content-end">
-                            <p class="m-0 p-0 fs-6 fw-bold">Quantità</p>
-                        </div>
-                    </div>
-                    <hr class="my-2" />
+                    </div>                    
                     <div class="text-center text-black" id="ingredients-${gnamsInfo['id']}">
-                    </div>
-                    <hr class="m-0 mt-2" />
+                        <table class='w-100' aria-label='Tabella ingredienti' tabindex=3>
+                            <thead class='border-bottom border-dark'>
+                                <tr>
+                                    <th id='it-header-name' class='text-start' scope='col' tabindex=3>Nome</th>
+                                    <th id='it-header-quantity' class='text-end' scope='col' tabindex=3>Quantità</th>
+                                </tr>
+                            </thead>
+                        <tbody id='it-body' class='border-bottom border-dark'>
+                        </tbody>
                     </div>
                 `;
             }
-            stopCurrentVideo();
+            stopCurrentVideo();            
             showSwal('Ricetta', html, playCurrentVideo);
             if (gnamsInfo['recipe'].length != 0) {
                 $('#portionsInput').val(selectedPortions);
+                $('#portionsInput').on("focus", function () {
+                    $("#swal2-html-container table").attr("tabindex", "-1");
+                    $("#swal2-html-container table td").attr("tabindex", "-1");
+                })
+                $('#portionsInput').on("focusout", function () {
+                    $("#swal2-html-container table").attr("tabindex", "3");
+                    $("#swal2-html-container table td").attr("tabindex", "3");
+                })
                 $("#portionsInput").on("change", function (e) {
                     if ((this).value > 0) {
                         selectedPortions = (this).value;
@@ -461,20 +467,16 @@
     }
 
     const drawAllIngredients = (recipe) => {
-        $("#ingredients-" + currentGnamID).empty();
+        $("#ingredients-" + currentGnamID + " tbody").empty();
         let ingredientsHTML = "";
         recipe.forEach(ingredient => {
             ingredientsHTML += `
-            <div class="row m-0 p-0 align-items-center">
-                <div class="col-8 m-0 p-1 d-flex align-items-center justify-content-start">
-                    <p class="m-0 fs-6">${ingredient["name"]}</p>
-                </div>
-                <div class="col-4 m-0 p-1 d-flex align-items-center justify-content-end">
-                    <p class="m-0 fs-6 fw-bold ">${ingredient["quantity"] > 0 ? ingredient["quantity"] * selectedPortions : ""} ${ingredient["measurement_unit"]}</p>
-                </div>
-            </div>`;
-        });
-        $("#ingredients-" + currentGnamID).append(ingredientsHTML);
+            <tr class="align-items-center">
+                <td class="text-start" headers="it-header-name" tabindex=4>${ingredient["name"]}</td>
+                <td class="text-end fw-bold" headers="it-header-quantity" tabindex=4>${ingredient["quantity"] > 0 ? ingredient["quantity"] * selectedPortions : ""} ${ingredient["measurement_unit"]}</td>
+            </tr>`;
+        });        
+        $("#ingredients-" + currentGnamID + " tbody").append(ingredientsHTML);
     }
 
     const buildURL = (siteSection, query) => {
