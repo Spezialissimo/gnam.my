@@ -211,7 +211,7 @@
                                 <img alt="Ingredienti della ricetta" src="assets/recipe.png">
                             </div>
                             <div class="row text-center btn-bounce" role="button" id="likeButton-${gnamsInfo['id']}">
-                                <img alt="Metti mi piace allo Gnam" src="assets/like.png">
+                                <img alt="Metti mi piace" src="assets/like.png">
                             </div>
                             <div class="row pt-2 color-accent fw-bold text-center">
                                 <span id="likesCounter-${gnamsInfo['id']}">${gnamsInfo['likes_count']}</span>
@@ -299,6 +299,7 @@
         }, function (data) {
             let children = $("#likeButton-" + gnamsInfo['id']).children();
             if (JSON.parse(data) && children.attr("src") == "assets/like.png") {
+                children.attr("aria-label", "Togli mi piace");
                 children.attr("src", "assets/like-alert.png");
             }
         });
@@ -309,9 +310,11 @@
             let likesCounter = $("#likesCounter-" + gnamsInfo['id']);
             likeButton.on("click", function (e) {
                 if (children.attr("src") == "assets/like.png") {
+                    children.attr("aria-label", "Togli mi piace");
                     children.attr("src", "assets/like-alert.png");
                     likesCounter.text(parseInt(likesCounter.text()) + 1);
                 } else {
+                    children.attr("aria-label", "Metti mi piace");
                     children.attr("src", "assets/like.png");
                     likesCounter.text(parseInt(likesCounter.text()) - 1);
                 }
