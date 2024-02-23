@@ -59,17 +59,17 @@
     let selectedPortions = 1;
 
     const getIngredientHTML = (ingredient) => {
-        return `<div class="row m-0 p-0 align-items-center">
-                    <div class="col-4 m-0 p-1">
+        return `<tr class="row m-0 p-0 align-items-center">
+                    <td class="col-4 m-0 p-1" headers="it-header-name">
                         <p class="m-0 fs-6 text-black" aria-label="Ingrediente: ${ingredient}" tabindex="3">${ingredient}</p>
-                    </div>
-                    <div class="col-2 m-0 p-1">
+                    </td>
+                    <td class="col-2 m-0 p-1" headers="it-header-quantity">
                         <input type="number" value="1" min="1" max="100" id="${ingredient}Quantity" class="form-control bg-primary rounded shadow-sm fs-6 px-0 text-center" placeholder="1" aria-label="quantità di ${ingredient}" tabindex="3" />
-                    </div>
-                    <div class="col-4 m-0 p-1"><select id="${ingredient}MeasurementUnit" class="form-select bg-primary rounded shadow-sm fs-6" aria-label="unità di misura ${ingredient}" tabindex="3">` +
-                        measurementUnitsOptions + `</select></div>
-                    <div class="col-2 m-0 p-1"><button type="button" aria-label="Pulsante per rimuovere l'ingrediente: ${ingredient}" tabindex="3" class="btn btn-bounce bg-primary text-black" id="removeIngredient-${ingredient}"><em class="fa-solid fa-trash-can" aria-hidden="true"></em></button></div>
-                </div>`;
+                    </td>
+                    <td class="col-4 m-0 p-1" headers="it-header-measurement-unit"><select id="${ingredient}MeasurementUnit" class="form-select bg-primary rounded shadow-sm fs-6" aria-label="unità di misura ${ingredient}" tabindex="3">` +
+                        measurementUnitsOptions + `</select></td>
+                    <td class="col-2 m-0 p-1" headers="it-header-delete"><button type="button" aria-label="Pulsante per rimuovere l'ingrediente: ${ingredient}" tabindex="3" class="btn btn-bounce bg-primary text-black" id="removeIngredient-${ingredient}"><em class="fa-solid fa-trash-can" aria-hidden="true"></em></button></td>
+                </tr>`;
     };
 
     const openIngredients = () => {
@@ -86,10 +86,22 @@
                     <input type="text" class="form-control bg-primary shadow-sm" placeholder="Cerca Ingredienti" id="searchIngredients" aria-label="Input per inserire degli ingredienti" tabindex="3" />
                 </div>
             </div>
-            <hr />
-            <p id="noIngredientsText" class="d-none text-black" tabindex="3">Non hai selezionato ingredienti.</p>
-            <div class="text-center" id="searchedIngredients">${ingredients.map(ingredient => getIngredientHTML(ingredient["name"])).join('')}</div>
-            <hr />
+            <div class='border-top border-bottom border-dark py-2 my-3'>
+                <p id="noIngredientsText" class="d-none text-black" tabindex="3">Non hai selezionato ingredienti.</p>
+                <table class="text-center w-100 d-none" aria-label='Tabella ingredienti' tabindex="3">
+                    <thead class='d-none'>
+                        <tr>
+                        <th id='it-header-name' class='text-start' scope='col' tabindex="3">Nome</th>
+                        <th id='it-header-quantity' class='text-end' scope='col' tabindex="3">Quantità</th>
+                        <th id='it-header-measurement-unit' class='text-end' scope='col' tabindex="3">Quantità</th>
+                        <th id='it-header-delete' class='text-end' scope='col' tabindex="3">Quantità</th>
+                        </tr>
+                    </thead>
+                    <tbody id="searchedIngredients">
+                        ${ingredients.map(ingredient => getIngredientHTML(ingredient["name"])).join('')}
+                    </tbody>
+                </table>
+            </div>
             <div class="row m-0 p-0">
                 <div class="col-6">
                     <button type="button" class="btn btn-bounce rounded-pill bg-alert fw-bold text-white w-100" id="resetIngredients" aria-label="Pulsante per resettare gli ingredienti selezionati" tabindex="3">Reset</button>
@@ -123,6 +135,7 @@
         $('#resetIngredients').on("click", function () {
             ingredients = [];
             $("#searchedIngredients").empty();
+            $("#searchedIngredients").parent().addClass("d-none");
             $('#ingredientsCount').html(ingredients.length);
             $("#noIngredientsText").removeClass("d-none");
         });
@@ -150,6 +163,7 @@
         $("#searchedIngredients").append(getIngredientHTML(newIngredient));
         if (ingredients.length == 0) {
             $("#noIngredientsText").addClass("d-none");
+            $("#searchedIngredients").parent().removeClass("d-none");
         }
         ingredients.push({"name": newIngredient, "quantity": $(`[id="${newIngredient}Quantity"]`).val(), "measurement_unit": $(`[id="${newIngredient}MeasurementUnit"]`).val()});
         addHandlersToIngredient(newIngredient, ingredients.length - 1);

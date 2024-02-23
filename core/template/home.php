@@ -398,8 +398,9 @@
                                     <th id='it-header-quantity' class='text-end' scope='col' tabindex="3">Quantità</th>
                                 </tr>
                             </thead>
-                        <tbody id='it-body' class='border-bottom border-dark'>
-                        </tbody>
+                            <tbody id='it-body' class='border-bottom border-dark'>
+                            </tbody>
+                        </table>
                     </div>
                 `;
             }
