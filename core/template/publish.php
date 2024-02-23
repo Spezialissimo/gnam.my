@@ -134,8 +134,11 @@
             }
         });
 
-        $('#okButtonIngredients').click(function() {
-            closeSwal();
+        $('#okButtonIngredients').click(closeSwal);
+        $('#okButtonIngredients').keypress(function(e) {
+            if (e.keyCode == 13) {
+                closeSwal();
+            }
         });
     }
 
@@ -227,8 +230,11 @@
             }
         });
 
-        $('#okButton').click(function() {
-            closeSwal();
+        $('#okButton').click(closeSwal);
+        $('#okButton').keypress(function(e) {
+            if (e.keyCode == 13) {
+                closeSwal();
+            }
         });
     }
 

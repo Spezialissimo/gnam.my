@@ -252,7 +252,7 @@ $userLikedGnams = getUserLikedGnams($user['id']);
                 $('#saveButton').show();
             });
 
-            $('#saveButton').click(function() {
+            const saveChanges = function() {
                 let imageFile = $('#newProfileImage')[0].files[0];
                 let formData = new FormData();
                 formData.append('image', imageFile);
@@ -275,10 +275,22 @@ $userLikedGnams = getUserLikedGnams($user['id']);
                         } else showToast(decodedResult.status, "<p class='fs-6 text-center pt-3'>" + decodedResult.message + "</p>");
                     }
                 });
+            };
+
+            $('#saveButton').keypress(function(e) {
+                if (e.keyCode == 13) {
+                    saveChanges();
+                }
             });
+            $('#saveButton').click(saveChanges);
 
             $('#logoutButton').click(function() {
                 window.location.href = "logout.php";
+            });
+            $('#logoutButton').keypress(function(e) {
+                if (e.keyCode == 13) {
+                    window.location.href = "logout.php";
+                }
             });
         });
     }

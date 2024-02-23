@@ -75,8 +75,11 @@
             }
         });
 
-        $('#okButton').click(function() {
-            closeSwal();
+        $('#okButton').click(closeSwal);
+        $('#okButton').keypress(function(e) {
+            if (e.keyCode == 13) {
+                closeSwal();
+            }
         });
     }
 
