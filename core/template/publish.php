@@ -186,8 +186,8 @@
     };
 
     const getHashtagHTML = (hashtag) => {
-        return `<p class="text-black"><button type="button" aria-label="Pulsante per rimuovere l'hashtag: ${hashtag}" tabindex="3" class="btn btn-bounce bg-primary text-black" id="removeHashtag-${hashtag}">
-                    <em class="fa-solid fa-trash-can" aria-hidden="true"></em></button>&nbsp#${hashtag}</p>`;
+        return `<li class="text-black"><button type="button" aria-label="Pulsante per rimuovere l'hashtag: ${hashtag}" tabindex="3" class="btn btn-bounce bg-primary text-black" id="removeHashtag-${hashtag}">
+                    <em class="fa-solid fa-trash-can" aria-hidden="true"></em></button>&nbsp#${hashtag}</li>`;
     };
 
     const openHashtags = () => {
@@ -199,7 +199,7 @@
                     </div>
                     <hr />
                     <p id="noHashtagsText" class="d-none text-black" tabindex="3">Non hai selezionato hashtag.</p>
-                    <div class="text-center" id="searchedHashtags">${hashtags.map(getHashtagHTML).join('')}</div>
+                    <ul class="text-center p-0" id="searchedHashtags">${hashtags.map(getHashtagHTML).join('')}</ul>
                     <hr />
                     <div class="row m-0 p-0">
                         <div class="col-6">
@@ -280,8 +280,8 @@
             processData: false,
             contentType: false,
             success : function(data) {
-                let html = `<div class="row-md-2 py-2 text-center text-black"><em class="fa-solid fa-check fa-2xl" aria-hidden="true"></em></div>`;
-                showSmallSwal('Gnam pubblicato', html, () => {
+                let html = `<div class="row-md-2 py-2 text-center text-black"><p tabindex="3">Gnam pubblicato!</p><em class="fa-solid fa-check fa-2xl" aria-hidden="true"></em></div>`;
+                showSmallSwal('Successo!', html, () => {
                     window.location.reload();
                 });
             }
@@ -290,7 +290,7 @@
 
     const publish = () => {
         if ($("#videoInput").prop("files").length != 1) {
-            let html = `<div class="row-md-2 py-2 text-center text-black"><p>Nessun video selezionato!</p><em class="fa-solid fa-triangle-exclamation fa-2xl color-alert" aria-hidden="true"></em></div>`;
+            let html = `<div class="row-md-2 py-2 text-center text-black"><p tabindex="3">Nessun video selezionato!</p><em class="fa-solid fa-triangle-exclamation fa-2xl color-alert" aria-hidden="true"></em></div>`;
             showSmallSwal('Errore!', html);
         } else {
             let scaledIngredients = [];

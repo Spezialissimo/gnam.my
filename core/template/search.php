@@ -31,8 +31,8 @@
     let currentResult;
 
     const getIngredientHTML = (ingredient) => {
-        return `<p class="text-black"><button type="button" aria-label="Pulsante per rimuovere l'ingrediente: ${ingredient}" tabindex="3" class="btn btn-bounce bg-primary text-black" id="removeIngredient-${ingredient}">
-                    <em class="fa-solid fa-trash-can" aria-hidden="true"></em></button>&nbsp${ingredient}</p>`;
+        return `<li class="text-black"><button type="button" aria-label="Pulsante per rimuovere l'ingrediente: ${ingredient}" tabindex="3" class="btn btn-bounce bg-primary text-black" id="removeIngredient-${ingredient}">
+                    <em class="fa-solid fa-trash-can" aria-hidden="true"></em></button>&nbsp${ingredient}</li>`;
     };
 
     const openIngredients = () => {
@@ -44,7 +44,7 @@
                     </div>
                     <hr />
                     <p id="noIngredientsText" class="d-none text-black" tabindex="3">Non hai selezionato ingredienti.</p>
-                    <div class="text-center" id="searchedIngredients">${ingredients.map(getIngredientHTML).join('')}</div>
+                    <ul class="text-center p-0" id="searchedIngredients">${ingredients.map(getIngredientHTML).join('')}</ul>
                     <hr />
                     <div class="row m-0 p-0">
                         <div class="col-6">

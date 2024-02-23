@@ -534,7 +534,7 @@
         });
         $("#commentField-" + currentGnamID).attr("aria-label", "Scrivi commento");
 
-        var announceLiveRegion = $('<div>', {
+        let announceLiveRegion = $('<div>', {
             role: 'status',
             'aria-live': 'polite',
             'aria-atomic': 'true'
@@ -731,9 +731,9 @@
     }
 
     const toggleCurrentVideo = () => {
-        var video = $("#gnamPlayer-" + currentGnamID);
+        let video = $("#gnamPlayer-" + currentGnamID);
 
-        var videoElement = video.get(0);
+        let videoElement = video.get(0);
 
         if (videoElement.paused) {
             playCurrentVideo();
