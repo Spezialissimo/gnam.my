@@ -389,7 +389,7 @@
                     <div class="d-flex align-items-center justify-content-center mb-2">
                         <p class="m-0 me-2 fs-6 text-black">Numero di porzioni:</p>
                         <input type="number" value="1" min="1" max="100" class="form-control bg-primary rounded shadow-sm fs-6 fw-bold text-center" id="portionsInput" title="numero di porzioni" aria-label="numero di porzioni" />
-                    </div>                    
+                    </div>
                     <div class="text-center text-black" id="ingredients-${gnamsInfo['id']}">
                         <table class='w-100' aria-label='Tabella ingredienti' tabindex="3">
                             <thead class='border-bottom border-dark'>
@@ -407,7 +407,7 @@
             showSwal('Ricetta', html, function() {
                 $("#gnam-" + currentGnamID).attr('tabindex', '1').focus();
                 playCurrentVideo();
-            }, true);
+            });
             if (gnamsInfo['recipe'].length != 0) {
                 $('#portionsInput').val(selectedPortions);
                 $('#portionsInput').on("focus", function() {
@@ -499,13 +499,13 @@
     }
 
 
-    document.onkeypress = function(e) {        
+    document.onkeypress = function(e) {
         if (e.keyCode == 13) {
-            document.activeElement.click();            
+            document.activeElement.click();
             if ($("#commentsBoxContainer-" + currentGnamID).length > 0 && document.activeElement != document.querySelector("#commentButton-" + currentGnamID)) {
                 publishComment();
             } else if(document.querySelector("#descriptionBox-" + currentGnamID + " > div:first-child") == document.activeElement) {
-                document.activeElement.querySelector("img").click();      
+                document.activeElement.querySelector("img").click();
             }
         } else if (e.keyCode == 32 && document.activeElement != document.querySelector("#commentField-" + currentGnamID)) {
             toggleCurrentVideo();
@@ -724,7 +724,7 @@
                 playCurrentVideo();
                 commentToReplyID = null;
                 $("#gnam-" + currentGnamID).attr('tabindex', '1').focus();
-            }, true);
+            });
             setHandlersForCommentsContainer(comments);
             e.stopPropagation();
         });
