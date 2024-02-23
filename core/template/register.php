@@ -1,5 +1,5 @@
 <div class="align-content-center p-4 h-100 text-center">
-    <h1 class="fw-bold">Registrati</h1>
+    <h1 class="fw-bold" tabindex="3">Registrati</h1>
     <input type="text" class="form-control bg-primary rounded shadow-sm mb-3 mt-3" placeholder="Username" id="username" aria-label="Input di testo per inserire l'username" tabindex="3" />
     <input type="password" class="form-control bg-primary rounded shadow-sm mb-3 mt-3" placeholder="Password" id="password" aria-label="Input di testo per inserire la password" tabindex="3" />
     <input type="password" class="form-control bg-primary rounded shadow-sm mb-3 mt-3" placeholder="Conferma Password" id="rpassword" aria-label="Input di testo per confermare la password" tabindex="3" />
