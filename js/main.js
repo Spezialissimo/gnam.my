@@ -31,6 +31,10 @@ const showSmallSwal = (title, html, onClose) => {
         showConfirmButton: false,
         allowOutsideClick: false,
         closeButtonAriaLabel: "Chiudi il popup",
+        didOpen: () => {
+            const modal = Swal.getPopup();
+            modal.setAttribute('aria-live', 'off');
+        },
         didClose: () => {
             if (onClose) {
                 onClose();
