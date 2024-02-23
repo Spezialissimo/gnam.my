@@ -126,7 +126,7 @@
             currentResult = JSON.parse(result);
 
             if (result === '[]') {
-                $('#searchResultsDiv').html('<div class="fs-6 mt-4 text-center text-black">Nessuno gnam trovato.</div>');
+                $('#searchResultsDiv').html('<div class="fs-6 mt-4 text-center text-black" tabindex="3">Nessuno gnam trovato.</div>');
                 return;
             }
 

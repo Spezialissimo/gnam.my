@@ -42,7 +42,7 @@ $userLikedGnams = getUserLikedGnams($user['id']);
     </div>
 </div>
 
-<div class="container text-center mt-3 text-black">    
+<div class="container text-center mt-3 text-black">
     <div class="row justify-content-center">
         <?php if($user['id'] != $_SESSION['id']) { ?>
             <div class="col-md-4 col-6">
@@ -96,7 +96,7 @@ $userLikedGnams = getUserLikedGnams($user['id']);
             } else {
                 echo '
                 <div class="row text-center mt-3">
-                    <div class="fs-6">Nessuno Gnam pubblicato.</div>
+                    <div class="fs-6" tabindex="3">Nessuno Gnam pubblicato.</div>
                 </div>
                 ';
             }
@@ -120,7 +120,7 @@ $userLikedGnams = getUserLikedGnams($user['id']);
             } else {
                 echo '
                 <div class="row text-center mt-3">
-                    <div class="fs-6">Nessuno Gnam fra i preferiti.</div>
+                    <div class="fs-6" tabindex="3">Nessuno Gnam fra i preferiti.</div>
                 </div>
                 ';
             }
@@ -168,7 +168,7 @@ $userLikedGnams = getUserLikedGnams($user['id']);
                 </div>
             </div>
         `;
-        showSmallSwal('Condividi Profilo', swalContent);        
+        showSmallSwal('Condividi Profilo', swalContent);
         $("#copyLinkButton").on("click", function() {
             copyToClipboard(window.location.href + "?user=<?php echo $user['id'] ?>");
         });

@@ -20,7 +20,7 @@
                 <button id="clearNotificationsButton" class="btn btn-bounce rounded-pill bg-accent fw-bold text-white mt-2" aria-label="Pulsante per segnare tutte le notifiche come lette" tabindex="3">Segna come lette</button>
             </div>
         <?php } else { ?>
-        <p class="fs-6">Non hai nuove notifiche.</p>
+        <p class="fs-6" tabindex="3">Non hai nuove notifiche.</p>
         <?php } ?>
     </div>
 </div>
