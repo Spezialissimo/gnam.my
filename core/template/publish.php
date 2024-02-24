@@ -268,13 +268,13 @@
             $("#noHashtagsText").addClass("d-none");
         }
         hashtags.push(newHashtag);
-        addHandlersToHashtag(newHashtag);
         $("#searchedHashtags").append(getHashtagHTML(newHashtag));
         $('#hashtagInput').val('');
         $('#hashtagsCount').html(hashtags.length);
+        addHandlersToHashtag(newHashtag);
     }
 
-    const addHandlersToHashtag = (hashtag) => {
+    const addHandlersToHashtag = (hashtag) => {        
         $("#removeHashtag-" + hashtag).on("click", function () {
             let indexToRemove = $(this).parent().index();
             hashtags.splice(indexToRemove, 1);
