@@ -129,6 +129,13 @@ $userLikedGnams = getUserLikedGnams($user['id']);
 </div>
 
 <script>
+
+    document.onkeypress = function(e) {
+        if (e.keyCode == 13) {
+            document.activeElement.click();
+        }
+    }
+
     const followUser = () => {
         $.post("api/users.php", {
             user_id: "<?php echo $user['id'] ?>",
