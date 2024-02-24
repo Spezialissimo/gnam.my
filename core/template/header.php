@@ -40,25 +40,32 @@ if (isloggedIn() && (PAGE_TITLE == 'Login' || PAGE_TITLE == 'Registrati')) {
 <body class="bg w-100 h-100">
 	<?php if (isloggedIn()) { ?>
 	<script>
+		let notified = false;
+
 		const checkNotifications = () => {
 			$.get("api/notifications.php", { api_key: "<?php echo $_SESSION['api_key']; ?>" }, function(data) {
 				if (JSON.parse(data).length > 0) {
 					$("#notificationsNavbarImg").attr("src", "assets/notifications-alert.png");
-
-					let focusedElement = $(':focus');
-					let announceLiveRegion = $('<div>', {
-						role: 'status',
-						'aria-live': 'polite',
-						'aria-atomic': 'true'
-					}).appendTo('body');
-					announceLiveRegion.text("Hai notifiche da leggere!");
-					announceLiveRegion.focus();
-					setTimeout(function() {
-						announceLiveRegion.remove();
-						focusedElement.focus();
-					}, 1000);
+					if (!notified) {
+						notified = true;
+						let focusedElement = $(':focus');
+						let announceLiveRegion = $('<div>', {
+							role: 'status',
+							'aria-live': 'polite',
+							'aria-atomic': 'true'
+						}).appendTo('body');
+						announceLiveRegion.text("Hai notifiche da leggere!");
+						announceLiveRegion.focus();
+						setTimeout(function() {
+							announceLiveRegion.remove();
+							focusedElement.focus();
+						}, 1000);
+					}
 				} else {
 					$("#notificationsNavbarImg").attr("src", "assets/notifications.png");
+					if (notified) {
+						notified = false;
+					}
 				}
 			});
 		};
