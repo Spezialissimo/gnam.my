@@ -35,6 +35,12 @@
         });
     });
 
+    document.onkeypress = function(e) {
+        if (e.keyCode == 13) {
+            document.activeElement.querySelector("a").click();
+        }
+    }
+            
     notifications = <?php echo json_encode($notifications) ?>;
     notifications.forEach(notification => {
         $("#notification" + notification["notification_id"]).on("click", function () {
