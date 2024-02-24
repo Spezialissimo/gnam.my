@@ -30,6 +30,12 @@
     let ingredients = [];
     let currentResult;
 
+    document.onkeypress = function(e) {
+        if (e.keyCode == 13) {
+            document.activeElement.click();
+        }
+    }
+
     const getIngredientHTML = (ingredient) => {
         return `<li class="text-black"><button type="button" aria-label="Pulsante per rimuovere l'ingrediente: ${ingredient}" tabindex="3" class="btn btn-bounce bg-primary text-black" id="removeIngredient-${ingredient}">
                     <em class="fa-solid fa-trash-can" aria-hidden="true"></em></button>&nbsp${ingredient}</li>`;
