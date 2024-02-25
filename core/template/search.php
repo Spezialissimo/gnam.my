@@ -1,6 +1,6 @@
 <div class="container text-center font-text text-black">
     <div class="row-2 py-2">
-        <h1 class="fw-bold" aria-label="Titolo della pagina: Cerca" tabindex="3">Cerca</h1>
+        <h1 class="fw-bold">Cerca</h1>
     </div>
     <!-- search field -->
     <div class="row-md-2 py-2">
@@ -98,10 +98,10 @@
             $("#noIngredientsText").addClass("d-none");
         }
         ingredients.push(newIngredient);
-        addHandlersToIngredient(newIngredient);
         $("#searchedIngredients").append(getIngredientHTML(newIngredient));
         $('#ingredientInput').val('');
         $('#ingredientsCount').html(ingredients.length);
+        addHandlersToIngredient(newIngredient);
     }
 
     const addHandlersToIngredient = (ingredient) => {

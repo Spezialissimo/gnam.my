@@ -23,17 +23,17 @@ $userLikedGnams = getUserLikedGnams($user['id']);
                 <div class="h4 mt-2 ps-0" aria-label="Nome utente di <?php echo $user['name'] ?>" tabindex="3"><?php echo $user['name'] ?></div>
             </div>
             <div class="row">
-                <a id="followerButton" href="#" class="col p-0 text-link" aria-label="Follower di <?php echo $user['name'] ?>, <?php echo count($followers); ?>" tabindex="3">
+                <a id="followerButton" class="col p-0 text-link" aria-label="Follower di <?php echo $user['name'] ?>, <?php echo count($followers); ?>" tabindex="3" role="button">
                     <p class="fw-bold p-0 mb-0">Follower</p>
                     <p class="fw-normal " id="followersCount"><?php echo count($followers); ?></p>
                 </a>
-                <a id="followedButton" href="#" class="col p-0 text-link" aria-label="Seguiti di <?php echo $user['name'] ?>, <?php echo count($followed); ?>" tabindex="3">
+                <a id="followedButton" class="col p-0 text-link" aria-label="Seguiti di <?php echo $user['name'] ?>, <?php echo count($followed); ?>" tabindex="3" role="button">
                     <div class="col p-0">
                         <p class="fw-bold mb-0">Seguiti</p>
                         <p class="fw-normal "><?php echo count($followed); ?></p>
                     </div>
                 </a>
-                <div class="col p-0 text-link" aria-label="Gnam pubblicati da <?php echo $user['name'] ?>, <?php echo count($userGnams); ?>" tabindex="3">
+                <div class="col p-0 text-link" aria-label="Gnam pubblicati da <?php echo $user['name'] ?>, <?php echo count($userGnams); ?>" tabindex="3" role="button">
                     <p class="fw-bold mb-0">Gnam</p>
                     <p class="fw-normal "><?php echo count($userGnams); ?></p>
                 </div>
@@ -131,7 +131,7 @@ $userLikedGnams = getUserLikedGnams($user['id']);
 <script>
 
     document.onkeypress = function(e) {
-        if (e.keyCode == 13) {
+        if (e.keyCode == 13 ) {
             document.activeElement.click();
         }
     }
@@ -188,7 +188,7 @@ $userLikedGnams = getUserLikedGnams($user['id']);
                     if(count($followers) > 0) {
                         foreach ($followers as $f) {
                             echo '
-                                <li class="list-group-item bg border-0 btn-bounce"><a href="profile.php?user=' . $f['id'] . '" class="text-link">
+                                <li class="list-group-item bg border-0 btn-bounce"><a href="profile.php?user=' . $f['id'] . '" class="text-link" tablindex="1" tabindex="1" role="button" aria-label="Vai al profilo di ' . $f['name'] . '">
                                     <div class="container">
                                         <div class="row">
                                             <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Foto profilo di ' . $f['name'] . '" src="assets/profile_pictures/' . $f['id'] . '.jpg" /></div>
@@ -212,7 +212,7 @@ $userLikedGnams = getUserLikedGnams($user['id']);
                     if(count($followed) > 0) {
                         foreach($followed as $f) {
                             echo '
-                                <li class="list-group-item bg border-0 btn-bounce"><a href="profile.php?user=' . $f['id'] . '" class="text-link">
+                                <li class="list-group-item bg border-0 btn-bounce"><a href="profile.php?user=' . $f['id'] . '" class="text-link" tabindex="1" role="button" aria-label="Vai al profilo di ' . $f['name'] . '">
                                     <div class="container">
                                         <div class="row">
                                             <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Foto profilo di ' . $f['name'] . '" src="assets/profile_pictures/' . $f['id'] . '.jpg" /></div>
@@ -228,6 +228,7 @@ $userLikedGnams = getUserLikedGnams($user['id']);
                 ?>
             </ul>`;
         showSwal('Seguiti', swalContent);
+
     }
 
     const showSwalSettings = () => {

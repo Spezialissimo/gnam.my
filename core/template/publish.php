@@ -1,6 +1,6 @@
 <div class="container text-center font-text text-black">
     <div class="row-2 py-2 h4">
-        <h1 class="fw-bold" aria-label="Titolo della pagina: Pubblica Gnam" tabindex="3">Pubblica Gnam</h1>
+        <h1 class="fw-bold">Pubblica Gnam</h1>
     </div>
 
     <div class="row container p-0 m-0 align-content-center">
@@ -274,7 +274,7 @@
         addHandlersToHashtag(newHashtag);
     }
 
-    const addHandlersToHashtag = (hashtag) => {        
+    const addHandlersToHashtag = (hashtag) => {
         $("#removeHashtag-" + hashtag).on("click", function () {
             let indexToRemove = $(this).parent().index();
             hashtags.splice(indexToRemove, 1);

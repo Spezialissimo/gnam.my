@@ -47,19 +47,24 @@ if (isloggedIn() && (PAGE_TITLE == 'Login' || PAGE_TITLE == 'Registrati')) {
 				if (JSON.parse(data).length > 0) {
 					$("#notificationsNavbarImg").attr("src", "assets/notifications-alert.png");
 					if (!notified) {
-						notified = true;
-						let focusedElement = $(':focus');
-						let announceLiveRegion = $('<div>', {
-							role: 'status',
-							'aria-live': 'polite',
-							'aria-atomic': 'true'
-						}).appendTo('body');
-						announceLiveRegion.text("Hai notifiche da leggere!");
-						announceLiveRegion.focus();
-						setTimeout(function() {
-							announceLiveRegion.remove();
-							focusedElement.focus();
-						}, 1000);
+					setTimeout(function() {
+						$("#navbarContentDiv div:first-child a").focus();
+							notified = true;
+							let focusedElement = $(':focus');
+
+							let announceLiveRegion = $('<div>', {
+								role: 'status',
+								'aria-live': 'polite',
+								'aria-atomic': 'true'
+							}).appendTo('body');
+							announceLiveRegion.text("Hai notifiche da leggere!");
+							announceLiveRegion.focus();
+						}, 3000).then(function () {
+							setTimeout(function() {
+								announceLiveRegion.remove();
+								focusedElement.focus();
+							}, 5000);
+						});
 					}
 				} else {
 					$("#notificationsNavbarImg").attr("src", "assets/notifications.png");
@@ -72,7 +77,7 @@ if (isloggedIn() && (PAGE_TITLE == 'Login' || PAGE_TITLE == 'Registrati')) {
 
 		$(window).on("load", function() {
 			checkNotifications();
-			setInterval(checkNotifications, 2000);
+			setInterval(checkNotifications, 5000);
 		});
 	</script>
 	<?php } ?>

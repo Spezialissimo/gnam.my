@@ -11,6 +11,7 @@ const showSwal = (title, html, onClose) => {
         didOpen: () => {
             const modal = Swal.getPopup();
             modal.setAttribute('aria-live', 'off');
+            modal.focus();
         },
         didClose: () => {
             if (onClose) {
@@ -34,6 +35,7 @@ const showSmallSwal = (title, html, onClose) => {
         didOpen: () => {
             const modal = Swal.getPopup();
             modal.setAttribute('aria-live', 'off');
+            modal.focus();
         },
         didClose: () => {
             if (onClose) {

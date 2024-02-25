@@ -72,6 +72,7 @@
     }
 
     $(window).on("load", function() {
+
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.has('gnam')) {
             gnamsQueue = [
@@ -238,7 +239,7 @@
         const slideElement = document.createElement('div');
         slideElement.classList.add("swiper-slide");
         slideElement.classList.add("d-none");
-        slideElement.setAttribute("aria-label", "Video di " + gnamsInfo['user_name']);
+        slideElement.setAttribute("aria-label", `Gnam di ${gnamsInfo['user_name']}, usa freccie su e giù per cambiare Gnam, usa spazio per controllare il video.`);
         slideElement.setAttribute('tabindex', '-1');
         slideElement.id = "gnam-" + gnamsInfo['id'];
         slideElement.innerHTML = gnamHtml.trim();
@@ -380,7 +381,7 @@
                 <div class="container">
                     <div class="col">
                         <div class="row p-1 pb-3">
-                            <span class="text-black">Ingredienti non disponibili, prova a chiederli all'autore dello Gnam!</span>
+                            <span class="text-black" tab-index="1">Ingredienti non disponibili, prova a chiederli all'autore dello Gnam!</span>
                         </div>
                     </div>
                 </div>`;
@@ -406,8 +407,10 @@
             }
             stopCurrentVideo();
             showSwal('Ricetta', html, function() {
-                $("#gnam-" + currentGnamID).attr('tabindex', '1').focus();
                 playCurrentVideo();
+                setTimeout(function() {
+                    $("#recipeButton-" + gnamsInfo['id']).attr('tabindex', '3').focus();
+                }, 100);
             });
             if (gnamsInfo['recipe'].length != 0) {
                 $('#portionsInput').val(selectedPortions);
@@ -555,7 +558,7 @@
                     <div class="container">
                         <div class="col">
                             <div class="row p-1 pb-3">
-                                <span>Sii il primo a commentare!</span>
+                                <span tabindex="1" aria-label="Non ci sono commenti, sii il primo a commentare">Sii il primo a commentare!</span>
                             </div>
                         </div>
                     </div>
@@ -569,6 +572,7 @@
 
             let commentsContainerElement = document.createElement('div');
             commentsContainerElement.classList.add("container");
+            commentsContainerElement.setAttribute("aria-live", "off");
             commentsContainerElement.id = "commentsBoxContainer-" + currentGnamID;
             commentsContainerElement.innerHTML = firstCommentHTML.trim();
             return commentsContainerElement.outerHTML;
@@ -603,7 +607,7 @@
 
             let commentsContainerElement = document.createElement('div');
             commentsContainerElement.classList.add("container");
-            commentsContainerElement.setAttribute("aira-hidden", "true");
+            commentsContainerElement.setAttribute("aria-live", "off");
             commentsContainerElement.id = "commentsBoxContainer-" + currentGnamID;
             commentsContainerElement.innerHTML = commentContainerHTML.trim();
 
@@ -724,7 +728,9 @@
             showSwal('Commenti', getCommentsHTML(comments), function() {
                 playCurrentVideo();
                 commentToReplyID = null;
-                $("#gnam-" + currentGnamID).attr('tabindex', '1').focus();
+                setTimeout(function() {
+                    $("#commentsButton-" + gnam_id).attr('tabindex', '3').focus();
+                }, 100);
             });
             setHandlersForCommentsContainer(comments);
             e.stopPropagation();
