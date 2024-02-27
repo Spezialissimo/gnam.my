@@ -128,8 +128,7 @@
             if (ingredients[i]["measurement_unit"] == "qb") {
                 $(`[id="${i}Quantity"]`).addClass("d-none");
             }
-
-            addHandlersToIngredient(ingredients[i]["name"], i);
+            addHandlersToIngredient(i);
         }
 
         if (ingredients.length == 0) {
@@ -174,14 +173,14 @@
             $("#searchedIngredients").parent().removeClass("d-none");
         }
         ingredients.push({"name": newIngredientName, "quantity": $(`[id="${ingredients.length}Quantity"]`).val(), "measurement_unit": $(`[id="${ingredients.length}MeasurementUnit"]`).val()});
-        addHandlersToIngredient(newIngredientName, ingredients.length - 1);
+        addHandlersToIngredient(ingredients.length - 1);
         $('#searchIngredients').val('');
         $('#ingredientsCount').html(ingredients.length);
     }
 
-    const addHandlersToIngredient = (ingredientId, ingredientIndex) => {
-        let quantityInput = $(`[id="${ingredientId}Quantity"]`);
-        let measurementUnitInput = $(`[id="${ingredientId}MeasurementUnit"]`);
+    const addHandlersToIngredient = (ingredientIndex) => {
+        let quantityInput = $(`[id="${ingredientIndex}Quantity"]`);
+        let measurementUnitInput = $(`[id="${ingredientIndex}MeasurementUnit"]`);
 
         quantityInput.on("change", function() {
             ingredients[ingredientIndex]["quantity"] = quantityInput.val();
@@ -196,9 +195,9 @@
             }
         });
 
-        $(`[id="removeIngredient-${ingredientId}"]`).on("click", function () {
+        $(`[id="removeIngredient-${ingredientIndex}"]`).on("click", function () {
             let ingredientRow = $(this).closest('tr');
-            ingredients = ingredients.filter(ingredient => ingredient["id"] !== ingredientId);
+            ingredients = ingredients.filter(ingredient => ingredient["name"] != ingredientRow.children("td:first-child").text().trim());
             ingredientRow.remove();
             $('#ingredientsCount').html(ingredients.length);
             if (ingredients.length === 0) {
