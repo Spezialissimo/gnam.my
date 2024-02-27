@@ -61,14 +61,14 @@
     const getIngredientHTML = (ingredient) => {
         return `<tr class="row m-0 p-0 align-items-center">
                     <td class="col-4 m-0 p-1" headers="it-header-name">
-                        <p class="m-0 fs-6 text-black" aria-label="Ingrediente: ${ingredient}" tabindex="3">${ingredient}</p>
+                        <p class="m-0 fs-6 text-black" aria-label="Ingrediente: ${ingredient['name']}" tabindex="3">${ingredient['name']}</p>
                     </td>
                     <td class="col-2 m-0 p-1" headers="it-header-quantity">
-                        <input type="number" value="1" min="1" max="100" id="${ingredient}Quantity" class="form-control bg-primary rounded shadow-sm fs-6 px-0 text-center" placeholder="1" aria-label="quantità di ${ingredient}" tabindex="3" />
+                        <input type="number" value="1" min="1" max="100" id="${ingredient['id']}Quantity" class="form-control bg-primary rounded shadow-sm fs-6 px-0 text-center" placeholder="1" aria-label="quantità di ${ingredient['name']}" tabindex="3" />
                     </td>
-                    <td class="col-4 m-0 p-1" headers="it-header-measurement-unit"><select id="${ingredient}MeasurementUnit" class="form-select bg-primary rounded shadow-sm fs-6" aria-label="unità di misura ${ingredient}" tabindex="3">` +
+                    <td class="col-4 m-0 p-1" headers="it-header-measurement-unit"><select id="${ingredient['id']}MeasurementUnit" class="form-select bg-primary rounded shadow-sm fs-6" aria-label="unità di misura ${ingredient['name']}" tabindex="3">` +
                         measurementUnitsOptions + `</select></td>
-                    <td class="col-2 m-0 p-1" headers="it-header-delete"><button type="button" aria-label="Pulsante per rimuovere l'ingrediente: ${ingredient}" tabindex="3" class="btn btn-bounce bg-primary text-black" id="removeIngredient-${ingredient}"><em class="fa-solid fa-trash-can" aria-hidden="true"></em></button></td>
+                    <td class="col-2 m-0 p-1" headers="it-header-delete"><button type="button" aria-label="Pulsante per rimuovere l'ingrediente: ${ingredient['name']}" tabindex="3" class="btn btn-bounce bg-primary text-black" id="removeIngredient-${ingredient['id']}"><em class="fa-solid fa-trash-can" aria-hidden="true"></em></button></td>
                 </tr>`;
     };
 
@@ -98,7 +98,7 @@
                         </tr>
                     </thead>
                     <tbody id="searchedIngredients">
-                        ${ingredients.map(ingredient => getIngredientHTML(ingredient["name"])).join('')}
+                        ${ingredients.map(ingredient => getIngredientHTML(ingredient)).join('')}
                     </tbody>
                 </table>
             </div>
@@ -156,24 +156,24 @@
     }
 
     const addIngredient = () => {
-        let newIngredient = $('#searchIngredients').val().trim();
-        if (!newIngredient || ingredients.some(i => i["name"] === newIngredient)) {
+        let newIngredientName = $('#searchIngredients').val().trim();
+        if (!newIngredientName || ingredients.some(i => i["name"] === newIngredientName)) {
             return;
         }
-        $("#searchedIngredients").append(getIngredientHTML(newIngredient));
+        $("#searchedIngredients").append(getIngredientHTML({"id": ingredients.length, "name": newIngredientName}));
         if (ingredients.length == 0) {
             $("#noIngredientsText").addClass("d-none");
             $("#searchedIngredients").parent().removeClass("d-none");
         }
-        ingredients.push({"name": newIngredient, "quantity": $(`[id="${newIngredient}Quantity"]`).val(), "measurement_unit": $(`[id="${newIngredient}MeasurementUnit"]`).val()});
-        addHandlersToIngredient(newIngredient, ingredients.length - 1);
+        ingredients.push({"id": ingredients.length, "name": newIngredientName, "quantity": $(`[id="${ingredients.length}Quantity"]`).val(), "measurement_unit": $(`[id="${ingredients.length}MeasurementUnit"]`).val()});
+        addHandlersToIngredient(ingredients.length, ingredients.length - 1);
         $('#searchIngredients').val('');
         $('#ingredientsCount').html(ingredients.length);
     }
 
-    const addHandlersToIngredient = (ingredientName, ingredientIndex) => {
-        let quantityInput = $(`[id="${ingredientName}Quantity"]`);
-        let measurementUnitInput = $(`[id="${ingredientName}MeasurementUnit"]`);
+    const addHandlersToIngredient = (ingredientId, ingredientIndex) => {
+        let quantityInput = $(`[id="${ingredientId}Quantity"]`);
+        let measurementUnitInput = $(`[id="${ingredientId}MeasurementUnit"]`);
 
         quantityInput.on("change", function() {
             ingredients[ingredientIndex]["quantity"] = quantityInput.val();
@@ -188,9 +188,9 @@
             }
         });
 
-        $("#removeIngredient-" + ingredientName).on("click", function () {
-            let ingredientRow = $(this).closest('.row');
-            ingredients = ingredients.filter(ingredient => ingredient["name"] !== ingredientName);
+        $(`[id="removeIngredient-${ingredientId}"]`).on("click", function () {
+            let ingredientRow = $(this).closest('tr');
+            ingredients = ingredients.filter(ingredient => ingredient["id"] !== ingredientId);
             ingredientRow.remove();
             $('#ingredientsCount').html(ingredients.length);
             if (ingredients.length === 0) {
@@ -307,6 +307,7 @@
             let html = `<div class="row-md-2 py-2 text-center text-black"><p tabindex="3">Nessun video selezionato!</p><em class="fa-solid fa-triangle-exclamation fa-2xl color-alert" aria-hidden="true"></em></div>`;
             showSmallSwal('Errore!', html);
         } else {
+            debugger;
             let scaledIngredients = [];
             ingredients.forEach(i => {
                 newI = i;
