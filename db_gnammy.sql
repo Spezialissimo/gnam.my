@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Gen 15, 2024 alle 22:44
+-- Creato il: Feb 27, 2024 alle 10:59
 -- Versione del server: 10.4.32-MariaDB
 -- Versione PHP: 8.2.12
 
@@ -20,9 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `db_gnammy`
 --
-
-CREATE DATABASE IF NOT EXISTS `db_gnammy` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `db_gnammy`;
 
 -- --------------------------------------------------------
 
@@ -44,9 +41,17 @@ CREATE TABLE `comments` (
 --
 
 INSERT INTO `comments` (`id`, `user_id`, `gnam_id`, `parent_comment_id`, `text`, `timestamp`) VALUES
-(7, 3, 6, NULL, 'Buoni, li proverò!', '1705354070'),
-(8, 3, 7, NULL, 'Assurda.. bomba! Da provare :D', '1705354081'),
-(9, 2, 7, 8, 'Buono!', '1705354315');
+(1, 1, 1, NULL, 'Ecco il mio primo gnam ragazzi, spero vi piaccia, se avete domande ditemi pure :D', '1709023765'),
+(2, 2, 3, NULL, 'Sembrano ottime per i pranzi in uni!', '1709025270'),
+(3, 3, 1, 1, 'Sembra ottima!', '1709026646'),
+(4, 3, 6, NULL, 'Gnammm :)', '1709026662'),
+(5, 3, 3, 2, 'Vero!', '1709026682'),
+(6, 3, 4, NULL, 'Assurda sembra buonissima. In questi giorni proverò a farla', '1709026707'),
+(7, 4, 6, NULL, 'Buone, sembrano anche molto salutari e gustose', '1709027149'),
+(8, 4, 6, 4, 'Gnam siii, nuova ricetta preferita', '1709027163'),
+(9, 4, 5, NULL, 'Questa me la salvo, squisito!', '1709027177'),
+(10, 3, 2, NULL, 'Al posto delle zucchine posso usare le melanzane anche?', '1709027682'),
+(11, 1, 2, 10, 'Certo. Cambia un po\' il sapore ma dovrebbe venire un\'ottimo piatto', '1709027712');
 
 -- --------------------------------------------------------
 
@@ -66,8 +71,12 @@ CREATE TABLE `following` (
 INSERT INTO `following` (`follower_user_id`, `followed_user_id`) VALUES
 (1, 2),
 (1, 3),
+(1, 4),
 (2, 1),
-(2, 3);
+(2, 3),
+(2, 4),
+(3, 2),
+(3, 4);
 
 -- --------------------------------------------------------
 
@@ -87,16 +96,16 @@ CREATE TABLE `gnams` (
 --
 
 INSERT INTO `gnams` (`id`, `user_id`, `description`, `share_count`) VALUES
-(1, 1, 'Oggi vi mostro la mia ricetta per lo spumone al caffè! Super facile e goloso da preparare senza troppi sforzi.', 0),
-(2, 1, 'Questa pasta è buonissima, facile da preparare, colorata e gustosa. Perfetta per tutti i giorni o le domeniche', 0),
-(3, 1, 'Poco tempo? Molta fame? Queste fantastiche sfoglie di lasagna con pochissimi ingredienti fanno al caso tuo eh!', 0),
-(4, 1, 'Oggi vi presento un dolce tipico della Spagna, la sua bontà è inversamente proporzionale alla sua popolarità... ci siamo capiti :D', 0),
-(5, 1, 'Poco tempo e tanta fame? Ecco una ricetta che fa per te :D', 0),
-(6, 2, ' Voglia matta di qualcosa di fresco? Non c\'è ricetta più fresh di questa', 0),
-(7, 2, 'La stagione delle zuppe è arrivata, e con lei questa ricetta che ti farà impazzire!', 0),
-(8, 3, 'Voglia di un fagottino fragoroso e buono? Questa ricetta è per te, buona, speciale e gustosa!', 0),
-(9, 3, 'Questi biscotti ti piaceranno! Son buonissimi, croccanti, leggeri e fragorosi. Un perfetto abbraccio per cominciare la giornata :D', 0),
-(10, 2, 'Voglia di qualcosa di fresco? Questa zuppa è il top :D', 0);
+(1, 1, 'Cerchi un’idea per una colazione golosa e creativa? Prova queste Crepes al pistacchio con cioccolato al pistacchio senza zuccheri. Un piatto dolce ma leggero per iniziare la giornata al meglio', 0),
+(2, 1, 'LASAGNA DI ZUCCHINE LOW CARB 😋 IN 25 MINUTI! Se anche tu ami la lasagna, questa versione con le zucchine non puoi assolutamente non provarla! SOLO 89kcal a porzione, FACILISSIMA e super sfiziosa! Insomma, la proverai?? 🤩 Lascia un “MI PIACE” è il tuo modo di dirmi grazie 🙏🏻❤️\r\n', 5),
+(3, 1, '🥔 PIADINE SENZA FARINA 3 INGREDIENTI 😋 Senza glutine, senza lievitazione! Se anche tu ami le piadine, devi assolutamente provare questa versione con le patate! Si preparano in 10 minuti, sono MORBIDISSIME e super elastiche! SOLO 73kcal per piadina 😍 E tu, le conoscevi?', 9),
+(4, 2, '🍓TIRAMISÙ AI FRUTTI ROSSI 😋 Senza lattosio, senza glutine, senza zuccheri aggiunti! Questo diventerà uno dei tuoi dolci preferiti, scommettiamo?🥰 Un tiramisù cremosissimo ed allo stesso tempo leggero, si prepara in 5 minuti ed è davvero ADATTO A TUTTI! 🤩\r\nIo come base ho scelto le Madeleine alle Mandorle di Céréal, super morbide, senza glutine, senza zuccheri aggiunti e senza latte!', 21),
+(5, 2, '🍫 TORTA NUVOLA PROTEICA 5 INGREDIENTI ❌ Senza farina, senza lattosio, senza zuccheri aggiunti! 😋 Hai dell’albume in frigo e non sai come consumarlo? Questa torta low carb allora fa proprio al caso tuo! FACILISSIMA ed è adatta proprio a tutti‼️ Scommettiamo che diventerà la tua colazione/merenda preferita?🥰', 3),
+(6, 2, 'PANCAKES DI ZUCCHINE SOLO 3 INGREDIENTI 😋 Pronti in 5 minuti! Lascia un “MI PIACE” è il tuo modo di dirmi grazie 🙏🏻❤️', 1),
+(7, 3, '🍫TARTUFINI AL CIOCCOLATO 3 INGREDIENTI ❌ Senza uova, senza glutine, senza zuccheri aggiunti 😋 Se anche tu dopo pranzo/cena hai sempre voglia di dolce, questi tartufini morbidi con poche calorie, fanno proprio al CASO TUO! Con SOLO 89 calorie, ti ruberanno il cuore… Si preparano in pochissimi minuti e si divorano in pochissimi secondi 🤪', 165),
+(8, 4, '🥔 ROTOLO DI VERDURE 3 INGREDIENTI 🥕 LOW CARB! 😋 Se anche tu ami i rotoli, questa versione di verdure non puoi assolutamente non provarla! FACILISSIMO, light, e super sfizioso; puoi farcirlo come ho fatto io, o prepararne di mille altre varianti… insomma, lo proverai?? 🤩', 15),
+(9, 4, '🌱COTOLETTE DI CECI SOLO 2 INGREDIENTI ❌ Senza uova, senza farina! Spero vi piacciano.', 0),
+(10, 3, '🍯 GRANOLA IN 5 MINUTI 😋 SOLO 4 INGREDIENTI! Se a colazione anche tu ami i cereali croccanti, non puoi non provare questa granola fatta in casa! Perfetta sia nel latte che nello yogurt, si prepara in 5 minuti, ed è adatta proprio a tutti... Io ho scelto come base la Crusca d\'avena Céréal, ricca di fibre, proteine, vitamine e minerali!\r\nInsomma, la proverai?? 🤩', 0);
 
 -- --------------------------------------------------------
 
@@ -115,46 +124,46 @@ CREATE TABLE `gnam_hashtags` (
 
 INSERT INTO `gnam_hashtags` (`hashtag_id`, `gnam_id`) VALUES
 (1, 1),
-(1, 3),
-(1, 9),
 (2, 1),
-(2, 3),
 (2, 4),
 (2, 5),
-(2, 9),
+(2, 10),
 (3, 1),
-(3, 2),
-(3, 3),
-(3, 4),
 (3, 5),
 (3, 7),
 (4, 2),
+(4, 10),
 (5, 2),
-(5, 7),
-(5, 8),
-(5, 10),
+(5, 5),
+(5, 9),
 (6, 2),
-(6, 8),
-(7, 3),
-(7, 4),
-(7, 5),
-(7, 8),
-(7, 10),
-(8, 5),
-(9, 5),
-(9, 9),
-(10, 6),
-(11, 6),
-(12, 7),
-(13, 7),
+(6, 3),
+(7, 2),
+(8, 2),
+(9, 3),
+(10, 3),
+(11, 3),
+(12, 3),
+(13, 3),
 (13, 8),
-(13, 10),
-(14, 7),
-(15, 8),
-(15, 9),
-(16, 8),
-(17, 9),
-(18, 10);
+(14, 4),
+(15, 5),
+(16, 5),
+(17, 6),
+(18, 6),
+(19, 6),
+(20, 6),
+(21, 7),
+(22, 7),
+(23, 7),
+(24, 8),
+(25, 8),
+(26, 9),
+(27, 9),
+(28, 9),
+(29, 10),
+(30, 10),
+(31, 10);
 
 -- --------------------------------------------------------
 
@@ -174,27 +183,36 @@ CREATE TABLE `gnam_ingredients` (
 --
 
 INSERT INTO `gnam_ingredients` (`ingredient_id`, `gnam_id`, `quantity`, `measurement_unit_id`) VALUES
-(1, 1, 200, 1),
-(2, 1, 0, 3),
-(2, 9, 70, 1),
-(3, 2, 250, 1),
-(4, 2, 0, 3),
-(5, 2, 3, 4),
-(5, 7, 1, 4),
-(5, 9, 0, 3),
-(6, 3, 200, 1),
+(1, 2, 500, 1),
+(1, 6, 250, 1),
+(2, 2, 300, 1),
+(3, 2, 0, 3),
+(4, 3, 41.6667, 1),
+(5, 3, 12.5, 1),
+(6, 3, 2.5, 2),
 (7, 3, 0, 3),
-(8, 3, 60, 1),
-(9, 4, 20, 1),
-(10, 4, 150, 2),
-(10, 9, 3, 4),
-(11, 4, 5, 4),
-(12, 7, 30, 1),
-(13, 7, 0, 3),
-(14, 9, 0, 2),
-(15, 10, 0, 3),
-(16, 10, 1, 4),
-(17, 10, 3, 1);
+(7, 6, 0, 3),
+(7, 10, 0, 3),
+(8, 4, 150, 1),
+(9, 4, 250, 1),
+(10, 4, 50, 1),
+(10, 5, 50, 1),
+(11, 4, 0, 3),
+(12, 5, 250, 2),
+(13, 5, 1, 4),
+(13, 7, 50, 1),
+(14, 5, 0, 3),
+(15, 6, 1, 5),
+(16, 6, 40, 1),
+(17, 7, 1000, 2),
+(18, 7, 90, 1),
+(19, 9, 66.6667, 1),
+(20, 9, 1.33333, 4),
+(21, 9, 0, 3),
+(22, 10, 200, 1),
+(23, 10, 100, 1),
+(24, 10, 50, 1),
+(25, 10, 50, 1);
 
 -- --------------------------------------------------------
 
@@ -212,24 +230,37 @@ CREATE TABLE `hashtags` (
 --
 
 INSERT INTO `hashtags` (`id`, `text`) VALUES
-(1, 'Facile'),
-(2, 'Veloce'),
-(3, 'Sano'),
-(4, 'Pasta'),
-(5, 'Life'),
-(6, 'Food'),
+(1, 'Pistacchio'),
+(2, 'Dolce'),
+(3, 'Cioccolato'),
+(4, 'Facile'),
+(5, 'Sano'),
+(6, 'Pranzo'),
 (7, 'Buono'),
-(8, 'Croccante'),
-(9, 'Gustoso'),
-(10, 'Arancia'),
-(11, 'Frutta'),
-(12, 'Calda'),
-(13, 'Good'),
+(8, 'Veloce'),
+(9, 'Piadina'),
+(10, 'Naan'),
+(11, 'Cibo'),
+(12, 'Healthy'),
+(13, 'Patate'),
 (14, 'Fresh'),
-(15, 'Dolce'),
-(16, 'Speciale'),
-(17, 'Fragrante'),
-(18, 'Fresco');
+(15, 'Brownies'),
+(16, 'LowCarb'),
+(17, 'Pancakes'),
+(18, 'Zucchine'),
+(19, 'Fluffy'),
+(20, 'Sandwich'),
+(21, 'Budino'),
+(22, 'Pudding'),
+(23, 'SenzaFarina'),
+(24, 'Rotolo'),
+(25, 'Carote'),
+(26, 'Cotoletta'),
+(27, 'Ceci'),
+(28, 'Veggie'),
+(29, 'Granola'),
+(30, 'Crunchy'),
+(31, 'Colazione');
 
 -- --------------------------------------------------------
 
@@ -247,23 +278,31 @@ CREATE TABLE `ingredients` (
 --
 
 INSERT INTO `ingredients` (`id`, `name`) VALUES
-(1, 'Caffe'),
-(2, 'Zucchero'),
-(3, 'Pasta'),
-(4, 'Pomodorini'),
-(5, 'Pazienza'),
-(6, 'Lattuga'),
-(7, 'Forma'),
-(8, 'Pasta sfoglia'),
-(9, 'Zucchero a velo'),
-(10, 'Farina'),
-(11, 'Latte'),
-(12, 'Zuppa'),
-(13, 'Sale'),
-(14, 'Acqua'),
-(15, 'Sedano'),
-(16, 'Salame'),
-(17, 'Carota');
+(1, 'Zucchine'),
+(2, 'Salsa di pomodoro'),
+(3, 'Mozzarella'),
+(4, 'Patate'),
+(5, 'Fecola di patate'),
+(6, 'Acqua'),
+(7, 'Sale'),
+(8, 'Yogurt'),
+(9, 'Formaggio'),
+(10, 'Zucchero'),
+(11, 'Granella'),
+(12, 'Albume'),
+(13, 'Cacao'),
+(14, 'Cioccolato'),
+(15, 'Uovo'),
+(16, 'Farina'),
+(17, 'Latte'),
+(18, 'Amido'),
+(19, 'Ceci'),
+(20, 'Fecola'),
+(21, 'Spezie'),
+(22, 'Crusca'),
+(23, 'Frutta'),
+(24, 'Olio'),
+(25, 'Miele');
 
 -- --------------------------------------------------------
 
@@ -281,10 +320,16 @@ CREATE TABLE `likes` (
 --
 
 INSERT INTO `likes` (`user_id`, `gnam_id`) VALUES
-(2, 4),
+(1, 2),
+(2, 3),
+(3, 1),
+(3, 2),
+(3, 3),
+(3, 4),
 (3, 6),
-(3, 7),
-(3, 8);
+(4, 5),
+(4, 6),
+(4, 8);
 
 -- --------------------------------------------------------
 
@@ -305,7 +350,8 @@ INSERT INTO `measurement_units` (`id`, `name`) VALUES
 (1, 'gr.'),
 (2, 'ml'),
 (3, 'qb'),
-(4, 'c.ino');
+(4, 'c.ino'),
+(5, 'u.tà');
 
 -- --------------------------------------------------------
 
@@ -328,15 +374,31 @@ CREATE TABLE `notifications` (
 --
 
 INSERT INTO `notifications` (`id`, `source_user_id`, `target_user_id`, `gnam_id`, `notification_type_id`, `timestamp`, `seen`) VALUES
-(8, 3, 2, 6, 1, '1705354064', 0),
-(9, 3, 2, 6, 2, '1705354070', 0),
-(10, 3, 2, 7, 1, '1705354073', 1),
-(11, 3, 2, 7, 2, '1705354081', 0),
-(14, 2, 1, NULL, 3, '1705354131', 0),
-(30, 2, 3, NULL, 3, '1705354282', 0),
-(31, 2, 1, 4, 1, '1705354694', 1),
-(32, 1, 2, NULL, 3, '1705354854', 0),
-(33, 1, 3, NULL, 3, '1705354856', 0);
+(1, 2, 1, 3, 1, '1709025247', 0),
+(2, 2, 1, 3, 2, '1709025270', 0),
+(3, 3, 1, 1, 1, '1709026637', 0),
+(4, 3, 1, 1, 2, '1709026646', 0),
+(5, 3, 2, 6, 1, '1709026655', 0),
+(6, 3, 2, 6, 2, '1709026662', 0),
+(7, 3, 1, 3, 1, '1709026671', 0),
+(8, 3, 1, 3, 2, '1709026682', 0),
+(9, 3, 2, 4, 1, '1709026687', 0),
+(10, 3, 2, 4, 2, '1709026707', 0),
+(11, 4, 2, 6, 1, '1709027135', 0),
+(12, 4, 2, 6, 2, '1709027149', 0),
+(13, 4, 2, 6, 2, '1709027163', 0),
+(14, 4, 2, 5, 1, '1709027168', 0),
+(15, 4, 2, 5, 2, '1709027177', 0),
+(16, 3, 1, 2, 1, '1709027665', 0),
+(17, 3, 1, 2, 2, '1709027682', 1),
+(18, 2, 1, NULL, 3, '1709027782', 0),
+(19, 2, 3, NULL, 3, '1709027797', 0),
+(20, 2, 4, NULL, 3, '1709027800', 0),
+(21, 1, 2, NULL, 3, '1709027817', 0),
+(22, 1, 3, NULL, 3, '1709027822', 0),
+(23, 1, 4, NULL, 3, '1709027827', 0),
+(24, 3, 4, NULL, 3, '1709027839', 0),
+(25, 3, 2, NULL, 3, '1709027842', 0);
 
 -- --------------------------------------------------------
 
@@ -377,9 +439,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `api_key`, `name`, `password`) VALUES
-(1, '0002f8cf-b93d-43a0-90ed-dafb98f02bd2', 'Pier', '$2y$10$K9JuFZ2kFIBi3cTfhHiV3eQJgUbJBFK/EH8V7p3SPMUYXQJPLQK5C'),
-(2, 'd9f20a1c-a73e-478a-b343-8f0132eb5195', 'Pello', '$2y$10$rMf6QpdVvYf56B7.Gdvjb./PMIcs9.TDwpSz8uJVTRwIHsGgwBk9y'),
-(3, '784913f9-3abd-44be-95ee-18b5bba97d30', 'Davide', '$2y$10$5lGgD7aHbW7UH9nCJ0t0huEBz2y/DS9LFnBySSfZuLp3c/oTYocK.');
+(1, '92152d55-aa29-4a8f-b497-7a21ce568951', 'user', '$2y$10$cKp3JI42UnuFKWY7u.bkW.vMutF7CgiPAsuoP5C/4Kq5COWPER.5u'),
+(2, '7f6408d2-089e-4a0e-b080-9d1d57cd7442', 'Pier', '$2y$10$1MhkY67WHgUyhnELMGHamOibe6h1nBH1CL83bWt8pFdOw/YNpHi7m'),
+(3, 'd72b23d7-27a5-4620-a35e-f104fad43d84', 'Pello', '$2y$10$0KEUzUxjgNGhaPJv8A7wo.tjx762bay5HHbFZSOS79P870iIaclgi'),
+(4, 'f4d320ab-42d9-4adf-aec3-9f6d920ad9af', 'Davide', '$2y$10$mPRHj2gffAVZIgVyS/iIWu0ZXFIBch0diNA4SNbrQeEydouiRlXqe');
 
 --
 -- Indici per le tabelle scaricate
@@ -478,7 +541,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT per la tabella `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT per la tabella `gnams`
@@ -490,25 +553,25 @@ ALTER TABLE `gnams`
 -- AUTO_INCREMENT per la tabella `hashtags`
 --
 ALTER TABLE `hashtags`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT per la tabella `ingredients`
 --
 ALTER TABLE `ingredients`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT per la tabella `measurement_units`
 --
 ALTER TABLE `measurement_units`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT per la tabella `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT per la tabella `notification_types`
@@ -520,7 +583,7 @@ ALTER TABLE `notification_types`
 -- AUTO_INCREMENT per la tabella `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Limiti per le tabelle scaricate
