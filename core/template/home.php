@@ -354,7 +354,7 @@
                     <div class='col'>
                         <div class='row-9 py-4'><em class='fa-solid fa-share-nodes fa-2xl' aria-hidden="true"></em></div>
                         <div class='row-3 pt-3'><button type='button' class='btn btn-bounce rounded-pill bg-accent fw-bold
-                                text-white' id="copyGnamLinkButton">Copia link</button></div>
+                                text-white' id="copyGnamLinkButton" aria-label="Pulsante per copiare il link dello gnam" tabindex="3">Copia link</button></div>
                     </div>
                 </div>
             </div>`;
@@ -389,7 +389,7 @@
                 html = `
                     <div class="d-flex align-items-center justify-content-center mb-2">
                         <p class="m-0 me-2 fs-6 text-black">Numero di porzioni:</p>
-                        <input type="number" value="1" min="1" max="100" class="form-control bg-primary rounded shadow-sm fs-6 fw-bold text-center" id="portionsInput" title="numero di porzioni" aria-label="numero di porzioni" />
+                        <input type="number" value="1" min="1" max="100" class="form-control bg-primary rounded shadow-sm fs-6 fw-bold text-center" id="portionsInput" aria-label="numero di porzioni" tabindex="3" />
                     </div>
                     <div class="text-center text-black" id="ingredients-${gnamsInfo['id']}">
                         <table class='w-100' aria-label='Tabella ingredienti' tabindex="3">

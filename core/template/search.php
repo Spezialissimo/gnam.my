@@ -143,7 +143,7 @@
             let rowDiv = $('<div class="row my-3">');
 
             for (let o in currentResult) {
-                let img = $(`<img class="img-grid px-2 col-4 btn-bounce cursor-pointer" id="searchResultGnam-${currentResult[o].id}" alt="Copertina gnam di ${currentResult[o].name}" src="assets/gnams_thumbnails/${currentResult[o].id}.jpg" aria-label="Copertina dello gnam ${rowDiv.children.length + (3 - gnamPerRow) + 1} di ${currentResult[o].name}"  tabindex="3" />`);
+                let img = $(`<img class="img-grid px-2 col-4 btn-bounce cursor-pointer" id="searchResultGnam-${currentResult[o].id}" alt="Copertina gnam di ${currentResult[o].name}" src="assets/gnams_thumbnails/${currentResult[o].id}.jpg" aria-label="Copertina dello gnam ${parseInt(o) + 1} dei risultati"  tabindex="3" />`);
                 rowDiv.append(img);
                 gnamPerRow--;
 

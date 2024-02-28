@@ -9,7 +9,7 @@
             if (count($notifications) > 0) { ?>
             <div class="container h-auto w-auto" id="notificationsContainer">
                 <?php foreach ($notifications as $notification) { ?>
-                <div class="row m-1 p-0" aria-label="Notifica con testo: <?php echo $notification["source_user_name"] . $notification["template_text"] ?>" tabindex="3" role="button">
+                <div class="row m-1 p-0" aria-label="Notifica con testo: <?php echo $notification["source_user_name"] . $notification["template_text"] ?>, arrivata <?php echo formatTimestampDiff($notification["timestamp"], time()); ?> fa" tabindex="3" role="button">
                     <a id="notification<?php echo $notification['notification_id'] ?>" class="btn btn-bounce rounded-pill bg-primary p-2 notification-pill-text notification-btn d-flex flex-row align-items-center justify-content-between">
                         <img class="border border-1 border-dark rounded-circle me-3 me-md-4" style="width: 10%" alt="<?php echo $notification['source_user_name'] ?>" src="<?php echo 'assets/profile_pictures/' . $notification['source_user_id'] . '.jpg' ?>" />
                         <div class="m-0 text-link d-inline"><?php echo $notification["source_user_name"];?><span class="m-0 text-black fw-normal"> <?php echo $notification["template_text"];?></span></div>

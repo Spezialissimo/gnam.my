@@ -258,7 +258,7 @@ video {
 }
 
 h1.hide{
-	background-image: url("http://localhost:41062/gnam.my-Accattivante-accessibile/assets/logo.png");
+	background-image: url("../assets/logo.png");
 	background-size: contain;
 	background-repeat: no-repeat;
 	margin: 0;

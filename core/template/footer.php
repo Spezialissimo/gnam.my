@@ -4,7 +4,7 @@
 	</main>
 	<nav class="m-0" aria-live="off">
 		<header>
-			<h1 class="hide">Gnammy</h1>
+			<h1 class="hide" tabindex="1" aria-label="Logo del sito: Gnammy">Gnammy</h1>
 		</header>
 		<div class="w-100 d-flex" id="navbarContentDiv">
 			<div class="btn-bounce d-flex flex-row align-items-center justify-content-center">
