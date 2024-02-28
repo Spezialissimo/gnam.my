@@ -188,7 +188,7 @@ $userLikedGnams = getUserLikedGnams($user['id']);
                     if(count($followers) > 0) {
                         foreach ($followers as $f) {
                             echo '
-                                <li class="list-group-item bg border-0 btn-bounce"><a href="profile.php?user=' . $f['id'] . '" class="text-link" tablindex="1" tabindex="1" role="button" aria-label="Vai al profilo di ' . $f['name'] . '">
+                                <li class="list-group-item bg border-0 btn-bounce"><a href="profile.php?user=' . $f['id'] . '" class="text-link" tabindex="1" role="button" aria-label="Vai al profilo di ' . $f['name'] . '">
                                     <div class="container">
                                         <div class="row">
                                             <div class="col-2 d-flex flex-wrap align-items-center p-0"><img class="border border-2 border-dark rounded-circle w-100 align-middle" alt="Foto profilo di ' . $f['name'] . '" src="assets/profile_pictures/' . $f['id'] . '.jpg" /></div>
