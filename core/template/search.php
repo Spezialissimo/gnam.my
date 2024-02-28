@@ -105,7 +105,7 @@
     }
 
     const addHandlersToIngredient = (ingredient) => {
-        $("#removeIngredient-" + ingredient).on("click", function () {
+        $(`[id="removeIngredient-${ingredient}"]`).on("click", function () {
             let indexToRemove = $(this).parent().index();
             ingredients.splice(indexToRemove, 1);
             $(this).parent().remove();
