@@ -1,6 +1,6 @@
 <div class="container text-center font-text text-black">
     <div class="row-2 py-2">
-        <h1 class="fw-bold">Notifiche</h1>
+        <h2 class="fw-bold">Notifiche</h2>
     </div>
     <div class="row-md-8 align-content-center">
         <?php

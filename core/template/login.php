@@ -1,5 +1,8 @@
 <div class="align-content-center p-4 h-100">
-    <h1 class="fw-bold">Accedi</h1>
+    <header class="header-log-sign">
+        <h1 class="hide center logo-center">Gnammy</h1>
+        <h2 class="fw-bold">Accedi</h2>
+    </header>
     <input type="text" class="form-control bg-primary rounded shadow-sm mb-3 mt-3" placeholder="Username" id="username" aria-label="Input di testo per inserire l'username" tabindex="3" />
     <input type="password" class="form-control bg-primary rounded shadow-sm mb-3 mt-4" placeholder="Password" id="password" aria-label="Input di testo per inserire la password" tabindex="3" />
     <button type="button" class="btn btn-bounce rounded-pill bg-accent fw-bold text-white w-50 mt-3" id="loginButton" aria-label="Pulsante per effettuare il login" tabindex="3">Login</button>

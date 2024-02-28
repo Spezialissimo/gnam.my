@@ -1,6 +1,6 @@
 <div class="container text-center font-text text-black">
     <div class="row-2 py-2">
-        <h1 class="fw-bold">Cerca</h1>
+        <h2 class="fw-bold">Cerca</h2>
     </div>
     <!-- search field -->
     <div class="row-md-2 py-2">

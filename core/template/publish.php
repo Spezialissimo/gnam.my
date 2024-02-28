@@ -1,24 +1,24 @@
 <div class="container text-center font-text text-black">
     <div class="row-2 py-2 h4">
-        <h1 class="fw-bold">Pubblica Gnam</h1>
+        <h2 class="fw-bold">Pubblica Gnam</h2>
     </div>
 
     <div class="row container p-0 m-0 align-content-center">
         <!-- video chooser field -->
         <div class="row-md px-4 h4">
-            <h2 class="fw-bold">Scegli video</h2>
+            <h3 class="fw-bold">Scegli video</h3>
             <input type="file" class="form-control bg-primary rounded shadow-sm" id="videoInput" accept="video/mp4" aria-label="Seleziona il file con il video dello gnam che vuoi pubblicare" tabindex="3" />
             <video id="hiddenVideoDiv" class="d-none position-absolute" style="height: 1px!important; width: 1px!important"></video>
             <canvas id="videoCanvas" class="d-none"></canvas>
         </div>
         <!-- thumbnail chooser field -->
         <div class="row-md px-4 h4">
-            <h2 class="fw-bold">Scegli copertina</h2>
+            <h3 class="fw-bold">Scegli copertina</h3>
             <input type="file" class="form-control bg-primary rounded shadow-sm" id="thumbnailInput" accept="image/jpg, image/jpeg, image/png" aria-label="Seleziona il file con la copertina dello gnam che vuoi pubblicare" tabindex="3" />
         </div>
         <!-- description field -->
         <div class="row-md-6 px-4 h4">
-            <h2 class="fw-bold">Descrizione</h2>
+            <h3 class="fw-bold">Descrizione</h3>
             <textarea class="form-control bg-primary rounded shadow-sm" rows="3" id="descriptionInput" aria-label="Inserisci la descrizione dello gnam che vuoi pubblicare" tabindex="3"></textarea>
         </div>
         <!-- ingredients -->

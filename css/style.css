@@ -236,6 +236,7 @@ span[id^="videoDescription"] {
 
 nav {
 	z-index: 2!important;
+	position: relative;
 }
 
 body.swal2-height-auto {
@@ -250,11 +251,50 @@ video {
 	object-fit: cover;
 }
 
-/* *:focus {
-	outline: 2px solid #d71ef7 !important;
-} */
+.hide{
+	text-indent:100%;
+	white-space:nowrap;
+	overflow:hidden;
+}
+
+h1.hide{
+	background-image: url("http://localhost:41062/gnam.my-Accattivante-accessibile/assets/logo.png");
+	background-size: contain;
+	background-repeat: no-repeat;
+	margin: 0;
+	height: 100%;
+	background-position: left;
+    margin-left: 4%;
+}
+
+.logo-center {
+	background-position: center !important;
+    margin-left: 0 !important;
+	height: 80%!important;
+}
+
+.header-log-sign {
+	height: 30% !important;
+    width: 100%;
+}
+
+h2 {
+	text-align: center;
+}
+
+
+
+header {
+	height: 10%;
+}
+
 
 @media (orientation:portrait) {
+
+	nav header {
+		display: none;
+	}
+
 	#pageContainer {
 		flex-direction: column;
 		justify-content: space-between;
@@ -263,7 +303,7 @@ video {
 
 	main {
 		width: 100%;
-		height: 100%;
+		height: 90%;
 	}
 
 	#mainDiv {
@@ -314,7 +354,7 @@ video {
 @media (orientation:landscape) {
 	main {
 		width: 100%;
-		height: 100%;
+		height: 90%;
 	}
 
 	#mainDiv {

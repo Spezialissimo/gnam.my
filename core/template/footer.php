@@ -3,6 +3,9 @@
 		</div>
 	</main>
 	<nav class="m-0" aria-live="off">
+		<header>
+			<h1 class="hide">Gnammy</h1>
+		</header>
 		<div class="w-100 d-flex" id="navbarContentDiv">
 			<div class="btn-bounce d-flex flex-row align-items-center justify-content-center">
 				<a href="home.php" class="d-flex border-0 align-self-center" role="button" tabindex="1" aria-label="Vai alla pagina home">
