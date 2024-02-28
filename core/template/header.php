@@ -15,7 +15,7 @@ if (isloggedIn() && (PAGE_TITLE == 'Login' || PAGE_TITLE == 'Registrati')) {
 <html lang="it" class="h-100">
 <head>
 	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 	<link rel="icon" href="assets/favicon.png" type="image/x-icon" />
     <link rel="shortcut icon" href="assets/favicon.png" type="image/x-icon" />
 

@@ -343,6 +343,8 @@ header {
 		margin: 0 1vw!important;
 		width: 10vh!important;
 		height: 10vh!important;
+		max-width: 18vw;
+		max-height: 18vw;
 	}
 
 	#navbarContentDiv > div > a > img {
