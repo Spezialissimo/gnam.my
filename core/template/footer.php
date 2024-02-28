@@ -28,7 +28,8 @@
 			</div>
 			<div class="btn-bounce d-flex flex-row align-items-center justify-content-center">
 				<a href="profile.php" class="d-flex border-0 align-self-center" role="button" tabindex="1" aria-label="Vai alla pagina per vedere il tuo profilo">
-					<img class="bg-primary align-self-center" alt="Pagina Profilo" src="assets/profile.png" /><span class="nav-text text-button fw-semibold color-accent">Profilo</a>
+					<img class="bg-primary align-self-center" alt="Pagina Profilo" src="assets/profile.png" />
+					<span class="nav-text text-button fw-semibold color-accent">Profilo</span>
 				</a>
 			</div>
 		</div>
