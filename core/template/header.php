@@ -54,7 +54,7 @@ if (isloggedIn() && (PAGE_TITLE == 'Login' || PAGE_TITLE == 'Registrati')) {
 								role: 'status',
 								'aria-live': 'polite',
 								'aria-atomic': 'true',
-								class: 'text-hide'
+								class: 'screenreader'
 							}).appendTo('body');
 							announceLiveRegion.text("Hai notifiche da leggere!");
 							focusedElement = document.activeElement;
