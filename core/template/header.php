@@ -41,30 +41,29 @@ if (isloggedIn() && (PAGE_TITLE == 'Login' || PAGE_TITLE == 'Registrati')) {
 	<?php if (isloggedIn()) { ?>
 	<script>
 		let notified = false;
+		let focusedElement;
 
 		const checkNotifications = () => {
 			$.get("api/notifications.php", { api_key: "<?php echo $_SESSION['api_key']; ?>" }, function(data) {
 				if (JSON.parse(data).length > 0) {
 					$("#notificationsNavbarImg").attr("src", "assets/notifications-alert.png");
 					if (!notified) {
-					setTimeout(function() {
-						$("#navbarContentDiv div:first-child a").focus();
+						setTimeout(function() {
 							notified = true;
-							let focusedElement = $(':focus');
-
 							let announceLiveRegion = $('<div>', {
 								role: 'status',
 								'aria-live': 'polite',
-								'aria-atomic': 'true'
+								'aria-atomic': 'true',
+								class: 'text-hide'
 							}).appendTo('body');
 							announceLiveRegion.text("Hai notifiche da leggere!");
+							focusedElement = document.activeElement;
 							announceLiveRegion.focus();
-						}, 3000).then(function () {
-							setTimeout(function() {
-								announceLiveRegion.remove();
-								focusedElement.focus();
-							}, 5000);
-						});
+						}, 3000);
+						setTimeout(function() {
+							focusedElement.focus();
+							$('[role="status"]').remove();
+						}, 5000);
 					}
 				} else {
 					$("#notificationsNavbarImg").attr("src", "assets/notifications.png");

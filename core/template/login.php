@@ -1,6 +1,6 @@
 <div class="align-content-center p-4 h-100">
     <header class="header-log-sign">
-        <h1 class="hide center logo-center" tabindex="1" aria-label="Logo del sito: Gnammy">Gnammy</h1>
+        <h1 class="hide center logo-center">Gnammy</h1>
         <h2 class="fw-bold">Accedi</h2>
     </header>
     <input type="text" class="form-control bg-primary rounded shadow-sm mb-3 mt-3" placeholder="Username" id="username" aria-label="Input di testo per inserire l'username" tabindex="3" />
