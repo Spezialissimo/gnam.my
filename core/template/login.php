@@ -9,6 +9,7 @@
     <hr class="mt-3 w-75" />
     <p class="h6 fw-bold">Non hai un account?</p>
     <a href="register.php" role="button" class="btn btn-bounce rounded-pill bg-accent fw-bold text-white" aria-label="Pulsante per registrarsi" tabindex="3">Registrati</a>
+    <button type="button" class="btn btn-bounce rounded bg-alert fw-bold text-white w-50 mt-3" id="loginDemoButton" aria-label="Login with demo account" tabindex="3">Login with demo account</button>
 </div>
 
 <script>
@@ -32,6 +33,21 @@
         });
     }
 
+    const loginDemo = () => {
+        const username = "Davide";
+        const password = "Davide";
+
+        $.post("api/login.php", {
+            "username": username,
+            "password": password
+        }, (result) => {
+            let decodedResult = JSON.parse(result);
+            if (decodedResult.status === "success") {
+                showToast(decodedResult.status, "<p class='fs-6 text-center pt-3'>" + decodedResult.message + "</p>", "home.php");
+            } else showToast(decodedResult.status, "<p class='fs-6 text-center pt-3'>" + decodedResult.message + "</p>");
+        });
+    }
+
     document.onkeypress = function(e) {
         if (e.keyCode == 13) {
             login();
@@ -39,4 +55,5 @@
     }
 
     $("#loginButton").on("click", login);
+    $("#loginDemoButton").on("click", loginDemo);
 </script>
