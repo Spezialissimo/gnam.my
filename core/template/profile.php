@@ -24,17 +24,17 @@ $userLikedGnams = getUserLikedGnams($user['id']);
             </div>
             <div class="row">
                 <a id="followerButton" class="col p-0 text-link" aria-label="Follower di <?php echo $user['name'] ?>, <?php echo count($followers); ?>" tabindex="3" role="button">
-                    <p class="fw-bold p-0 mb-0">Follower</p>
+                    <p class="fw-bold p-0 mb-0">Followers</p>
                     <p class="fw-normal " id="followersCount"><?php echo count($followers); ?></p>
                 </a>
                 <a id="followedButton" class="col p-0 text-link" aria-label="Seguiti di <?php echo $user['name'] ?>, <?php echo count($followed); ?>" tabindex="3" role="button">
                     <div class="col p-0">
-                        <p class="fw-bold mb-0">Seguiti</p>
+                        <p class="fw-bold mb-0">Following</p>
                         <p class="fw-normal "><?php echo count($followed); ?></p>
                     </div>
                 </a>
                 <div class="col p-0 text-link" aria-label="Gnam pubblicati da <?php echo $user['name'] ?>, <?php echo count($userGnams); ?>" tabindex="3" role="button">
-                    <p class="fw-bold mb-0">Gnam</p>
+                    <p class="fw-bold mb-0">Gnams</p>
                     <p class="fw-normal "><?php echo count($userGnams); ?></p>
                 </div>
             </div>
@@ -46,15 +46,15 @@ $userLikedGnams = getUserLikedGnams($user['id']);
     <div class="row justify-content-center">
         <?php if($user['id'] != $_SESSION['id']) { ?>
             <div class="col-md-4 col-6">
-                <button type="button" class="btn btn-bounce rounded-pill bg-secondary fw-bold text-white w-100" id="followButton" aria-label="Pulsante per <?php echo isCurrentUserFollowing($user['id']) ? "smettere di seguire l'utente" : "seguire l'utente" ?>" tabindex="3"><?php echo isCurrentUserFollowing($user['id']) ? "Seguito" : "Segui" ?></button>
+                <button type="button" class="btn btn-bounce rounded-pill bg-secondary fw-bold text-white w-100" id="followButton" aria-label="Pulsante per <?php echo isCurrentUserFollowing($user['id']) ? "smettere di seguire l'utente" : "seguire l'utente" ?>" tabindex="3"><?php echo isCurrentUserFollowing($user['id']) ? "Following" : "Follow" ?></button>
             </div>
         <?php } ?>
         <div class="col-md-4 col-6">
-            <button id="shareButton" type="button" class="btn btn-bounce rounded-pill bg-secondary fw-bold text-white w-100" aria-label="Pulsante per condividere il profilo" tabindex="3">Condividi</button>
+            <button id="shareButton" type="button" class="btn btn-bounce rounded-pill bg-secondary fw-bold text-white w-100" aria-label="Pulsante per condividere il profilo" tabindex="3">Share</button>
         </div>
         <?php if($user['id'] == $_SESSION['id']) { ?>
             <div class="col-md-4 col-6">
-                <button id="settingsButton" type="button" class="btn btn-bounce rounded-pill bg-secondary fw-bold text-white w-100" aria-label="Pulsante per modificare le impostazioni del profilo" tabindex="3">Impostazioni</button>
+                <button id="settingsButton" type="button" class="btn btn-bounce rounded-pill bg-secondary fw-bold text-white w-100" aria-label="Pulsante per modificare le impostazioni del profilo" tabindex="3">Settings</button>
             </div>
         <?php } ?>
     </div>
@@ -64,11 +64,11 @@ $userLikedGnams = getUserLikedGnams($user['id']);
     <div class="row align-items-center text-center mt-2">
         <div class="col-1"></div>
         <div class="col-3 cursor-pointer">
-            <p class="mb-0 fw-bold" id="allPostsButton" aria-label="Sezione degli gnam postati da <?php echo $user['name'] ?>" tabindex="3">Post</p>
+            <p class="mb-0 fw-bold" id="allPostsButton" aria-label="Sezione degli gnam postati da <?php echo $user['name'] ?>" tabindex="3">Gnams</p>
         </div>
         <div class="col-2"></div>
         <div class="col-5 cursor-pointer">
-            <p class="mb-0" id="likedPostsButton" aria-label="Sezione degli gnam piaciuti a <?php echo $user['name'] ?>" tabindex="3">Gnam Piaciuti</p>
+            <p class="mb-0" id="likedPostsButton" aria-label="Sezione degli gnam piaciuti a <?php echo $user['name'] ?>" tabindex="3">Liked</p>
         </div>
         <div class="col-1"></div>
     </div>
@@ -96,7 +96,7 @@ $userLikedGnams = getUserLikedGnams($user['id']);
             } else {
                 echo '
                 <div class="row text-center mt-3">
-                    <div class="fs-6" tabindex="3">Nessuno Gnam pubblicato.</div>
+                    <div class="fs-6" tabindex="3">Your profile is empty.</div>
                 </div>
                 ';
             }
@@ -120,7 +120,7 @@ $userLikedGnams = getUserLikedGnams($user['id']);
             } else {
                 echo '
                 <div class="row text-center mt-3">
-                    <div class="fs-6" tabindex="3">Nessuno Gnam fra i preferiti.</div>
+                    <div class="fs-6" tabindex="3">You don\'t have any liked gnams.</div>
                 </div>
                 ';
             }
@@ -175,7 +175,7 @@ $userLikedGnams = getUserLikedGnams($user['id']);
                 </div>
             </div>
         `;
-        showSmallSwal('Condividi Profilo', swalContent);
+        showSmallSwal('Share Profile', swalContent);
         $("#copyLinkButton").on("click", function() {
             copyToClipboard(window.location.href + "?user=<?php echo $user['id'] ?>");
         });
@@ -198,11 +198,11 @@ $userLikedGnams = getUserLikedGnams($user['id']);
                                 </a></li>';
                         }
                     } else {
-                        echo 'Nessun follower.';
+                        echo 'You don\'t have any followers.';
                     }
                 ?>
             </ul>`;
-        showSwal('Follower', swalContent);
+        showSwal('Followers', swalContent);
     }
 
     const showSwalFollowed = () => {
@@ -223,11 +223,11 @@ $userLikedGnams = getUserLikedGnams($user['id']);
                             ';
                         }
                     } else {
-                        echo 'Nessun utente seguito.';
+                        echo 'You don\'t have any following.';
                     }
                 ?>
             </ul>`;
-        showSwal('Seguiti', swalContent);
+        showSwal('Following', swalContent);
 
     }
 
@@ -237,13 +237,13 @@ $userLikedGnams = getUserLikedGnams($user['id']);
                 <div class='container px-0'>
                     <div class='row mb-3'>
                         <div class='col'>
-                            <p class="fs-5 text-black">Cambia immagine profilo:</p>
+                            <p class="fs-5 text-black">Change profile image:</p>
                             <input type="file" class="form-control bg-primary rounded shadow-sm" id="newProfileImage" aria-label="Seleziona il file della nuova immagine di profilo" tabindex="3" />
                         </div>
                     </div>
                     <div class='row justify-content-center'>
                         <div class='col-4' id="saveButton">
-                            <a role='button' class='btn btn-bounce rounded-pill bg-accent fw-bold text-white' aria-label="Pulsante per salvare la nuova immagine caricata" tabindex="3">Salva</a>
+                            <a role='button' class='btn btn-bounce rounded-pill bg-accent fw-bold text-white' aria-label="Pulsante per salvare la nuova immagine caricata" tabindex="3">Save</a>
                         </div>
                         <div class='col-5' id="logoutButton">
                             <a role='button' class='btn btn-bounce rounded-pill bg-alert fw-bold text-white' aria-label="Pulsante per eseguire il logout" tabindex="3">Log out</a>
@@ -252,7 +252,7 @@ $userLikedGnams = getUserLikedGnams($user['id']);
                 </div>
             </div>
         `;
-        showSwal('Impostazioni', swalContent);
+        showSwal('Settings', swalContent);
 
         $(document).ready(function() {
             $('#saveButton').hide();

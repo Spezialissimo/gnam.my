@@ -32,7 +32,7 @@ function register($username, $password) {
     $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     if (count($rows) > 0) {
-        return response("error", "Username già in uso.");
+        return response("error", "Username already in use.");
     }
 
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
@@ -44,7 +44,7 @@ function register($username, $password) {
     $stmt->bindParam(':passwordHash', $hashed_password);
     $stmt->execute();
 
-    return response("success", "Utente registrato.");
+    return response("success", "User registered.");
 }
 
 function login($username, $password) {
@@ -56,7 +56,7 @@ function login($username, $password) {
     $rows = $stmt->fetch();
 
     if (!$rows) {
-        return response("error", "Nessun utente trovato.");
+        return response("error", "No user found.");
     }
 
     $real_password = ($rows['password']);
@@ -68,9 +68,9 @@ function login($username, $password) {
         $_SESSION['api_key'] = $rows['api_key'];
         $_SESSION['username'] = $rows['name'];
 
-        return response("success", "Fatto! Ti stiamo reindirizzando...");
+        return response("success", "Done! You are being redirected...");
     } else {
-        return response("error", "Credenziali non valide.");
+        return response("error", "Invalid credentials.");
     }
 }
 
@@ -174,12 +174,12 @@ function toggleFollowUser($user_id, $targetUser) {
     global $db;
 
     if ($user_id == $targetUser) {
-        return response("error", "Non puoi seguire te stesso.");
+        return response("error", "You can't follow yourself.");
     }
 
     $userToFollow = getUser($targetUser);
     if ($userToFollow == false) {
-        return response("error", "Utente non trovato.");
+        return response("error", "User not found.");
     }
 
     $stmt = $db->prepare("SELECT * FROM `following` WHERE `follower_user_id` = :follower_user_id AND `followed_user_id` = :followed_user_id");
@@ -193,13 +193,13 @@ function toggleFollowUser($user_id, $targetUser) {
         $stmt->bindParam(':follower_user_id', $user_id);
         $stmt->bindParam(':followed_user_id', $userToFollow["id"]);
         $stmt->execute();
-        return response("success", "Segui");
+        return response("success", "Follow");
     } else {
         $stmt = $db->prepare("INSERT INTO `following` (`follower_user_id`, `followed_user_id`) VALUES (:follower_user_id, :followed_user_id)");
         $stmt->bindParam(':follower_user_id', $user_id);
         $stmt->bindParam(':followed_user_id', $userToFollow["id"]);
         $stmt->execute();
-        return response("success", "Seguito");
+        return response("success", "Followed");
     }
 }
 
@@ -424,7 +424,7 @@ function addNotification($source_user_id, $target_user_id, $gnam_id, $notificati
     $stmt->bindParam(':notification_type_id', $notification_type_id);
     $stmt->bindParam(':timestamp', $timestamp);
     $stmt->execute();
-    return response("success", "Notifica aggiunta.");
+    return response("success", "Notification added.");
 }
 
 function deleteNotification($source_user_id, $target_user_id, $gnam_id, $notification_type_id) {
@@ -443,5 +443,5 @@ function deleteNotification($source_user_id, $target_user_id, $gnam_id, $notific
         $stmt->bindParam(':notification_type_id', $notification_type_id);
         $stmt->execute();
     }
-    return response("success", "Notifica eliminata.");
+    return response("success", "Notification deleted.");
 }

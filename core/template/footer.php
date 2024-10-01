@@ -14,25 +14,25 @@
 			</div>
 			<div class="btn-bounce d-flex flex-row align-items-center justify-content-center">
 				<a href="search.php" class="d-flex border-0 align-self-center" role="button" tabindex="1" aria-label="Vai alla pagina per cercare gnam">
-					<img class="bg-primary align-self-center" alt="Pagina Cerca" src="assets/search.png" /><span class="nav-text text-button fw-semibold color-accent">Cerca</span>
+					<img class="bg-primary align-self-center" alt="Pagina Cerca" src="assets/search.png" /><span class="nav-text text-button fw-semibold color-accent">Search</span>
 				</a>
 			</div>
 			<div class="btn-bounce d-flex flex-row align-items-center justify-content-center">
 				<a href="publish.php" class="d-flex border-0 align-self-center" role="button" tabindex="1" aria-label="Vai alla pagina per pubblicare uno gnam">
 					<img class="bg-primary align-self-center" alt="Pagina Pubblica" src="assets/publish.png" />
-					<span class="nav-text text-button fw-semibold color-accent">Pubblica</span>
+					<span class="nav-text text-button fw-semibold color-accent">Publish</span>
 				</a>
 			</div>
 			<div class="btn-bounce d-flex flex-row align-items-center justify-content-center">
 				<a href="notifications.php" class="d-flex border-0 align-self-center" role="button" tabindex="1" aria-label="Vai alla pagina per vedere le notifiche">
 					<img class="bg-primary align-self-center" alt="Pagina Notifiche" src="assets/notifications.png" id="notificationsNavbarImg" />
-					<span class="nav-text text-button fw-semibold color-accent">Notifiche</span>
+					<span class="nav-text text-button fw-semibold color-accent">Notification</span>
 				</a>
 			</div>
 			<div class="btn-bounce d-flex flex-row align-items-center justify-content-center">
 				<a href="profile.php" class="d-flex border-0 align-self-center" role="button" tabindex="1" aria-label="Vai alla pagina per vedere il tuo profilo">
 					<img class="bg-primary align-self-center" alt="Pagina Profilo" src="assets/profile.png" />
-					<span class="nav-text text-button fw-semibold color-accent">Profilo</span>
+					<span class="nav-text text-button fw-semibold color-accent">Profile</span>
 				</a>
 			</div>
 		</div>

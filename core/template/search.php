@@ -1,19 +1,19 @@
 <div class="container text-center font-text text-black">
     <div class="row-2 py-2">
-        <h2 class="fw-bold">Cerca</h2>
+        <h2 class="fw-bold">Search</h2>
     </div>
     <!-- search field -->
     <div class="row-md-2 py-2">
         <div class="input-group rounded" id="searchBar">
             <span class="input-group-text bg-primary border-0 shadow-sm cursor-pointer" id="searchIcon"><em class="fa-solid fa-magnifying-glass" aria-hidden="true"></em></span>
-            <input type="text" class="form-control bg-primary shadow-sm" placeholder="Cerca" id="searchBarInput" aria-label="Input di testo per la ricerca di gnam" tabindex="3" <?php if (isset($_GET["q"])) { echo 'value="' . $_GET["q"] . '" '; } ?>/>
+            <input type="text" class="form-control bg-primary shadow-sm" placeholder="Search" id="searchBarInput" aria-label="Input di testo per la ricerca di gnam" tabindex="3" <?php if (isset($_GET["q"])) { echo 'value="' . $_GET["q"] . '" '; } ?>/>
     	</div>
     </div>
     <!-- ingredients -->
     <div class="row-md-2 py-2">
         <!-- Button con counter -->
         <button type="button" class="btn btn-bounce rounded-pill bg-secondary fw-bold text-white" id="ingredientsButton" aria-label="Pulsante per inserire ingredienti che devono comparire negli gnam cercati" tabindex="3">
-            Ingredienti <span class="badge rounded-pill bg-accent" id="ingredientsCount">0</span>
+            Ingredients <span class="badge rounded-pill bg-accent" id="ingredientsCount">0</span>
         </button>
     </div>
 </div>
@@ -45,11 +45,11 @@
         let html = `<div class="row-md-2 py-2">
                         <div class="input-group rounded">
                             <span class="input-group-text bg-primary border-0 shadow-sm cursor-pointer" id="searchIngredientsIcon"><em class="fa-solid fa-magnifying-glass"></em></span>
-                            <input type="text" id="ingredientInput" class="form-control bg-primary shadow-sm" placeholder="Cerca Ingredienti" aria-label="Input di testo per inserire i ingredienti" tabindex="3" />
+                            <input type="text" id="ingredientInput" class="form-control bg-primary shadow-sm" placeholder="Search Ingredients" aria-label="Input di testo per inserire i ingredienti" tabindex="3" />
                         </div>
                     </div>
                     <hr />
-                    <p id="noIngredientsText" class="d-none text-black" tabindex="3">Non hai selezionato ingredienti.</p>
+                    <p id="noIngredientsText" class="d-none text-black" tabindex="3">No ingredients selected.</p>
                     <ul class="text-center p-0" id="searchedIngredients">${ingredients.map(getIngredientHTML).join('')}</ul>
                     <hr />
                     <div class="row m-0 p-0">
@@ -61,7 +61,7 @@
                         </div>
                     </div>`;
 
-        showSwal('Scegli ingredienti', html);
+        showSwal('Choose ingredients', html);
         if (ingredients.length == 0) {
             $("#noIngredientsText").removeClass("d-none");
         }

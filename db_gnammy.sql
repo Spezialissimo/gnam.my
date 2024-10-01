@@ -96,16 +96,16 @@ CREATE TABLE `gnams` (
 --
 
 INSERT INTO `gnams` (`id`, `user_id`, `description`, `share_count`) VALUES
-(1, 1, 'Cerchi un’idea per una colazione golosa e creativa? Prova queste Crepes al pistacchio con cioccolato al pistacchio senza zuccheri. Un piatto dolce ma leggero per iniziare la giornata al meglio', 0),
-(2, 1, 'LASAGNA DI ZUCCHINE LOW CARB 😋 IN 25 MINUTI! Se anche tu ami la lasagna, questa versione con le zucchine non puoi assolutamente non provarla! SOLO 89kcal a porzione, FACILISSIMA e super sfiziosa! Insomma, la proverai?? 🤩 Lascia un “MI PIACE” è il tuo modo di dirmi grazie 🙏🏻❤️\r\n', 5),
-(3, 1, '🥔 PIADINE SENZA FARINA 3 INGREDIENTI 😋 Senza glutine, senza lievitazione! Se anche tu ami le piadine, devi assolutamente provare questa versione con le patate! Si preparano in 10 minuti, sono MORBIDISSIME e super elastiche! SOLO 73kcal per piadina 😍 E tu, le conoscevi?', 9),
-(4, 2, '🍓TIRAMISÙ AI FRUTTI ROSSI 😋 Senza lattosio, senza glutine, senza zuccheri aggiunti! Questo diventerà uno dei tuoi dolci preferiti, scommettiamo?🥰 Un tiramisù cremosissimo ed allo stesso tempo leggero, si prepara in 5 minuti ed è davvero ADATTO A TUTTI! 🤩\r\nIo come base ho scelto le Madeleine alle Mandorle di Céréal, super morbide, senza glutine, senza zuccheri aggiunti e senza latte!', 21),
-(5, 2, '🍫 TORTA NUVOLA PROTEICA 5 INGREDIENTI ❌ Senza farina, senza lattosio, senza zuccheri aggiunti! 😋 Hai dell’albume in frigo e non sai come consumarlo? Questa torta low carb allora fa proprio al caso tuo! FACILISSIMA ed è adatta proprio a tutti‼️ Scommettiamo che diventerà la tua colazione/merenda preferita?🥰', 3),
-(6, 2, 'PANCAKES DI ZUCCHINE SOLO 3 INGREDIENTI 😋 Pronti in 5 minuti! Lascia un “MI PIACE” è il tuo modo di dirmi grazie 🙏🏻❤️', 1),
-(7, 3, '🍫TARTUFINI AL CIOCCOLATO 3 INGREDIENTI ❌ Senza uova, senza glutine, senza zuccheri aggiunti 😋 Se anche tu dopo pranzo/cena hai sempre voglia di dolce, questi tartufini morbidi con poche calorie, fanno proprio al CASO TUO! Con SOLO 89 calorie, ti ruberanno il cuore… Si preparano in pochissimi minuti e si divorano in pochissimi secondi 🤪', 165),
-(8, 4, '🥔 ROTOLO DI VERDURE 3 INGREDIENTI 🥕 LOW CARB! 😋 Se anche tu ami i rotoli, questa versione di verdure non puoi assolutamente non provarla! FACILISSIMO, light, e super sfizioso; puoi farcirlo come ho fatto io, o prepararne di mille altre varianti… insomma, lo proverai?? 🤩', 15),
-(9, 4, '🌱COTOLETTE DI CECI SOLO 2 INGREDIENTI ❌ Senza uova, senza farina! Spero vi piacciano.', 0),
-(10, 3, '🍯 GRANOLA IN 5 MINUTI 😋 SOLO 4 INGREDIENTI! Se a colazione anche tu ami i cereali croccanti, non puoi non provare questa granola fatta in casa! Perfetta sia nel latte che nello yogurt, si prepara in 5 minuti, ed è adatta proprio a tutti... Io ho scelto come base la Crusca d\'avena Céréal, ricca di fibre, proteine, vitamine e minerali!\r\nInsomma, la proverai?? 🤩', 0);
+(1, 1, 'Looking for an idea for a tasty and creative breakfast? Try these Pistachio Crepes with sugar-free pistachio chocolate. A sweet yet light dish to start your day off right', 0),
+(2, 1, 'LOW CARB ZUCCHINI LASAGNA 😋 IN 25 MINUTES! If you love lasagna too, you absolutely have to try this version with zucchini! ONLY 89kcal per serving, SUPER EASY and super tasty! So, will you try it?? 🤩 Leave a “LIKE” as your way of saying thank you 🙏🏻❤️\r\n', 5),
+(3, 1, '🥔 3-INGREDIENT FLOURLESS FLATBREAD 😋 Gluten-free, no leavening! If you love flatbreads too, you absolutely have to try this version with potatoes! They are ready in 10 minutes, SUPER SOFT and super elastic! ONLY 73kcal per flatbread 😍 Did you know about them?', 9),
+(4, 2, '🍓RED BERRY TIRAMISU 😋 Lactose-free, gluten-free, no added sugars! This will become one of your favorite desserts, shall we bet? 🥰 A super creamy yet light tiramisu, ready in 5 minutes, and it’s really SUITABLE FOR EVERYONE! 🤩\r\nI chose Céréal Almond Madeleines as the base, super soft, gluten-free, sugar-free, and dairy-free!', 21),
+(5, 2, '🍫PROTEIN CLOUD CAKE 5 INGREDIENTS ❌ Flourless, lactose-free, no added sugars! 😋 Do you have egg whites in the fridge and dont know how to use them? This low-carb cake is just for you! SUPER EASY and suitable for everyone‼️ Shall we bet it will become your favorite breakfast/snack? 🥰', 3),
+(6, 2, 'ZUCCHINI PANCAKES ONLY 3 INGREDIENTS 😋 Ready in 5 minutes! Leave a “LIKE” as your way of saying thank you 🙏🏻❤️', 1),
+(7, 3, '🍫CHOCOLATE TRUFFLES 3 INGREDIENTS ❌ Egg-free, gluten-free, no added sugars 😋 If you always crave something sweet after lunch/dinner, these soft, low-calorie truffles are just for YOU! With ONLY 89 calories, they will steal your heart... They’re ready in minutes and eaten in seconds 🤪', 165),
+(8, 4, '🥔 VEGETABLE ROLL 3 INGREDIENTS 🥕 LOW CARB! 😋 If you love rolls too, you absolutely have to try this vegetable version! SUPER EASY, light, and super tasty; you can fill it as I did, or make a thousand other variations... so, will you try it?? 🤩', 15),
+(9, 4, '🌱CHICKPEA CUTLETS ONLY 2 INGREDIENTS ❌ Egg-free, flour-free! Hope you like them.', 0),
+(10, 3, '🍯GRANOLA IN 5 MINUTES 😋 ONLY 4 INGREDIENTS! If you love crunchy cereals for breakfast too, you can’t miss this homemade granola! Perfect in both milk and yogurt, it’s ready in 5 minutes, and suitable for everyone... I chose Céréal Oat Bran as the base, rich in fiber, protein, vitamins, and minerals!\r\nSo, will you try it?? 🤩', 0);
 
 -- --------------------------------------------------------
 
@@ -230,37 +230,37 @@ CREATE TABLE `hashtags` (
 --
 
 INSERT INTO `hashtags` (`id`, `text`) VALUES
-(1, 'Pistacchio'),
-(2, 'Dolce'),
-(3, 'Cioccolato'),
-(4, 'Facile'),
-(5, 'Sano'),
-(6, 'Pranzo'),
-(7, 'Buono'),
-(8, 'Veloce'),
-(9, 'Piadina'),
+(1, 'Pistachio'),
+(2, 'Sweet'),
+(3, 'Chocolate'),
+(4, 'Easy'),
+(5, 'Healthy'),
+(6, 'Lunch'),
+(7, 'Good'),
+(8, 'Quick'),
+(9, 'Flatbread'),
 (10, 'Naan'),
-(11, 'Cibo'),
+(11, 'Food'),
 (12, 'Healthy'),
-(13, 'Patate'),
+(13, 'Potatoes'),
 (14, 'Fresh'),
 (15, 'Brownies'),
 (16, 'LowCarb'),
 (17, 'Pancakes'),
-(18, 'Zucchine'),
+(18, 'Zucchini'),
 (19, 'Fluffy'),
 (20, 'Sandwich'),
-(21, 'Budino'),
+(21, 'Pudding'),
 (22, 'Pudding'),
-(23, 'SenzaFarina'),
-(24, 'Rotolo'),
-(25, 'Carote'),
-(26, 'Cotoletta'),
-(27, 'Ceci'),
+(23, 'Flourless'),
+(24, 'Roll'),
+(25, 'Carrots'),
+(26, 'Cutlet'),
+(27, 'Chickpeas'),
 (28, 'Veggie'),
 (29, 'Granola'),
 (30, 'Crunchy'),
-(31, 'Colazione');
+(31, 'Breakfast');
 
 -- --------------------------------------------------------
 
@@ -278,31 +278,31 @@ CREATE TABLE `ingredients` (
 --
 
 INSERT INTO `ingredients` (`id`, `name`) VALUES
-(1, 'Zucchine'),
-(2, 'Salsa di pomodoro'),
+(1, 'Zucchini'),
+(2, 'Tomato sauce'),
 (3, 'Mozzarella'),
-(4, 'Patate'),
-(5, 'Fecola di patate'),
-(6, 'Acqua'),
-(7, 'Sale'),
+(4, 'Potatoes'),
+(5, 'Potato starch'),
+(6, 'Water'),
+(7, 'Salt'),
 (8, 'Yogurt'),
-(9, 'Formaggio'),
-(10, 'Zucchero'),
-(11, 'Granella'),
-(12, 'Albume'),
-(13, 'Cacao'),
-(14, 'Cioccolato'),
-(15, 'Uovo'),
-(16, 'Farina'),
-(17, 'Latte'),
-(18, 'Amido'),
-(19, 'Ceci'),
-(20, 'Fecola'),
-(21, 'Spezie'),
-(22, 'Crusca'),
-(23, 'Frutta'),
-(24, 'Olio'),
-(25, 'Miele');
+(9, 'Cheese'),
+(10, 'Sugar'),
+(11, 'Sprinkles'),
+(12, 'Egg white'),
+(13, 'Cocoa'),
+(14, 'Chocolate'),
+(15, 'Egg'),
+(16, 'Flour'),
+(17, 'Milk'),
+(18, 'Starch'),
+(19, 'Chickpeas'),
+(20, 'Starch'),
+(21, 'Spices'),
+(22, 'Bran'),
+(23, 'Fruit'),
+(24, 'Oil'),
+(25, 'Honey');
 
 -- --------------------------------------------------------
 
@@ -350,7 +350,7 @@ INSERT INTO `measurement_units` (`id`, `name`) VALUES
 (1, 'gr.'),
 (2, 'ml'),
 (3, 'qb'),
-(4, 'c.ino'),
+(4, 'tbsp'),
 (5, 'u.tà');
 
 -- --------------------------------------------------------
@@ -417,9 +417,9 @@ CREATE TABLE `notification_types` (
 --
 
 INSERT INTO `notification_types` (`id`, `name`, `template_text`) VALUES
-(1, 'like', 'ha messo mi piace ad un tuo gnam'),
-(2, 'comment', 'ha commentato un tuo gnam'),
-(3, 'follow', 'ha iniziato a seguirti');
+(1, 'like', 'liked your gnam'),
+(2, 'comment', 'commented on your gnam'),
+(3, 'follow', 'started following you');
 
 -- --------------------------------------------------------
 

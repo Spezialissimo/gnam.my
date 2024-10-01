@@ -200,10 +200,10 @@
                             <div class="row">
                                 <span id="videoDescriptionShort-${gnamsInfo['id']}" class="m-0">
                                     <span>${gnamsInfo['short_description']}</span>
-                                    <span class="text-nowrap m-0 color-accent fw-semibold cursor-pointer">Leggi di piú</span>
+                                    <span class="text-nowrap m-0 color-accent fw-semibold cursor-pointer">Read more</span>
                                 </span>
                                 <span id="videoDescriptionLong-${gnamsInfo['id']}" class="m-0 d-none" aria-label="Descrizione gnam: ${gnamsInfo['description']}"><span>${gnamsInfo['description']}<span><br>
-                                    <span class="text-nowrap m-0 color-accent fw-semibold cursor-pointer">Mostra di meno</span>
+                                    <span class="text-nowrap m-0 color-accent fw-semibold cursor-pointer">Show less</span>
                                 </span>
                             </div>
                             <div class="row" id="videoTags-${gnamsInfo['id']}">
@@ -354,11 +354,11 @@
                     <div class='col'>
                         <div class='row-9 py-4'><em class='fa-solid fa-share-nodes fa-2xl' aria-hidden="true"></em></div>
                         <div class='row-3 pt-3'><button type='button' class='btn btn-bounce rounded-pill bg-accent fw-bold
-                                text-white' id="copyGnamLinkButton" aria-label="Pulsante per copiare il link dello gnam" tabindex="3">Copia link</button></div>
+                                text-white' id="copyGnamLinkButton" aria-label="Pulsante per copiare il link dello gnam" tabindex="3">Copy link</button></div>
                     </div>
                 </div>
             </div>`;
-            showSmallSwal('Condividi Gnam', swalContent, function() {
+            showSmallSwal('Share Gnam', swalContent, function() {
                 $("#gnam-" + currentGnamID).attr('tabindex', '1').focus();
                 playCurrentVideo();
             }, true);
@@ -381,22 +381,22 @@
                 <div class="container">
                     <div class="col">
                         <div class="row p-1 pb-3">
-                            <span class="text-black" tab-index="1">Ingredienti non disponibili, prova a chiederli all'autore dello Gnam!</span>
+                            <span class="text-black" tab-index="1">Ingredients not available, try asking the author of the Gnam!</span>
                         </div>
                     </div>
                 </div>`;
             if (gnamsInfo['recipe'].length != 0) {
                 html = `
                     <div class="d-flex align-items-center justify-content-center mb-2">
-                        <p class="m-0 me-2 fs-6 text-black">Numero di porzioni:</p>
-                        <input type="number" value="1" min="1" max="100" class="form-control bg-primary rounded shadow-sm fs-6 fw-bold text-center" id="portionsInput" aria-label="numero di porzioni" tabindex="3" />
+                        <p class="m-0 me-2 fs-6 text-black">Number of portions:</p>
+                        <input type="number" value="1" min="1" max="100" class="form-control bg-primary rounded shadow-sm fs-6 fw-bold text-center" id="portionsInput" aria-label="number of portions" tabindex="3" />
                     </div>
                     <div class="text-center text-black" id="ingredients-${gnamsInfo['id']}">
                         <table class='w-100' aria-label='Tabella ingredienti' tabindex="3">
                             <thead class='border-bottom border-dark'>
                                 <tr>
-                                    <th id='it-header-name' class='text-start' scope='col' tabindex="3">Nome</th>
-                                    <th id='it-header-quantity' class='text-end' scope='col' tabindex="3">Quantità</th>
+                                    <th id='it-header-name' class='text-start' scope='col' tabindex="3">Name</th>
+                                    <th id='it-header-quantity' class='text-end' scope='col' tabindex="3">Quantity</th>
                                 </tr>
                             </thead>
                             <tbody id='it-body' class='border-bottom border-dark'>
@@ -543,7 +543,7 @@
             'aria-live': 'polite',
             'aria-atomic': 'true'
         }).appendTo('body');
-        announceLiveRegion.text("Commento pubblicato");
+        announceLiveRegion.text("Comment posted");
         announceLiveRegion.focus();
         setTimeout(function() {
             announceLiveRegion.remove();
@@ -558,15 +558,15 @@
                     <div class="container">
                         <div class="col">
                             <div class="row p-1 pb-3">
-                                <span tabindex="1" aria-label="Non ci sono commenti, sii il primo a commentare">Sii il primo a commentare!</span>
+                                <span tabindex="1" aria-label="No comments, be the first to comment">Be the first to comment!</span>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="row-1 bg-primary rounded">
                     <div class="input-group rounded">
-                        <input id="commentField-${currentGnamID}" type="text" class="fs-6 form-control bg-primary shadow-sm" placeholder="Scrivi..." aria-label="Scrivi commento" />
-                        <span role="button" tabindex="0" id="commentButton-${currentGnamID}" class="input-group-text bg-primary border-0 fs-6 fw-bold cursor-pointer text-black">Commenta</span>
+                        <input id="commentField-${currentGnamID}" type="text" class="fs-6 form-control bg-primary shadow-sm" placeholder="Write..." aria-label="Write comment" />
+                        <span role="button" tabindex="0" id="commentButton-${currentGnamID}" class="input-group-text bg-primary border-0 fs-6 fw-bold cursor-pointer text-black">Comment</span>
                     </div>
                 </div>`;
 
@@ -600,7 +600,7 @@
                         </div>
                     </div>
                     <div class="input-group rounded">
-                        <input id="commentField-${currentGnamID}" type="text" class="fs-6 form-control bg-primary shadow-sm" placeholder="Scrivi..." aria-label="scrivi commento" tabindex="1" />
+                        <input id="commentField-${currentGnamID}" type="text" class="fs-6 form-control bg-primary shadow-sm" placeholder="Write..." aria-label="write comment" tabindex="1"/>
                         <span role="button" tabindex="1" id="commentButton-${currentGnamID}" class="input-group-text bg-primary border-0 fs-6 fw-bold cursor-pointer">Commenta</span>
                     </div>
                 </div>`;
@@ -699,7 +699,7 @@
                 let commenterName = parent.find("#commenterUserName-" + id).text();
                 $("#replyToDiv-" + currentGnamID).removeClass("d-none");
                 $("#replyToName-" + currentGnamID).text(commenterName);
-                $("#commentField-" + currentGnamID).attr("aria-label", "Rispondendo a " + commenterName + ", premere esc per smettere di rispondere");
+                $("#commentField-" + currentGnamID).attr("aria-label", "Replying to " + commenterName + ", press esc to stop replying");
                 $("#commentField-" + currentGnamID).focus();
             });
             $("#commenterUserName-" + comment['id']).off("click");

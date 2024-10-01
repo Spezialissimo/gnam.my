@@ -1,6 +1,6 @@
 <div class="container text-center font-text text-black">
     <div class="row-2 py-2">
-        <h2 class="fw-bold">Notifiche</h2>
+        <h2 class="fw-bold">Notifications</h2>
     </div>
     <div class="row-md-8 align-content-center">
         <?php
@@ -17,10 +17,10 @@
                     </a>
                 </div>
                 <?php } ?>
-                <button id="clearNotificationsButton" class="btn btn-bounce rounded-pill bg-accent fw-bold text-white mt-2" aria-label="Pulsante per segnare tutte le notifiche come lette" tabindex="3">Segna come lette</button>
+                <button id="clearNotificationsButton" class="btn btn-bounce rounded-pill bg-accent fw-bold text-white mt-2" aria-label="Pulsante per segnare tutte le notifiche come lette" tabindex="3">Mark all as read</button>
             </div>
         <?php } else { ?>
-        <p class="fs-6" tabindex="3">Non hai nuove notifiche.</p>
+        <p class="fs-6" tabindex="3">You don't have any new notifications.</p>
         <?php } ?>
     </div>
 </div>
