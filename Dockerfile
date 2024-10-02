@@ -1,18 +1,17 @@
-# Usa l'immagine ufficiale di PHP con Apache
 FROM php:7.4-apache
 
-# Installa estensioni necessarie per MySQL
+# Installa le estensioni di MySQL necessarie
 RUN docker-php-ext-install mysqli pdo pdo_mysql
 
-# Copia il contenuto della cartella corrente nel server web del container
+# Installa Composer (gestore delle dipendenze PHP)
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+# Copia i file del progetto nella directory del server web
 COPY . /var/www/html/
 
-# Imposta i permessi corretti per i file PHP
-RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 755 /var/www/html
+# Installazione di phpdotenv tramite Composer (per caricare il file .env)
+WORKDIR /var/www/html/
+RUN composer require vlucas/phpdotenv
 
-# Abilita il modulo di riscrittura di Apache
-RUN a2enmod rewrite
-
-# Espone la porta 80 per il servizio web
+# Espone la porta 80
 EXPOSE 80
