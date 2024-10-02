@@ -1,10 +1,10 @@
 # Usa l'immagine base PHP con Apache
 FROM php:7.4-apache
 
-# Installa le estensioni di MySQL necessarie
+# Installa le estensioni necessarie per MySQL
 RUN docker-php-ext-install mysqli pdo pdo_mysql
 
-# Copia il file composer.json e composer.lock (se presente) nella directory di lavoro
+# Copia il file composer.json e composer.lock (se presenti) nella directory di lavoro
 COPY composer.json /var/www/html/
 COPY composer.lock /var/www/html/
 
@@ -14,7 +14,7 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Imposta la directory di lavoro
 WORKDIR /var/www/html/
 
-# Esegui il comando per installare le dipendenze di Composer
+# Esegui il comando per installare le dipendenze PHP tramite Composer
 RUN composer install --no-interaction --no-scripts --prefer-dist
 
 # Copia il resto dei file del progetto nella directory del server web
